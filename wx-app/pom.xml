@@ -44,7 +44,7 @@
 		<mybatis-spring.version>1.2.3</mybatis-spring.version>
 		<jstl.version>1.2</jstl.version>
 		<jsp-api.version>2.2</jsp-api.version>
-		<jackson.version>2.6.1</jackson.version>
+		<jackson.version>2.10.0</jackson.version>
 		<dom4j.version>1.6</dom4j.version>
 		<!-- ojdbc -->
 		<mysql.version>5.1.36</mysql.version>
