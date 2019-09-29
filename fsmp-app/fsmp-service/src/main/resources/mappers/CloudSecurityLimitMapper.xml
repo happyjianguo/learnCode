@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.CloudSecurityLimitMapper">
+	
+	<insert id="insert" parameterType="CloudSecurityLimitEntity">
+		INSERT INTO
+		CLOUDSECURITYLIMIT(REPORTNO,UPDATETIME)
+		VALUES
+		(#{reportno},#{updatetime})
+
+	</insert>
+
+
+	<select id="selectByPhone" parameterType="String" resultType="CloudSecurityLimitEntity">
+		SELECT
+			REPORTNO,UPDATETIME
+		FROM
+		CLOUDSECURITYLIMIT
+		WHERE
+		REPORTNO=#{reportno}
+	</select>
+
+	<update id="update" parameterType="CloudSecurityLimitEntity">
+		UPDATE
+		CLOUDSECURITYLIMIT
+		SET
+			UPDATETIME=#{updatetime}
+		WHERE
+			REPORTNO=#{reportno}
+	</update>
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.CortexopencrdbatchMapper" >
+  <select id="getCard" resultType="java.lang.String" parameterType="java.lang.String" >
+  		SELECT 
+  			v2.pan  as cardno
+  		FROM 
+       		(SELECT T1.PAN,T1.ACCDET_ID FROM CRDDET T1) V2,
+       		(SELECT 
+       			T.FATHER_ORDER AS ORDERID,
+               	T.PAN_START || 0 AS PAN_1,
+               	T.PAN_END || 9 AS PAN_2
+          	FROM 
+          		OPENCRDBATCH T
+         	WHERE 
+         		T.FATHER_ORDER = ${ordercode}) V1
+ 		WHERE 
+ 			V2.PAN BETWEEN V1.PAN_1 AND V1.PAN_2
+ 		ORDER BY 
+ 			V1.ORDERID DESC
+  </select>
+  <select id="getCover" resultType="java.lang.String" parameterType="java.lang.String" >
+    	SELECT  
+    		SUM(V3.SUMAVLBAL) AS covermoney
+  		FROM 
+  			(SELECT 
+  				A.ACCNO AS ACCNO, 
+  				A.AVLBAL AS AVLBAL, 
+  				A.ID
+          	FROM 
+          		T_ACCDET_BAK_FOR_STL A) V4,
+       		(SELECT 
+       			SUBSTR(B.ACCNO, 0, 16) AS SUMACCNO,
+               	SUM(B.AVLBAL) AS SUMAVLBAL
+          	FROM 
+          		T_ACCDET_BAK_FOR_STL B
+         	GROUP BY 
+         		SUBSTR(B.ACCNO, 0, 16)) V3,
+       		(SELECT T1.PAN, T1.ACCDET_ID FROM CRDDET T1) V2,
+       		(SELECT 
+       			T.FATHER_ORDER AS ORDERID,
+               	T.PAN_START || 0 AS PAN_1,
+               	T.PAN_END || 9 AS PAN_2
+          	FROM 
+          		OPENCRDBATCH T
+         	WHERE 
+         		T.FATHER_ORDER = ${ordercode}) V1
+ 		WHERE 
+ 			V2.PAN BETWEEN V1.PAN_1 AND V1.PAN_2 AND V4.ID = V2.ACCDET_ID AND SUBSTR(V4.ACCNO, 0, 16) = V3.SUMACCNO
+ 		ORDER BY 
+ 			V1.ORDERID DESC
+  </select>
+  <select id="getMerchantName" resultType="java.lang.String" parameterType="java.lang.String" >
+  		SELECT 
+  			m.MRCHT_NAME merchantname
+  		FROM 
+  			MERCHANT_X m
+  		WHERE 
+  			1 = 1 and m.MRCHNO = ltrim(${merchantnumber})
+  </select>
+</mapper>

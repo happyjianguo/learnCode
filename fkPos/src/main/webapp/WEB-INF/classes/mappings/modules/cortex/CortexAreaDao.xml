@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.cortex.dao.CortexAreaDao">
+    
+	<sql id="cortexAreaColumns">
+		a.id AS "id",
+		a.province_city AS "provinceCity",
+		a.enprovince_city AS "enprovinceCity",
+		a.fid AS "fid",
+		a.parentpath AS "parentpath",
+		a.depth AS "depth",
+		a.orderid AS "orderid",
+		a.child AS "child",
+		a.isuse AS "isuse",
+		a.adddate AS "adddate"
+	</sql>
+	
+	<sql id="cortexAreaJoins">
+	</sql>
+    
+	<select id="get" resultType="CortexArea">
+		SELECT 
+			<include refid="cortexAreaColumns"/>
+		FROM area a
+		<include refid="cortexAreaJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CortexArea">
+		SELECT 
+			<include refid="cortexAreaColumns"/>
+		FROM area a
+		<include refid="cortexAreaJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="provinceCity != null and provinceCity != ''">
+				AND a.province_city LIKE 
+					<if test="dbName == 'oracle'">'%'||#{provinceCity}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{provinceCity}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{provinceCity},'%')</if>
+			</if>
+			<if test="enprovinceCity != null and enprovinceCity != ''">
+				AND a.enprovince_city LIKE 
+					<if test="dbName == 'oracle'">'%'||#{enprovinceCity}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{enprovinceCity}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{enprovinceCity},'%')</if>
+			</if>
+			<if test="fid != null and fid != ''">
+				AND a.fid = #{fid}
+			</if>
+			<if test="depth != null and depth != ''">
+				AND a.depth = #{depth}
+			</if>
+			<if test="isuse != null and isuse != ''">
+				AND a.isuse = #{isuse}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CortexArea">
+		SELECT 
+			<include refid="cortexAreaColumns"/>
+		FROM area a
+		<include refid="cortexAreaJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO area(
+			id,
+			province_city,
+			enprovince_city,
+			fid,
+			parentpath,
+			depth,
+			orderid,
+			child,
+			isuse,
+			adddate
+		) VALUES (
+			#{id},
+			#{provinceCity},
+			#{enprovinceCity},
+			#{fid},
+			#{parentpath},
+			#{depth},
+			#{orderid},
+			#{child},
+			#{isuse},
+			#{adddate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE area SET 	
+			province_city = #{provinceCity},
+			enprovince_city = #{enprovinceCity},
+			fid = #{fid},
+			parentpath = #{parentpath},
+			depth = #{depth},
+			orderid = #{orderid},
+			child = #{child},
+			isuse = #{isuse},
+			adddate = #{adddate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM area
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

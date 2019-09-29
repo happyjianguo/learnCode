@@ -1,0 +1,9 @@
+[PropertyInfo]
+facade,Object,false,false, , ,false,<default>
+servlet,ActionServlet,false,false, , ,true,<default>
+wac,org.springframework.web.context.WebApplicationContext,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

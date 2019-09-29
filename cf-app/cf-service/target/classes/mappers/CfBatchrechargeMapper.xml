@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfBatchrechargeMapper">
+	<insert id="insertCfBatchrecharge"  parameterType="java.util.List">
+		INSERT
+			INTO
+			    cf_batchrecharge
+			    (
+			        ID,
+			        ISPNO,
+			        ISPTYPE,
+			        FACEVALUE,
+			        PHONE,
+			        BATCHID,
+			        BIZID,
+			        STATUS
+			    )
+			    VALUES
+				<foreach collection="list" item="item" index="index" separator="," >
+					(#{item.id},#{item.ispno},#{item.isptype},#{item.facevalue},#{item.phone},#{item.batchid},#{item.bizid},#{item.status})
+				</foreach>
+	</insert>
+	
+	<select id="queryStatusByBatchid" parameterType="String" resultType="CfBatchrechargeEntity">
+		SELECT
+		   DISTINCT STATUS
+		FROM
+			cf_batchrecharge
+		WHERE
+			BATCHID = #{batchid}
+	</select>
+	
+	<select id="queryBatchrechargeByInfo" resultType="CfBatchrechargeEntity">
+		SELECT
+    		ID,
+    		ISPNO,
+   		 	ISPTYPE,
+   		 	FACEVALUE,
+  			PHONE,
+    		BATCHID,
+    		BIZID,
+    		STATUS
+		FROM
+    		cf_batchrecharge
+    	where 
+    		BATCHID in
+    		<foreach item="item" index="index" collection="list" 
+	                open="(" separator="," close=")">
+	               #{item}
+	       	 </foreach>
+      
+	</select>
+		
+	<select id="queryBatchrechargeli" parameterType="CfBatchrechargeEntity" resultType="CfBatchrechargeEntity">
+		SELECT
+		    ID,
+		    ISPNO,
+		    ISPTYPE,
+		    FACEVALUE,
+		    PHONE,
+		    BATCHID,
+		    BIZID,
+		    STATUS
+		FROM
+		    cf_batchrecharge
+	    WHERE 			
+				1=1
+				<!-- CREAGETIME between #{begintime} and #{endtime} -->
+				<if test="batchid!='' and batchid!=null">
+					and BATCHID = #{batchid}
+				</if>
+				<if test="status!='' and status!=null">
+					and STATUS =#{status}
+				</if>			  
+	 	
+	</select>
+	<update id="updataBatchrecharge" parameterType="CfBatchinfoEntity">
+		UPDATE
+		    CF_BATCHRECHARGE
+		SET
+		    STATUS = #{status}
+		WHERE
+		    BATCHID = #{batchid}
+	</update>
+	
+	<update id="updateBatch" parameterType="CfBatchrechargeEntity">
+		UPDATE
+		    cf_batchrecharge
+		<set> 
+			<if test="id != null and id!=''">
+		        ID = #{id},
+		    </if>
+		    <if test="ispno != null and ispno!=''">
+		        ISPNO = #{ispno},
+		    </if>
+		     <if test="isptype != null and isptype!=''">
+		        ISPTYPE = #{isptype},
+		    </if>
+		    <if test="facevalue != null and facevalue!=''">
+		        FACEVALUE = #{facevalue},
+		    </if>
+		    <if test="phone != null and phone!=''">
+		        PHONE = #{phone},
+		    </if>
+		    <if test="batchid != null and batchid!=''">
+		        BATCHID = #{batchid},
+		    </if>
+		    <if test="bizid != null and bizid!=''">
+		        BIZID = #{bizid},
+		    </if>
+		     <if test="status != null and status!=''">
+		        STATUS = #{status},
+		    </if>
+		</set>
+		WHERE
+		    ID = #{id} and STATUS != #{status}
+	</update>
+	
+	<update id="updateBatchByBizid" parameterType="CfBatchrechargeEntity">
+		UPDATE
+		    cf_batchrecharge
+		<set> 
+			<if test="id != null and id!=''">
+		        ID = #{id},
+		    </if>
+		    <if test="ispno != null and ispno!=''">
+		        ISPNO = #{ispno},
+		    </if>
+		     <if test="isptype != null and isptype!=''">
+		        ISPTYPE = #{isptype},
+		    </if>
+		    <if test="facevalue != null and facevalue!=''">
+		        FACEVALUE = #{facevalue},
+		    </if>
+		    <if test="phone != null and phone!=''">
+		        PHONE = #{phone},
+		    </if>
+		    <if test="batchid != null and batchid!=''">
+		        BATCHID = #{batchid},
+		    </if>
+		    <if test="bizid != null and bizid!=''">
+		        BIZID = #{bizid},
+		    </if>
+		     <if test="status != null and status!=''">
+		        STATUS = #{status},
+		    </if>
+		</set>
+		WHERE
+		    BIZID = #{bizid}
+	</update>
+	
+	<select id="queryAPInfoByBatchrecharge" parameterType="String" resultType="CfAccesspriceEntity">
+			select 
+				ap.APID,
+				ap.ACID,
+			    ap.PRICE,
+			    ap.ISPNO,
+			    ap.IPSTYPE,
+			    ap.PROVINCE,
+			    ap.FACEVALUE,
+			    ap.STATUS
+			from 
+				cf_batchrecharge br 
+					left join cf_batchinfo bi 
+						on  br.batchid = bi.batchid 
+							left join cf_accessprice ap 
+								on bi.apno=ap.acid
+			where 
+				br.isptype = ap.ipstype 
+				and br.facevalue = ap.facevalue 
+				and br.ispno = ap.ispno
+				and ap.status = #{status}
+			 	and br.id = #{id}
+			 	and ap.province=#{province}
+	</select>
+	
+	<select id="querSPInfoByBatchrecharge"  resultType="CfSupplierpriceEntity">
+			select 
+				sp.id,
+			    sp.pname,
+			    sp.ispno,
+			    sp.ipstype,
+			    sp.pno,
+			    sp.size,
+			    sp.sid,
+			    sp.price,
+			    sp.begintime,
+			    sp.endtime,
+			    sp.status,
+			    sp.cpordernos
+			from cf_batchrecharge br 
+				left join cf_supplierprice sp 
+					on  br.facevalue = sp.size 
+					and br.isptype = sp.ipstype 
+					and br.ispno = sp.ispno
+			 where sp.pno = #{province}  and br.id=#{id} and sp.status = #{status}
+			
+	</select>
+	
+	<delete id="rollback" parameterType="String">
+		DELETE
+		FROM
+		    CF_BATCHRECHARGE
+		WHERE
+		    BATCHID = #{batchid}
+	</delete>
+</mapper>
+	

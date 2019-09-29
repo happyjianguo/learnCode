@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfBatchinfoMapper">
+	<insert id="insertCfBatchinfo"  parameterType="CfBatchinfoEntity">
+		INSERT
+			INTO
+			    cf_batchinfo
+			    (
+			        BATCHID,
+			        BATCHNAME,
+			        APNO,
+			        STATUS,
+			        USERID
+			    )
+			    VALUES
+			    (
+			        #{batchid},
+			        #{batchname},
+			        #{apno},
+			        #{status},
+			        #{userid}
+			    )
+	</insert>
+	
+	<select id="queryCfBatchinfoByAcid" parameterType="String" resultType="CfBatchinfoEntity">
+		SELECT
+		    BATCHID,
+		    BATCHNAME,
+		    APNO,
+		    STATUS,
+		    USERID
+		FROM
+		    cf_batchinfo
+		WHERE 
+			APNO = #{acid}
+	</select>
+	<select id="queryCfBatchinfo" parameterType="String" resultType="CfBatchinfoEntity">
+		SELECT
+		    BATCHID,
+		    BATCHNAME,
+		    APNO,
+		    STATUS,
+		    USERID
+		FROM
+		    cf_batchinfo
+		WHERE 
+			STATUS = #{status}
+	</select>
+	
+	<select id="queryBatchinfo" parameterType="String" resultType="CfBatchinfoEntity">
+		SELECT
+		    BATCHID,
+		    BATCHNAME,
+		    APNO,
+		    STATUS,
+		    USERID
+		FROM
+		    cf_batchinfo
+		WHERE 
+			BATCHID = #{id}
+	</select>	
+	<update id="updataBatchCfBatchinfo" parameterType="Map">
+		UPDATE
+		    CF_BATCHINFO
+		SET
+		    STATUS = #{status}
+		WHERE
+		    BATCHID =#{batchid} and STATUS != #{status}
+	</update>
+	
+	
+	<update id="updataCfBatchinfo" parameterType="CfBatchinfoEntity">
+		UPDATE
+		    CF_BATCHINFO
+		SET
+		    STATUS = #{status}
+		WHERE
+		    BATCHID = #{batchid}
+	</update>
+	
+	
+	<delete id="deleteCfBatchinfo" parameterType="String">
+		DELETE
+			FROM
+			    CF_BATCHINFO
+			WHERE
+			    BATCHID = #{batchid}
+	</delete>
+	<select id="queryCfBatchinfoByBatchname" parameterType="String" resultType="CfBatchinfoEntity">
+		SELECT
+		    BATCHID,
+		    BATCHNAME,
+		    APNO,
+		    STATUS,
+		    USERID
+		FROM
+		    cf_batchinfo
+		WHERE 
+			BATCHNAME = #{batchname}
+	</select>		
+	
+</mapper>
+	

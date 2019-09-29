@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.dao.mapper.WxbCloudComponentAuthMapper">
+	
+	<select id="getAuthAccessToken" parameterType="String" resultType="AuthAccount">
+		SELECT
+			ORGID,APPID,AUTH_ACCESS_TOKEN,AUTH_REFRESH_TOKEN,AUTH_CODE,CREATETIME,UPDATETIME,
+				NICKNAME,HEADIMG,SERVICETYPE,VERIFYTYPE,USERNAME,ALIAS,QRCODEURL
+		FROM
+			CLOUDCOMPONENTAUTH
+		WHERE
+			APPID = #{appid} AND 
+			STATUS = '1'
+	</select>
+	
+	<update id="update" parameterType="AuthAccount">
+		UPDATE
+			CLOUDCOMPONENTAUTH
+		SET
+			<if test="orgid!=null and orgid!=''">
+				ORGID = #{orgid},
+			</if>
+			<if test="auth_access_token!=null and auth_access_token!=''">
+				AUTH_ACCESS_TOKEN = #{auth_access_token},
+			</if>
+			<if test="auth_refresh_token!=null and auth_refresh_token!=''">
+				AUTH_REFRESH_TOKEN = #{auth_refresh_token},
+			</if>
+			<if test="auth_code !=null  and auth_code !=''">
+				AUTH_CODE = #{auth_code},
+			</if>
+			<if test="nickName!=null and nickName!=''">
+				NICKNAME = #{nickName},
+			</if>
+			<if test="headImg!=null and headImg!=''">
+				HEADIMG = #{headImg},
+			</if>
+			<if test="serviceType!=null and serviceType!=''">
+				SERVICETYPE = #{serviceType},
+			</if>
+			<if test="verifyType!=null and verifyType!=''">
+				VERIFYTYPE = #{verifyType},
+			</if>
+			<if test="userName!=null and userName!=''">
+				USERNAME = #{userName},
+			</if>
+			<if test="alias!=null and alias!=''">
+				ALIAS = #{alias},
+			</if>
+			<if test="qrcodeUrl!=null and qrcodeUrl!=''">
+				QRCODEURL = #{qrcodeUrl},
+			</if>
+			<if test="status!=null and status!=''">
+				STATUS = #{status},
+			</if>
+			<if test="updatetime != null">
+				UPDATETIME = #{updatetime}
+			</if>
+		WHERE
+			APPID = #{appid}
+	</update>
+</mapper>

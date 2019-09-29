@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.bak.dao.ViewAccnoAvlBalMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.bak.entity.ViewAccnoAvlBal" >
+    <result column="CARDBIN" property="cardbin" jdbcType="VARCHAR" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="STATCODE" property="statcode" jdbcType="CHAR" />
+    <result column="AV01" property="av01" jdbcType="FLOAT" />
+    <result column="AV02" property="av02" jdbcType="FLOAT" />
+    <result column="AV04" property="av04" jdbcType="FLOAT" />
+    <result column="AV09" property="av09" jdbcType="FLOAT" />
+    <result column="TOTAL_BAL" property="totalBal" jdbcType="DECIMAL" />
+    <result column="CARDNUM" property="cardNum" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    <!-- CARDBIN, PAN, STATCODE, AV01, AV02, AV04, AV09, TOTAL_BAL -->
+    CARDBIN, COUNT(PAN) AS CARDNUM, SUM(TOTAL_BAL) AS TOTAL_BAL
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.bak.entity.ViewAccnoAvlBalExample" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM VIEW_ACCNO_AVLBAL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    GROUP BY CARDBIN
+    <if test="example.orderByClause != null" >
+      ORDER BY ${example.orderByClause}
+    </if>
+  </select>
+ 
+  <select id="countByExample" resultType="java.lang.Integer" >
+    SELECT COUNT(*) FROM (
+      SELECT
+	    <include refid="Base_Column_List" />
+	    FROM VIEW_ACCNO_AVLBAL
+	    <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+      GROUP BY CARDBIN )
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+	SELECT * FROM (
+	SELECT c.*, ROWNUM rn FROM(
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM VIEW_ACCNO_AVLBAL 
+	<if test="_parameter != null">
+		<include refid="Example_Where_Clause" />
+	</if>
+	GROUP BY CARDBIN
+	<if test="example.orderByClause != null">
+		ORDER BY ${example.orderByClause}
+	</if>) c
+	WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+	WHERE rn &gt; ${startResult}
+  </select> 
+</mapper>

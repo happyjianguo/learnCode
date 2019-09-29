@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- JOB Worker -->
+	<bean id="updatePwdJob" class="cn.yufu.system.modules.sys.jobs.impl.UpdatePwdJobImpl"></bean>
+
+	<!-- JOB Invoking Method -->
+	<bean id="updatePwdJobTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- JOB Worker -->
+		<property name="targetObject">
+			<ref bean="updatePwdJob" />
+		</property>
+		<!-- Job Worker Method -->
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+		<!--Can Concurrent Run or NOT -->
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+	</bean>
+
+	<!-- JOB Trigger -->
+	<bean id="updatePwdJobTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="updatePwdJobTask" />
+		</property>
+		<!-- Tigger Time Expression -->
+		<property name="cronExpression">
+		<!-- 凌晨一点执行 -->
+			<value>0 0 1 * * ? </value>
+		<!-- 每1分钟执行一次
+			<value>0 */1 * * * ?</value> -->
+		</property>
+	</bean>
+
+</beans>

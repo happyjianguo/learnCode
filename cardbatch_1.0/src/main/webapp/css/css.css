@@ -1,0 +1,129 @@
+BODY {
+    SCROLLBAR-FACE-COLOR: #bddcf4; FONT-SIZE: 9pt; MARGIN: 0px; SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #70afef; SCROLLBAR-3DLIGHT-COLOR: #70afef; SCROLLBAR-ARROW-COLOR: #376cc7; SCROLLBAR-TRACK-COLOR: #c7e5fd; FONT-FAMILY: "宋体"; SCROLLBAR-DARKSHADOW-COLOR: #ffffff; SCROLLBAR-BASE-COLOR: #376cc7
+}
+.box {
+	BORDER-RIGHT: #59acff 1px solid; BORDER-TOP: #59acff 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #59acff 1px solid; COLOR: #000066; BORDER-BOTTOM: #59acff 1px solid; HEIGHT: 20px; BACKGROUND-COLOR: #e1f1ff
+}
+.bgline {
+	BACKGROUND-COLOR: #0166cc
+}
+.green {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #003399; FONT-FAMILY: "宋体"
+}
+.green A:link {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.green A:visited {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.green A:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.green A:active {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.button {
+	BORDER-RIGHT: #079ce4 1px solid; BORDER-TOP: #e2f5fe 1px solid; FONT-SIZE: 12px; BACKGROUND: #c4ecfd; BORDER-LEFT: #e2f5fe 1px solid; WIDTH: 80px; COLOR: #000066; PADDING-TOP: 2px; BORDER-BOTTOM: #079ce4 1px solid; HEIGHT: 20px
+}
+A:link {
+	FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+A:visited {
+	FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+A:hover {
+	FONT-SIZE: 9pt; COLOR: #0033cc; TEXT-DECORATION: underline
+}
+A:active {
+	FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+.news {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #003399; TEXT-DECORATION: none
+}
+.news A:visited {
+	FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+.news A:hover {
+	FONT-SIZE: 9pt; COLOR: #006600; TEXT-DECORATION: none
+}
+.news A:active {
+	FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+.white {
+	FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "宋体"
+}
+.gray {
+	FONT-SIZE: 9pt; COLOR: #666666; FONT-FAMILY: "宋体"
+}
+.newtxte {
+	FONT-SIZE: 14px
+}
+.large {
+	FONT-WEIGHT: normal; FONT-SIZE: 24px; COLOR: #336600
+}
+.big {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #003399
+}
+.hand {
+	CURSOR: crosshair
+}
+.forumline {
+	BORDER-RIGHT: #5ea330 1px solid; BORDER-TOP: #5ea330 1px solid; BORDER-LEFT: #5ea330 1px solid; BORDER-BOTTOM: #5ea330 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.white1 {
+	FONT-SIZE: 14px; COLOR: #ffffff
+}
+.TDbg1 {
+	BACKGROUND-COLOR: #ecfce0
+}
+.TDbg2 {
+	BACKGROUND-COLOR: #dbf2ce
+}
+.TDbg3 {
+	BACKGROUND-COLOR: #add082
+}
+.TDbg4 {
+	BACKGROUND-COLOR: #ededed
+}
+P {
+	FONT-SIZE: 12px; LINE-HEIGHT: 18px
+}
+TD {
+	FONT-SIZE: 12px
+}
+.select {
+	WIDTH: 160px
+}
+.bg01 {
+	BACKGROUND-COLOR: #d9e8ff
+}
+.bg02 {
+	BACKGROUND-COLOR: #cbe0ff
+}
+.bg03 {
+	BACKGROUND-COLOR: #e4edfe
+}
+.bg04 {
+	BACKGROUND-COLOR: #f2f2f2
+}
+.bg05 {
+	BACKGROUND-COLOR: #0066cc
+}
+.bg06 {
+	BACKGROUND-IMAGE: url(rightbg01.jpg); BACKGROUND-REPEAT: no-repeat
+}
+.bod1 {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; BORDER-LEFT: #6db0f5 1px solid; BORDER-TOP-COLOR: #6db0f5; PADDING-TOP: 3px; BORDER-BOTTOM: #6db0f5 1px solid; BORDER-RIGHT-COLOR: #6db0f5
+}
+.bod-tb {
+	PADDING-RIGHT: 3px; BORDER-TOP: #6db0f5 1px solid; PADDING-LEFT: 3px; BORDER-LEFT-COLOR: #6db0f5; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BORDER-BOTTOM: #6db0f5 1px solid; BORDER-RIGHT-COLOR: #6db0f5
+}
+.bod-b {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; BORDER-LEFT-COLOR: #6db0f5; PADDING-BOTTOM: 3px; BORDER-TOP-COLOR: #6db0f5; PADDING-TOP: 3px; BORDER-BOTTOM: #6db0f5 1px solid; BORDER-RIGHT-COLOR: #6db0f5
+}
+.bod-tbl {
+	PADDING-RIGHT: 3px; BORDER-TOP: #6db0f5 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; BORDER-LEFT: #6db0f5 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #6db0f5 1px solid; BORDER-RIGHT-COLOR: #6db0f5
+}
+.background1 {
+	BACKGROUND-POSITION: center center; BACKGROUND-REPEAT: no-repeat
+}

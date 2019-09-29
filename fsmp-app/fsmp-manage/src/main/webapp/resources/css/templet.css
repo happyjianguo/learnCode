@@ -1,0 +1,519 @@
+@charset "UTF-8";
+
+/* */
+
+body {
+	background-color: #fff;
+}
+
+.step {
+	color: #afacac;
+	font-size: 16px;
+	padding: 0 0 40px 0;
+	text-align: center;
+}
+
+.step .step-icon {
+	background: url(../img/step_icon.png) no-repeat;
+	background-position: 0 -30px;
+	background-size: 20px;
+	font-weight: 400;
+	font-family: "微软雅黑";
+	padding-left: 30px;
+}
+
+.step .step-on {
+	background-position: 0 0px;
+	background-size: 20px;
+}
+
+.step .step-icon:after {
+	content: "-------";
+	padding: 0 10px;
+	color: #d9d8d8;
+}
+
+.step .step-icon-last:after {
+	content: "";
+	color: #fff;
+}
+
+.choose-on {
+	width: 100%;
+	text-align: center;
+	padding-top: 20px;
+}
+
+.choose-on ul li {
+	width: 260px;
+	text-align: center;
+	display: inline-block;
+	margin: 0 8%;
+}
+
+.choose-on ul li img {
+	width: 100%;
+}
+
+.choose-on .img {
+	height: 460px;
+	overflow: hidden;
+	box-shadow: 0px 0px 20px 6px #bebebe;
+	-webkit-box-shadow: 0px 0px 20px 6px #bebebe;
+}
+
+.choose-tit {
+	padding: 25px 0 15px 0;
+	color: #666;
+}
+
+.choose-btn {
+	width: 100px;
+	margin: 0 auto;
+	height: 35px;
+	line-height: 35px;
+	background: #f9b705;
+	border-radius: 12px;
+	color: #fff;
+	display: block;
+	text-align: center;
+	border: 0;
+	outline: none;
+	font-size: 14px;
+}
+
+.choose-btn:hover {
+	color: #fff;
+}
+
+.templet-menu {
+	color: #afacac;
+	padding-bottom: 20px;
+	padding-left: 20px;
+}
+
+.templet-menu li {
+	padding: 6px 0;
+}
+
+.templet-menu li a {
+	padding: 5px 15px;
+	display: inline-block;
+	color: #afacac;
+	margin: 0 2px;
+}
+
+.templet-menu li a:hover {
+	color: #888;
+	background: #efefef;
+	border-radius: 3px;
+}
+
+.templet-menu .menu-on {
+	background: #f9b705;
+	border-radius: 3px;
+	color: #fff;
+}
+
+.templet-menu .menu-on:hover {
+	color: #fff;
+	background: #f9b705;
+}
+
+.templetBox {}
+
+.templetBox ul li {
+	width: 20%;
+	display: inline-block;
+	margin: 10px 2%;
+	position: relative;
+	overflow: hidden;
+	min-height: 300px;
+}
+
+.templetBox ul li img {
+	width: 100%;
+}
+
+.qr-code {
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-top: 40%;
+}
+
+.qr-code-img {
+	width: 69%;
+	margin: 0 auto;
+	margin-bottom: 30px;
+}
+
+
+/* 参数配置*/
+.stepRight{
+	
+}
+.PhoneBox{
+	position: absolute;
+	left: 0;
+	top:0;
+	width: 320px;
+	height: 500px;
+	border: 1px solid #eee;
+	margin-top: 100px;
+	margin-left: 20px;
+	overflow: hidden;
+}
+
+.stepLeft {
+	margin-left: 350px;
+	padding-left: 30px;
+	color: #666;
+	min-height: 600px;
+	border-left: 1px solid #efefef;
+}
+
+.gametabs {
+	border: none;
+	margin-bottom: 30px;
+}
+
+.gametabs li {
+	margin: 0;
+	width: 86px;
+}
+
+.gametabs li a {
+	height: 39px;
+	line-height: 39px;
+	display: block;
+	padding: 0;
+	color: #afb6c1;
+	text-align: center;
+	font-size: 14px;
+}
+.gametabs li a:hover {
+	border: none;
+}
+.gametabs li.active a,
+.gametabs li.active a:focus,
+.gametabs li.active a:hover{
+	border-bottom: 2px solid #f9b705;
+	color: #1d1d1d;
+}
+
+.form-control:focus {
+	border-color: #f4f8fb;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(249, 183, 5, 0);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(249, 183, 5, 0);
+}
+
+.control-input {
+	border-radius: 0;
+	background-color: #f4f8fb;
+	color: #888;
+	border: 1px solid #efefef;
+	box-shadow: none;
+	font-size: 12px;
+	outline: none;
+	padding: 5px 10px;
+	width: 100%;
+}
+
+.game-cs .form-group {
+	clear: both;
+	height: auto;
+	overflow: hidden;
+}
+
+.game-cs .tag-red {
+	color: #ec5463;
+	display: block;
+}
+
+.game-cs .cs-select {
+	background-color: #f4f8fb;
+	outline: none;
+	border: 1px solid #efefef;
+	padding: 5px 15px;
+}
+
+.game-cs .cs-select option {
+	outline: none;
+	border: 1px solid #efefef;
+}
+
+.game-cs .game-frequency {
+	background-color: #efefef;
+	color: #888;
+}
+
+.game-cs .game-frequency option {
+	background-color: #fff;
+}
+
+.game-cs .game-bg {
+	width: 60px;
+	height: 60px;
+	background-color: #f4f8fb;
+	border: 1px solid #efefef;
+	line-height: 52px;
+	font-size: 30px;
+	text-align: center;
+	color: #888;
+}
+
+.cs-prompt {
+	clear: both;
+	padding: 10px 85px;
+	color: #999;
+}
+
+.cs-num {
+	width: 50%;
+}
+.game-cs .form-group{
+	position: relative;
+}
+.game-cs .cs-qr{
+	float: left;
+	margin-left: 18px;
+	top: 0;
+	left: 160px;
+	z-index: 2;
+}
+.game-cs .cs-qr img{
+	width: 60px;
+	height: 60px;
+}
+
+.PhoneBox{
+	
+}
+
+#gameBg img{
+	width:100%;
+	height:500px;
+}
+
+.share-box {
+    position: absolute;
+    width: 260px;
+	height: 130px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #FFF;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    display: none;
+    z-index: 6;
+}
+.mask{
+	width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 5;
+}
+.share-box .title{
+	width: 190px;
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;	
+}
+.share-box .content{
+	width:150px;
+	height: 69px;
+	overflow: hidden;
+	font-size: 12px;
+}
+.share-box .s-img{
+	position: absolute;
+	top: 52px;
+	right: 20px;
+	width: 56px;
+	height: 56px;
+	overflow: hidden;
+}
+.share-box .s-img img{
+	width: 56px;
+	height: 56px;
+}
+#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
+.filesimg {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+    cursor: pointer;
+}
+.csminus{
+	position: absolute;
+    top: 0;
+    left: 15px;
+    background-color: #efefef;
+    border: 1px solid #efefef;
+    border-right:none;
+    padding: 5px 15px;
+    z-index:2;
+    cursor: pointer;
+}
+.csplus{
+	position: absolute;
+    top: 0;
+    right: 15px;
+    background-color: #efefef;
+    border: 1px solid #efefef;
+    border-left:none;
+    padding: 5px 15px;
+    z-index:2;
+    cursor: pointer;
+}
+.prizeshdiv{
+	border-bottom: 1px dashed #ccc;
+	margin-bottom:30px;
+}
+
+
+/* toggle switch css start */
+
+.switch-btn {
+	position: relative;
+	display: block;
+	vertical-align: top;
+	width: 60px;
+	height: 26px;
+	border-radius: 18px;
+	cursor: pointer;
+}
+
+.checked-switch {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+}
+
+.text-switch {
+	background-color: #fff;
+	border: 1px solid #dfdfdf;
+	border-radius: inherit;
+	color: #fff;
+	display: block;
+	font-size: 15px;
+	height: inherit;
+	position: relative;
+	text-transform: uppercase;
+}
+
+.text-switch:before,
+.text-switch:after {
+	position: absolute;
+	top: 50%;
+	margin-top: -.5em;
+	line-height: 1;
+	-webkit-transition: inherit;
+	-moz-transition: inherit;
+	-o-transition: inherit;
+	transition: inherit;
+}
+
+.text-switch:before {
+	content: attr(data-no);
+	right: 11px;
+}
+
+.text-switch:after {
+	content: attr(data-yes);
+	left: 11px;
+	color: #FFFFFF;
+	opacity: 0;
+}
+
+.checked-switch:checked~ .text-switch {
+	background-color: #00af2c;
+	border: 1px solid #068506;
+}
+
+.checked-switch:checked~ .text-switch:before {
+	opacity: 0;
+}
+
+.checked-switch:checked~ .text-switch:after {
+	opacity: 1;
+}
+
+.toggle-btn {
+	background: linear-gradient(#eee, #fafafa);
+	border-radius: 100%;
+	height: 24px;
+	left: 1px;
+	position: absolute;
+	top: 1px;
+	width: 24px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+}
+
+.checked-switch:checked~ .toggle-btn {
+	left: 35px;
+}
+
+.text-switch,
+.toggle-btn {
+	transition: All 0.3s ease;
+	-webkit-transition: All 0.3s ease;
+	-moz-transition: All 0.3s ease;
+	-o-transition: All 0.3s ease;
+}
+/*  */
+#dynamicmb{
+	display: none;
+}
+#zhuliaddnumsg .control-label,
+#arealimitsg .control-label,
+#addgamecssg .control-label{
+	width:222px;
+}
+.btn-group.open .dropdown-toggle{
+	border-radius: 0;
+    background-color: #f4f8fb;
+    color: #888;
+    border: 1px solid #efefef;
+}
+.lttys,
+.dxtys{
+	margin-top:5px;
+}
+
+/* 日期 */
+.dateinput{
+	width:150px;
+	border-radius: 0;
+    background-color: #f4f8fb;
+    color: #888;
+    border: 1px solid #efefef;
+    box-shadow: none;
+    font-size: 12px;
+    outline: none;
+    padding: 5px 10px;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.PPosDao">
+    
+	<sql id="pPosColumns">
+		a.pos_sn AS "posSn",
+		a.factory_id AS "factoryId",
+		a.factory_name AS "factoryName",
+		a.model_id AS "modelId",
+		a.pos_type AS "posType",
+		a.pos_status AS "posStatus",
+		a.pos_scan_flag AS "posScanFlag",
+		a.lay_out_flag AS "layOutFlag",
+		a.terminal_id AS "terminalId",
+		a.purchase_date AS "purchaseDate",
+		a.purchase_by AS "purchaseBy",
+		a.warranty_time_limit AS "warrantyTimeLimit",
+		a.instock_date AS "instockDate",
+		a.instock_by AS "instockBy",
+		a.instock_batch AS "instockBatch",
+		a.outstock_date AS "outstockDate",
+		a.outstock_by AS "outstockBy",
+		a.install_date AS "installDate",
+		a.install_by AS "installBy",
+		a.repair_date AS "repairDate",
+		a.repair_by AS "repairBy",
+		a.scrapped_date AS "scrappedDate",
+		a.scrapped_by AS "scrappedBy",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.repair_before_status as "repairBeforeStatus",
+		a.repair_remarks as "repairRemarks",
+		a.scrapped_remarks as "scrappedRemarks"
+		
+	</sql>
+	
+	<sql id="pPosJoins">
+	</sql>
+    
+	<select id="get" resultType="PPos">
+		SELECT 
+			<include refid="pPosColumns"/>
+		FROM p_pos a
+		<include refid="pPosJoins"/>
+		WHERE a.pos_sn = #{posSn}
+	</select>
+	
+	<select id="findList" resultType="PPos">
+		SELECT 
+			<include refid="pPosColumns"/>
+		FROM p_pos a
+		<include refid="pPosJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="posSn != null and posSn != ''">
+				AND a.pos_sn LIKE 
+					<if test="dbName == 'oracle'">'%'||#{posSn}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{posSn}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{posSn},'%')</if>
+			</if>
+			<if test="factoryId != null and factoryId != ''">
+				AND a.factory_id = #{factoryId}
+			</if>			
+			<if test="factoryName != null and factoryName != ''">
+				AND a.factory_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{factoryName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{factoryName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{factoryName},'%')</if>
+			</if>
+			<if test="modelId != null and modelId != ''">
+				AND a.model_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{modelId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{modelId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{modelId},'%')</if>
+			</if>
+			<if test="posType != null and posType != ''">
+				AND a.pos_type = #{posType}
+			</if>
+			<if test="posStatus != null and posStatus != ''">
+				AND a.pos_status = #{posStatus}
+			</if>
+			<if test="posScanFlag != null and posScanFlag != ''">
+				AND a.pos_scan_flag = #{posScanFlag}
+			</if>
+			<if test="layOutFlag != null and layOutFlag != ''">
+				AND a.lay_out_flag = #{layOutFlag}
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				AND a.terminal_id = #{terminalId}
+			</if>
+			<if test="purchaseDate != null and purchaseDate != ''">
+				AND a.purchase_date = #{purchaseDate}
+			</if>
+			<if test="purchaseBy != null and purchaseBy != ''">
+				AND a.purchase_by LIKE 
+					<if test="dbName == 'oracle'">'%'||#{purchaseBy}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{purchaseBy}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{purchaseBy},'%')</if>
+			</if>
+			<if test="warrantyTimeLimit != null and warrantyTimeLimit != ''">
+				AND a.warranty_time_limit = #{warrantyTimeLimit}
+			</if>
+			<if test="instockDate != null and instockDate != ''">
+				AND a.instock_date = #{instockDate}
+			</if>
+			<if test="instockBy != null and instockBy != ''">
+				AND a.instock_by LIKE 
+					<if test="dbName == 'oracle'">'%'||#{instockBy}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{instockBy}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{instockBy},'%')</if>
+			</if>
+			<if test="instockBatch != null and instockBatch != ''">
+				AND a.instock_batch = #{instockBatch}
+			</if>
+			<if test="outstockDate != null and outstockDate != ''">
+				AND a.outstock_date = #{outstockDate}
+			</if>
+			<if test="outstockBy != null and outstockBy != ''">
+				AND a.outstock_by LIKE 
+					<if test="dbName == 'oracle'">'%'||#{outstockBy}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{outstockBy}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{outstockBy},'%')</if>
+			</if>
+			<if test="installDate != null and installDate != ''">
+				AND a.install_date = #{installDate}
+			</if>
+			<if test="installBy != null and installBy != ''">
+				AND a.install_by LIKE 
+					<if test="dbName == 'oracle'">'%'||#{installBy}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{installBy}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{installBy},'%')</if>
+			</if>
+			<if test="repairDate != null and repairDate != ''">
+				AND a.repair_date = #{repairDate}
+			</if>
+			<if test="repairBy != null and repairBy != ''">
+				AND a.repair_by LIKE 
+					<if test="dbName == 'oracle'">'%'||#{repairBy}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{repairBy}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{repairBy},'%')</if>
+			</if>
+			<if test="scrappedDate != null and scrappedDate != ''">
+				AND a.scrapped_date = #{scrappedDate}
+			</if>
+			<if test="scrappedBy != null and scrappedBy != ''">
+				AND a.scrapped_by LIKE 
+					<if test="dbName == 'oracle'">'%'||#{scrappedBy}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{scrappedBy}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{scrappedBy},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PPos">
+		SELECT 
+			<include refid="pPosColumns"/>
+		FROM p_pos a
+		<include refid="pPosJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO p_pos(
+			pos_sn,
+			factory_id,
+			factory_name,
+			model_id,
+			pos_type,
+			pos_status,
+			pos_scan_flag,
+			lay_out_flag,
+			terminal_id,
+			purchase_date,
+			purchase_by,
+			warranty_time_limit,
+			instock_date,
+			instock_by,
+			instock_batch,
+			outstock_date,
+			outstock_by,
+			install_date,
+			install_by,
+			repair_date,
+			repair_by,
+			scrapped_date,
+			scrapped_by,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{posSn},
+			#{factoryId},
+			#{factoryName},
+			#{modelId},
+			#{posType},
+			#{posStatus},
+			#{posScanFlag},
+			#{layOutFlag},
+			#{terminalId},
+			#{purchaseDate},
+			#{purchaseBy},
+			#{warrantyTimeLimit},
+			#{instockDate},
+			#{instockBy},
+			#{instockBatch},
+			#{outstockDate},
+			#{outstockBy},
+			#{installDate},
+			#{installBy},
+			#{repairDate},
+			#{repairBy},
+			#{scrappedDate},
+			#{scrappedBy},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE p_pos SET 	
+			pos_sn = #{posSn},
+			factory_id = #{factoryId},
+			factory_name = #{factoryName},
+			model_id = #{modelId},
+			pos_type = #{posType},
+			pos_status = #{posStatus},
+			pos_scan_flag = #{posScanFlag},
+			lay_out_flag = #{layOutFlag},
+			terminal_id = #{terminalId},
+			purchase_date = #{purchaseDate},
+			purchase_by = #{purchaseBy},
+			warranty_time_limit = #{warrantyTimeLimit},
+			instock_date = #{instockDate},
+			instock_by = #{instockBy},
+			instock_batch = #{instockBatch},
+			outstock_date = #{outstockDate},
+			outstock_by = #{outstockBy},
+			install_date = #{installDate},
+			install_by = #{installBy},
+			repair_date = #{repairDate},
+			repair_by = #{repairBy},
+			scrapped_date = #{scrappedDate},
+			scrapped_by = #{scrappedBy},
+			remarks = #{remarks},
+			repair_before_status=#{repairBeforeStatus},
+			repair_remarks=#{repairRemarks},
+			scrapped_remarks=#{scrappedRemarks}			
+		WHERE pos_sn = #{posSn}
+	</update>
+	
+	<update id="disablePPos">
+		UPDATE p_pos SET 	
+			pos_status = #{posStatus},
+			terminal_id = #{terminalId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE pos_sn = #{posSn}
+	</update>
+	
+	<update id="usablePPos">
+		UPDATE p_pos SET 	
+			pos_status = #{posStatus},
+			outstock_date = #{outstockDate},
+			outstock_by = #{outstockBy},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE pos_sn = #{posSn}
+	</update>
+	
+	<update id="delete">
+		UPDATE p_pos SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE pos_sn = #{posSn}
+	</update>
+	
+	<select id="findTermPos" resultType="PPos">
+		select A.TERMINAL_ID as "terminalId", B.POS_SN as "posSn", B.POS_STATUS as "posStatus"
+		  from edc_terminal a
+		  left join p_pos b
+		    on a.terminal_id = b.terminal_id and b.del_flag = '0'
+		<where>
+			<if test="1==1">
+				AND	a.terminal_stat = 'Y' 
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				AND a.terminal_id = #{terminalId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findPosSum" resultType="PPos">
+		select count(*) as "posSn",
+		       t.factory_id as "factory_id",
+		       t.factory_name as "factoryName",
+		       t.model_id as "modelId",
+		       t.pos_status as "posStatus"
+		  from p_pos t
+		 where t.del_flag = '0'
+			<if test="factoryId != null and factoryId != ''">
+				AND t.factory_id = #{factoryId}
+			</if>			 
+			<if test="factoryName != null and factoryName != ''">
+				AND t.factory_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{factoryName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{factoryName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{factoryName},'%')</if>
+			</if>
+			<if test="modelId != null and modelId != ''">
+				AND t.model_id = #{modelId}
+			</if>		 
+		 group by t.factory_id, t.factory_name, t.model_id, t.pos_status order by t.factory_id asc,t.model_id
+	</select>
+	
+	
+</mapper>

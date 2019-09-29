@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfSupplierMapper">
+	
+	<select id="query" resultType="CfSupplierEntity" >
+		SELECT 
+			ID,
+		    SNAME,
+		    MNAME,
+		    PHONE,
+		    EMAIL
+		FROM
+			CF_SUPPLIER
+	</select>
+	<select id="querySupplierByid" parameterType="String" resultType="CfSupplierEntity" >
+		SELECT 
+			ID,
+		    SNAME,
+		    MNAME,
+		    PHONE,
+		    EMAIL
+		FROM
+			CF_SUPPLIER
+		WHERE
+			ID=#{id}
+	</select>
+	<select id="querySupplierByName" parameterType="String" resultType="CfSupplierEntity" >
+		SELECT 
+			ID,
+		    SNAME,
+		    MNAME,
+		    PHONE,
+		    EMAIL
+		FROM
+			CF_SUPPLIER
+		WHERE
+			SNAME=#{sname}
+	</select>
+	
+	<insert id="insert" parameterType="CfSupplierEntity">
+		INSERT INTO
+			CF_SUPPLIER(
+				ID,
+		        SNAME,
+		        MNAME,
+		        PHONE,
+		        EMAIL
+		    )
+		VALUES
+			(#{id},#{sname},#{mname},#{phone},#{email})
+	</insert>
+	
+	<update id="updateSupplier" parameterType="CfSupplierEntity">
+		UPDATE 
+			CF_SUPPLIER
+		SET
+	        SNAME=#{sname},
+	        MNAME=#{mname},
+	        PHONE=#{phone},
+	        EMAIL=#{email}
+		WHERE
+			ID=#{id}
+	</update>
+	
+	<delete id="deleteSupplier" parameterType="String">
+		DELETE FROM
+			CF_SUPPLIER
+		WHERE
+			ID=#{id}
+	</delete>
+	
+</mapper>

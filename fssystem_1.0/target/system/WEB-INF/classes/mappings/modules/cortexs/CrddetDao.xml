@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrddetDao">
+    
+	<sql id="tTranTypeColumns">
+		a.id AS "id",
+		a.tran_type_desc AS "tranTypeDesc",
+		a.txncode AS "txncode",
+		a.sub_txncode AS "subTxncode",
+		a.amt_flag AS "amtFlag",
+		a.show_flag AS "showFlag",
+		a.comments AS "comments",
+		a.fncode AS "fncode"
+	</sql>
+	
+	<sql id="tTranTypeJoins">
+	</sql>
+    
+	<select id="get" resultType="Crddet">
+		SELECT 
+			*
+		FROM crddet t
+		WHERE  t.pan = #{pan}
+		
+		<!-- SELECT 
+			*
+		FROM crddet a
+		<include refid="tTranTypeJoins"/>
+		WHERE a.id = #{id} -->
+	</select>
+	
+	<select id="findList" resultType="TTranType">
+		SELECT 
+			<include refid="tTranTypeColumns"/>
+		FROM t_tran_type a
+		<include refid="tTranTypeJoins"/>
+		<where>
+			
+			<if test="tranTypeDesc != null and tranTypeDesc != ''">
+				AND a.tran_type_desc LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tranTypeDesc}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tranTypeDesc}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tranTypeDesc},'%')</if>				
+			</if>
+			<if test="amtFlag != null and amtFlag != ''">
+				AND a.amt_flag = #{amtFlag}
+			</if>
+			<if test="showFlag != null and showFlag != ''">
+				AND a.show_flag = #{showFlag}
+			</if>
+			<if test="txncode != null and txncode != ''">
+				AND a.txncode = #{txncode}
+			</if>
+			<if test="subTxncode != null and subTxncode != ''">
+				AND a.sub_txncode = #{subTxncode}
+			</if>	
+			<if test="fncode != null and fncode != ''">
+				AND a.fncode = #{fncode}
+			</if>
+					
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TTranType">
+		SELECT 
+			<include refid="tTranTypeColumns"/>
+		FROM t_tran_type a
+		<include refid="tTranTypeJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_tran_type(
+			id,
+			tran_type_desc,
+			txncode,
+			sub_txncode,
+			amt_flag,
+			show_flag,
+			comments,
+			fncode
+		) VALUES (
+			#{id},
+			#{tranTypeDesc},
+			#{txncode},
+			#{subTxncode},
+			#{amtFlag},
+			#{showFlag},
+			#{comments},
+			#{fncode}
+		)
+	</insert>
+ 
+	<update id="crddetUpdate">
+	
+		update  crddet  t  set  t.statcode=#{statCode}
+		where   t.pan = #{pan}
+	
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_tran_type
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.ClearMerStlBookMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.ClearMerStlBook" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="GEN_DT" property="genDt" jdbcType="VARCHAR" />
+    <result column="MER_NO" property="merNo" jdbcType="VARCHAR" />
+    <result column="MER_NAME" property="merName" jdbcType="VARCHAR" />
+    <result column="FMRCH_NO" property="fmrchNo" jdbcType="VARCHAR" />
+    <result column="FMR_NAME" property="fmrName" jdbcType="VARCHAR" />
+    <result column="STL_DATE" property="stlDate" jdbcType="VARCHAR" />
+    <result column="START_STL_DATE" property="startStlDate" jdbcType="VARCHAR" />
+    <result column="END_STL_DATE" property="endStlDate" jdbcType="VARCHAR" />
+    <result column="SCENE" property="scene" jdbcType="VARCHAR" />
+    <result column="CONSUM_NUM" property="consumNum" jdbcType="DECIMAL" />
+    <result column="CONSUM_AMT" property="consumAmt" jdbcType="DECIMAL" />
+    <result column="TRAN_AMT" property="tranAmt" jdbcType="DECIMAL" />
+    <result column="NET_AMT" property="netAmt" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="FEE_ORDER" property="feeOrder" jdbcType="DECIMAL" />
+    <result column="FEESTL_TYPE" property="feestlType" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ACC_NO" property="accNo" jdbcType="VARCHAR" />
+    <result column="ACC_NAME" property="accName" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="BRANCH_NAME" property="branchName" jdbcType="VARCHAR" />
+    <result column="UNION_NO" property="unionNo" jdbcType="VARCHAR" />
+    <result column="BEIJING_FLAG" property="beijingFlag" jdbcType="VARCHAR" />
+    <result column="IS_CONSUMP_CATEGORY" property="isConsumpCategory" jdbcType="VARCHAR" />
+    <result column="AMT_CONSUMP_CATEGORY" property="amtConsumpCategory" jdbcType="VARCHAR" />
+    <result column="GROUP_FLAG" property="groupFlag" jdbcType="VARCHAR" />
+    <result column="FINAL_STL_ID" property="finalStlId" jdbcType="VARCHAR" />
+    <result column="FINAL_STL_FLAG" property="finalStlFlag" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    
+    <result column="PAYOUT_DATE" property="payout_date" jdbcType="VARCHAR" />    
+    <result column="SEQ_NO" property="seq_no" jdbcType="VARCHAR" />
+    <result column="FINAL_COMMENTS" property="final_comments" jdbcType="VARCHAR" />
+    <result column="MERGE_MONEY_FLAG" jdbcType="CHAR" property="mergeMoneyFlag" />
+    
+    <result column="MERCHANT_EMAIL" jdbcType="VARCHAR" property="merchantEmail" />
+    <result column="IS_SEND_BILLDETAIL" jdbcType="VARCHAR" property="isSendBillDetail" />    
+  	<result column="PDF_FLAG" jdbcType="VARCHAR" property="pdfFlag" />
+    <result column="SEND_EMAIL_TIMES" jdbcType="DECIMAL" property="sendEmailTimes" />
+    <result column="SEND_EMAIL_DATE" jdbcType="VARCHAR" property="sendEmailDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, GEN_DT, MER_NO, MER_NAME, FMRCH_NO, FMR_NAME, STL_DATE, START_STL_DATE, END_STL_DATE, 
+    SCENE, CONSUM_NUM, round(CONSUM_AMT,2) as CONSUM_AMT,round(TRAN_AMT,2) as TRAN_AMT ,round(NET_AMT,2) as NET_AMT ,
+    round(FEE,2) as FEE , FEE_ORDER, FEESTL_TYPE, STATUS, 
+    ACC_NO, ACC_NAME, BANK_NAME, BANK_CODE, BRANCH_NAME, UNION_NO, BEIJING_FLAG, IS_CONSUMP_CATEGORY, 
+    AMT_CONSUMP_CATEGORY, GROUP_FLAG, FINAL_STL_ID, FINAL_STL_FLAG, COMMENTS,MERCHANT_EMAIL,
+    IS_SEND_BILLDETAIL, PDF_FLAG, SEND_EMAIL_TIMES, SEND_EMAIL_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.fs.entity.ClearMerStlBookExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_CLEAR_MERSTL_BOOK a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CLEAR_MERSTL_BOOK
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_CLEAR_MERSTL_BOOK
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.fs.entity.ClearMerStlBookExample" >
+    delete from T_CLEAR_MERSTL_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.fs.entity.ClearMerStlBook" >
+    insert into T_CLEAR_MERSTL_BOOK (ID, GEN_DT, MER_NO, 
+      MER_NAME, FMRCH_NO, FMR_NAME, 
+      STL_DATE, START_STL_DATE, END_STL_DATE, 
+      SCENE, CONSUM_NUM, CONSUM_AMT, 
+      TRAN_AMT, NET_AMT, FEE, 
+      FEE_ORDER, FEESTL_TYPE, STATUS, 
+      ACC_NO, ACC_NAME, BANK_NAME, 
+      BANK_CODE, BRANCH_NAME, UNION_NO, 
+      BEIJING_FLAG, IS_CONSUMP_CATEGORY, AMT_CONSUMP_CATEGORY, 
+      GROUP_FLAG, FINAL_STL_ID, FINAL_STL_FLAG, 
+      COMMENTS)
+    values (#{id,jdbcType=VARCHAR}, #{genDt,jdbcType=VARCHAR}, #{merNo,jdbcType=VARCHAR}, 
+      #{merName,jdbcType=VARCHAR}, #{fmrchNo,jdbcType=VARCHAR}, #{fmrName,jdbcType=VARCHAR}, 
+      #{stlDate,jdbcType=VARCHAR}, #{startStlDate,jdbcType=VARCHAR}, #{endStlDate,jdbcType=VARCHAR}, 
+      #{scene,jdbcType=VARCHAR}, #{consumNum,jdbcType=DECIMAL}, #{consumAmt,jdbcType=DECIMAL}, 
+      #{tranAmt,jdbcType=DECIMAL}, #{netAmt,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, 
+      #{feeOrder,jdbcType=DECIMAL}, #{feestlType,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{accNo,jdbcType=VARCHAR}, #{accName,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{bankCode,jdbcType=VARCHAR}, #{branchName,jdbcType=VARCHAR}, #{unionNo,jdbcType=VARCHAR}, 
+      #{beijingFlag,jdbcType=VARCHAR}, #{isConsumpCategory,jdbcType=VARCHAR}, #{amtConsumpCategory,jdbcType=VARCHAR}, 
+      #{groupFlag,jdbcType=VARCHAR}, #{finalStlId,jdbcType=VARCHAR}, #{finalStlFlag,jdbcType=VARCHAR}, 
+      #{comments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.fs.entity.ClearMerStlBook" >
+    insert into T_CLEAR_MERSTL_BOOK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="genDt != null" >
+        GEN_DT,
+      </if>
+      <if test="merNo != null" >
+        MER_NO,
+      </if>
+      <if test="merName != null" >
+        MER_NAME,
+      </if>
+      <if test="fmrchNo != null" >
+        FMRCH_NO,
+      </if>
+      <if test="fmrName != null" >
+        FMR_NAME,
+      </if>
+      <if test="stlDate != null" >
+        STL_DATE,
+      </if>
+      <if test="startStlDate != null" >
+        START_STL_DATE,
+      </if>
+      <if test="endStlDate != null" >
+        END_STL_DATE,
+      </if>
+      <if test="scene != null" >
+        SCENE,
+      </if>
+      <if test="consumNum != null" >
+        CONSUM_NUM,
+      </if>
+      <if test="consumAmt != null" >
+        CONSUM_AMT,
+      </if>
+      <if test="tranAmt != null" >
+        TRAN_AMT,
+      </if>
+      <if test="netAmt != null" >
+        NET_AMT,
+      </if>
+      <if test="fee != null" >
+        FEE,
+      </if>
+      <if test="feeOrder != null" >
+        FEE_ORDER,
+      </if>
+      <if test="feestlType != null" >
+        FEESTL_TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="accNo != null" >
+        ACC_NO,
+      </if>
+      <if test="accName != null" >
+        ACC_NAME,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="branchName != null" >
+        BRANCH_NAME,
+      </if>
+      <if test="unionNo != null" >
+        UNION_NO,
+      </if>
+      <if test="beijingFlag != null" >
+        BEIJING_FLAG,
+      </if>
+      <if test="isConsumpCategory != null" >
+        IS_CONSUMP_CATEGORY,
+      </if>
+      <if test="amtConsumpCategory != null" >
+        AMT_CONSUMP_CATEGORY,
+      </if>
+      <if test="groupFlag != null" >
+        GROUP_FLAG,
+      </if>
+      <if test="finalStlId != null" >
+        FINAL_STL_ID,
+      </if>
+      <if test="finalStlFlag != null" >
+        FINAL_STL_FLAG,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="genDt != null" >
+        #{genDt,jdbcType=VARCHAR},
+      </if>
+      <if test="merNo != null" >
+        #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merName != null" >
+        #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="fmrchNo != null" >
+        #{fmrchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fmrName != null" >
+        #{fmrName,jdbcType=VARCHAR},
+      </if>
+      <if test="stlDate != null" >
+        #{stlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="startStlDate != null" >
+        #{startStlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endStlDate != null" >
+        #{endStlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="scene != null" >
+        #{scene,jdbcType=VARCHAR},
+      </if>
+      <if test="consumNum != null" >
+        #{consumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="consumAmt != null" >
+        #{consumAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="tranAmt != null" >
+        #{tranAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="netAmt != null" >
+        #{netAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="feeOrder != null" >
+        #{feeOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="feestlType != null" >
+        #{feestlType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accNo != null" >
+        #{accNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionNo != null" >
+        #{unionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="beijingFlag != null" >
+        #{beijingFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isConsumpCategory != null" >
+        #{isConsumpCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="amtConsumpCategory != null" >
+        #{amtConsumpCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="groupFlag != null" >
+        #{groupFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="finalStlId != null" >
+        #{finalStlId,jdbcType=VARCHAR},
+      </if>
+      <if test="finalStlFlag != null" >
+        #{finalStlFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.fs.entity.ClearMerStlBookExample" resultType="java.lang.Integer" >
+    select count(*) from T_CLEAR_MERSTL_BOOK a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_CLEAR_MERSTL_BOOK
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.genDt != null" >
+        GEN_DT = #{record.genDt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merNo != null" >
+        MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merName != null" >
+        MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmrchNo != null" >
+        FMRCH_NO = #{record.fmrchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmrName != null" >
+        FMR_NAME = #{record.fmrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stlDate != null" >
+        STL_DATE = #{record.stlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startStlDate != null" >
+        START_STL_DATE = #{record.startStlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endStlDate != null" >
+        END_STL_DATE = #{record.endStlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scene != null" >
+        SCENE = #{record.scene,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consumNum != null" >
+        CONSUM_NUM = #{record.consumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.consumAmt != null" >
+        CONSUM_AMT = #{record.consumAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tranAmt != null" >
+        TRAN_AMT = #{record.tranAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.netAmt != null" >
+        NET_AMT = #{record.netAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fee != null" >
+        FEE = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeOrder != null" >
+        FEE_ORDER = #{record.feeOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feestlType != null" >
+        FEESTL_TYPE = #{record.feestlType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accNo != null" >
+        ACC_NO = #{record.accNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accName != null" >
+        ACC_NAME = #{record.accName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCode != null" >
+        BANK_CODE = #{record.bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchName != null" >
+        BRANCH_NAME = #{record.branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionNo != null" >
+        UNION_NO = #{record.unionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beijingFlag != null" >
+        BEIJING_FLAG = #{record.beijingFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isConsumpCategory != null" >
+        IS_CONSUMP_CATEGORY = #{record.isConsumpCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amtConsumpCategory != null" >
+        AMT_CONSUMP_CATEGORY = #{record.amtConsumpCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupFlag != null" >
+        GROUP_FLAG = #{record.groupFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalStlId != null" >
+        FINAL_STL_ID = #{record.finalStlId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalStlFlag != null" >
+        FINAL_STL_FLAG = #{record.finalStlFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comments != null" >
+        COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_CLEAR_MERSTL_BOOK
+    set ID = #{record.id,jdbcType=VARCHAR},
+      GEN_DT = #{record.genDt,jdbcType=VARCHAR},
+      MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      FMRCH_NO = #{record.fmrchNo,jdbcType=VARCHAR},
+      FMR_NAME = #{record.fmrName,jdbcType=VARCHAR},
+      STL_DATE = #{record.stlDate,jdbcType=VARCHAR},
+      START_STL_DATE = #{record.startStlDate,jdbcType=VARCHAR},
+      END_STL_DATE = #{record.endStlDate,jdbcType=VARCHAR},
+      SCENE = #{record.scene,jdbcType=VARCHAR},
+      CONSUM_NUM = #{record.consumNum,jdbcType=DECIMAL},
+      CONSUM_AMT = #{record.consumAmt,jdbcType=DECIMAL},
+      TRAN_AMT = #{record.tranAmt,jdbcType=DECIMAL},
+      NET_AMT = #{record.netAmt,jdbcType=DECIMAL},
+      FEE = #{record.fee,jdbcType=DECIMAL},
+      FEE_ORDER = #{record.feeOrder,jdbcType=DECIMAL},
+      FEESTL_TYPE = #{record.feestlType,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      ACC_NO = #{record.accNo,jdbcType=VARCHAR},
+      ACC_NAME = #{record.accName,jdbcType=VARCHAR},
+      BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      BANK_CODE = #{record.bankCode,jdbcType=VARCHAR},
+      BRANCH_NAME = #{record.branchName,jdbcType=VARCHAR},
+      UNION_NO = #{record.unionNo,jdbcType=VARCHAR},
+      BEIJING_FLAG = #{record.beijingFlag,jdbcType=VARCHAR},
+      IS_CONSUMP_CATEGORY = #{record.isConsumpCategory,jdbcType=VARCHAR},
+      AMT_CONSUMP_CATEGORY = #{record.amtConsumpCategory,jdbcType=VARCHAR},
+      GROUP_FLAG = #{record.groupFlag,jdbcType=VARCHAR},
+      FINAL_STL_ID = #{record.finalStlId,jdbcType=VARCHAR},
+      FINAL_STL_FLAG = #{record.finalStlFlag,jdbcType=VARCHAR},
+      COMMENTS = #{record.comments,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.fs.entity.ClearMerStlBook" >
+    update T_CLEAR_MERSTL_BOOK
+    <set >
+      <if test="genDt != null" >
+        GEN_DT = #{genDt,jdbcType=VARCHAR},
+      </if>
+      <if test="merNo != null" >
+        MER_NO = #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merName != null" >
+        MER_NAME = #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="fmrchNo != null" >
+        FMRCH_NO = #{fmrchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fmrName != null" >
+        FMR_NAME = #{fmrName,jdbcType=VARCHAR},
+      </if>
+      <if test="stlDate != null" >
+        STL_DATE = #{stlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="startStlDate != null" >
+        START_STL_DATE = #{startStlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endStlDate != null" >
+        END_STL_DATE = #{endStlDate,jdbcType=VARCHAR},
+      </if>
+      <if test="scene != null" >
+        SCENE = #{scene,jdbcType=VARCHAR},
+      </if>
+      <if test="consumNum != null" >
+        CONSUM_NUM = #{consumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="consumAmt != null" >
+        CONSUM_AMT = #{consumAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="tranAmt != null" >
+        TRAN_AMT = #{tranAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="netAmt != null" >
+        NET_AMT = #{netAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        FEE = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="feeOrder != null" >
+        FEE_ORDER = #{feeOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="feestlType != null" >
+        FEESTL_TYPE = #{feestlType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accNo != null" >
+        ACC_NO = #{accNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        ACC_NAME = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        BRANCH_NAME = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionNo != null" >
+        UNION_NO = #{unionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="beijingFlag != null" >
+        BEIJING_FLAG = #{beijingFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="isConsumpCategory != null" >
+        IS_CONSUMP_CATEGORY = #{isConsumpCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="amtConsumpCategory != null" >
+        AMT_CONSUMP_CATEGORY = #{amtConsumpCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="groupFlag != null" >
+        GROUP_FLAG = #{groupFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="finalStlId != null" >
+        FINAL_STL_ID = #{finalStlId,jdbcType=VARCHAR},
+      </if>
+      <if test="finalStlFlag != null" >
+        FINAL_STL_FLAG = #{finalStlFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.fs.entity.ClearMerStlBook" >
+    update T_CLEAR_MERSTL_BOOK
+    set GEN_DT = #{genDt,jdbcType=VARCHAR},
+      MER_NO = #{merNo,jdbcType=VARCHAR},
+      MER_NAME = #{merName,jdbcType=VARCHAR},
+      FMRCH_NO = #{fmrchNo,jdbcType=VARCHAR},
+      FMR_NAME = #{fmrName,jdbcType=VARCHAR},
+      STL_DATE = #{stlDate,jdbcType=VARCHAR},
+      START_STL_DATE = #{startStlDate,jdbcType=VARCHAR},
+      END_STL_DATE = #{endStlDate,jdbcType=VARCHAR},
+      SCENE = #{scene,jdbcType=VARCHAR},
+      CONSUM_NUM = #{consumNum,jdbcType=DECIMAL},
+      CONSUM_AMT = #{consumAmt,jdbcType=DECIMAL},
+      TRAN_AMT = #{tranAmt,jdbcType=DECIMAL},
+      NET_AMT = #{netAmt,jdbcType=DECIMAL},
+      FEE = #{fee,jdbcType=DECIMAL},
+      FEE_ORDER = #{feeOrder,jdbcType=DECIMAL},
+      FEESTL_TYPE = #{feestlType,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      ACC_NO = #{accNo,jdbcType=VARCHAR},
+      ACC_NAME = #{accName,jdbcType=VARCHAR},
+      BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      BRANCH_NAME = #{branchName,jdbcType=VARCHAR},
+      UNION_NO = #{unionNo,jdbcType=VARCHAR},
+      BEIJING_FLAG = #{beijingFlag,jdbcType=VARCHAR},
+      IS_CONSUMP_CATEGORY = #{isConsumpCategory,jdbcType=VARCHAR},
+      AMT_CONSUMP_CATEGORY = #{amtConsumpCategory,jdbcType=VARCHAR},
+      GROUP_FLAG = #{groupFlag,jdbcType=VARCHAR},
+      FINAL_STL_ID = #{finalStlId,jdbcType=VARCHAR},
+      FINAL_STL_FLAG = #{finalStlFlag,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT c.*, ROWNUM rn FROM(
+		select
+		<if test="example.distinct">
+			example.distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from T_CLEAR_MERSTL_BOOK a
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="example.orderByClause != null">
+			order by ${example.orderByClause}
+		</if>)
+		c
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select> 
+   
+  <select id="getSumAmtByExample" parameterType="cn.yufu.fs.entity.ClearMerStlBookExample" resultType="java.lang.String" >
+		select sum(consum_num) || '#' ||to_char(sum(consum_amt),'fm999999999999990.90')|| '#' ||to_char(sum(tran_amt),'fm999999999999990.90')|| '#' ||
+		       to_char(sum(net_amt),'fm999999999999990.90')|| '#' || to_char(sum(fee),'fm999999999999990.90')  as fee
+		  from T_CLEAR_MERSTL_BOOK a
+      <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>    
+  
+  <select id="selectExcelByExample" parameterType="cn.yufu.fs.entity.ClearMerStlBook" resultMap="BaseResultMap">
+	select a.id,
+	       a.gen_dt,
+	       a.mer_no,
+	       a.mer_name,
+	       a.fmrch_no,
+	       a.fmr_name,
+	       a.stl_date,
+	       a.start_stl_date,
+	       a.end_stl_date,
+	       a.scene,
+	       a.consum_num,
+	       a.consum_amt,
+	       a.tran_amt,
+	       a.net_amt,
+	       a.fee,
+	       a.fee_order,
+	       a.feestl_type,
+	       a.status,
+	       a.acc_no,
+	       a.acc_name,
+	       a.bank_name,
+	       a.bank_code,
+	       a.branch_name,
+	       a.union_no,
+	       a.beijing_flag,
+	       a.is_consump_category,
+	       a.amt_consump_category,
+	       a.group_flag,
+	       a.final_stl_id,
+	       a.final_stl_flag,
+	       a.comments,
+	       b.payout_date,
+	       b.seq_no,
+	       b.comments as final_comments
+	  from t_clear_merstl_book a
+	  left join t_clear_merstl_final_book b
+	    on a.final_stl_id = b.id
+	 <!-- where 1 = 1
+	 <if test="merNo!=null and merNo!=''">
+	   and a.mer_no = #{merNo} 
+	 </if>
+	 <if test="merName!=null and merName!=''">
+	   and a.mer_name like '%'||#{merName}||'%'
+	 </if>
+	 <if test="genDt!=null and genDt!=''">
+	   and substr(a.gen_dt, 0, 8) = #{genDt}
+	 </if>
+	 <if test="stlDate!=null and stlDate!=''">
+	   and a.stl_date = #{stlDate}
+	 </if>	 
+	 <if test="scene!=null and scene!=''">
+	   and a.scene = #{scene}
+	 </if> -->
+	<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>	 	 	 
+	 order by a.FINAL_STL_ID DESC,a.MER_NO DESC, a.GEN_DT DESC
+  </select>  
+  
+  <select id="queryCount" parameterType="cn.yufu.fs.entity.ClearMerStlBookExample" resultType="java.lang.Integer" >
+    select count(*) from T_CLEAR_MERSTL_BOOK_T a
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+    <select id="selectPageList" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT c.*, ROWNUM rn FROM(
+		select
+		<if test="example.distinct">
+			example.distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from T_CLEAR_MERSTL_BOOK_T a
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="example.orderByClause != null">
+			order by ${example.orderByClause}
+		</if>)
+		c
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select> 
+   
+  <select id="getSumAmtTotal" parameterType="cn.yufu.fs.entity.ClearMerStlBookExample" resultType="java.lang.String" >
+		select sum(consum_num) || '#' ||to_char(sum(consum_amt),'fm999999999999990.90')|| '#' ||to_char(sum(tran_amt),'fm999999999999990.90')|| '#' ||
+		       to_char(sum(net_amt),'fm999999999999990.90')|| '#' || to_char(sum(fee),'fm999999999999990.90')  as fee
+		  from T_CLEAR_MERSTL_BOOK_T a
+      <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>    
+  
+  <select id="getExcelList" parameterType="cn.yufu.fs.entity.ClearMerStlBook" resultMap="BaseResultMap">
+	select a.id,
+	       a.gen_dt,
+	       a.mer_no,
+	       a.mer_name,
+	       a.fmrch_no,
+	       a.fmr_name,
+	       a.stl_date,
+	       a.start_stl_date,
+	       a.end_stl_date,
+	       a.scene,
+	       a.consum_num,
+	       a.consum_amt,
+	       a.tran_amt,
+	       a.net_amt,
+	       a.fee,
+	       a.fee_order,
+	       a.feestl_type,
+	       a.status,
+	       a.acc_no,
+	       a.acc_name,
+	       a.bank_name,
+	       a.bank_code,
+	       a.branch_name,
+	       a.union_no,
+	       a.beijing_flag,
+	       a.is_consump_category,
+	       a.amt_consump_category,
+	       a.group_flag,
+	       a.final_stl_id,
+	       a.final_stl_flag,
+	       a.comments,
+	       b.payout_date,
+	       b.seq_no,
+	       b.comments as final_comments
+	  from T_CLEAR_MERSTL_BOOK_T a
+	  left join T_CLEAR_MERSTL_FINAL_BOOK_T b
+	    on a.final_stl_id = b.id
+	<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>	 	 	 
+	 order by a.FINAL_STL_ID DESC,a.MER_NO DESC, a.GEN_DT DESC
+  </select>  
+  
+  <update id="sendMailUpdate">
+  	UPDATE T_CLEAR_MERSTL_BOOK 
+    <set>
+    	<if test="id != null and id.trim().length() != 0">
+   			ID = #{id},
+   		</if>
+   		<if test="pdfFlag != null and pdfFlag.trim().length() != 0">
+   			PDF_FLAG = #{pdfFlag},
+   		</if>
+   		<if test="sendEmailTimes != null">
+   			SEND_EMAIL_TIMES = #{sendEmailTimes},
+   		</if>
+   		<if test="sendEmailDate != null and sendEmailDate.trim().length() != 0">
+   			SEND_EMAIL_DATE = #{sendEmailDate},
+   		</if>
+    </set>
+	<where>
+		<if test="stlDate != null and stlDate.trim().length() != 0">
+			AND STL_DATE = #{stlDate} 
+		</if>
+		<if test="merNo != null and merNo.trim().length() != 0">
+			AND MER_NO = #{merNo} 
+		</if>
+	</where>
+  </update> 
+</mapper>

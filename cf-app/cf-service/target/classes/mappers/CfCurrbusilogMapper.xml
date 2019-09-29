@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfCurrbusilogMapper">
+
+<insert id="insert" parameterType="CfCurrbusilogEntity">
+		INSERT INTO
+			cf_currbusilog
+				(bizid,
+				phone,
+				ispno,
+				ipstype,
+				province,
+				facevalue,
+				orderid,
+				cporderno,
+				systransno,
+				responsecode,
+				spprice,
+				spno,
+				apprice,
+				apno,
+				createtime,
+				updatetime,
+				status
+				)
+			VALUES
+				(
+				 #{bizid},#{phone},#{ispno},#{ipstype},
+				 #{province},#{facevalue},#{orderid},
+				 #{cporderno},#{systransno},
+				 #{responsecode},#{spprice},
+				 #{spno},#{apprice},#{apno},#{createtime},#{updatetime},#{status}
+				 )
+	</insert>
+	
+	<select id="query"  resultType="CfCurrbusilogEntity" >
+		select
+				cb.bizid bizid,
+				cb.phone phone,
+				cb.ispno ispno,
+				cb.ipstype ipstype,
+				cb.province province,
+				cb.facevalue facevalue,
+				cb.orderid orderid,
+				cb.cporderno cporderno,
+				cb.systransno systransno,
+				cb.responsecode responsecode,
+				cb.spprice spprice,
+				cb.spno spno,
+				cb.apprice apprice,
+				cb.apno apno,
+				cb.createtime createtime,
+				cb.updatetime updatetime,
+				cb.status status,
+				ac.acname  acname,
+				c.cname  cname,
+				p.pname pname
+				
+		from
+					CF_CURRBUSILOG CB
+				 	LEFT JOIN CF_ACCESSCLIENT AC
+				 		ON CB.APNO = AC.ID
+				 			LEFT JOIN CF_CUSTOMER C
+				 				ON AC.CID = C.ID
+				 					LEFT JOIN CF_PROVINCE P
+				 						ON CB.PROVINCE = P.PNO
+		WHERE 
+			(
+				1 =1
+				and cb.createtime  between REPLACE(#{param1.begintime},'-','') AND CONCAT(REPLACE(#{param1.endtime},'-',''),'99')
+				<!--
+				<if test="param1.begintime!='' and param1.begintime!=null and param1.endtime!='' and param1.endtime!=null">
+					and cb.createtime  between #{param1.begintime} and #{param1.endtime} 
+				</if> 	 -->
+				<if test="param1.cid!='' and param1.cid!=null">
+					and c.id = #{param1.cid} 
+				</if>
+				<if test="param1.acid!='' and param1.acid!=null">
+					and ac.id = #{param1.acid} 
+				</if>
+				<if test="param1.ispno!='' and param1.ispno!=null">
+					and cb.ispno = #{param1.ispno} 
+				</if>
+				<if test="param1.province!='' and param1.province!=null">
+					and cb.province = #{param1.province} 
+				</if>
+				<if test="param1.ipstype!='' and param1.ipstype!=null">
+					and cb.ipstype = #{param1.ipstype} 
+				</if>
+				<if test="param1.status!='' and param1.status!=null">
+					and cb.status = #{param1.status} 
+				</if>
+				<if test="param1.facevalue!='' and param1.facevalue!=null">
+					and cb.facevalue = #{param1.facevalue} 
+				</if>
+				<if test="param1.systransno!='' and param1.systransno!=null">
+					and cb.systransno = #{param1.systransno} 
+				</if>
+				<if test="param1.orderid!='' and param1.orderid!=null">
+					and cb.orderid = #{param1.orderid} 
+				</if>
+				<if test="param1.phone!='' and param1.phone!=null">
+					and cb.phone = #{param1.phone} 
+				</if>
+			)	
+		order by cb.updatetime desc
+	 	limit #{start},#{length}
+	</select>
+	<select id="queryall"  parameterType="CfCurrbusilogEntity" resultType="CfCurrbusilogEntity" >
+		select
+				cb.bizid bizid,
+				cb.phone phone,
+				cb.ispno ispno,
+				cb.ipstype ipstype,
+				cb.province province,
+				cb.facevalue facevalue,
+				cb.orderid orderid,
+				cb.cporderno cporderno,
+				cb.systransno systransno,
+				cb.responsecode responsecode,
+				cb.spprice spprice,
+				cb.spno spno,
+				cb.apprice apprice,
+				cb.apno apno,
+				cb.createtime createtime,
+				cb.updatetime updatetime,
+			<!-- 	ELT(cast('cb.status' as int),'0','1','2','3','4'), -->
+				cb.status status,
+				ac.acname  acname,
+				c.cname  cname
+				
+		FROM 
+				CF_CURRBUSILOG CB
+				 	LEFT JOIN CF_ACCESSCLIENT AC
+				 		ON CB.APNO = AC.ID
+				 			LEFT JOIN CF_CUSTOMER C
+				 				ON AC.CID = C.ID
+				 					LEFT JOIN CF_PROVINCE P
+				 						ON CB.PROVINCE = P.PNO
+		WHERE 
+			(
+				1 =1
+				AND CB.CREATETIME  BETWEEN REPLACE(#{begintime},'-','') AND CONCAT(REPLACE(#{endtime},'-',''),'99')
+				<if test="cid!='' and cid!=null">
+					and c.id = #{cid} 
+				</if>
+				<if test="acid!='' and acid!=null">
+					and ac.id = #{acid} 
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and cb.ispno = #{ispno} 
+				</if>
+				<if test="province!='' and province!=null">
+					and cb.province = #{province} 
+				</if>
+				<if test="ipstype!='' and ipstype!=null">
+					and cb.ipstype = #{ipstype} 
+				</if>
+				<if test="status!='' and status!=null">
+					and cb.status = #{status} 
+				</if>
+				<if test="facevalue!='' and facevalue!=null">
+					and cb.facevalue = #{facevalue} 
+				</if>
+				<if test="systransno!='' and systransno!=null">
+					and cb.systransno = #{systransno} 
+				</if>
+				<if test="orderid!='' and orderid!=null">
+					and cb.orderid = #{orderid} 
+				</if>
+				<if test="phone!='' and phone!=null">
+					and cb.phone = #{phone} 
+				</if>	
+			)
+		order by 
+			cb.updatetime desc
+	</select>
+	
+	<select id="searchLogCount" resultType="String" parameterType="CfCurrbusilogEntity">
+		SELECT 
+			COUNT(1)
+	    FROM 
+				CF_CURRBUSILOG CB
+				 	LEFT JOIN CF_ACCESSCLIENT AC
+				 		ON CB.APNO = AC.ID
+				 			LEFT JOIN CF_CUSTOMER C
+				 				ON AC.CID = C.ID
+				 					LEFT JOIN CF_PROVINCE P
+				 						ON CB.PROVINCE = P.PNO
+		WHERE 
+			(
+				1 =1
+				AND CB.CREATETIME  BETWEEN REPLACE(#{begintime},'-','') AND CONCAT(REPLACE(#{endtime},'-',''),'99')
+				<!--
+				<if test="begintime!='' and begintime!=null and endtime!='' and endtime!=null">
+					and cb.createtime  between #{begintime} and #{endtime} 
+				</if> 	 -->
+				<if test="cid!='' and cid!=null">
+					and c.id = #{cid} 
+				</if>
+				<if test="acid!='' and acid!=null">
+					and ac.id = #{acid} 
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and cb.ispno = #{ispno} 
+				</if>
+				<if test="province!='' and province!=null">
+					and cb.province = #{province} 
+				</if>
+				<if test="ipstype!='' and ipstype!=null">
+					and cb.ipstype = #{ipstype} 
+				</if>
+				<if test="status!='' and status!=null">
+					and cb.status = #{status} 
+				</if>
+				<if test="facevalue!='' and facevalue!=null">
+					and cb.facevalue = #{facevalue} 
+				</if>
+				<if test="systransno!='' and systransno!=null">
+					and cb.systransno = #{systransno} 
+				</if>
+				<if test="orderid!='' and orderid!=null">
+					and cb.orderid = #{orderid} 
+				</if>
+				<if test="phone!='' and phone!=null">
+					and cb.phone = #{phone} 
+				</if>
+			)
+	</select>
+	<select id="queryCurrbusilogByid" parameterType="String" resultType="CfCurrbusilogEntity">
+		SELECT
+		    BIZID,
+		    PHONE,
+		    ISPNO,
+		    IPSTYPE,
+		    PROVINCE,
+		    FACEVALUE,
+		    ORDERID,
+		    CPORDERNO,
+		    SYSTRANSNO,
+		    RESPONSECODE,
+		    SPPRICE,
+		    SPNO,
+		    APPRICE,
+		    APNO,
+		    CREATETIME,
+		    UPDATETIME,
+		    STATUS
+		FROM
+		    cf_currbusilog
+		WHERE 
+			BIZID =#{bizid}
+	</select>
+	
+	<update id="update" parameterType="CfCurrbusilogEntity">
+		UPDATE
+		    cf_currbusilog
+		<set> 
+			<if test="updatetime != null and updatetime!=''">
+		        UPDATETIME = #{updatetime},
+		    </if>
+			<if test="responsecode!='' and responsecode!=null">
+				RESPONSECODE = #{responsecode}, 
+			</if>
+			<if test="orderid!='' and orderid!=null">
+				ORDERID = #{orderid}, 
+			</if>
+			<if test="systransno!='' and systransno!=null">
+				SYSTRANSNO = #{systransno}, 
+			</if>
+			<if test="status!='' and status!=null">
+				STATUS = #{status}, 
+			</if>
+		</set>
+		WHERE
+		    BIZID = #{bizid} and STATUS != #{status}
+			
+	</update>
+	
+	<select id="selectByStatus" resultType="CfCurrbusilogEntity">
+		SELECT
+		    BIZID,
+		    PHONE,
+		    ISPNO,
+		    IPSTYPE,
+		    PROVINCE,
+		    FACEVALUE,
+		    ORDERID,
+		    CPORDERNO,
+		    SYSTRANSNO,
+		    RESPONSECODE,
+		    SPPRICE,
+		    SPNO,
+		    APPRICE,
+		    APNO,
+		    CREATETIME,
+		    UPDATETIME,
+		    STATUS
+		FROM
+		    CF_CURRBUSILOG
+		WHERE 
+			STATUS in
+        <foreach item="item" index="index" collection="list" 
+                 open="(" separator="," close=")">
+                #{item}
+        </foreach>
+	</select>
+
+ <select id="selectByorderid" parameterType="String" resultType="CfCurrbusilogEntity">
+		SELECT
+		    BIZID,
+		    PHONE,
+		    ISPNO,
+		    IPSTYPE,
+		    PROVINCE,
+		    FACEVALUE,
+		    ORDERID,
+		    CPORDERNO,
+		    SYSTRANSNO,
+		    RESPONSECODE,
+		    SPPRICE,
+		    SPNO,
+		    APPRICE,
+		    APNO,
+		    CREATETIME,
+		    UPDATETIME,
+		    STATUS
+		FROM
+		    CF_CURRBUSILOG
+		WHERE 
+		    ORDERID=#{orderid}
+ </select>
+	
+</mapper>
+	

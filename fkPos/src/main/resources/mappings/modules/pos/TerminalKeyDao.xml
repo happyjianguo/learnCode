@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.TerminalKeyDao">
+    
+	<sql id="TerminalKeyColumns">
+	    a.MERCHANT_ID AS "merchantId", 
+	    b.merchant_cname AS "merchantCname",
+	    a.TERMINAL_ID AS "terminalId", 
+	    a.MASTER_KEY AS "masterKey", 
+	    a.TMKMASTER_KEY AS "tmkMasterKey", 
+	    c.SET_ADDR AS "setAddr",
+	    d.POS_SN AS "posSn",
+	    e.ACCNO AS "accno"
+	</sql>
+	
+	<sql id="TerminalKeyJoins">
+		LEFT JOIN MERCHANT_BASE b ON a.MERCHANT_ID = b.MERCHANT_ID
+		LEFT JOIN EDC_TERMINAL c ON a.MERCHANT_ID = c.MERCHANT_ID AND a.TERMINAL_ID = c.TERMINAL_ID
+		LEFT JOIN P_POS d ON a.TERMINAL_ID = d.TERMINAL_ID
+		LEFT JOIN (
+			SELECT V.MRCHNO ,V.TERMCODE,T.ACCNO ,T.ACC_NAME_X 
+    		FROM VIEW_FKCORE_TERMPOS@DBLINK_TO_FKSLT V
+    		LEFT JOIN VIEW_FKCORE_MER_STLACC_INFO@DBLINK_TO_FKSLT T ON V.SETTLE_MRCH_ACC_ID = T.ID AND V.MRCHNO = T.MRCHNO
+		)  e ON a.MERCHANT_ID = e.MRCHNO AND a.TERMINAL_ID = e.TERMCODE
+	</sql>
+    
+	<select id="get" resultType="TerminalKey">
+		SELECT 
+			<include refid="TerminalKeyColumns"/>
+		FROM BTS_KEY a
+		<include refid="TerminalKeyJoins"/>
+		WHERE a.TERMINAL_ID = #{terminalId}
+	</select>
+	
+	<select id="findList" resultType="TerminalKey">
+		SELECT 
+			<include refid="TerminalKeyColumns"/>
+		FROM BTS_KEY a
+		<include refid="TerminalKeyJoins"/>
+		<where>
+			<if test="merchantId != null and merchantId != ''">
+				AND a.MERCHANT_ID = #{merchantId}
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				AND a.TERMINAL_ID = #{terminalId}
+			</if>	
+			<if test="posSn != null and posSn != ''">
+				AND a.POS_SN = #{posSn}
+			</if>		
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY d.OUTSTOCK_DATE DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TerminalKey">
+		SELECT 
+			<include refid="TerminalKeyColumns"/>
+		FROM BTS_KEY a
+		<include refid="TerminalKeyJoins"/>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY d.OUTSTOCK_DATE DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

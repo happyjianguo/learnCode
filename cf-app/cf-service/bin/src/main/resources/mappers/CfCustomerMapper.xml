@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfCustomerMapper">
+	
+	<select id="query" resultType="CfCustomerEntity" >
+		SELECT 
+			ID,
+		    CNAME,
+		    MNAME,
+		    PHONE,
+		    EMAIL
+		FROM
+			CF_CUSTOMER
+	</select>
+	<select id="queryby" parameterType="CfCustomerEntity" resultType="CfCustomerEntity" >
+	SELECT 
+		ID,
+	    CNAME,
+	    MNAME,
+	    PHONE,
+	    EMAIL
+	FROM
+		CF_CUSTOMER
+		WHERE 1=1
+	<if test="id!='' and id!=null">
+	  AND ID=#{id}
+	</if>
+	<if test="mname!='' and mname!=null">
+	  AND MNAME like CONCAT('%','${mname}','%' )
+	</if>			
+</select>
+	<select id="selectCustomerById" parameterType="String" resultType="CfCustomerEntity" >
+		SELECT 
+			ID,
+		    CNAME,
+		    MNAME,
+		    PHONE,
+		    EMAIL
+		FROM
+			CF_CUSTOMER
+		WHERE
+			ID=#{id}
+	</select>
+	
+	<select id="selectByName" parameterType="String" resultType="Object">
+		SELECT
+		 	*
+		FROM
+			CF_CUSTOMER
+		WHERE
+			CNAME = #{cname}
+	</select>
+	<insert id="insert" parameterType="CfCustomerEntity">
+		INSERT INTO
+			CF_CUSTOMER(
+				ID,
+		        CNAME,
+		        MNAME,
+		        PHONE,
+		        EMAIL
+		    )
+		VALUES
+			(#{id},#{cname},#{mname},#{phone},#{email})
+	</insert>
+	
+	<update id="updateCustomer" parameterType="CfCustomerEntity">
+		UPDATE 
+			CF_CUSTOMER
+		SET
+	        CNAME=#{cname},
+	        MNAME=#{mname},
+	        PHONE=#{phone},
+	        EMAIL=#{email}
+		WHERE
+			ID=#{id}
+	</update>
+	
+	<delete id="deleteCustomer" parameterType="String">
+		DELETE FROM
+			CF_CUSTOMER
+		WHERE
+			ID=#{id}
+	</delete>
+</mapper>

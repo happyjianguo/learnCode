@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.OldCrdfeelogBeforeMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.OldCrdfeelogBefore" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MERCHANTNUMBER" property="merchantnumber" jdbcType="VARCHAR" />
+    <result column="TERMINALNUMBER" property="terminalnumber" jdbcType="VARCHAR" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="LOACLE_DATE" property="loacleDate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONTIME" property="transactiontime" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="AVLBAL" property="avlbal" jdbcType="DECIMAL" />
+    <result column="TLOGID" property="tlogid" jdbcType="DECIMAL" />
+    <result column="SERIALNUMBER" property="serialnumber" jdbcType="DECIMAL" />
+    <result column="LOTNO" property="lotno" jdbcType="DECIMAL" />
+    <result column="REFERENCENUMBER" property="referencenumber" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="COMMENTS1" property="comments1" jdbcType="VARCHAR" />
+    <result column="COMMENTS2" property="comments2" jdbcType="VARCHAR" />
+    <result column="COMMENTS3" property="comments3" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, MERCHANTNUMBER, TERMINALNUMBER, PAN, LOACLE_DATE, TRANSACTIONDATE, TRANSACTIONTIME, 
+    FEE, AVLBAL, TLOGID, SERIALNUMBER, LOTNO, REFERENCENUMBER, COMMENTS, COMMENTS1, COMMENTS2, 
+    COMMENTS3
+  </sql>
+  
+   <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT c.*, ROWNUM rn FROM(
+		select
+		<include refid="Base_Column_List" />
+		from T_CRDFEELOG_BEFORE 
+		<where>
+	    	<if test="queryModel.pan != null and queryModel.pan.trim().length() != 0" >
+	      		AND PAN = #{queryModel.pan}
+	    	</if>
+	    	<if test="queryModel.begainLocalDate != null and queryModel.begainLocalDate.trim().length() != 0" >
+	    		AND <![CDATA[ LOACLE_DATE >= #{queryModel.begainLocalDate} ]]>
+	    		AND <![CDATA[ LOACLE_DATE <= #{queryModel.endLocalDate} ]]>
+	    	</if>
+	    </where>
+		ORDER BY LOACLE_DATE DESC,TRANSACTIONDATE DESC, TRANSACTIONTIME DESC, AVLBAL DESC,FEE DESC
+		) c
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select> 
+  
+  <select id="selectByExample" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_CRDFEELOG_BEFORE 
+		<where>
+	    	<if test="pan != null and pan.trim().length() != 0" >
+	      		AND PAN = #{pan}
+	    	</if>
+	    	<if test="begainLocalDate != null and begainLocalDate.trim().length() != 0" >
+	    		AND <![CDATA[ LOACLE_DATE >= #{begainLocalDate} ]]>
+	    		AND <![CDATA[ LOACLE_DATE <= #{endLocalDate} ]]>
+	    	</if>
+	    </where>
+		ORDER BY LOACLE_DATE DESC,TRANSACTIONDATE DESC, TRANSACTIONTIME DESC, AVLBAL DESC,FEE DESC
+  </select> 
+  
+  <select id="getFeeSum" resultType="java.math.BigDecimal">
+	SELECT SUM(FEE) 
+	from T_CRDFEELOG_BEFORE 
+	<where>
+    	<if test="pan != null and pan.trim().length() != 0" >
+      		AND PAN = #{pan}
+    	</if>
+    	<if test="begainLocalDate != null and begainLocalDate.trim().length() != 0" >
+    		AND <![CDATA[ LOACLE_DATE >= #{begainLocalDate} ]]>
+    		AND <![CDATA[ LOACLE_DATE <= #{endLocalDate} ]]>
+    	</if>
+    </where>
+  </select> 
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_CRDFEELOG_BEFORE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    select count(*) FROM T_CRDFEELOG_BEFORE
+    <where>
+    	<if test="pan != null and pan.trim().length() != 0" >
+      		AND PAN = #{pan}
+    	</if>
+    	<if test="begainLocalDate != null and begainLocalDate.trim().length() != 0" >
+    		AND <![CDATA[ LOACLE_DATE >= #{begainLocalDate} ]]>
+    		AND <![CDATA[ LOACLE_DATE <= #{endLocalDate} ]]>
+    	</if>
+    </where>
+  </select>
+  
+</mapper>

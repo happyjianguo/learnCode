@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- 商户资料 -->
+	<bean id="MerchantLogic" class="cn.yufu.posp.merchant.domain.logic.MerchantLogic" />
+	<!-- 商户身份 -->
+	<bean id="MerchantIdentityLogic" class="cn.yufu.posp.merchant.domain.logic.MerchantIdentityLogic" />
+	<!-- 商户资料审核 -->
+	<bean id="MerchantCheckLogic" class="cn.yufu.posp.merchant.domain.logic.MerchantCheckLogic" />
+	<!-- 商户代理卡类 -->
+	<bean id="MerCardLogic" class="cn.yufu.posp.merchant.domain.logic.MerchantCardLogic" />
+	<!-- 商户转换 -->
+	<bean id="MerSwitchLogic" class="cn.yufu.posp.merchant.domain.logic.MerchantSwitchLogic" />
+	<!-- 商户黑名单 -->
+	<bean id="MerBlackLogic" class="cn.yufu.posp.merchant.domain.logic.MerchantBlackLogic" />
+	<bean id="MerchantUserLogic" class="cn.yufu.posp.merchant.domain.logic.MerchantUserLogic" />
+	<!-- mcc管理 -->
+	<bean id="mccLogic" class="cn.yufu.posp.merchant.domain.logic.MccParamLogic" />
+	<!-- 模板管理 -->
+	<bean id="sysModuleLogic" class="cn.yufu.posp.sysModule.domain.logic.SysModuleLogic" />
+	<!-- 模板管理 -->
+	<bean id="sysModuleOtherLogic" class="cn.yufu.posp.sysModule.domain.logic.SysModuleOtherLogic" />
+	<!-- 卡类型管理-->
+	<bean id="card1TypeLogic" class="cn.yufu.posp.cardtype.domain.logic.Card1TypeLogic" />
+	<!-- bankInfo管理-->
+	<bean id="bankInfoLogic" class="cn.yufu.posp.bank.domain.logic.BankInfoLogic" />
+	<!-- banktype管理-->
+	<bean id="banktypeLogic" class="cn.yufu.posp.bank.domain.logic.BanktypeLogic" />
+	
+	
+	<!-- POS签购单要素设置 -->
+	<bean id="PosReceiptInfoLogic" class="cn.yufu.posp.merchant.domain.logic.PosReceiptInfoLogic" />
+	
+	
+	
+	<!--
+		风险控制 <bean id="riskInfoLogic"> <property
+		name="target"> <bean
+		class="cn.yufu.posp.risk.domain.logic.RiskInfoLogic" />
+		</property> </bean>
+	-->
+	<!-- 业务场景费率 -->
+	<bean id="tabBusinessRatesLogic" class="cn.yufu.posp.merchant.domain.logic.TabBusinessRatesLogic" />
+	<!-- 业务角色菜单 -->
+	<bean id="tabBusRoleMenuLogic" class="cn.yufu.posp.merchant.domain.logic.TabBusRoleMenuLogic" />
+	
+	<!-- 商户交易参数 -->
+	<bean id="tblMerchantTranParamLogic" class="cn.yufu.posp.merchant.domain.logic.TblMerchantTranParamLogic" />
+	
+	<!-- 授权免密卡BIN信息 -->
+	<bean id="tblNoPasswdCardBinLogic" class="cn.yufu.posp.merchant.domain.logic.TblNoPasswdCardBinLogic" />
+	
+</beans>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.IWXDMenuMapper">
+	<sql id="columns">MENUID,MENUTYPE,MENUNAME,MENUKEY,MENUURL,MSGID,PARENTID,MENUORDER,MENULEVEL,MSGTYPE,APPID,MENUSTATUS
+	</sql>
+	<select id="getFirstLeaveMenus" parameterType="WXDMenu" resultType="WXDMenu">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		WXDMENU
+		WHERE
+		PARENTID = 0 and
+		APPID=#{appid}
+		order by
+		MENUORDER asc
+	</select>
+	<select id="queryMenuParams" resultType="WXDMenu">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXDMENU
+		WHERE 1=1
+		<if test="msgId !='' and msgId !=null">
+			and MSGID=#{msgId}
+		</if>
+	</select>
+
+	<select id="getChildMenus" parameterType="WXDMenu"
+		resultType="WXDMenu">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		WXDMENU
+		WHERE
+		PARENTID=#{menuid} and
+		APPID=#{appid}
+		order by
+		MENUORDER asc
+	</select>
+	<select id="getUnSyncMenus" parameterType="WXDMenu"
+		resultType="WXDMenu">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		WXDMENU
+		WHERE
+		APPID=#{appid}
+	</select>
+	<update id="updateMenusStatus" parameterType="String">
+		UPDATE
+		WXDMENU
+		SET
+		MENUSTATUS=#{toStat} WHERE
+		MENUSTATUS=#{stat}
+	</update>
+	<delete id="delChildren" parameterType="int">
+		DELETE FROM
+		WXDMENU WHERE
+		PARENTID=#{parentId}
+	</delete>
+	<delete id="delMenus">
+		DELETE
+		FROM
+		WXDMENU
+		WHERE
+		APPID=#{appid}
+	</delete>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM
+		WXDMENU WHERE
+		MENUID=#{id}
+	</delete>
+	<select id="findById" parameterType="int"
+		resultType="WXDMenu">
+
+		SELECT
+		<include refid="columns"></include>
+		FROM WXDMENU
+		WHERE MENUID=#{id}
+	</select>
+	<update id="updateWXDMenu" parameterType="String">
+		UPDATE
+		WXDMENU
+		SET
+		MENUSTATUS=#{menuStatus}
+		WHERE
+		PARENTID=#{parentId}
+	</update>
+	<insert id="add" parameterType="WXDMenu">
+		insert into WXDMENU
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="menuid != null">
+				MENUID,
+			</if>
+			<if test="menuType != null">
+				MENUTYPE,
+			</if>
+			<if test="menuName != null">
+				MENUNAME,
+			</if>
+			<if test="menuKey != null">
+				MENUKEY,
+			</if>
+			<if test="menuUrl != null">
+				MENUURL,
+			</if>
+			<if test="msgId != null">
+				MSGID,
+			</if>
+			<if test="msgType != null">
+				MSGTYPE,
+			</if>
+			<if test="parentid != null">
+				PARENTID,
+			</if>
+			<if test="menuorder != null">
+				MENUORDER,
+			</if>
+			<if test="menuLevel != null">
+				MENULEVEL,
+			</if>
+			<if test="menuStatus != null">
+				MENUSTATUS,
+			</if>
+			<if test="appid != null">
+				APPID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="menuid != null">
+				#{menuid,jdbcType=VARCHAR},
+			</if>
+			<if test="menuType != null">
+				#{menuType,jdbcType=VARCHAR},
+			</if>
+			<if test="menuName != null">
+				#{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuKey != null">
+				#{menuKey,jdbcType=VARCHAR},
+			</if>
+			<if test="menuUrl != null">
+				#{menuUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="msgId != null">
+				#{msgId,jdbcType=VARCHAR},
+			</if>
+			<if test="msgType != null">
+				#{msgType,jdbcType=VARCHAR},
+			</if>
+			<if test="parentid != null">
+				#{parentid,jdbcType=VARCHAR},
+			</if>
+			<if test="menuorder != null">
+				#{menuorder,jdbcType=VARCHAR},
+			</if>
+			<if test="menuLevel != null">
+				#{menuLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="menuStatus != null">
+				#{menuStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="appid != null">
+				#{appid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="getAllChindrenMenus" parameterType="WXDMenu"
+		resultType="WXDMenu">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		WXDMENU
+		WHERE
+		APPID = #{appid}
+	</select>
+</mapper>

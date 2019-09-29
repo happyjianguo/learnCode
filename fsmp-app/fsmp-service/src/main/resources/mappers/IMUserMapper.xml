@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.IMUserMapper">
+	
+	<insert id="insert" parameterType="IMUser">
+			INSERT INTO FSMUSER (
+				USERID,
+				ORGID,
+			    USERNAME,
+			    PASSWD,
+			    CNAME,
+			    PWDERRNUM,
+			    PHONENO,
+			    EMAIL,
+			    STATUS,
+			    UPDATETIME,
+			    CREATETIME
+			)
+			VALUES
+			(
+				#{userid},
+				#{orgid},
+				#{username},
+				#{passwd},
+				#{cname},
+				'0',
+				#{phoneno},
+				#{email},
+				'1',
+				#{updatetime},
+				#{createtime}
+			)
+	</insert>
+	<insert id="insertNew" parameterType="IMUserN">
+			INSERT INTO FSMUSER (
+				USERID,
+				ORGID,
+			    USERNAME,
+			    PASSWD,
+			    CNAME,
+			    PWDERRNUM,
+			    PHONENO,
+			    EMAIL,
+			    STATUS,
+			    UPDATETIME,
+			    CREATETIME,
+			    MF
+			)
+			VALUES
+			(
+				#{userid},
+				#{orgid},
+				#{username},
+				#{passwd},
+				#{cname},
+				'0',
+				#{phoneno},
+				#{email},
+				#{status},
+				#{updatetime},
+				#{createtime},
+				#{mf}
+			)
+	</insert>
+
+	<!-- 根据用户名查询用户信息 -->
+	<select id="selectOne" resultType="IMUser">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE USERNAME = #{userName}
+	</select>
+	<!-- 根据手机号查询用户信息 -->
+	<select id="selectOneByPhoneno" resultType="IMUser">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE PHONENO = #{phoneno}
+	</select>
+	
+	<!-- 根据手机号查询用户信息 -->
+	<select id="checkInfoExist" resultType="IMUser">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE 1=1
+		<if test="email != null and email !=''">
+			AND EMAIL = #{email}
+		</if>
+		<if test="phoneno != null and phoneno !=''">
+			AND PHONENO = #{phoneno}
+		</if>
+		<if test="username != null and username != ''">
+			AND USERNAME = #{username}
+		</if> 
+		<if test="userid != null and userid !=''">
+			AND USERID != #{userid}
+		</if>
+		
+	</select>
+	
+	
+	<!-- 根据账户信息查询用户信息 -->
+	<select id="select" resultType="IMUser">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE 
+			1=1
+			<if test="username != null and username != ''">
+				AND USERNAME = #{username}
+			</if> 
+			<if test="phoneno != null and phoneno != ''">
+				AND PHONENO = #{phoneno}
+			</if>
+			<if test="mailname != null and mailname != ''">
+				AND EMAIL = #{mailname}
+			</if>  
+			
+	</select>
+	
+	<!-- 根据账户信息查询用户信息 -->
+	<select id="selectInOrg" resultType="IMUserN">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE 
+			1=1
+			<if test="orgid != null and orgid != ''">
+				AND ORGID = #{orgid}
+			</if> 
+	</select>
+	
+	<!-- 根据用户id查询用户信息 -->
+	<select id="selectByUserid"  resultType="IMUser">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE USERID = #{userid}
+	</select>
+	<!-- 根据用户ID查询用户角色列表 -->
+	<select id="queryImuserByUserId" resultType="IMUser">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE USERID = #{userid}
+	</select>
+	<!-- 根据用户ID查询用户角色列表 -->
+	<select id="selectNewByUserid" parameterType="String" resultType="IMUserN">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE USERID = #{userid}
+	</select>
+	<!-- 根据用户名查询用户角色列表 -->
+	<select id="selectNewByUserNameOrPhoneOrEmail" parameterType="String" resultType="IMUserN">
+		SELECT
+			USERID,
+			ORGID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME,
+		    MF
+		FROM
+			FSMUSER 
+		WHERE USERNAME = #{username} or PHONENO = #{username} or EMAIL = #{username}
+	</select>
+	
+	<select id="selectUserRole" resultType="String" parameterType="String">
+		SELECT T.ROLEID FROM FSMUSERROLE T WHERE T.USERID = #{userid}
+	</select>
+	
+	<!-- 根据用户ID查询用户-角色-公众号列表 -->
+	<select id="selectUserRolePlatform" resultType="IMUserRole" parameterType="String">
+				SELECT
+					T.USERID,
+					T.ROLEID,
+					R.ROLENAME,
+					R.PLATFORMID
+				FROM
+					FSMUSERROLE T,
+					FSMROLE R
+				WHERE
+					T.ROLEID = R.ROLEID
+				AND T.USERID = #{userid}
+	</select>
+	<!-- 查询资源对应权限 -->
+	<select id="queryRoleResource" resultType="SysResourceRole">
+		SELECT A.RESOURCEKEY, B.ROLEID
+		FROM
+			FSMRESOURCE A, FSMROLERESOURCE B
+		WHERE
+			A.RESOURCEID = B.RESOURCEID AND A. STATUS = '1' AND B. STATUS = '1' AND a.RESOURCEID NOT LIKE 'sys\_%' AND a.RESOURCEID NOT LIKE 'anonymous\_%'
+		UNION
+		SELECT A.RESOURCEKEY, B.ROLEID
+		FROM
+			FSMRESOURCE A, FSMROLE B
+		WHERE
+			A. STATUS = '1' AND B. STATUS = '1' AND a.RESOURCEID LIKE 'sys\_%'
+		UNION
+		SELECT A.RESOURCEKEY, 'ROLE_ANONYMOUS' as ROLEID
+		FROM
+			FSMRESOURCE A
+		WHERE
+			A. STATUS = '1' AND A.RESOURCEID LIKE 'anonymous\_%'
+	</select>
+	
+	<select id="queryImuser" resultType="IMUser">
+		SELECT 
+			iu.USERID, iu.ORGID,iu.USERNAME,iu.PASSWD,iu.CNAME,iu.PWDERRNUM,iu.phoneno,iu.email,iu.STATUS,iu.UPDATETIME,iu.CREATETIME,iu.MF
+		FROM 
+			 FSMUSER iu
+		WHERE
+			iu.USERID !='admin'
+		    <if test="username!='' and username!=null">
+				and iu.USERNAME like CONCAT('%',#{username},'%' )
+			</if>
+			<if test="cname!='' and cname!=null">
+				and iu.CNAME like CONCAT('%',#{cname},'%' )
+			</if>
+			<if test="userid!='' and userid!=null">
+				and iu.USERID= #{userid}
+			</if>
+		ORDER BY
+			iu.UPDATETIME desc
+	</select>
+	
+	<select id="queryRole" resultType="IMRole">
+		SELECT 
+			 ir.ROLENAME,ir.ROLEID
+		FROM 
+			 FSMUSER iu , FSMUSERROLE iur
+			 , IMROLE ir
+		WHERE
+               iur.userid = iu.userid 
+               and iur.roleid = ir.roleid 
+               and iu.USERID = #{userid}
+		<if test="sRoleId!='' and sRoleId!=null">
+			and ir.ROLEID = #{sRoleId}
+		</if>
+	</select>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateImUser" parameterType="IMUser">
+		UPDATE
+		    	FSMUSER    
+		    <set> 
+		    	<if test="userid != null">
+		    		USERID = #{userid},
+		    	</if>   
+		        <if test="username != null">    
+		            USERNAME = #{username},    
+		        </if>    
+		        <if test="passwd != null">    
+		            PASSWD = #{passwd},    
+		        </if> 
+		        <if test="cname != null">    
+		            CNAME = #{cname},   
+		        </if>
+		        <if test="pwderrnum != null">
+		        	PWDERRNUM = #{pwderrnum},
+		        </if>
+		         <if test="phoneno != null">
+		        	PHONENO = #{phoneno},
+		        </if>
+		         <if test="email != null">
+		        	EMAIL = #{email},
+		        </if>
+		        <if test="status != null">    
+		            STATUS = #{status},    
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		        <if test="createtime != null">    
+		            CREATETIME = #{createtime}    
+		        </if>
+		    </set>    
+		    where USERID = #{userid} 
+	</update>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateImUserN" parameterType="IMUserN">
+		UPDATE
+		    	FSMUSER    
+		    <set> 
+		    	<if test="userid != null">
+		    		USERID = #{userid},
+		    	</if>   
+		        <if test="username != null">    
+		            USERNAME = #{username},    
+		        </if>    
+		        <if test="passwd != null">    
+		            PASSWD = #{passwd},    
+		        </if> 
+		        <if test="cname != null">    
+		            CNAME = #{cname},   
+		        </if>
+		         <if test="mf != null and mf != ''">    
+		            MF = #{mf},   
+		        </if>
+		        <if test="pwderrnum != null">
+		        	PWDERRNUM = #{pwderrnum},
+		        </if>
+		         <if test="phoneno != null">
+		        	PHONENO = #{phoneno},
+		        </if>
+		         <if test="email != null">
+		        	EMAIL = #{email},
+		        </if>
+		        <if test="status != null">    
+		            STATUS = #{status},    
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		        <if test="createtime != null">    
+		            CREATETIME = #{createtime}    
+		        </if>
+		    </set>    
+		    where USERID = #{userid} 
+	</update>
+	
+	
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateImUserErrNum" parameterType="IMUser">
+		UPDATE
+		    	FSMUSER    
+		    <set> 
+		        	PWDERRNUM = CONVERT(PWDERRNUM,SIGNED)+1,
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		    </set>    
+		    where USERNAME = #{username} 
+	</update>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateImUserErr" parameterType="IMUser">
+		UPDATE
+		    	FSMUSER    
+		    <set> 
+		        <if test="pwderrnum != null">
+		        	PWDERRNUM = #{pwderrnum},
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		    </set>    
+		    where USERNAME = #{username} 
+	</update>
+	
+	
+	
+	<delete id="delImUser" parameterType="java.lang.String"> 
+		DELETE FROM FSMUSER where userid in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")">
+		#{idItem}
+		</foreach>
+	</delete>
+</mapper>

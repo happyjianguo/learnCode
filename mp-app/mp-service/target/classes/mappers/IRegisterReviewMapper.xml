@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.review.IRegisterReviewMapper">
+
+	<!-- 初始化用户注册审核列表 -->
+	<select id="query" parameterType="FsmUserEntity" resultType="FsmUserEntity" >
+		SELECT
+				A.USERID,A.ORGID,A.USERNAME,A.PASSWD,A.CNAME,A.PWDERRNUM,A.STATUS,A.UPDATETIME,A.CREATETIME,
+				A.EMAIL,A.PHONENO,A.MF,A.REVIEWPER,A.REVIEWDES,B.ORGNAME
+		FROM
+				FSMUSER A left join CLOUDPLATFORMORGINATION B on A.ORGID = B.ID
+		WHERE 1=1
+			<if test="username!='' and username!=null">
+					AND A.USERNAME LIKE CONCAT('%',#{username},'%')
+			</if>
+			<if test="status!='' and status!=null">
+					AND A.STATUS = #{status} 
+			</if>
+			<if test="orgid!='' and orgid!=null">
+					AND A.ORGID = #{orgid} 
+			</if>
+		ORDER BY UPDATETIME DESC
+<!-- 		ORDER BY UPDATETIME,CREATETIME DESC -->
+	</select>
+	
+	<!-- 根据用户ID查询用户信息 -->
+	<select id="queryByUserId" parameterType="String" resultType="FsmUserEntity" >
+		SELECT
+				USERID,ORGID,USERNAME,PASSWD,CNAME,PWDERRNUM,STATUS,UPDATETIME,CREATETIME,
+				EMAIL,PHONENO,MF,REVIEWPER,REVIEWDES
+		FROM
+				FSMUSER
+		WHERE 1=1
+			AND USERID = #{userid} 
+	</select>
+	
+	<!-- 根据用户姓名查询用户信息 -->
+	<select id="queryByUserName" parameterType="String" resultType="FsmUserEntity" >
+		SELECT
+				USERID,ORGID,USERNAME,PASSWD,CNAME,PWDERRNUM,STATUS,UPDATETIME,CREATETIME,
+				EMAIL,PHONENO,MF,REVIEWPER,REVIEWDES
+		FROM
+				FSMUSER
+		WHERE 1=1
+			AND USERNAME = #{userName} 
+	</select>
+	
+	<!-- 更新用户注册审核状态 -->
+	<update id="updateStatus" parameterType="FsmUserEntity">
+		UPDATE
+			FSMUSER
+		<set>  
+	        <if test="status != '' and status != null">  
+	            STATUS=#{status},
+	        </if>  
+	        <if test="updatetime != '' and updatetime != null">  
+	            UPDATETIME=#{updatetime},  
+	        </if>
+	        <if test="reviewper != '' and reviewper != null">  
+	            REVIEWPER=#{reviewper},  
+	        </if>
+	        <if test="reviewdes != '' and reviewdes != null">  
+	            REVIEWDES=#{reviewdes},  
+	        </if>
+   		</set>
+		WHERE
+			USERID=#{userid}
+	</update>
+	
+	<!-- 编辑用户信息更新操作 -->
+	<update id="updateInfo" parameterType="FsmUserEntity">
+		UPDATE FSMUSER
+			<set>
+				<if test="userid != '' and userid != null">
+					USERID=#{userid},
+				</if>
+				<if test="username != '' and username != null">
+					USERNAME=#{username},
+				</if>
+				<if test="cname != '' and cname != null">
+					CNAME=#{cname},
+				</if>
+				<if test="status != '' and status != null">
+					STATUS=#{status},
+				</if>
+				<if test="passwd != '' and passwd != null">
+					PASSWD=#{passwd},
+				</if>
+				<if test="updatetime != '' and updatetime != null">
+					UPDATETIME=#{updatetime},
+				</if>
+				<if test="email != '' and email != null">
+					EMAIL=#{email},
+				</if>
+				<!-- <if test="phoneno != '' and phoneno != null">
+					PHONENO=#{phoneno},
+				</if> -->
+				<if test="mf != '' and mf != null">
+					MF=#{mf},
+				</if>
+				<if test="orgid != '' and orgid != null">
+					ORGID=#{orgid},
+				</if>
+			</set>
+		WHERE
+			USERID=#{userid} AND PHONENO=#{phoneno}
+	</update>
+	
+	<!-- 编辑用户信息不更新机构 -->
+	<update id="updateInfoNoOrgId" parameterType="FsmUserEntity">
+		UPDATE FSMUSER
+			<set>
+				<if test="userid != '' and userid != null">
+					USERID=#{userid},
+				</if>
+				<if test="username != '' and username != null">
+					USERNAME=#{username},
+				</if>
+				<if test="cname != '' and cname != null">
+					CNAME=#{cname},
+				</if>
+				<if test="status != '' and status != null">
+					STATUS=#{status},
+				</if>
+				<if test="passwd != '' and passwd != null">
+					PASSWD=#{passwd},
+				</if>
+				<if test="updatetime != '' and updatetime != null">
+					UPDATETIME=#{updatetime},
+				</if>
+				<if test="email != '' and email != null">
+					EMAIL=#{email},
+				</if>
+				<!-- <if test="phoneno != '' and phoneno != null">
+					PHONENO=#{phoneno},
+				</if> -->
+				<if test="mf != '' and mf != null">
+					MF=#{mf},
+				</if>
+			</set>
+		WHERE
+			USERID=#{userid} AND PHONENO=#{phoneno}
+	</update>
+	
+	<!-- 新增会员信息 -->
+	<insert id="saveData" parameterType="FsmUserEntity">
+			INSERT INTO FSMUSER (
+				USERID,
+				ORGID,
+				USERNAME,
+				PASSWD,
+				CNAME,
+				PWDERRNUM,
+				STATUS,
+				UPDATETIME,
+				CREATETIME,
+				EMAIL,
+				PHONENO,
+				MF
+			)
+			VALUES
+			(
+				#{userid},
+				#{orgid},
+				#{username},
+				#{passwd},
+				#{cname},
+				#{pwderrnum},
+				#{status},
+				#{updatetime},
+				#{createtime},
+				#{email},
+				#{phoneno},
+				#{mf}
+			)
+	</insert>
+	
+	<!-- 删除会员用户信息 -->
+	<delete id="delMemberInfo" parameterType="String">
+		DELETE FROM
+			FSMUSER
+		WHERE
+			USERID=#{userid}
+	</delete>
+
+</mapper>

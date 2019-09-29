@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.posp.dao.EdcTerminalMapper">
+  <resultMap id="BaseResultMap" type="cn.yufu.posp.entity.EdcTerminal">
+    <result column="MERCHANT_ID" jdbcType="CHAR" property="merchantId" />
+    <result column="TERMINAL_ID" jdbcType="CHAR" property="terminalId" />
+    <result column="TERMINAL_STAT" jdbcType="CHAR" property="terminalStat" />
+    <result column="EDC_TYPE" jdbcType="CHAR" property="edcType" />
+    <result column="EDC_DOC" jdbcType="CHAR" property="edcDoc" />
+    <result column="PRINTER_TYPE" jdbcType="CHAR" property="printerType" />
+    <result column="PINPAD_TYPE" jdbcType="CHAR" property="pinpadType" />
+    <result column="SOFT_VER" jdbcType="CHAR" property="softVer" />
+    <result column="DOWNLOAD_FLAG" jdbcType="CHAR" property="downloadFlag" />
+    <result column="DOWNLOAD_MODE" jdbcType="DECIMAL" property="downloadMode" />
+    <result column="SET_DATE" jdbcType="CHAR" property="setDate" />
+    <result column="SET_ADDR" jdbcType="CHAR" property="setAddr" />
+    <result column="UPDATE_OPER" jdbcType="CHAR" property="updateOper" />
+    <result column="UPDATE_DATE" jdbcType="CHAR" property="updateDate" />
+    <result column="UPDATE_TIME" jdbcType="CHAR" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MERCHANT_ID, TERMINAL_ID, TERMINAL_STAT, EDC_TYPE, EDC_DOC, PRINTER_TYPE, PINPAD_TYPE, 
+    SOFT_VER, DOWNLOAD_FLAG, DOWNLOAD_MODE, SET_DATE, SET_ADDR, UPDATE_OPER, UPDATE_DATE, 
+    UPDATE_TIME
+  </sql>
+  <delete id="delete" parameterType="cn.yufu.posp.entity.EdcTerminalX">
+		delete from edc_terminal_x 
+		WHERE terminal_id = #{terminalId}
+  </delete>
+  <select id="selectByTermCode" parameterType="cn.yufu.posp.entity.EdcTerminal" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from EDC_TERMINAL
+    where TERMINAL_ID = #{terminalId}
+  </select>
+  <select id="selectByExample" parameterType="cn.yufu.posp.entity.EdcTerminalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EDC_TERMINAL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.yufu.posp.entity.EdcTerminalExample">
+    delete from EDC_TERMINAL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.posp.entity.EdcTerminal">
+    insert into EDC_TERMINAL (MERCHANT_ID, TERMINAL_ID, TERMINAL_STAT, 
+      EDC_TYPE, EDC_DOC, PRINTER_TYPE, 
+      PINPAD_TYPE, SOFT_VER, DOWNLOAD_FLAG, 
+      DOWNLOAD_MODE, SET_DATE, SET_ADDR, 
+      UPDATE_OPER, UPDATE_DATE, UPDATE_TIME
+      )
+    values (#{merchantId,jdbcType=CHAR}, #{terminalId,jdbcType=CHAR}, #{terminalStat,jdbcType=CHAR}, 
+      #{edcType,jdbcType=CHAR}, #{edcDoc,jdbcType=CHAR}, #{printerType,jdbcType=CHAR}, 
+      #{pinpadType,jdbcType=CHAR}, #{softVer,jdbcType=CHAR}, #{downloadFlag,jdbcType=CHAR}, 
+      #{downloadMode,jdbcType=DECIMAL}, #{setDate,jdbcType=CHAR}, #{setAddr,jdbcType=CHAR}, 
+      #{updateOper,jdbcType=CHAR}, #{updateDate,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.posp.entity.EdcTerminal">
+    insert into EDC_TERMINAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        MERCHANT_ID,
+      </if>
+      <if test="terminalId != null">
+        TERMINAL_ID,
+      </if>
+      <if test="terminalStat != null">
+        TERMINAL_STAT,
+      </if>
+      <if test="edcType != null">
+        EDC_TYPE,
+      </if>
+      <if test="edcDoc != null">
+        EDC_DOC,
+      </if>
+      <if test="printerType != null">
+        PRINTER_TYPE,
+      </if>
+      <if test="pinpadType != null">
+        PINPAD_TYPE,
+      </if>
+      <if test="softVer != null">
+        SOFT_VER,
+      </if>
+      <if test="downloadFlag != null">
+        DOWNLOAD_FLAG,
+      </if>
+      <if test="downloadMode != null">
+        DOWNLOAD_MODE,
+      </if>
+      <if test="setDate != null">
+        SET_DATE,
+      </if>
+      <if test="setAddr != null">
+        SET_ADDR,
+      </if>
+      <if test="updateOper != null">
+        UPDATE_OPER,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=CHAR},
+      </if>
+      <if test="terminalId != null">
+        #{terminalId,jdbcType=CHAR},
+      </if>
+      <if test="terminalStat != null">
+        #{terminalStat,jdbcType=CHAR},
+      </if>
+      <if test="edcType != null">
+        #{edcType,jdbcType=CHAR},
+      </if>
+      <if test="edcDoc != null">
+        #{edcDoc,jdbcType=CHAR},
+      </if>
+      <if test="printerType != null">
+        #{printerType,jdbcType=CHAR},
+      </if>
+      <if test="pinpadType != null">
+        #{pinpadType,jdbcType=CHAR},
+      </if>
+      <if test="softVer != null">
+        #{softVer,jdbcType=CHAR},
+      </if>
+      <if test="downloadFlag != null">
+        #{downloadFlag,jdbcType=CHAR},
+      </if>
+      <if test="downloadMode != null">
+        #{downloadMode,jdbcType=DECIMAL},
+      </if>
+      <if test="setDate != null">
+        #{setDate,jdbcType=CHAR},
+      </if>
+      <if test="setAddr != null">
+        #{setAddr,jdbcType=CHAR},
+      </if>
+      <if test="updateOper != null">
+        #{updateOper,jdbcType=CHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.posp.entity.EdcTerminalExample" resultType="java.lang.Integer">
+    select count(*) from EDC_TERMINAL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update EDC_TERMINAL
+    <set>
+      <if test="record.merchantId != null">
+        MERCHANT_ID = #{record.merchantId,jdbcType=CHAR},
+      </if>
+      <if test="record.terminalId != null">
+        TERMINAL_ID = #{record.terminalId,jdbcType=CHAR},
+      </if>
+      <if test="record.terminalStat != null">
+        TERMINAL_STAT = #{record.terminalStat,jdbcType=CHAR},
+      </if>
+      <if test="record.edcType != null">
+        EDC_TYPE = #{record.edcType,jdbcType=CHAR},
+      </if>
+      <if test="record.edcDoc != null">
+        EDC_DOC = #{record.edcDoc,jdbcType=CHAR},
+      </if>
+      <if test="record.printerType != null">
+        PRINTER_TYPE = #{record.printerType,jdbcType=CHAR},
+      </if>
+      <if test="record.pinpadType != null">
+        PINPAD_TYPE = #{record.pinpadType,jdbcType=CHAR},
+      </if>
+      <if test="record.softVer != null">
+        SOFT_VER = #{record.softVer,jdbcType=CHAR},
+      </if>
+      <if test="record.downloadFlag != null">
+        DOWNLOAD_FLAG = #{record.downloadFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.downloadMode != null">
+        DOWNLOAD_MODE = #{record.downloadMode,jdbcType=DECIMAL},
+      </if>
+      <if test="record.setDate != null">
+        SET_DATE = #{record.setDate,jdbcType=CHAR},
+      </if>
+      <if test="record.setAddr != null">
+        SET_ADDR = #{record.setAddr,jdbcType=CHAR},
+      </if>
+      <if test="record.updateOper != null">
+        UPDATE_OPER = #{record.updateOper,jdbcType=CHAR},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=CHAR},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update EDC_TERMINAL
+    set MERCHANT_ID = #{record.merchantId,jdbcType=CHAR},
+      TERMINAL_ID = #{record.terminalId,jdbcType=CHAR},
+      TERMINAL_STAT = #{record.terminalStat,jdbcType=CHAR},
+      EDC_TYPE = #{record.edcType,jdbcType=CHAR},
+      EDC_DOC = #{record.edcDoc,jdbcType=CHAR},
+      PRINTER_TYPE = #{record.printerType,jdbcType=CHAR},
+      PINPAD_TYPE = #{record.pinpadType,jdbcType=CHAR},
+      SOFT_VER = #{record.softVer,jdbcType=CHAR},
+      DOWNLOAD_FLAG = #{record.downloadFlag,jdbcType=CHAR},
+      DOWNLOAD_MODE = #{record.downloadMode,jdbcType=DECIMAL},
+      SET_DATE = #{record.setDate,jdbcType=CHAR},
+      SET_ADDR = #{record.setAddr,jdbcType=CHAR},
+      UPDATE_OPER = #{record.updateOper,jdbcType=CHAR},
+      UPDATE_DATE = #{record.updateDate,jdbcType=CHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

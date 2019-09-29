@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.TranRecordTotalMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.TranRecordTotal" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MERCHANTNUMBER" property="merchantnumber" jdbcType="VARCHAR" />
+    <result column="TERMINALNUMBER" property="terminalnumber" jdbcType="VARCHAR" />
+    <result column="CARDNUMBER" property="cardnumber" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONMONEY" property="transactionmoney" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONCOUNT" property="transactionCount" jdbcType="DECIMAL" />
+    <result column="CARDACCOUNTMONEY" property="cardaccountmoney" jdbcType="DECIMAL" />
+    <result column="TRUEACCOUNTMONEY" property="trueaccountmoney" jdbcType="DECIMAL" />
+    <result column="INTEGRATIONACCOUNTMONEY" property="integrationaccountmoney" jdbcType="DECIMAL" />
+    <result column="SERIALNUMBER" property="serialnumber" jdbcType="DECIMAL" />
+    <result column="LOTNO" property="lotno" jdbcType="DECIMAL" />
+    <result column="REFERENCENUMBER" property="referencenumber" jdbcType="VARCHAR" />
+    <result column="RETURNPOINTS" property="returnpoints" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONTYPE" property="transactiontype" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONSTATUS" property="transactionstatus" jdbcType="DECIMAL" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="DECIMAL" />
+    <result column="CARDTYPENAME" property="cardtypename" jdbcType="CHAR" />
+    <result column="MERCHANTTYPE" property="merchanttype" jdbcType="VARCHAR" />
+    <result column="MERCHANTSECTORS" property="merchantsectors" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="CHAR" />
+    <result column="CITY" property="city" jdbcType="CHAR" />
+    <result column="AREA" property="area" jdbcType="CHAR" />
+    <result column="DATASOURCEID" property="datasourceid" jdbcType="DECIMAL" />
+    <result column="ADDDATE" property="adddate" jdbcType="DATE" />
+    <result column="SETTLEMENTACCOUNT" property="settlementaccount" jdbcType="VARCHAR" />
+    <result column="PERFEE" property="perfee" jdbcType="DECIMAL" />
+    <result column="FEE_ORDER" property="feeOrder" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONTIME" property="transactiontime" jdbcType="VARCHAR" />
+    <result column="TERMINALLOCATION" property="terminallocation" jdbcType="VARCHAR" />
+    <result column="DATASOURCE" property="datasource" jdbcType="VARCHAR" />
+    
+    <result column="TLOGID" property="tlogid" jdbcType="DECIMAL" />
+    <result column="TLOGADDDATE" property="tlogadddate" jdbcType="VARCHAR" />
+    <result column="SETTLEMENTDATE" property="settlementdate" jdbcType="VARCHAR" />
+    <result column="ISEXCLUSIVE" property="isexclusive" jdbcType="VARCHAR" />
+    <result column="CONSUMETYPE" property="consumetype" jdbcType="VARCHAR" />
+    <result column="STANORG" property="stanorg" jdbcType="DECIMAL" />
+    <result column="RRN" property="rrn" jdbcType="VARCHAR" />
+    <result column="TERMTYPE" property="termtype" jdbcType="VARCHAR" />
+    <result column="TERMSEQ" property="termseq" jdbcType="DECIMAL" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="AIID" property="aiid" jdbcType="VARCHAR" />
+    <result column="TXNSRC" property="txnsrc" jdbcType="CHAR" />
+    <result column="TXNSRCORG" property="txnsrcorg" jdbcType="CHAR" />
+    <result column="TXNCODE" property="txncode" jdbcType="DECIMAL" />
+    <result column="TXNSTATUS" property="txnstatus" jdbcType="DECIMAL" />
+    <result column="CURTXN" property="curtxn" jdbcType="CHAR" />
+    <result column="AMTTXN" property="amttxn" jdbcType="FLOAT" />
+    <result column="AMTTXNFEE" property="amttxnfee" jdbcType="FLOAT" />
+    <result column="AMTPROCFEE" property="amtprocfee" jdbcType="FLOAT" />
+    <result column="AMTTXNORG" property="amttxnorg" jdbcType="FLOAT" />
+    <result column="ACTYPE1" property="actype1" jdbcType="DECIMAL" />
+    <result column="ACNUM1" property="acnum1" jdbcType="VARCHAR" />
+    <result column="ACTYPE2" property="actype2" jdbcType="DECIMAL" />
+    <result column="ACNUM2" property="acnum2" jdbcType="VARCHAR" />
+    <result column="RSPCODE" property="rspcode" jdbcType="CHAR" />
+    <result column="REASONCODE" property="reasoncode" jdbcType="DECIMAL" />
+    <result column="APRVLCODE" property="aprvlcode" jdbcType="VARCHAR" />
+    <result column="SYSDATES" property="sysdates" jdbcType="DATE" />
+    <result column="RATEBILL" property="ratebill" jdbcType="FLOAT" />
+    <result column="RATESET" property="rateset" jdbcType="FLOAT" />
+    <result column="ADDDATA" property="adddata" jdbcType="VARCHAR" />
+    <result column="SUB_TXNCODE" property="subTxncode" jdbcType="CHAR" />
+    <result column="FLAG" property="flag" jdbcType="CHAR" />
+    <result column="AGETINEGRAL" property="agetinegral" jdbcType="CHAR" />
+    <result column="ORDERNUMBER" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="CHECK_FLAG" property="checkFlag" jdbcType="DECIMAL" />
+    <result column="CLEARBOOK_ID" property="clearbookId" jdbcType="VARCHAR" />
+    <result column="OLDSERIALNUMBER" property="oldserialnumber" jdbcType="DECIMAL" />
+    <result column="OLDLOTNO" property="oldlotno" jdbcType="DECIMAL" />
+    <result column="OLDREFERENCENUMBER" property="oldreferencenumber" jdbcType="DECIMAL" />
+    <result column="OLDTRANSDATE" property="oldtransdate" jdbcType="VARCHAR" />
+    <result column="OLDTRANSTIME" property="oldtranstime" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="CHAR" />
+    <result column="KIND_ID" property="kindId" jdbcType="VARCHAR" />
+    <result column="CO_BRANDED_ACCOUNTMONEY" property="coBrandedAccountmoney" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, MERCHANTNUMBER, TERMINALNUMBER, CARDNUMBER, TRANSACTIONMONEY, CARDACCOUNTMONEY, 
+    TRUEACCOUNTMONEY, INTEGRATIONACCOUNTMONEY, SERIALNUMBER, LOTNO, REFERENCENUMBER, 
+    RETURNPOINTS, TRANSACTIONTYPE, TRANSACTIONSTATUS, CARDTYPE, CARDTYPENAME, MERCHANTTYPE, 
+    MERCHANTSECTORS, PROVINCE, CITY, AREA, DATASOURCEID, ADDDATE, SETTLEMENTACCOUNT, 
+    PERFEE, FEE_ORDER, TRANSACTIONDATE, lpad(TRANSACTIONTIME,6,'0') AS TRANSACTIONTIME, 
+    TERMINALLOCATION, DATASOURCE, 
+    TLOGID, TLOGADDDATE, SETTLEMENTDATE, ISEXCLUSIVE, CONSUMETYPE, STANORG, RRN, TERMTYPE, 
+    TERMSEQ, PAN, AIID, TXNSRC, TXNSRCORG, TXNCODE, TXNSTATUS, CURTXN, AMTTXN, AMTTXNFEE, 
+    AMTPROCFEE, AMTTXNORG, ACTYPE1, ACNUM1, ACTYPE2, ACNUM2, RSPCODE, REASONCODE, APRVLCODE, 
+    SYSDATES, RATEBILL, RATESET, ADDDATA, SUB_TXNCODE, FLAG, AGETINEGRAL, ORDERNUMBER, 
+    CHECK_FLAG, CLEARBOOK_ID, OLDSERIALNUMBER, OLDLOTNO, OLDREFERENCENUMBER, OLDTRANSDATE, 
+    OLDTRANSTIME, BUSINESS_ID, KIND_ID, CO_BRANDED_ACCOUNTMONEY
+  </sql>
+  
+  <select id="queryTlogCount" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM T_TRANSACTION_RECORDS_HIS
+  	<include refid="Base_Query_All_Condition" />
+  </select>
+  
+  <select id="queryTlogList" resultMap="BaseResultMap">
+    SELECT * FROM (SELECT t.*, ROWNUM rn FROM( SELECT  
+    <include refid="Base_Column_List" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_Page_Condition" />
+    ORDER BY TRANSACTIONDATE DESC, TRANSACTIONTIME DESC ) t
+    WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="queryTlogExcel" resultMap="BaseResultMap">
+    SELECT  
+    <include refid="Base_Column_List" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_All_Condition" />
+    ORDER BY TRANSACTIONDATE DESC, TRANSACTIONTIME DESC
+  </select>
+  
+  <select id="getSumAmt" resultType="java.lang.String">
+  	SELECT ROUND(SUM(TRANSACTIONMONEY), 2) AS TRANSACTIONMONEY FROM T_TRANSACTION_RECORDS_HIS
+  	<include refid="Base_Query_All_Condition" />
+  </select>
+  
+  <sql id="Base_Column_List_Mrch" >
+    MERCHANTNUMBER, SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY,
+    COUNT(*) AS TRANSACTIONCOUNT, SUM(PERFEE) AS PERFEE 
+  </sql>
+
+  <sql id="Base_Column_List_Term" >
+    TERMINALNUMBER, TERMINALLOCATION, SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY,
+    COUNT(*) AS TRANSACTIONCOUNT, SUM(PERFEE) AS PERFEE
+  </sql>
+  
+  <sql id="Base_Column_List_Mrch_Term" >
+    MERCHANTNUMBER, TERMINALNUMBER, TERMINALLOCATION, SUM(PERFEE) AS PERFEE,
+    SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY, COUNT(*) AS TRANSACTIONCOUNT
+  </sql>
+  
+  <sql id="Base_Column_List_Pan" >
+    MERCHANTNUMBER, CARDNUMBER, SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY,
+    COUNT(*) AS TRANSACTIONCOUNT
+  </sql>
+  
+  <sql id="Base_Column_List_CardType" >
+    CARDTYPE, CARDTYPENAME, SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY,
+    COUNT(*) AS TRANSACTIONCOUNT
+  </sql>
+  
+  <sql id="Base_Query_Page_Condition">
+  	<where>
+  		<if test="queryModel.transactiondateStart != null and queryModel.transactiondateStart.trim().length() != 0">
+	  		AND <![CDATA[ TRANSACTIONDATE >= #{queryModel.transactiondateStart} ]]>
+	  	</if>
+	  	<if test="queryModel.transactiondateEnd != null and queryModel.transactiondateEnd.trim().length() != 0">
+	  		AND <![CDATA[ TRANSACTIONDATE <= #{queryModel.transactiondateEnd} ]]>
+	  	</if> 
+	  	<if test="queryModel.begainCardNo != null and queryModel.begainCardNo.trim().length() != 0">
+			AND CARDNUMBER BETWEEN CONCAT(#{queryModel.begainCardNo}, '0') AND CONCAT(#{queryModel.endCardNo}, '9')   
+		</if> 
+		<if test="queryModel.datasourceid != null">
+			AND DATASOURCEID = #{queryModel.datasourceid}
+		</if> 
+		<if test="queryModel.consumetype != null and queryModel.consumetype.trim().length() != 0">
+	  		AND CONSUMETYPE = #{queryModel.consumetype}
+	  	</if> 
+	  	<if test="queryModel.merchantnumber != null and queryModel.merchantnumber.trim().length() != 0">
+	  		AND MERCHANTNUMBER = #{queryModel.merchantnumber}
+	  	</if> 
+	  	<if test="queryModel.terminalnumber != null and queryModel.terminalnumber.trim().length() != 0">
+	  		AND TERMINALNUMBER = #{queryModel.terminalnumber}
+	  	</if> 
+	  	<if test="queryModel.cardnumber != null and queryModel.cardnumber.trim().length() != 0">
+	  		AND CARDNUMBER = #{queryModel.cardnumber}
+	  	</if>
+	  	<if test="queryModel.begainPan != null and queryModel.begainPan.trim().length() != 0">
+			AND SUBSTR(CARDNUMBER, 0, 15) BETWEEN SUBSTR(#{queryModel.begainPan}, 0, 15) 
+			AND SUBSTR(#{queryModel.endPan}, 0, 15)
+		</if> 
+	  	<if test="queryModel.cardtype != null">
+	  		AND CARDTYPE = #{queryModel.cardtype}
+	  	</if>  
+	  	<if test="queryModel.cardTypeList != null">
+			AND CARDTYPE IN 
+			<foreach collection="queryModel.cardTypeList" index="index" item="cardtype" open="(" separator="," close=")">
+               	#{cardtype}       
+      		</foreach> 
+		</if>
+  	</where>
+  </sql>
+  
+  <sql id="Base_Query_All_Condition">
+  	<where>
+  		<if test="transactiondateStart != null and transactiondateStart.trim().length() != 0">
+	  		AND <![CDATA[ TRANSACTIONDATE >= #{transactiondateStart} ]]>
+	  	</if>
+	  	<if test="transactiondateEnd != null and transactiondateEnd.trim().length() != 0">
+	  		AND <![CDATA[ TRANSACTIONDATE <= #{transactiondateEnd} ]]>
+	  	</if> 
+	  	<if test="begainCardNo != null and begainCardNo.trim().length() != 0">
+			AND CARDNUMBER BETWEEN CONCAT(#{begainCardNo}, '0') AND CONCAT(#{endCardNo}, '9')   
+		</if> 
+		<if test="datasourceid != null">
+			AND DATASOURCEID = #{datasourceid}
+		</if> 
+		<if test="consumetype != null and consumetype.trim().length() != 0">
+	  		AND CONSUMETYPE = #{consumetype}
+	  	</if> 
+	  	<if test="merchantnumber != null and merchantnumber.trim().length() != 0">
+	  		AND MERCHANTNUMBER = #{merchantnumber}
+	  	</if> 
+	  	<if test="terminalnumber != null and terminalnumber.trim().length() != 0">
+	  		AND TERMINALNUMBER = #{terminalnumber}
+	  	</if> 
+	  	<if test="cardnumber != null and cardnumber.trim().length() != 0">
+	  		AND CARDNUMBER = #{cardnumber}
+	  	</if> 
+	  	<if test="begainPan != null and begainPan.trim().length() != 0">
+			AND SUBSTR(CARDNUMBER, 0, 15) BETWEEN SUBSTR(#{begainPan}, 0, 15) 
+			AND SUBSTR(#{endPan}, 0, 15)
+		</if>
+	  	<if test="cardtype != null">
+	  		AND CARDTYPE = #{cardtype}
+	  	</if>  
+	  	<if test="cardTypeList != null">
+			AND CARDTYPE IN 
+			<foreach collection="cardTypeList" index="index" item="cardtype" open="(" separator="," close=")">
+               	#{cardtype}       
+      		</foreach> 
+		</if>
+  	</where>
+  </sql>
+  
+  <select id="queryCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM(
+    	SELECT 
+	    <if test="queryType != null and queryType == '0'.toString()">
+	    	<include refid="Base_Column_List_Mrch" />
+	    </if>
+	    <if test="queryType != null and queryType == '1'.toString()">
+	    	<include refid="Base_Column_List_Term" />
+	    </if>
+	    <if test="queryType != null and queryType == '2'.toString()">
+	    	<include refid="Base_Column_List_Mrch_Term" />
+	    </if>
+	    <if test="queryType != null and queryType == '3'.toString()">
+	    	<include refid="Base_Column_List_Pan" />
+	    </if>
+	    <if test="queryType != null and queryType == '4'.toString()">
+	    	<include refid="Base_Column_List_CardType" />
+	    </if>
+	    FROM T_TRANSACTION_RECORDS_HIS
+	    <include refid="Base_Query_All_Condition" />
+	    <if test="queryType != null and queryType == '0'.toString()">
+	    	GROUP BY MERCHANTNUMBER 
+	    </if>
+	    <if test="queryType != null and queryType == '1'.toString()">
+	    	GROUP BY TERMINALNUMBER, TERMINALLOCATION
+	    </if>
+	    <if test="queryType != null and queryType == '2'.toString()">
+	    	GROUP BY MERCHANTNUMBER, TERMINALNUMBER, TERMINALLOCATION
+	    </if>
+	    <if test="queryType != null and queryType == '3'.toString()">
+	    	GROUP BY MERCHANTNUMBER, CARDNUMBER
+	    </if>
+	    <if test="queryType != null and queryType == '4'.toString()">
+	    	GROUP BY CARDTYPE, CARDTYPENAME 
+	    </if>
+    )
+  </select>
+  
+  <select id="getDataByMrch" resultMap="BaseResultMap">
+    SELECT * FROM (SELECT t.*, ROWNUM rn FROM( SELECT 
+    <include refid="Base_Column_List_Mrch" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_Page_Condition" />
+    GROUP BY MERCHANTNUMBER ORDER BY TRANSACTIONMONEY DESC) t
+    WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="getExcelDataByMrch" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List_Mrch" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_All_Condition" />
+    GROUP BY MERCHANTNUMBER ORDER BY TRANSACTIONMONEY DESC
+  </select>
+
+  
+  <select id="getDataByTerm" resultMap="BaseResultMap">
+    SELECT * FROM (SELECT t.*, ROWNUM rn FROM( SELECT 
+    <include refid="Base_Column_List_Term" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_Page_Condition" />
+    GROUP BY TERMINALNUMBER, TERMINALLOCATION ORDER BY TRANSACTIONMONEY DESC) t
+    WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="getExcelDataByTerm" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List_Term" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_All_Condition" />
+    GROUP BY TERMINALNUMBER, TERMINALLOCATION ORDER BY TRANSACTIONMONEY DESC
+  </select>
+  
+  
+  <select id="getDataByMrchAndTerm" resultMap="BaseResultMap">
+    SELECT * FROM (SELECT t.*, ROWNUM rn FROM( SELECT  
+    <include refid="Base_Column_List_Mrch_Term" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_Page_Condition" />
+    GROUP BY MERCHANTNUMBER, TERMINALNUMBER, TERMINALLOCATION 
+    ORDER BY TRANSACTIONMONEY DESC) t
+    WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="getExcelDataByMrchAndTerm" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List_Mrch_Term" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_All_Condition" />
+    GROUP BY MERCHANTNUMBER, TERMINALNUMBER, TERMINALLOCATION
+    ORDER BY TRANSACTIONMONEY DESC
+  </select>
+  
+  
+  <select id="getDataByPan" resultMap="BaseResultMap">
+    SELECT * FROM (SELECT t.*, ROWNUM rn FROM( SELECT  
+    <include refid="Base_Column_List_Pan" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_Page_Condition" />
+    GROUP BY MERCHANTNUMBER, CARDNUMBER ORDER BY TRANSACTIONMONEY DESC) t
+    WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="getExcelDataByPan" resultMap="BaseResultMap">
+    SELECT   
+    <include refid="Base_Column_List_Pan" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_All_Condition" />
+    GROUP BY MERCHANTNUMBER, CARDNUMBER ORDER BY TRANSACTIONMONEY DESC
+  </select>
+  
+  
+  <select id="getDataByCardType" resultMap="BaseResultMap">
+    SELECT * FROM (SELECT t.*, ROWNUM rn FROM( SELECT  
+    <include refid="Base_Column_List_CardType" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_Page_Condition" />
+    GROUP BY CARDTYPE, CARDTYPENAME ORDER BY TRANSACTIONMONEY DESC) t
+    WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="getExcelDataByCardType" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List_CardType" />
+    FROM T_TRANSACTION_RECORDS_HIS
+    <include refid="Base_Query_All_Condition" />
+    GROUP BY CARDTYPE, CARDTYPENAME ORDER BY TRANSACTIONMONEY DESC
+  </select>
+  
+</mapper>

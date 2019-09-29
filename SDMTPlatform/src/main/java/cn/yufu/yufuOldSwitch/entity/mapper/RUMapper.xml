@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.yufuOldSwitch.dao.RUMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.yufuOldSwitch.entity.RU" >
+    <id column="lRUID" property="lruid" jdbcType="CHAR" />
+    <result column="sRU" property="sru" jdbcType="VARCHAR" />
+    <result column="sContact" property="scontact" jdbcType="VARCHAR" />
+    <result column="sPhone" property="sphone" jdbcType="VARCHAR" />
+    <result column="sAddr1" property="saddr1" jdbcType="VARCHAR" />
+    <result column="sCode" property="scode" jdbcType="CHAR" />
+    <result column="dtime" property="dtime" jdbcType="TIMESTAMP" />
+    <result column="passwd" property="passwd" jdbcType="NVARCHAR" />
+    <result column="sta" property="sta" jdbcType="CHAR" />
+    <result column="traffic" property="traffic" jdbcType="VARCHAR" />
+    <result column="guidepost" property="guidepost" jdbcType="VARCHAR" />
+    <result column="Picture" property="picture" jdbcType="VARCHAR" />
+    <result column="cityid" property="cityid" jdbcType="INTEGER" />
+    <result column="ruflag" property="ruflag" jdbcType="INTEGER" />
+    <result column="zshflag" property="zshflag" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="RuType" property="rutype" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.yufu.yufuOldSwitch.entity.RU" extends="BaseResultMap" >
+    <result column="Explanation" property="explanation" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    lRUID, sRU, sContact, sPhone, sAddr1, sCode, dtime, passwd, sta, traffic, guidepost, 
+    Picture, cityid, ruflag, zshflag, fid, RuType
+  </sql>
+  <sql id="Blob_Column_List" >
+    Explanation
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.yufu.yufuOldSwitch.entity.RUExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from RU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.yufuOldSwitch.entity.RUExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from RU
+    where lRUID = #{lruid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from RU
+    where lRUID = #{lruid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.yufuOldSwitch.entity.RUExample" >
+    delete from RU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.yufuOldSwitch.entity.RU" >
+    insert into RU (lRUID, sRU, sContact, 
+      sPhone, sAddr1, sCode, 
+      dtime, passwd, sta, 
+      traffic, guidepost, Picture, 
+      cityid, ruflag, zshflag, 
+      fid, RuType, Explanation
+      )
+    values (#{lruid,jdbcType=CHAR}, #{sru,jdbcType=VARCHAR}, #{scontact,jdbcType=VARCHAR}, 
+      #{sphone,jdbcType=VARCHAR}, #{saddr1,jdbcType=VARCHAR}, #{scode,jdbcType=CHAR}, 
+      #{dtime,jdbcType=TIMESTAMP}, #{passwd,jdbcType=NVARCHAR}, #{sta,jdbcType=CHAR}, 
+      #{traffic,jdbcType=VARCHAR}, #{guidepost,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
+      #{cityid,jdbcType=INTEGER}, #{ruflag,jdbcType=INTEGER}, #{zshflag,jdbcType=INTEGER}, 
+      #{fid,jdbcType=INTEGER}, #{rutype,jdbcType=INTEGER}, #{explanation,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.yufuOldSwitch.entity.RU" >
+    insert into RU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lruid != null" >
+        lRUID,
+      </if>
+      <if test="sru != null" >
+        sRU,
+      </if>
+      <if test="scontact != null" >
+        sContact,
+      </if>
+      <if test="sphone != null" >
+        sPhone,
+      </if>
+      <if test="saddr1 != null" >
+        sAddr1,
+      </if>
+      <if test="scode != null" >
+        sCode,
+      </if>
+      <if test="dtime != null" >
+        dtime,
+      </if>
+      <if test="passwd != null" >
+        passwd,
+      </if>
+      <if test="sta != null" >
+        sta,
+      </if>
+      <if test="traffic != null" >
+        traffic,
+      </if>
+      <if test="guidepost != null" >
+        guidepost,
+      </if>
+      <if test="picture != null" >
+        Picture,
+      </if>
+      <if test="cityid != null" >
+        cityid,
+      </if>
+      <if test="ruflag != null" >
+        ruflag,
+      </if>
+      <if test="zshflag != null" >
+        zshflag,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="rutype != null" >
+        RuType,
+      </if>
+      <if test="explanation != null" >
+        Explanation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lruid != null" >
+        #{lruid,jdbcType=CHAR},
+      </if>
+      <if test="sru != null" >
+        #{sru,jdbcType=VARCHAR},
+      </if>
+      <if test="scontact != null" >
+        #{scontact,jdbcType=VARCHAR},
+      </if>
+      <if test="sphone != null" >
+        #{sphone,jdbcType=VARCHAR},
+      </if>
+      <if test="saddr1 != null" >
+        #{saddr1,jdbcType=VARCHAR},
+      </if>
+      <if test="scode != null" >
+        #{scode,jdbcType=CHAR},
+      </if>
+      <if test="dtime != null" >
+        #{dtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=NVARCHAR},
+      </if>
+      <if test="sta != null" >
+        #{sta,jdbcType=CHAR},
+      </if>
+      <if test="traffic != null" >
+        #{traffic,jdbcType=VARCHAR},
+      </if>
+      <if test="guidepost != null" >
+        #{guidepost,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null" >
+        #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="ruflag != null" >
+        #{ruflag,jdbcType=INTEGER},
+      </if>
+      <if test="zshflag != null" >
+        #{zshflag,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="rutype != null" >
+        #{rutype,jdbcType=INTEGER},
+      </if>
+      <if test="explanation != null" >
+        #{explanation,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.yufuOldSwitch.entity.RUExample" resultType="java.lang.Integer" >
+    select count(*) from RU
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update RU
+    <set >
+      <if test="record.lruid != null" >
+        lRUID = #{record.lruid,jdbcType=CHAR},
+      </if>
+      <if test="record.sru != null" >
+        sRU = #{record.sru,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scontact != null" >
+        sContact = #{record.scontact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sphone != null" >
+        sPhone = #{record.sphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saddr1 != null" >
+        sAddr1 = #{record.saddr1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scode != null" >
+        sCode = #{record.scode,jdbcType=CHAR},
+      </if>
+      <if test="record.dtime != null" >
+        dtime = #{record.dtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.passwd != null" >
+        passwd = #{record.passwd,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.sta != null" >
+        sta = #{record.sta,jdbcType=CHAR},
+      </if>
+      <if test="record.traffic != null" >
+        traffic = #{record.traffic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidepost != null" >
+        guidepost = #{record.guidepost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        Picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityid != null" >
+        cityid = #{record.cityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ruflag != null" >
+        ruflag = #{record.ruflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.zshflag != null" >
+        zshflag = #{record.zshflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rutype != null" >
+        RuType = #{record.rutype,jdbcType=INTEGER},
+      </if>
+      <if test="record.explanation != null" >
+        Explanation = #{record.explanation,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update RU
+    set lRUID = #{record.lruid,jdbcType=CHAR},
+      sRU = #{record.sru,jdbcType=VARCHAR},
+      sContact = #{record.scontact,jdbcType=VARCHAR},
+      sPhone = #{record.sphone,jdbcType=VARCHAR},
+      sAddr1 = #{record.saddr1,jdbcType=VARCHAR},
+      sCode = #{record.scode,jdbcType=CHAR},
+      dtime = #{record.dtime,jdbcType=TIMESTAMP},
+      passwd = #{record.passwd,jdbcType=NVARCHAR},
+      sta = #{record.sta,jdbcType=CHAR},
+      traffic = #{record.traffic,jdbcType=VARCHAR},
+      guidepost = #{record.guidepost,jdbcType=VARCHAR},
+      Picture = #{record.picture,jdbcType=VARCHAR},
+      cityid = #{record.cityid,jdbcType=INTEGER},
+      ruflag = #{record.ruflag,jdbcType=INTEGER},
+      zshflag = #{record.zshflag,jdbcType=INTEGER},
+      fid = #{record.fid,jdbcType=INTEGER},
+      RuType = #{record.rutype,jdbcType=INTEGER},
+      Explanation = #{record.explanation,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update RU
+    set lRUID = #{record.lruid,jdbcType=CHAR},
+      sRU = #{record.sru,jdbcType=VARCHAR},
+      sContact = #{record.scontact,jdbcType=VARCHAR},
+      sPhone = #{record.sphone,jdbcType=VARCHAR},
+      sAddr1 = #{record.saddr1,jdbcType=VARCHAR},
+      sCode = #{record.scode,jdbcType=CHAR},
+      dtime = #{record.dtime,jdbcType=TIMESTAMP},
+      passwd = #{record.passwd,jdbcType=NVARCHAR},
+      sta = #{record.sta,jdbcType=CHAR},
+      traffic = #{record.traffic,jdbcType=VARCHAR},
+      guidepost = #{record.guidepost,jdbcType=VARCHAR},
+      Picture = #{record.picture,jdbcType=VARCHAR},
+      cityid = #{record.cityid,jdbcType=INTEGER},
+      ruflag = #{record.ruflag,jdbcType=INTEGER},
+      zshflag = #{record.zshflag,jdbcType=INTEGER},
+      fid = #{record.fid,jdbcType=INTEGER},
+      RuType = #{record.rutype,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.yufuOldSwitch.entity.RU" >
+    update RU
+    <set >
+      <if test="sru != null" >
+        sRU = #{sru,jdbcType=VARCHAR},
+      </if>
+      <if test="scontact != null" >
+        sContact = #{scontact,jdbcType=VARCHAR},
+      </if>
+      <if test="sphone != null" >
+        sPhone = #{sphone,jdbcType=VARCHAR},
+      </if>
+      <if test="saddr1 != null" >
+        sAddr1 = #{saddr1,jdbcType=VARCHAR},
+      </if>
+      <if test="scode != null" >
+        sCode = #{scode,jdbcType=CHAR},
+      </if>
+      <if test="dtime != null" >
+        dtime = #{dtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passwd != null" >
+        passwd = #{passwd,jdbcType=NVARCHAR},
+      </if>
+      <if test="sta != null" >
+        sta = #{sta,jdbcType=CHAR},
+      </if>
+      <if test="traffic != null" >
+        traffic = #{traffic,jdbcType=VARCHAR},
+      </if>
+      <if test="guidepost != null" >
+        guidepost = #{guidepost,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        Picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null" >
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+      <if test="ruflag != null" >
+        ruflag = #{ruflag,jdbcType=INTEGER},
+      </if>
+      <if test="zshflag != null" >
+        zshflag = #{zshflag,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="rutype != null" >
+        RuType = #{rutype,jdbcType=INTEGER},
+      </if>
+      <if test="explanation != null" >
+        Explanation = #{explanation,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where lRUID = #{lruid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.yufu.yufuOldSwitch.entity.RU" >
+    update RU
+    set sRU = #{sru,jdbcType=VARCHAR},
+      sContact = #{scontact,jdbcType=VARCHAR},
+      sPhone = #{sphone,jdbcType=VARCHAR},
+      sAddr1 = #{saddr1,jdbcType=VARCHAR},
+      sCode = #{scode,jdbcType=CHAR},
+      dtime = #{dtime,jdbcType=TIMESTAMP},
+      passwd = #{passwd,jdbcType=NVARCHAR},
+      sta = #{sta,jdbcType=CHAR},
+      traffic = #{traffic,jdbcType=VARCHAR},
+      guidepost = #{guidepost,jdbcType=VARCHAR},
+      Picture = #{picture,jdbcType=VARCHAR},
+      cityid = #{cityid,jdbcType=INTEGER},
+      ruflag = #{ruflag,jdbcType=INTEGER},
+      zshflag = #{zshflag,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      RuType = #{rutype,jdbcType=INTEGER},
+      Explanation = #{explanation,jdbcType=LONGVARCHAR}
+    where lRUID = #{lruid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.yufuOldSwitch.entity.RU" >
+    update RU
+    set sRU = #{sru,jdbcType=VARCHAR},
+      sContact = #{scontact,jdbcType=VARCHAR},
+      sPhone = #{sphone,jdbcType=VARCHAR},
+      sAddr1 = #{saddr1,jdbcType=VARCHAR},
+      sCode = #{scode,jdbcType=CHAR},
+      dtime = #{dtime,jdbcType=TIMESTAMP},
+      passwd = #{passwd,jdbcType=NVARCHAR},
+      sta = #{sta,jdbcType=CHAR},
+      traffic = #{traffic,jdbcType=VARCHAR},
+      guidepost = #{guidepost,jdbcType=VARCHAR},
+      Picture = #{picture,jdbcType=VARCHAR},
+      cityid = #{cityid,jdbcType=INTEGER},
+      ruflag = #{ruflag,jdbcType=INTEGER},
+      zshflag = #{zshflag,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      RuType = #{rutype,jdbcType=INTEGER}
+    where lRUID = #{lruid,jdbcType=CHAR}
+  </update>
+</mapper>

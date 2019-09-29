@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.mapper.weixin.TemplateinfMapper">
+<insert id="insert" parameterType="TemplateinfEntity">
+		INSERT INTO TEMPLATEINF
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tempid != null">
+				TEMPID,
+			</if>
+			<if test="tempname != null">
+				TEMPNAME,
+			</if>
+			<if test="usetimes != null">
+				USETIMES,
+			</if>
+			<if test="tempstatus !=null">
+				TEMPSTATUS,
+			</if>
+			<if test="updatetime != null">
+				UPDATETIME,
+			</if>
+			<if test="createtime != null">
+				CREATETIME
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tempid != null">
+				#{tempid,jdbcType=VARCHAR},
+			</if>
+			<if test="tempname != null">
+				#{tempname,jdbcType=VARCHAR},
+			</if>
+			<if test="usetimes != null">
+				#{usetimes,jdbcType=INTEGER},
+			</if>
+			<if test="tempstatus != null">
+				#{tempstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime},
+			</if>
+			<if test="createtime != null">
+				#{createtime}
+			</if>
+		</trim>
+	</insert>
+    <select id="query" resultType="TemplateinfEntity">
+           SELECT
+                 TEMPID,
+                 TEMPNAME,
+                 USETIMES,
+                 TEMPSTATUS,
+                 UPDATETIME,
+                 CREATETIME
+           FROM 
+                TEMPLATEINF
+    </select>
+
+</mapper>

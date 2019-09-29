@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdFeeRefundOrderDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.CrdFeeRefundOrder" >
+    <result column="CRDFEELOG_ID" property="crdfeelogId" jdbcType="VARCHAR" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="MERCHANTNO" property="merchantno" jdbcType="VARCHAR" />
+    <result column="TERMCODE" property="termcode" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="TLOG_ID" property="tlogId" jdbcType="DECIMAL" />
+    <result column="TRAN_DATE" property="tranDate" jdbcType="VARCHAR" />
+    <result column="TRAN_TIME" property="tranTime" jdbcType="VARCHAR" />
+    <result column="STAN" property="stan" jdbcType="DECIMAL" />
+    <result column="RRN" property="rrn" jdbcType="VARCHAR" />
+    <result column="TXNCODE" property="txncode" jdbcType="DECIMAL" />
+    <result column="TXNSRC" property="txnsrc" jdbcType="VARCHAR" />
+    <result column="RSPCODE" property="rspcode" jdbcType="CHAR" />
+    <result column="TXNSTATUS" property="txnstatus" jdbcType="DECIMAL" />
+    <result column="ADDDATE" property="adddate" jdbcType="VARCHAR" />
+    <result column="ADDTIME" property="addtime" jdbcType="VARCHAR" />
+    <result column="REFUNDFLAG" property="refundflag" jdbcType="DECIMAL" />
+    <result column="OPER" property="oper" jdbcType="VARCHAR" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="RESERVED3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="RESERVED4" property="reserved4" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    to_char(CRDFEELOG_ID) AS CRDFEELOG_ID, PAN, MERCHANTNO, TERMCODE, FEE, TLOG_ID, 
+    TRAN_DATE, TRAN_TIME, STAN, RRN, TXNCODE, TXNSRC, RSPCODE, TXNSTATUS, ADDDATE, 
+    lpad(ADDTIME,6,'0') AS ADDTIME, REFUNDFLAG, OPER, RESERVED1, RESERVED2, RESERVED3, 
+    RESERVED4
+  </sql>
+  
+  <sql id="Base_Order_By">
+  	ORDER BY ADDDATE DESC, ADDTIME DESC 
+  </sql>
+  
+  <sql id="Base_Where_Condition">
+  	<where>
+  		<if test="merchantno != null and merchantno.trim().length() != 0">
+	    	AND MERCHANTNO = #{merchantno}
+	    </if>
+	    <if test="termcode != null and termcode.trim().length() != 0">
+	    	AND TERMCODE = #{termcode}
+	    </if>
+	    <if test="pan != null and pan.trim().length() != 0">
+	    	AND PAN = #{pan}
+	    </if>
+	    <if test="begainTranDate != null and begainTranDate.trim().length() != 0">
+	    	AND <![CDATA[ TRAN_DATE >= #{begainTranDate} ]]>
+	    </if>
+	    <if test="endTranDate != null and endTranDate.trim().length() != 0">
+	    	AND <![CDATA[ TRAN_DATE <= #{endTranDate} ]]>
+	    </if>
+	    <if test="begainAdddate != null and begainAdddate.trim().length() != 0">
+	    	AND <![CDATA[ ADDDATE >= #{begainAdddate} ]]>
+	    </if>
+	    <if test="endAdddate != null and endAdddate.trim().length() != 0">
+	    	AND <![CDATA[ ADDDATE <= #{endAdddate} ]]>
+	    </if>
+	    <if test="refundflag != null">
+	    	AND REFUNDFLAG = #{refundflag}
+	    </if>
+  	</where>
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM CRDFEEREFUNDORDER WHERE CRDFEELOG_ID = #{crdfeelogId}
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT 	<include refid="Base_Column_List" />
+   	FROM CRDFEEREFUNDORDER  <include refid="Base_Where_Condition" /> 
+    <include refid="Base_Order_By" />
+  </select>
+  
+  <select id="getRefundSum" resultType="java.math.BigDecimal">
+    SELECT SUM(FEE) AS FEE FROM CRDFEEREFUNDORDER 
+    <include refid="Base_Where_Condition" />
+  </select>
+  
+  <delete id="delete">
+    DELETE FROM CRDFEEREFUNDORDER WHERE CRDFEELOG_ID = #{crdfeelogId}
+  </delete>
+  
+  <insert id="insert" >
+    INSERT INTO CRDFEEREFUNDORDER (CRDFEELOG_ID, PAN, MERCHANTNO, 
+      TERMCODE, FEE, TLOG_ID, 
+      TRAN_DATE, TRAN_TIME, STAN, 
+      RRN, TXNCODE, TXNSRC, 
+      RSPCODE, TXNSTATUS, ADDDATE, 
+      ADDTIME, REFUNDFLAG, OPER)
+    VALUES (#{crdfeelogId}, #{pan,jdbcType=VARCHAR}, #{merchantno,jdbcType=VARCHAR}, 
+      #{termcode,jdbcType=VARCHAR}, #{fee,jdbcType=FLOAT}, #{tlogId,jdbcType=DECIMAL}, 
+      #{tranDate,jdbcType=VARCHAR}, #{tranTime,jdbcType=VARCHAR}, #{stan,jdbcType=DECIMAL}, 
+      #{rrn,jdbcType=VARCHAR}, #{txncode,jdbcType=DECIMAL}, #{txnsrc,jdbcType=VARCHAR}, 
+      #{rspcode,jdbcType=CHAR}, #{txnstatus,jdbcType=DECIMAL}, #{adddate,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=VARCHAR}, #{refundflag,jdbcType=DECIMAL}, #{oper,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective">
+    INSERT INTO CRDFEEREFUNDORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="crdfeelogId != null" >
+        CRDFEELOG_ID,
+      </if>
+      <if test="pan != null" >
+        PAN,
+      </if>
+      <if test="merchantno != null" >
+        MERCHANTNO,
+      </if>
+      <if test="termcode != null" >
+        TERMCODE,
+      </if>
+      <if test="fee != null" >
+        FEE,
+      </if>
+      <if test="tlogId != null" >
+        TLOG_ID,
+      </if>
+      <if test="tranDate != null" >
+        TRAN_DATE,
+      </if>
+      <if test="tranTime != null" >
+        TRAN_TIME,
+      </if>
+      <if test="stan != null" >
+        STAN,
+      </if>
+      <if test="rrn != null" >
+        RRN,
+      </if>
+      <if test="txncode != null" >
+        TXNCODE,
+      </if>
+      <if test="txnsrc != null" >
+        TXNSRC,
+      </if>
+      <if test="rspcode != null" >
+        RSPCODE,
+      </if>
+      <if test="txnstatus != null" >
+        TXNSTATUS,
+      </if>
+      <if test="adddate != null" >
+        ADDDATE,
+      </if>
+      <if test="addtime != null" >
+        ADDTIME,
+      </if>
+      <if test="refundflag != null" >
+        REFUNDFLAG,
+      </if>
+      <if test="oper != null" >
+        OPER,
+      </if>
+      <if test="reserved1 != null" >
+        RESERVED1,
+      </if>
+      <if test="reserved2 != null" >
+        RESERVED2,
+      </if>
+      <if test="reserved3 != null" >
+        RESERVED3,
+      </if>
+      <if test="reserved4 != null" >
+        RESERVED4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="crdfeelogId != null" >
+        #{crdfeelogId},
+      </if>
+      <if test="pan != null" >
+        #{pan,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantno != null" >
+        #{merchantno,jdbcType=VARCHAR},
+      </if>
+      <if test="termcode != null" >
+        #{termcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=FLOAT},
+      </if>
+      <if test="tlogId != null" >
+        #{tlogId,jdbcType=DECIMAL},
+      </if>
+      <if test="tranDate != null" >
+        #{tranDate,jdbcType=VARCHAR},
+      </if>
+      <if test="tranTime != null" >
+        #{tranTime,jdbcType=VARCHAR},
+      </if>
+      <if test="stan != null" >
+        #{stan,jdbcType=DECIMAL},
+      </if>
+      <if test="rrn != null" >
+        #{rrn,jdbcType=VARCHAR},
+      </if>
+      <if test="txncode != null" >
+        #{txncode,jdbcType=DECIMAL},
+      </if>
+      <if test="txnsrc != null" >
+        #{txnsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="rspcode != null" >
+        #{rspcode,jdbcType=CHAR},
+      </if>
+      <if test="txnstatus != null" >
+        #{txnstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="adddate != null" >
+        #{adddate,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="refundflag != null" >
+        #{refundflag,jdbcType=DECIMAL},
+      </if>
+      <if test="oper != null" >
+        #{oper,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        #{reserved4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>

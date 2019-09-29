@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="ruleManagerDao"    class="cn.yufu.posp.ruleManager.dao.hibernate.hql.RuleManagerDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	<bean id="stlmReguDao"    class="cn.yufu.posp.ruleManager.dao.hibernate.hql.StlmReguDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	<bean id="AnalyzeMerclearBookDao"    class="cn.yufu.posp.bookManager.dao.hibernate.hql.AnalyzeMerclearBookHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactorySettle"/>
+		</property>
+	</bean>
+	<bean id="AnalyzeMerfeeBookDao"    class="cn.yufu.posp.bookManager.dao.hibernate.hql.AnalyzeMerfeeBookHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactorySettle"/>
+		</property>
+	</bean>
+	<bean id="AnalyzeMerstlBookDao"    class="cn.yufu.posp.bookManager.dao.hibernate.hql.AnalyzeMerstlBookHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactorySettle"/>
+		</property>
+	</bean>
+	<bean id="AnalyzeCupcheckBookDao"    class="cn.yufu.posp.bookManager.dao.hibernate.hql.AnalyzeCupcheckBookHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactorySettle"/>
+		</property>
+	</bean>
+	<bean id="AnalyzeCupcheckErrDao"    class="cn.yufu.posp.bookManager.dao.hibernate.hql.AnalyzeCupcheckErrHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactorySettle"/>
+		</property>
+	</bean>
+	<bean id="AnalyzeCupcheckOkDao"    class="cn.yufu.posp.bookManager.dao.hibernate.hql.AnalyzeCupcheckOkHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactorySettle"/>
+		</property>
+	</bean>
+	<bean id="AnalyzeCupcheckStaticsDao"    class="cn.yufu.posp.bookManager.dao.hibernate.hql.AnalyzeCupcheckStaticsHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactorySettle"/>
+		</property>
+	</bean>
+</beans>

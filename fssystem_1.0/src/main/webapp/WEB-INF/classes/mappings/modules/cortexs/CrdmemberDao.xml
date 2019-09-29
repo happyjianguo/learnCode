@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdmemberDao" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.Crdmember" >
+    <id column="MEMBER_ID" property="memberId" jdbcType="VARCHAR" />
+    <result column="MEMBER_NAME" property="memberName" jdbcType="VARCHAR" />
+    <result column="CARD_BIN" property="cardBin" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy.loginName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy.loginName" jdbcType="VARCHAR" />
+    <result column="RESERVED" property="reserved" jdbcType="VARCHAR" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+    
+    <result column="CRDPRODUCT" property="crdproduct" jdbcType="VARCHAR" />
+    <result column="DESCR" property="descr" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    a.MEMBER_ID, a.MEMBER_NAME, a.CARD_BIN, a.CREATE_TIME, a.CREATE_BY, a.UPDATE_TIME, 
+    a.UPDATE_BY, c.CRDPRODUCT, c.DESCR
+  </sql>
+  
+  <sql id="crdmemberJoins">
+  	LEFT JOIN CRDFORMAT b ON a.card_bin = b.iid 
+
+  	LEFT JOIN CRDPRODUCT c ON b.id = c.crdformat_id
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM CRDMEMBER a 
+    <include refid="crdmemberJoins" />
+    WHERE MEMBER_ID = #{memberId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getMember" resultType="java.lang.String">
+    SELECT DISTINCT MEMBER_NAME FROM CRDMEMBER 
+  </select>
+  
+  <select id="getOneData" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM CRDMEMBER a 
+    <include refid="crdmemberJoins" />
+    WHERE 1=1 
+    <if test="memberName != null and memberName.trim().length() != 0">
+    	AND a.MEMBER_NAME = #{memberName}
+    </if>
+    <if test="cardBin != null and cardBin.trim().length() != 0">
+    	AND a.CARD_BIN = #{cardBin}
+    </if>
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    FROM CRDMEMBER a  
+    <include refid="crdmemberJoins" />
+    WHERE 1=1
+    <if test="memberName != null and memberName.trim().length() != 0">
+    	AND a.MEMBER_NAME LIKE '%'||#{memberName}||'%'
+    </if>
+    <if test="cardBin != null and cardBin.trim().length() != 0">
+    	AND a.CARD_BIN = #{cardBin}
+    </if>
+    ORDER BY a.UPDATE_TIME DESC, a.CREATE_TIME DESC 
+  </select>
+  
+   <insert id="insert">
+    insert into CRDMEMBER (MEMBER_ID, MEMBER_NAME, CARD_BIN, 
+      CREATE_TIME, CREATE_BY, UPDATE_TIME, 
+      UPDATE_BY)
+    values (#{memberId,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{cardBin,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createBy.loginName,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{updateBy.loginName,jdbcType=VARCHAR})
+  </insert>
+  
+  <delete id="delete">
+    delete from CRDMEMBER
+    where MEMBER_ID = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update">
+    update CRDMEMBER
+    set MEMBER_NAME = #{memberName,jdbcType=VARCHAR},
+      CARD_BIN = #{cardBin,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy.loginName,jdbcType=VARCHAR}
+    where MEMBER_ID = #{memberId,jdbcType=VARCHAR}
+  </update>
+</mapper>

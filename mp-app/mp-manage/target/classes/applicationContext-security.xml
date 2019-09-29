@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- webInvocationPrivilegeEvaluator necessary to use <sec:authorized url="xx"> -->
+	<beans:bean id="webInvocationPrivilegeEvaluator" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+	    <beans:constructor-arg ref="mySecurityFilter"/>
+	</beans:bean>
+
+	<!-- 当用户访问的url 资源满足多个intercepter-url 时，系统将使用第一个符合条件的 intercept-url 进行权限控制 -->
+	<!-- 需要对外提供服务的接口 -->
+<!-- 	<http pattern="/msg/**" security="none" /> -->
+	<!-- 静态资源 -->
+	<http pattern="/resources/**" security="none" />
+	
+	 
+	<!-- 登录 -->
+	<!-- <http pattern="/login" security="none" /> -->
+	<!-- 验证码 -->
+	<http pattern="/messagecode/getimagecode*" security="none" />
+	
+	<!-- 黑名单接口 -->
+	<http pattern="/blackinter/acquireblack" security="none"/> 
+	
+	<!-- <http pattern="/error/accessdenied" security="none" /> -->
+
+	<http use-expressions="true" disable-url-rewriting="false" entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<!-- <intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/> -->
+		<intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/logincheck" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/error/accessdenied*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<!-- <intercept-url pattern="/messagecode/getimagecode*" access="IS_AUTHENTICATED_ANONYMOUSLY"/> -->
+		<!-- 跨站请求伪造 -->
+		<csrf />
+		<access-denied-handler ref="accessDeniedHandler"/>
+
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+
+		<session-management session-authentication-strategy-ref="sas" />
+		<!-- 登出 -->
+		<logout invalidate-session="true" logout-success-url="/login" logout-url="/logout" />
+		<!-- 登录 -->
+		<custom-filter ref="loginAuthenticationFilter" position="FORM_LOGIN_FILTER" />
+
+		<custom-filter ref="concurrencyFilter" position="CONCURRENT_SESSION_FILTER" />
+
+		<custom-filter ref="mySecurityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+		
+	</http>
+
+	<beans:bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+		<beans:constructor-arg ref="sessionRegistry" />
+		<beans:constructor-arg value="/login" />
+	</beans:bean>
+
+	<beans:bean id="accessDeniedHandler" class="com.jansh.core.security.web.access.DefaultAccessDeniedHandler">
+		<beans:property name="errorPage" value="/error/accessdenied"/>
+	</beans:bean>
+
+	<beans:bean id="sas"
+		class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+		<beans:constructor-arg>
+			<beans:list>
+				<beans:bean
+					class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+					<beans:constructor-arg ref="sessionRegistry" />
+					<beans:property name="maximumSessions" value="1" />
+					<beans:property name="exceptionIfMaximumExceeded" value="false" />
+				</beans:bean>
+				<beans:bean
+					class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy">
+				</beans:bean>
+				<beans:bean
+					class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+					<beans:constructor-arg ref="sessionRegistry" />
+				</beans:bean>
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+	<!-- 未登录的切入点 -->
+	<beans:bean id="loginUrlAuthenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:constructor-arg value="/login" />
+	</beans:bean>
+
+	<!-- 登录认证过滤器 -->
+	<beans:bean id="loginAuthenticationFilter" class="com.jansh.core.security.web.authentication.UsernamePasswordAuthFilter">
+		<!-- 重写类，获取客户端ip等 -->
+		<beans:property name="authenticationDetailsSource" ref="myWebAuthenticationDetailsSource" />
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<!-- 登录成功回调 -->
+		<beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"/>
+		<!-- 登录失败回调 -->
+		<beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+		<beans:property name="sessionAuthenticationStrategy" ref="sas" />
+	</beans:bean>
+
+	<!-- 认证管理器 -->
+	<authentication-manager alias="myAuthenticationManager">
+		<authentication-provider ref="loginAuthenticationProvider" />
+	</authentication-manager>
+
+	<!-- 认证过滤器 -->
+	<beans:bean id="mySecurityFilter"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<beans:property name="accessDecisionManager" ref="myAccessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="mySecurityMetadataSource" />
+		<!-- <beans:property name="rejectPublicInvocations" value="true"></beans:property> -->
+	</beans:bean>
+
+	<!-- 登录成功处理 -->
+	<beans:bean id="authenticationSuccessHandler"
+		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/" />
+		<beans:property name="alwaysUseDefaultTargetUrl" value="true"></beans:property>
+	</beans:bean>
+	
+	<!-- 登录失败处理 -->
+	<beans:bean id="authenticationFailureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/login?error=true" />
+	</beans:bean>
+
+	<beans:bean id="loginAuthenticationProvider" class="com.jansh.core.security.authentication.dao.LoginAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="userDetailServiceImpl" />
+	</beans:bean>
+
+	<!-- 重写类，获取客户端ip等 -->
+	<beans:bean id="myWebAuthenticationDetailsSource"
+		class="com.jansh.core.security.web.authentication.MyWebAuthenticationDetailsSource" />
+
+	<beans:bean id="userDetailServiceImpl" class="com.jansh.core.security.userdetails.UserDetailServiceImpl" />
+
+	<!-- 访问决策管理:通过资源所拥有的权限，对用户所具备的角色对应的权限进行裁定，决策是否用户具备访问资源的权限 -->
+	<beans:bean id="myAccessDecisionManager" class="com.jansh.core.security.MyAccessDecisionManager" />
+
+	<!-- 获取数据库中所有的url资源，读出url资源与权限的对应关系 -->
+<!-- 	<beans:bean id="mySecurityMetadataSource" class="com.jansh.core.security.MySecurityMetadataSource" /> -->
+
+	<!-- 获取数据库中所有的url资源，读出url资源与权限的对应关系 -->
+	<beans:bean id="mySecurityMetadataSource" class="com.jansh.core.security.MySecurityMetadataSource" >
+		<beans:constructor-arg name="securityMetadataSourceService" ref="securityMetadataSourceService"></beans:constructor-arg>
+<!-- 		<beans:constructor-arg name="redisTemplate" ref="redisTemplate"></beans:constructor-arg> -->
+<!-- 		<beans:constructor-arg name="appName" value="mp"></beans:constructor-arg> -->
+	</beans:bean>
+	
+	<beans:bean id="securityMetadataSourceService" class="com.jansh.core.service.sys.impl.SecurityMetadataSourceServiceImpl" ></beans:bean>
+</beans:beans>

@@ -1,0 +1,45 @@
+# Resources for parameter 'cn.yufu.posp.oa.web.ApplicationResources'
+# Project P/bjtj
+# -- validator --
+errors.invalid={0} \u683c\u5f0f\u65e0\u6548\u3002
+errors.maxlength={0} \u4e0d\u80fd\u8d85\u8fc7 {1} \u5b57\u7b26\u3002
+errors.minlength={0} \u4e0d\u80fd\u5c11\u4e8e {1} \u5b57\u7b26\u3002
+errors.range={0} \u4e0d\u5728\u3000{1} \u5230 {2} \u7684\u8303\u56f4\u5185\u3002
+errors.required={0} \u5fc5\u987b\u586b\u5199\u3002
+errors.byte={0} \u5fc5\u987b\u662f\u4e00\u4e2a\u5b57\u8282\u3002
+errors.date={0} \u5fc5\u987b\u662f\u65e5\u671f\u7c7b\u578b\u3002
+errors.double={0} \u5fc5\u987b\u662f\u4e00\u4e2a\u53cc\u7cbe\u5ea6\u6570\u5b57\u3002
+errors.float={0} \u5fc5\u987b\u662f\u4e00\u4e2a\u6570\u5b57\u3002
+errors.integer={0} \u5fc5\u987b\u662f\u4e00\u4e2a\u6574\u6570\u3002
+errors.long={0} \u5fc5\u987b\u662f\u4e00\u4e2a\u957f\u6574\u6570\u3002
+errors.short={0} \u5fc5\u987b\u662f\u4e00\u4e2a\u77ed\u6574\u6570\u3002
+errors.creditcard={0} \u4e0d\u662f\u4e00\u4e2a\u6709\u6548\u7684\u4fe1\u7528\u5361\u53f7\u3002
+errors.email={0} \u4e0d\u662f\u4e00\u4e2a\u6709\u6548\u7684\u7535\u5b50\u90ae\u4ef6\u5730\u5740\u3002
+
+#OfficePeopleForm 
+OfficePeopleForm.id.label=id
+OfficePeopleForm.level.label=\u7ea7\u522b
+OfficePeopleForm.name.label=\u540d\u79f0
+OfficePeopleForm.sex.label=\u6027\u522b
+OfficePeopleForm.order.label=\u6392\u5e8f\u53f7
+OfficePeopleForm.remark.label=\u5907\u6ce8
+
+#AccidentForm
+AccidentForm.title.label=\u6807\u9898
+AccidentForm.remark.label=\u5907\u6ce8
+
+#EconomicChangeForm
+EconomicChangeForm.title.label=\u6807\u9898
+EconomicChangeForm.remark.label=\u5907\u6ce8
+
+#SendFileForm
+SendFileForm.title.label=\u53d1\u6587\u6807\u9898
+SendFileForm.printNum.label=\u6253\u5370\u4efd\u6570
+
+#InformationForm
+
+#meetingForm
+meetingApplicationForm.attendPerson.label=\u4e0e\u53c2\u4eba\u5458
+meetingTopicForm.meetingName.label=\u4f1a\u8bae\u8bae\u9898
+informationForm.title.label=\u6807\u9898
+informationForm.advice.label=\u610f\u89c1

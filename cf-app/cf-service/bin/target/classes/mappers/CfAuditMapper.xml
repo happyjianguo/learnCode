@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfAuditMapper">
+	<select id="queryResultAll" resultType="CfAuditEntity">
+		SELECT
+		    au.id,
+		    au.auname,
+		    au.autype,
+		    au.detailkey,
+		    au.createtime,
+		    au.updatetime,
+		    au.status,
+		    ii.cname auditer,
+            im.cname draftman,
+		    au.opinion,
+		    au.servicename
+		FROM
+		    cf_audit au
+		    	left join
+                    imuser im
+                        on au.draftman = im.userid
+                            left join
+                                imuser ii
+                                    on au.auditer = ii.userid
+		WHERE 
+			(
+				(au.draftman = #{param2} 
+				or au.auditer = #{param2})
+				<if test="param1.status!='' and param1.status!=null">
+					and au.status = #{param1.status} 
+				</if>
+			)
+		Order by au.createtime DESC
+	</select>
+	<select id="queryAll" resultType="CfAuditEntity">
+		SELECT
+		    au.id,
+		    au.auname,
+		    au.autype,
+		    au.detailkey,
+		    au.createtime,
+		    au.updatetime,
+		    au.status,
+		    ii.cname auditer,
+            im.cname draftman,
+		    au.opinion,
+		    au.servicename
+		FROM
+		    cf_audit au
+		    	left join
+                    imuser im
+                        on au.draftman = im.userid
+                            left join
+                                imuser ii
+                                    on au.auditer = ii.userid
+		WHERE 
+			(
+				au.draftman != #{param2} 
+				<if test="param1.id=!'' and param1.id!=null">
+					and au.id= #{param1.id} 
+				</if>
+				<if test="param1.auname!='' and param1.auname!=null">
+					and au.auname = #{param1.auname} 
+				</if>
+				<if test="param1.autype!='' and param1.autype!=null">
+					and au.autype = #{param1.autype} 
+				</if>
+				<if test="param1.detailkey!='' and param1.detailkey!=null">
+					and au.detailkey = #{param1.detailkey} 
+				</if>
+				<if test="param1.status!='' and param1.status!=null">
+					and au.status = #{param1.status} 
+				</if>
+				<if test="param1.auditer!='' and param1.auditer!=null">
+					and au.auditer = #{param1.auditer} 
+				</if>
+				
+			)
+		Order by au.createtime DESC
+	</select>
+	<select id="queryAllShow" resultType="CfAuditEntity">
+		SELECT
+		    au.id,
+		    au.auname,
+		    au.autype,
+		    au.detailkey,
+		    au.createtime,
+		    au.updatetime,
+		    au.status,
+		    ii.cname auditer,
+            im.cname draftman,
+		    au.opinion,
+		    au.servicename
+		FROM
+		    cf_audit au
+		    	left join
+                    imuser im
+                        on au.draftman = im.userid
+                            left join
+                                imuser ii
+                                    on au.auditer = ii.userid
+		WHERE 
+			(
+				<!-- au.draftman != #{userid}  -->
+				 au.status = #{status} 
+			)
+		Order by au.createtime DESC
+	</select>
+	<select id="query" resultType="CfAuditEntity">
+		SELECT
+		    id,
+		    auname,
+		    autype,
+		    detailkey,
+		    createtime,
+		    updatetime,
+		    status,
+		    auditer,
+		    draftman,
+		    opinion,
+		    servicename
+		FROM
+		    cf_audit
+		WHERE 
+			id= #{id} 
+	</select>
+	<select id="queryAudit" resultType="CfAuditEntity">
+		SELECT
+		    id,
+		    auname,
+		    autype,
+		    detailkey,
+		    createtime,
+		    updatetime,
+		    status,
+		    auditer,
+		    draftman,
+		    opinion,
+		    servicename
+		FROM
+		    cf_audit
+		WHERE 
+			detailkey= #{id} and status = #{status}
+	</select>
+	
+	<update id="update" >
+		UPDATE
+		    cf_audit
+		<set> 
+				<if test="param1.updatetime != null and param1.updatetime!=''">
+			        UPDATETIME = #{param1.updatetime},
+			    </if>
+				<if test="param1.status!='' and param1.status!=null">
+					STATUS = #{param1.status}, 
+				</if>
+				<if test="param1.auditer!='' and param1.auditer!=null">
+					AUDITER = #{param1.auditer}, 
+				</if>
+				<if test="param1.opinion !='' and param1.opinion!=null">
+					OPINION = #{param1.opinion}, 
+				</if>
+			</set>	    
+		WHERE
+		    id = #{param1.id} and status = #{param2}
+		</update>
+		
+		<insert id="insertAudit" parameterType="CfAuditEntity">
+			INSERT INTO CF_AUDIT (
+					ID,
+					AUNAME,
+					AUTYPE,
+					DETAILKEY,
+					CREATETIME,
+					UPDATETIME,
+					STATUS,
+					AUDITER,
+					DRAFTMAN,
+					OPINION,
+					SERVICENAME
+				)
+				VALUES
+					(
+						#{id},
+						#{auname},
+						#{autype},
+						#{detailkey},
+						#{createtime},
+						#{updatetime},
+						#{status},
+						#{auditer},
+						#{draftman},
+						#{opinion},
+						#{servicename}
+					);
+		</insert>
+</mapper>
+	

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.mapper.game.GameTemplateMapper">
+
+	<insert id="insert" parameterType="GameTemplate">
+		INSERT INTO GAMETEMPLATE
+				(
+				TEMPID,
+				TEMPNAME,
+				USETIMES,
+				GAMEID,
+				CREATETIME,
+				UPDATETIME,
+				TEMPSTATUS,
+				TMPTYPEID,
+				TEMPLATENAME
+				)
+			VALUES
+				(
+				#{tempid},
+				#{tempname},
+				#{usetimes},
+				#{gameid},
+				#{createtime},
+				#{updatetime},
+				#{tempstatus},
+				#{tmptypeid},
+				#{templatename}
+				)
+	</insert>
+	
+	<select id="queryByGameid" parameterType="String" resultType="GameTemplate">
+		SELECT 
+			g.TEMPID TEMPID,
+			g.TEMPNAME TEMPNAME,
+			g.PICTRUEURL PICTRUEURL,
+			g.TEMPLATENAME TEMPLATENAME,
+			g.USETIMES USETIMES,
+			g.GAMEID GAMEID,
+			g.CREATETIME CREATETIME,
+			g.UPDATETIME UPDATETIME,
+			g.TEMPSTATUS TEMPSTATUS,
+			g.TMPTYPEID TMPTYPEID,
+			p.TMPTYPENAME TMPTYPENAME
+		FROM GAMETEMPLATE g
+			LEFT JOIN GAMETEMPLATETYPE p
+			 	ON g.TMPTYPEID = p.TMPTYPEID
+		<where>
+			<if test="gameid != '' and gameid != null">
+				g.GAMEID=#{gameid}
+			</if>
+		</where>
+		ORDER BY g.UPDATETIME DESC
+	</select>
+	
+	<select id="selectTmpTypeByGameid" parameterType="String" resultType="CloudGameTemplateTypeEntity">
+		SELECT 
+			GAMEID,
+			TMPTYPEID,
+			TMPTYPENAME
+		FROM 
+			GAMETEMPLATETYPE
+		WHERE
+			GAMEID=#{gameid}
+	</select>
+	<select id="selectBytmpNameAndGameid" parameterType="Map" resultType="GameTemplate" >
+		SELECT 
+			TEMPID,
+			TEMPNAME,
+			PICTRUEURL,
+			TEMPLATENAME,
+			USETIMES,
+			GAMEID,
+			CREATETIME,
+			UPDATETIME,
+			TEMPSTATUS
+		FROM 
+			GAMETEMPLATE
+		WHERE
+			GAMEID=#{gameid} AND TEMPLATENAME=#{templatename} AND TEMPID!=#{tempid} AND TMPTYPEID=#{tmptypeid}
+	</select>
+	<update id="editdata" parameterType="GameTemplate">
+		UPDATE
+			GAMETEMPLATE
+		<set>  
+	        <if test="tempid != '' and tempid != null">  
+	            TEMPID=#{tempid},
+	        </if>  
+	        <if test="tempname != '' and tempname != null">  
+				TEMPNAME=#{tempname},
+	        </if>  
+	        <if test="pictrueurl != '' and pictrueurl != null">  
+	            PICTRUEURL=#{pictrueurl},
+	        </if>  
+	        <if test="templatename != null and templatename != '' ">  
+	            TEMPLATENAME=#{templatename},  
+	        </if>
+	        <if test="usetimes != '' and usetimes != null">  
+	            USETIMES=#{usetimes}, 
+	        </if>
+	        <if test="gameid != '' and gameid != null">  
+	            GAMEID=#{gameid}, 
+	        </if>
+	        <if test="createtime != '' and createtime != null">  
+	            CREATETIME=#{createtime},
+	        </if>
+	        <if test="updatetime != '' and updatetime != null">  
+	            UPDATETIME=#{updatetime}, 
+	        </if>
+	        <if test="tempstatus != '' and tempstatus != null">  
+	            TEMPSTATUS=#{tempstatus},
+	        </if>
+	        <if test="tmptypeid != '' and tmptypeid != null">  
+	            TMPTYPEID=#{tmptypeid} 
+	        </if>
+   		</set>
+		WHERE
+			TEMPID=#{tempid}
+	</update>
+	<select id="selectBytemplateName" parameterType="String" resultType="GameTemplate">
+		SELECT 
+			TEMPID,
+			TEMPNAME,
+			PICTRUEURL,
+			TEMPLATENAME,
+			USETIMES,
+			GAMEID,
+			CREATETIME,
+			UPDATETIME,
+			TEMPSTATUS
+		FROM 
+			GAMETEMPLATE
+		WHERE
+			TEMPNAME=#{tempname} AND TMPTYPEID=#{tmptypeid} AND TEMPLATENAME=#{templateName} AND GAMEID=#{gameid}
+	</select>
+	<select id="selectByTempid" parameterType="String" resultType="GameTemplate">
+		SELECT 
+			TEMPID,
+			TEMPNAME,
+			PICTRUEURL,
+			TEMPLATENAME,
+			USETIMES,
+			GAMEID,
+			CREATETIME,
+			UPDATETIME,
+			TEMPSTATUS
+		FROM 
+			GAMETEMPLATE
+		WHERE
+			TEMPID=#{tempid}
+	</select>
+	<delete id="deleteTemp" parameterType="String">
+		DELETE FROM 
+			GAMETEMPLATE 
+		WHERE 
+			TEMPID=#{tempid}
+	</delete>
+</mapper>

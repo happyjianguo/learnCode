@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.MerchantXDao">
+    
+	<sql id="merchantXColumns">
+		a.merchant_id AS "merchantId",
+		a.contract_start_date AS "contractStartDate",
+		a.CONTRACT_END_DATE AS "contractEndDate",
+		a.contract_renewal_date AS "contractRenewalDate",
+		a.merchant_company_name AS "merchantCompanyName",
+		a.renewal_type AS "renewalType",
+		a.guarantee_last_date AS "guaranteeLastDate",
+		a.guarantee_amt AS "guaranteeAmt",
+		a.market_contact_person AS "marketContactPerson",
+		a.market_contact_mobile AS "marketContactMobile",
+		a.financial_contact_person AS "financialContactPerson",
+		a.financial_contact_mobile AS "financialContactMobile",
+		a.merchant_deposit AS "merchantDeposit",
+		a.merchant_area AS "merchantArea",
+		a.store_manager AS "storeManager",
+		a.merchant_advisor AS "merchantAdvisor",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.disable_date AS "disableDate",
+		a.usable_date AS "usableDate",
+		a.allot_date AS "allotDate",
+		a.sharer AS "sharer"
+	</sql>
+	
+	<sql id="merchantXJoins">
+	</sql>
+    
+	<select id="get" resultType="MerchantBase">
+		SELECT 
+			<include refid="merchantXColumns"/>
+		FROM merchant_x a
+		<include refid="merchantXJoins"/>
+		WHERE a.merchant_id = #{merchantId}
+	</select>
+	
+	<select id="getMerchantById" resultType="MerchantX">
+		SELECT 
+			<include refid="merchantXColumns"/>
+		FROM  MERCHANT_X  a
+		WHERE a.merchant_id = #{merchantId}
+	</select>
+	
+	<select id="findList" resultType="MerchantX">
+		SELECT 
+			<include refid="merchantXColumns"/>
+		FROM merchant_x a
+		<include refid="merchantXJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="merchantId != null and merchantId != ''">
+				AND a.merchant_id = #{merchantId}
+			</if>
+			<if test="beginContractStartDate != null and endContractStartDate != null and beginContractStartDate != '' and endContractStartDate != ''">
+				AND a.contract_start_date BETWEEN #{beginContractStartDate} AND #{endContractStartDate}
+			</if>
+			<if test="beginContractRenewalDate != null and endContractRenewalDate != null and beginContractRenewalDate != '' and endContractRenewalDate != ''">
+				AND a.contract_renewal_date BETWEEN #{beginContractRenewalDate} AND #{endContractRenewalDate}
+			</if>
+			<if test="merchantCompanyName != null and merchantCompanyName != ''">
+				AND a.merchant_company_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{merchantCompanyName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{merchantCompanyName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{merchantCompanyName},'%')</if>
+			</if>
+			<if test="renewalType != null and renewalType != ''">
+				AND a.renewal_type = #{renewalType}
+			</if>
+			<if test="marketContactPerson != null and marketContactPerson != ''">
+				AND a.market_contact_person LIKE 
+					<if test="dbName == 'oracle'">'%'||#{marketContactPerson}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{marketContactPerson}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{marketContactPerson},'%')</if>
+			</if>
+			<if test="financialContactPerson != null and financialContactPerson != ''">
+				AND a.financial_contact_person LIKE 
+					<if test="dbName == 'oracle'">'%'||#{financialContactPerson}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{financialContactPerson}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{financialContactPerson},'%')</if>
+			</if>
+			<if test="merchantArea != null and merchantArea != ''">
+				AND a.merchant_area = #{merchantArea}
+			</if>
+			<if test="storeManager != null and storeManager != ''">
+				AND a.store_manager = #{storeManager}
+			</if>
+			<if test="merchantAdvisor != null and merchantAdvisor != ''">
+				AND a.merchant_advisor = #{merchantAdvisor}
+			</if>
+			<if test="beginAllotDate != null and beginAllotDate.trim().length() != 0">
+				AND  <![CDATA[ a.allot_date >= #{beginAllotDate} ]]>
+			</if>
+			<if test="endAllotDate != null and endAllotDate.trim().length() != 0">
+				AND  <![CDATA[ a.allot_date <= #{endAllotDate} ]]>
+			</if>
+			<if test="sharer != null and sharer.trim().length() != 0">
+				AND trim(a.sharer)  LIKE '%'||#{sharer}||'%'
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MerchantX">
+		SELECT 
+			<include refid="merchantXColumns"/>
+		FROM merchant_x a
+		<include refid="merchantXJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO merchant_x(
+			merchant_id,
+			contract_start_date,
+			CONTRACT_END_DATE,
+			contract_renewal_date,
+			merchant_company_name,
+			renewal_type,
+			guarantee_last_date,
+			guarantee_amt,
+			market_contact_person,
+			market_contact_mobile,
+			financial_contact_person,
+			financial_contact_mobile,
+			merchant_deposit,
+			merchant_area,
+			store_manager,
+			merchant_advisor,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			disable_date,
+			usable_date,
+			allot_date,
+			sharer,
+			remarks,
+			del_flag
+		) VALUES (
+			#{merchantId},
+			#{contractStartDate},
+			#{contractEndDate},
+			#{contractRenewalDate},
+			#{merchantCompanyName},
+			#{renewalType},
+			#{guaranteeLastDate},
+			#{guaranteeAmt},
+			#{marketContactPerson},
+			#{marketContactMobile},
+			#{financialContactPerson},
+			#{financialContactMobile},
+			#{merchantDeposit},
+			#{merchantArea},
+			#{storeManager},
+			#{merchantAdvisor},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{disableDate},
+			#{usableDate},
+			#{allotDate},
+			#{sharer},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE merchant_x SET 	
+			merchant_id = #{merchantId},
+			contract_start_date = #{contractStartDate},
+			CONTRACT_END_DATE = #{contractEndDate},
+			contract_renewal_date = #{contractRenewalDate},
+			merchant_company_name = #{merchantCompanyName},
+			renewal_type = #{renewalType},
+			guarantee_last_date = #{guaranteeLastDate},
+			guarantee_amt = #{guaranteeAmt},
+			market_contact_person = #{marketContactPerson},
+			market_contact_mobile = #{marketContactMobile},
+			financial_contact_person = #{financialContactPerson},
+			financial_contact_mobile = #{financialContactMobile},
+			merchant_deposit = #{merchantDeposit},
+			merchant_area = #{merchantArea},
+			store_manager = #{storeManager},
+			merchant_advisor = #{merchantAdvisor},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			disable_date = #{disableDate},
+			usable_date = #{usableDate},
+			allot_date = #{allotDate},
+			sharer = #{sharer},
+			remarks = #{remarks}
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+	<update id="disableMerchant">
+		UPDATE merchant_x SET 	
+			disable_date = #{disableDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+	<update id="usableMerchant">
+		UPDATE merchant_x SET 	
+			usable_date = #{usableDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM merchant_x 
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+	<update id="updateTypeYf">
+		UPDATE merchant_x SET 	
+			TYPE_YF = #{1}
+		WHERE merchant_id = #{0}
+	</update>
+	
+	<update id="updateCreateDate">
+		UPDATE merchant_x SET 	
+			create_date	= #{1}
+		WHERE merchant_id = #{0}
+	</update>
+	
+</mapper>

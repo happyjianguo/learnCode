@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.IMediaMaterialMapper">
+	<sql id="columns">MATERIALID,MATERIALNAME,MEDIAID,FILENAME,FILELENGTH,FILEPATH,TYPE,TITLE,INTRODUCTION,MEDIAURL,TASKSTATUS,APPID,UPDATETIME,CREATETIME
+	</sql>
+	<insert id="saveMaterial" parameterType="MediaMaterial">
+		insert into WXDMEDIAMATERIAL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="materialId != null">
+				MATERIALID,
+			</if>
+			<if test="materialName != null">
+				MATERIALNAME,
+			</if>
+			<if test="mediaId != null">
+				MEDIAID,
+			</if>
+			<if test="fileName != null">
+				FILENAME,
+			</if>
+			<if test="fileLength != null">
+				FILELENGTH,
+			</if>
+			<if test="filePath != null">
+				FILEPATH,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="introduction != null">
+				INTRODUCTION,
+			</if>
+			<if test="mediaUrl != null">
+				MEDIAURL,
+			</if>
+			<if test="taskStatus != null">
+				TASKSTATUS,
+			</if>
+			<if test="appid != null">
+				APPID,
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME,
+			</if>
+			<if test="createTime != null">
+				CREATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="materialId != null">
+				#{materialId,jdbcType=VARCHAR},
+			</if>
+			<if test="materialName != null">
+				#{materialName,jdbcType=VARCHAR},
+			</if>
+			<if test="mediaId != null">
+				#{mediaId,jdbcType=VARCHAR},
+			</if>
+			<if test="fileName != null">
+				#{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="fileLength != null">
+				#{fileLength,jdbcType=VARCHAR},
+			</if>
+			<if test="filePath != null">
+				#{filePath,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="introduction != null">
+				#{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="mediaUrl != null">
+				#{mediaUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="taskStatus != null">
+				#{taskStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="appid != null">
+				#{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateMediaMaterial" parameterType="MediaMaterial">
+		UPDATE
+		WXDMEDIAMATERIAL
+		SET
+		MATERIALNAME = #{materialName},
+		TITLE = #{title},
+		INTRODUCTION = #{introduction},
+		UPDATETIME = #{updateTime}
+		WHERE
+		MATERIALID = #{materialId}
+
+	</update>
+	<select id="queryMediaMaterialPager" parameterType="Map"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE "1"="1"
+		order by CREATETIME desc
+	</select>
+	<select id="queryMediaMaterialByType" parameterType="String"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE TYPE=#{type}
+		order by CREATETIME desc
+	</select>
+	<select id="selectmaterialByUrl" parameterType="Map"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE MEDIAURL=#{mediaurl}
+		order by CREATETIME desc
+	</select>
+	<select id="selectmaterialByFileUrl" parameterType="String"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE FILEPATH=#{filepath}
+		order by CREATETIME desc
+	</select>
+	<select id="queryMediaMaterialByPlatformId" parameterType="String" resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE APPID=#{appid}
+		order by CREATETIME desc
+	</select>
+	<select id="queryMediaMaterialById" parameterType="String"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE MATERIALID = #{materialId}
+	</select>
+	<select id="selectMaterialByMediaUrl" parameterType="String"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE MEDIAURL = #{mediaurl}
+	</select>
+	<select id="queryMediaMaterialList" resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from
+		WXDMEDIAMATERIAL
+		order by CREATETIME desc
+	</select>
+	<select id="queryMediaMaterialByNamePager" parameterType="String"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE materialName like
+		CONCAT('%','${name}','%'
+		)
+		order by CREATETIME desc
+	</select>
+	<select id="queryMediaMaterialByName" parameterType="MediaMaterial"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE materialName like
+		CONCAT('%','${materialName}','%' ) AND APPID=#{appid}
+		order by CREATETIME desc
+	</select>
+	
+	<select id="queryMediaByName" parameterType="MediaMaterial"
+		resultType="MediaMaterial">
+		select
+		<include refid="columns"></include>
+		from WXDMEDIAMATERIAL WHERE materialName =
+		#{materialName} AND APPID=#{appid}
+	</select>
+	
+	<delete id="delMediaMaterial" parameterType="String">
+		DELETE FROM
+		WXDMEDIAMATERIAL WHERE MATERIALID=#{materialId}
+	</delete>
+</mapper>

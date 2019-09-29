@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.PubsSysBaseMapper">
+	<resultMap type="PubsSysBase" id="PubsSysBaseMap">
+		<result column="ID" property="autoId"/>
+		<result column="SYSKEY" property="sysBaseId"/>
+		<result column="SYSVALUE" property="sysBaseValue"/>
+		<result column="SYSREMARK" property="sysBaseMemo"/>
+	</resultMap>
+	
+	<resultMap type="java.util.HashMap" id="Map">
+		<result column="SYSKEY" property="key"/>
+		<result column="SYSVALUE" property="value"/>
+	</resultMap>
+	
+	<select id="selectOneByBaseId" parameterType="String" resultMap="PubsSysBaseMap">
+		SELECT 
+			ID,SYSKEY,SYSVALUE,SYSREMARK
+		FROM
+			IMSYSPARA
+		WHERE
+			SYSKEY = #{baseId}
+	</select>
+	
+	<select id="selectAllBaseMap" resultType="Map">
+		SELECT 
+			SYSKEY,SYSVALUE
+		FROM
+			IMSYSPARA
+	</select>
+	
+	
+	<select id="selectAllBase" resultMap="PubsSysBaseMap">
+		SELECT 
+			ID,SYSKEY,SYSVALUE,SYSREMARK
+		FROM
+			IMSYSPARA
+		ORDER BY ID ASC
+	</select>
+	
+	<select id="selectBasesByBaseId" parameterType="String" resultMap="PubsSysBaseMap">
+		SELECT 
+			ID,SYSKEY,SYSVALUE,SYSREMARK
+		FROM
+			IMSYSPARA
+		WHERE 1=1
+		<if test="baseId!='' and baseId!=null">
+			AND SYSKEY LIKE CONCAT('%',#{baseId},'%')
+		</if>
+		ORDER BY ID ASC
+	</select>
+	
+	<update id="update" parameterType="PubsSysBase">
+		UPDATE
+			IMSYSPARA
+		SET
+			SYSVALUE=#{sysBaseValue},
+			SYSREMARK=#{sysBaseMemo}
+		WHERE
+			SYSKEY=#{sysBaseId}
+	</update>
+</mapper>

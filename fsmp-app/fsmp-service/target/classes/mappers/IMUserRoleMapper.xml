@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.IMUserRoleMapper">
+	<delete id="delImUserRole" parameterType="java.lang.String"> 
+		DELETE FROM FSMUSERROLE where userid in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")">
+		#{idItem}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByRoleId" parameterType="String">
+		DELETE FROM FSMUSERROLE WHERE ROLEID = #{roleId}
+	</delete>
+	
+	<insert id="insert" parameterType="IMUserRole">
+			INSERT INTO FSMUSERROLE (
+				ROLEID,
+				USERID,
+				CREATETIME,
+				UPDATETIME
+			)
+			VALUES
+			(
+				#{roleid},
+				#{userid},
+				#{createtime},
+				#{updatetime}
+			)
+	</insert>
+	<select id="select" resultType="IMUserRole" parameterType="String">
+		SELECT
+			ROLEID,
+			USERID,
+			CREATETIME,
+			UPDATETIME
+		FROM
+			FSMUSERROLE
+		WHERE
+		    ROLEID = #{roleId}
+	</select>
+	
+	<select id="selectOne" resultType="IMUserRole" parameterType="IMUserRole">
+		SELECT
+			ROLEID,
+			USERID,
+			CREATETIME,
+			UPDATETIME
+		FROM
+			FSMUSERROLE
+		WHERE
+		    ROLEID = #{roleid}
+		AND
+			USERID = #{userid}
+	</select>
+	
+	<select id="selectRoleidByUserid" resultType="String" parameterType="String">
+		SELECT
+			ROLEID			
+		FROM
+			FSMUSERROLE
+		WHERE
+			USERID = #{userid}
+	</select>
+	
+	<!-- 修改管理员权限中间表信息 -->
+	<update id="update" parameterType="IMUserRole">
+		UPDATE
+		    	FSMUSERROLE    
+		    <set> 
+		        <if test="roleid != null">    
+		            ROLEID = #{roleid},    
+		        </if>    
+		        <if test="updatetime != null">    
+		            UPDATETIME = #{updatetime},    
+		        </if> 
+		    </set>    
+		    where USERID = #{userid} 
+	</update>
+</mapper>

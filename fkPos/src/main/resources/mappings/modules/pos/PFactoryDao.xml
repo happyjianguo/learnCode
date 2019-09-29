@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.PFactoryDao">
+    
+	<sql id="pFactoryColumns">
+		a.id AS "id",
+		a.factory_name AS "factoryName",
+		a.factory_status AS "factoryStatus",
+		a.manager AS "manager",
+		a.manager_mobile AS "managerMobile",
+		a.manager_tel AS "managerTel",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="pFactoryJoins">
+	</sql>
+    
+	<select id="get" resultType="PFactory">
+		SELECT 
+			<include refid="pFactoryColumns"/>
+		FROM p_factory a
+		<include refid="pFactoryJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PFactory">
+		SELECT 
+			<include refid="pFactoryColumns"/>
+		FROM p_factory a
+		<include refid="pFactoryJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="factoryName != null and factoryName != ''">
+				AND a.factory_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{factoryName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{factoryName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{factoryName},'%')</if>
+			</if>
+			<if test="factoryStatus != null and factoryStatus != ''">
+				AND a.factory_status = #{factoryStatus}
+			</if>
+			<if test="manager != null and manager != ''">
+				AND a.manager LIKE 
+					<if test="dbName == 'oracle'">'%'||#{manager}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{manager}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{manager},'%')</if>
+			</if>
+			<if test="managerMobile != null and managerMobile != ''">
+				AND a.manager_mobile = #{managerMobile}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PFactory">
+		SELECT 
+			<include refid="pFactoryColumns"/>
+		FROM p_factory a
+		<include refid="pFactoryJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO p_factory(
+			id,
+			factory_name,
+			factory_status,
+			manager,
+			manager_mobile,
+			manager_tel,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			SEQ_P_FACTORY.Nextval,
+			#{factoryName},
+			#{factoryStatus},
+			#{manager},
+			#{managerMobile},
+			#{managerTel},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE p_factory SET 	
+			factory_name = #{factoryName},
+			factory_status = #{factoryStatus},
+			manager = #{manager},
+			manager_mobile = #{managerMobile},
+			manager_tel = #{managerTel},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE p_factory SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

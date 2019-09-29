@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfAuditDetailMapper">
+<select id="query" resultType="CfAuditdetailEntity">
+	SELECT
+	    id,
+	    detail
+	FROM
+	    cf_auditdetail
+	WHERE id=#{id}
+</select>
+
+	<insert id="insert" parameterType="CfAuditdetailEntity">
+			INSERT INTO CF_AUDITDETAIL (
+					ID,
+					DETAIL
+				)
+				VALUES
+					(
+						#{id},
+						#{detail}
+					);
+		</insert>
+</mapper>
+	

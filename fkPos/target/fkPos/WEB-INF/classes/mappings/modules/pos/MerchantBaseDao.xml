@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.MerchantBaseDao">
+    
+	<sql id="merchantBaseColumns">
+		a.merchant_id AS "merchantId",
+		a.mcc AS "mcc",
+		a.merchant_cname AS "merchantCname",
+		a.merchant_ename AS "merchantEname",
+		a.abbr_cname AS "abbrCname",
+		a.abbr_ename AS "abbrEname",
+		a.address_chn AS "addressChn",
+		a.address_eng AS "addressEng",
+		a.city_cname AS "cityCname",
+		a.city_ename AS "cityEname",
+		a.telephone AS "telephone",
+		a.post_code AS "postCode",
+		a.fax AS "fax",
+		a.manager AS "manager",
+		a.settle_merch_id AS "settleMerchId",
+		a.sign_bank_id AS "signBankId",
+		a.sign_host_id AS "signHostId",
+		a.zbank AS "zbank",
+		a.ccy_type AS "ccyType",
+		a.lock_mode AS "lockMode",
+		a.sign_date AS "signDate",
+		a.merchant_stat AS "merchantStat",
+		a.settle_mode AS "settleMode",
+		a.update_oper AS "updateOper",
+		a.update_time AS "updateTime",		
+		b.contract_start_date AS "contractStartDate",
+		b.CONTRACT_END_DATE AS "contractEndDate",
+		b.contract_renewal_date AS "contractRenewalDate",
+		b.merchant_company_name AS "merchantCompanyName",
+		b.renewal_type AS "renewalType",
+		b.guarantee_last_date AS "guaranteeLastDate",
+		b.guarantee_amt AS "guaranteeAmt",
+		b.market_contact_person AS "marketContactPerson",
+		b.market_contact_mobile AS "marketContactMobile",
+		b.financial_contact_person AS "financialContactPerson",
+		b.financial_contact_mobile AS "financialContactMobile",
+		b.merchant_deposit AS "merchantDeposit",
+		b.merchant_area AS "merchantArea",
+		b.store_manager AS "storeManager",
+		b.merchant_advisor AS "merchantAdvisor",
+		b.create_by AS "createBy.id",
+		b.create_date AS "createDate",
+		b.update_by AS "updateBy.id",
+		b.update_date AS "updateDate",
+		b.remarks AS "remarks",
+		b.del_flag AS "delFlag",
+		b.disable_date AS "disableDate",
+		b.usable_date AS "usableDate",
+		b.allot_date AS "allotDate",
+		b.sharer AS "sharer"
+	</sql>
+	
+	<sql id="merchantBaseJoins">
+	LEFT JOIN merchant_x b ON a.merchant_id =
+		b.merchant_id 
+	</sql>
+    
+	<select id="get" resultType="MerchantBase">
+		SELECT 
+			<include refid="merchantBaseColumns"/>
+		FROM merchant_base a
+		<include refid="merchantBaseJoins"/>
+		WHERE trim(a.merchant_id) = #{merchantId}
+	</select>
+	
+	<select id="findList" resultType="MerchantBase">
+		SELECT 
+			<include refid="merchantBaseColumns"/>
+		FROM merchant_base a
+		<include refid="merchantBaseJoins"/>
+		<where>
+			
+			<if test="merchantId != null and merchantId.trim().length() != 0">
+				AND trim(a.merchant_id) = #{merchantId}
+			</if>
+			<if test="mcc != null and mcc != ''">
+				AND trim(a.mcc) = #{mcc}
+			</if>
+			<if test="merchantCname != null and merchantCname.trim().length() != 0">
+				AND trim(a.merchant_cname) LIKE 
+					<if test="dbName == 'oracle'">'%'||#{merchantCname}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{merchantCname}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{merchantCname},'%')</if>
+			</if>
+			<if test="cityCname != null and cityCname.trim().length() != 0">
+				AND trim(a.city_cname) = #{cityCname}
+			</if>
+			<if test="merchantStat != null and merchantStat.trim().length() != 0">
+				AND trim(a.merchant_stat) = #{merchantStat}
+			</if>
+			<if test="settleMode != null and settleMode.trim().length() != 0">
+				AND trim(a.settle_mode) = #{settleMode}
+			</if>
+			<if test="merchantArea != null and merchantArea.trim().length() != 0">
+				AND trim(b.merchant_area) = #{merchantArea}
+			</if>
+			<if test="beginContractStartDate != null and beginContractStartDate.trim().length() != 0">
+				AND <![CDATA[ b.contract_start_date >= #{beginContractStartDate} ]]>
+			</if>
+			<if test="endContractStartDate != null and endContractStartDate.trim().length() != 0">
+				AND <![CDATA[ b.contract_start_date <= #{endContractStartDate} ]]>
+			</if>
+			<if test="contractflag != null and contractflag == '0'.toString() ">
+				AND (<![CDATA[ trim(b.CONTRACT_END_DATE) > #{contractTime} ]]>
+				OR trim(b.CONTRACT_END_DATE) IS NULL)
+			</if>
+			<if test="contractflag != null and contractflag == '1'.toString() ">
+				AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+				AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+			</if>
+			<if test="contractflag != null and contractflag == '2'.toString() ">
+				AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+				AND <![CDATA[ trim(b.CONTRACT_END_DATE) >= to_char(Sysdate, 'yyyyMMdd') ]]>
+				AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+			</if>
+			<if test="beginContractRenewalDate != null and beginContractRenewalDate.trim().length() != 0">
+				AND <![CDATA[ b.contract_renewal_date >= #{beginContractRenewalDate} ]]>
+			</if>
+			<if test="endContractRenewalDate != null and endContractRenewalDate.trim().length() != 0">
+				AND <![CDATA[ b.contract_renewal_date <= #{endContractRenewalDate} ]]>
+			</if>
+			<if test="merchantCompanyName != null and merchantCompanyName.trim().length() != 0">
+				AND trim(b.merchant_company_name) LIKE '%'||#{merchantCompanyName}||'%'
+			</if>
+			<if test="renewalType != null and renewalType.trim().length() != 0">
+				AND trim(b.renewal_type) = #{renewalType}
+			</if>
+			<if test="marketContactPerson != null and marketContactPerson.trim().length() != 0">
+				AND trim(b.market_contact_person) LIKE '%'||#{marketContactPerson}||'%'
+			</if>
+			<if test="financialContactPerson != null and financialContactPerson.trim().length() != 0">
+				AND trim(b.financial_contact_person) LIKE '%'||#{financialContactPerson}||'%'
+			</if>
+			<if test="storeManager != null and storeManager.trim().length() != 0">
+				AND trim(b.store_manager) = #{storeManager}
+			</if>
+			<if test="merchantAdvisor != null and merchantAdvisor.trim().length() != 0">
+				AND trim(b.merchant_advisor) = #{merchantAdvisor}
+			</if>
+			<if test="beginAllotDate != null and beginAllotDate.trim().length() != 0">
+				AND  <![CDATA[ b.allot_date >= #{beginAllotDate} ]]>
+			</if>
+			<if test="endAllotDate != null and endAllotDate.trim().length() != 0">
+				AND  <![CDATA[ b.allot_date <= #{endAllotDate} ]]>
+			</if>
+			<if test="sharer != null and sharer.trim().length() != 0">
+				AND trim(b.sharer)  LIKE '%'||#{sharer}||'%'
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.merchant_id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MerchantBase">
+		SELECT 
+			<include refid="merchantBaseColumns"/>
+		FROM merchant_base a
+		<include refid="merchantBaseJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.merchant_id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO merchant_base(
+			merchant_id,
+			mcc,
+			merchant_cname,
+			merchant_ename,
+			abbr_cname,
+			abbr_ename,
+			address_chn,
+			address_eng,
+			city_cname,
+			city_ename,
+			telephone,
+			post_code,
+			fax,
+			manager,
+			settle_merch_id,
+			sign_bank_id,
+			sign_host_id,
+			zbank,
+			ccy_type,
+			lock_mode,
+			sign_date,
+			merchant_stat,
+			settle_mode,
+			update_oper,
+			update_time
+		) VALUES (
+			#{merchantId},
+			#{mcc},
+			#{merchantCname},
+			#{merchantEname},
+			#{abbrCname},
+			#{abbrEname},
+			#{addressChn},
+			#{addressEng},
+			#{cityCname},
+			#{cityEname},
+			#{telephone},
+			#{postCode},
+			#{fax},
+			#{manager},
+			#{settleMerchId},
+			#{signBankId},
+			#{signHostId},
+			#{zbank},
+			#{ccyType},
+			#{lockMode},
+			#{signDate},
+			#{merchantStat},
+			#{settleMode},
+			#{updateOper},
+			#{updateTime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE merchant_base SET 	
+			mcc = #{mcc},
+			merchant_cname = #{merchantCname},
+			merchant_ename = #{merchantEname},
+			abbr_cname = #{abbrCname},
+			abbr_ename = #{abbrEname},
+			address_chn = #{addressChn},
+			address_eng = #{addressEng},
+			city_cname = #{cityCname},
+			city_ename = #{cityEname},
+			telephone = #{telephone},
+			post_code = #{postCode},
+			fax = #{fax},
+			manager = #{manager},
+			settle_merch_id = #{settleMerchId},
+			sign_bank_id = #{signBankId},
+			sign_host_id = #{signHostId},
+			zbank = #{zbank},
+			sign_date = #{signDate},
+			settle_mode = #{settleMode},
+			update_oper = #{updateOper},
+			UPDATE_DATE = #{updateDateStr},
+			update_time = #{updateTime}
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+	<update id="disableMerchant">
+		UPDATE merchant_base SET 	
+			merchant_stat = #{merchantStat},
+			update_oper = #{updateBy.loginName},
+			UPDATE_DATE = #{disableDate},
+			update_time = #{updateTime}
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+	<update id="usableMerchant">
+		UPDATE merchant_base SET 	
+			merchant_stat = #{merchantStat},
+			update_oper = #{updateBy.loginName},
+			UPDATE_DATE = #{usableDate},
+			update_time = #{updateTime}
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM merchant_base
+		WHERE merchant_id = #{merchantId}
+	</update>
+	
+</mapper>

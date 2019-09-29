@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdfeeCkjfFlogDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.CrdfeeCkjfFlog" >
+    <id column="ID" property="primayKey" jdbcType="VARCHAR" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="LOCAL_DATE" property="localDate" jdbcType="VARCHAR" />
+    <result column="MERCHANTNO" property="merchantno" jdbcType="VARCHAR" />
+    <result column="TERMCODE" property="termcode" jdbcType="VARCHAR" />
+    <result column="ACCFLAG" property="accflag" jdbcType="VARCHAR" />
+    <result column="AVLBAL" property="avlbal" jdbcType="FLOAT" />
+    <result column="TLOG_ID" property="tlogId" jdbcType="DECIMAL" />
+    <result column="AMTTXN" property="amttxn" jdbcType="FLOAT" />
+    <result column="TRAN_DATE" property="tranDate" jdbcType="VARCHAR" />
+    <result column="TRAN_TIME" property="tranTime" jdbcType="VARCHAR" />
+    <result column="STAN" property="stan" jdbcType="DECIMAL" />
+    <result column="RRN" property="rrn" jdbcType="VARCHAR" />
+    <result column="TXNCODE" property="txncode" jdbcType="DECIMAL" />
+    <result column="TXNSRC" property="txnsrc" jdbcType="VARCHAR" />
+    <result column="RSPCODE" property="rspcode" jdbcType="CHAR" />
+    <result column="TXNSTATUS" property="txnstatus" jdbcType="DECIMAL" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="RESERVED3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="RESERVED4" property="reserved4" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    to_char(ID) AS ID, VERNO_CTX, PAN, LOCAL_DATE, MERCHANTNO, TERMCODE, ACCFLAG, AVLBAL, TLOG_ID, AMTTXN, 
+    TRAN_DATE, TRAN_TIME, STAN, RRN, TXNCODE, TXNSRC, RSPCODE, TXNSTATUS, RESERVED1, 
+    RESERVED2, RESERVED3, RESERVED4
+  </sql>
+  
+  <sql id="Base_Order_By">
+  	ORDER BY ID DESC, LOCAL_DATE DESC, TRAN_DATE DESC
+  </sql>
+  
+  <sql id="Base_Where_Condition">
+  	<where>
+  		<if test="pan != null and pan.trim().length() != 0">
+	    	AND PAN = #{pan}
+	    </if>
+	    <if test="merchantno != null and merchantno.trim().length() != 0">
+	    	AND MERCHANTNO = #{merchantno}
+	    </if>
+	    <if test="termcode != null and termcode.trim().length() != 0">
+	    	AND TERMCODE = #{termcode}
+	    </if>
+	    <if test="begainTranDate != null and begainTranDate.trim().length() != 0">
+	    	AND <![CDATA[ TRAN_DATE >= #{begainTranDate} ]]>
+	    </if>
+	    <if test="endTranDate != null and endTranDate.trim().length() != 0">
+	    	AND <![CDATA[ TRAN_DATE <= #{endTranDate} ]]>
+	    </if>
+	    <if test="accflag != null and accflag.trim().length() != 0">
+	    	AND ACCFLAG = #{accflag}
+	    </if>
+  	</where>
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM CRDFEECKJFLOG WHERE ID = #{primayKey,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT 	<include refid="Base_Column_List" />
+   	FROM CRDFEECKJFLOG  <include refid="Base_Where_Condition" /> 
+    <include refid="Base_Order_By" />
+  </select>
+  
+  <delete id="delete">
+    DELETE FROM CRDFEECKJFLOG WHERE ID = #{primayKey,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" >
+    INSERT INTO CRDFEECKJFLOG (ID, VERNO_CTX, PAN, 
+      LOCAL_DATE, MERCHANTNO, TERMCODE, 
+      ACCFLAG, AVLBAL, TLOG_ID, 
+      AMTTXN, TRAN_DATE, TRAN_TIME, 
+      STAN, RRN, TXNCODE, 
+      TXNSRC, RSPCODE, TXNSTATUS)
+    VALUES (#{id,jdbcType=VARCHAR}, #{vernoCtx,jdbcType=DECIMAL}, #{pan,jdbcType=VARCHAR}, 
+      #{localDate,jdbcType=VARCHAR}, #{merchantno,jdbcType=VARCHAR}, #{termcode,jdbcType=VARCHAR}, 
+      #{accflag,jdbcType=VARCHAR}, #{avlbal,jdbcType=FLOAT}, #{tlogId,jdbcType=DECIMAL}, 
+      #{amttxn,jdbcType=FLOAT}, #{tranDate,jdbcType=VARCHAR}, #{tranTime,jdbcType=VARCHAR}, 
+      #{stan,jdbcType=DECIMAL}, #{rrn,jdbcType=VARCHAR}, #{txncode,jdbcType=DECIMAL}, 
+      #{txnsrc,jdbcType=VARCHAR}, #{rspcode,jdbcType=CHAR}, #{txnstatus,jdbcType=DECIMAL})
+  </insert>
+  
+  <update id="update">
+    UPDATE CRDFEECKJFLOG
+    SET VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      PAN = #{pan,jdbcType=VARCHAR},
+      LOCAL_DATE = #{localDate,jdbcType=VARCHAR},
+      MERCHANTNO = #{merchantno,jdbcType=VARCHAR},
+      TERMCODE = #{termcode,jdbcType=VARCHAR},
+      ACCFLAG = #{accflag,jdbcType=VARCHAR},
+      AVLBAL = #{avlbal,jdbcType=FLOAT},
+      TLOG_ID = #{tlogId,jdbcType=DECIMAL},
+      AMTTXN = #{amttxn,jdbcType=FLOAT},
+      TRAN_DATE = #{tranDate,jdbcType=VARCHAR},
+      TRAN_TIME = #{tranTime,jdbcType=VARCHAR},
+      STAN = #{stan,jdbcType=DECIMAL},
+      RRN = #{rrn,jdbcType=VARCHAR},
+      TXNCODE = #{txncode,jdbcType=DECIMAL},
+      TXNSRC = #{txnsrc,jdbcType=VARCHAR},
+      RSPCODE = #{rspcode,jdbcType=CHAR},
+      TXNSTATUS = #{txnstatus,jdbcType=DECIMAL}
+    WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

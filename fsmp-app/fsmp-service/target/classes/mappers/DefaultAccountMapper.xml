@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wechat.DefaultAccountMapper">
+
+	<insert id="insertDefaultAccount" parameterType="Map">
+		INSERT INTO
+			CLOUDDEFAULTACCOUNT
+			(USERID,APPID)
+		VALUES
+			(#{userid},#{appid})
+	</insert>
+	<update id="updateDefaultAccount" parameterType="Map">
+		UPDATE
+			CLOUDDEFAULTACCOUNT
+		SET
+			APPID = #{appid}
+		WHERE
+			USERID = #{userid}
+	</update>
+	<select id="selectByUserid" parameterType="String" resultType="DefaultAccount">
+		SELECT
+			USERID,
+			APPID
+		FROM
+			CLOUDDEFAULTACCOUNT
+		WHERE
+			USERID = #{userid} 
+	</select>
+	<delete id="deleteDefaultAccount" parameterType="Map">
+		DELETE FROM 
+			CLOUDDEFAULTACCOUNT
+		WHERE 
+			USERID = #{userid} AND APPID = #{appid}
+	</delete>
+</mapper>

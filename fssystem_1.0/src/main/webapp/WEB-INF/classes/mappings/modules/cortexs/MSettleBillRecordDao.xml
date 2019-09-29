@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.MSettleBillRecordDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.MSettleBillRecord" >
+    <result column="MRCHNO" property="mrchno" jdbcType="VARCHAR" />
+    <result column="MRCH_NAME" property="mrchName" jdbcType="VARCHAR" />
+    <result column="MODIFY_MODULE" property="modifyModule" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_RECORD" property="originalRecord" jdbcType="CLOB" />
+    <result column="MODIFY_RECORD" property="modifyRecord" jdbcType="CLOB" />
+    <result column="REMOTE_ADDR" property="remoteAddr" jdbcType="VARCHAR" />
+    <result column="REMOTE_MAC" property="remoteMac" jdbcType="VARCHAR" />
+    <result column="USER_AGENT" property="userAgent" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy.name" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    MRCHNO, MRCH_NAME, MODIFY_MODULE, ORIGINAL_RECORD, MODIFY_RECORD, REMOTE_ADDR, REMOTE_MAC, 
+    USER_AGENT, CREATE_BY, CREATE_TIME
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM MERCHANT_X_RECORD
+    WHERE CREATE_TIME = #{createTime}
+    ORDER BY  CREATE_TIME DESC, mrchno DESC, mrch_name DESC
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap" parameterType="cn.yufu.system.modules.cortexs.entity.MSettleBillRecord" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM MERCHANT_X_RECORD
+    <where>
+    	<if test="mrchno != null and mrchno.trim().length() != 0">
+    		AND MRCHNO = #{mrchno}
+    	</if>
+    	<if test="mrchName != null and mrchName.trim().length() != 0">
+    		AND MRCH_NAME LIKE '%'||#{mrchName}||'%'
+    	</if>
+    	<if test="beginCreateTime != null and beginCreateTime.trim().length() != 0">
+    		AND  <![CDATA[ CREATE_TIME >= #{beginCreateTime} ]]>
+    	</if>
+    	<if test="endCreateTime != null and endCreateTime.trim().length() != 0">
+    		AND  <![CDATA[ CREATE_TIME <= #{endCreateTime} ]]>
+    	</if>
+    	<if test="modifyModule != null and modifyModule.trim().length() != 0">
+    		AND MODIFY_MODULE = #{modifyModule}
+    	</if>
+    </where>
+    ORDER BY  CREATE_TIME DESC, mrchno DESC, mrch_name DESC
+  </select>
+  
+  <insert id="insert">
+    insert into MERCHANT_X_RECORD (MRCHNO, MRCH_NAME, MODIFY_MODULE, 
+      REMOTE_ADDR, REMOTE_MAC, USER_AGENT, 
+      CREATE_BY, CREATE_TIME, ORIGINAL_RECORD, 
+      MODIFY_RECORD)
+    values (#{mrchno,jdbcType=VARCHAR}, #{mrchName,jdbcType=VARCHAR}, #{modifyModule,jdbcType=VARCHAR}, 
+      #{remoteAddr,jdbcType=VARCHAR}, #{remoteMac,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, 
+      #{createBy.name,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{originalRecord,jdbcType=CLOB}, 
+      #{modifyRecord,jdbcType=CLOB})
+  </insert>
+  
+  <select id="getModifyModule" resultType="java.lang.String" >
+    SELECT DISTINCT modify_module AS "modifyModule" FROM MERCHANT_X_RECORD 
+  </select>
+  
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfBatchcurrbusilogMapper">
+	<select id="queryall"  resultType="CfBatchrechargeEntity" >
+		select
+			    cb.id id,
+			    cb.ispno ispno,
+			    cb.isptype isptype,
+			    cb.facevalue facevalue,
+			    cb.phone phone,
+			    cb.batchid batchid,
+			    r.batchname batchname,
+			    cb.bizid bizid,
+			    cb.status status,
+			    ac.id apno,
+			    ac.acname acname,
+			    c.id cid,
+			    c.cname cname
+		from
+				cf_batchrecharge cb
+					LEFT JOIN cf_batchinfo r
+						ON cb.batchid = r.batchid
+						 	LEFT JOIN cf_accessclient ac
+						 		ON r.apno = ac.id
+						 			LEFT JOIN cf_customer c
+						 				ON ac.cid = c.id
+		<!-- WHERE 
+			(
+				1 =1
+				  
+				<if test="param1.cid!='' and param1.cid!=null">
+					and c.id = #{param1.cid} 
+				</if>
+				<if test="param1.apno!='' and param1.apno!=null">
+					and ac.id = #{param1.apno} 
+				</if>
+				<if test="param1.ispno!='' and param1.ispno!=null">
+					and cb.batchid = #{param1.batchid} 
+				</if>
+				<if test="param1.status!='' and param1.status!=null">
+					and cb.status = #{param1.status} 
+				</if>
+			) -->
+	</select>
+	<select id="query"  resultType="CfBatchrechargeEntity" >
+		select
+			    cb.id id,
+			    cb.ispno ispno,
+			    cb.isptype isptype,
+			    cb.facevalue facevalue,
+			    cb.phone phone,
+			    cb.batchid batchid,
+			    r.batchname batchname,
+			    cb.bizid bizid,
+			    r.status,
+			    ac.id apno,
+			    ac.acname acname,
+			    c.id cid,
+			    c.cname cname
+		from
+				cf_batchrecharge cb
+					LEFT JOIN cf_batchinfo r
+						ON cb.batchid = r.batchid
+						 	LEFT JOIN cf_accessclient ac
+						 		ON r.apno = ac.id
+						 			LEFT JOIN cf_customer c
+						 				ON ac.cid = c.id
+		
+		WHERE 
+			(
+				1 =1
+				  
+				<if test="param1.cid!='' and param1.cid!=null">
+					and c.id = #{param1.cid} 
+				</if>
+				<if test="param1.apno!='' and param1.apno!=null">
+					and ac.id = #{param1.apno} 
+				</if>
+				<if test="param1.batchid!='' and param1.batchid!=null">
+					and cb.batchid = #{param1.batchid} 
+				</if>
+				<if test="param1.status!='' and param1.status!=null">
+					and r.status = #{param1.status} 
+				</if>
+				<if test="param1.status=='' or param1.status==null">
+					and r.status != '20' 
+				</if>
+			)	
+	 	limit #{start},#{length}
+	</select>
+	
+	<select id="searchLogCount" parameterType="CfBatchrechargeEntity" resultType="String">
+		SELECT 
+			COUNT(cb.id)
+		from
+				cf_batchrecharge cb
+					LEFT JOIN cf_batchinfo r
+						ON cb.batchid = r.batchid
+						 	LEFT JOIN cf_accessclient ac
+						 		ON r.apno = ac.id
+						 			LEFT JOIN cf_customer c
+						 				ON ac.cid = c.id
+		
+		WHERE 
+			(
+				1 = 1
+				  
+				<if test="cid!='' and cid!=null">
+					and c.id = #{cid} 
+				</if>
+				<if test="apno!='' and apno!=null">
+					and ac.id = #{apno} 
+				</if>
+				<if test="batchid!='' and batchid!=null">
+					and cb.batchid = #{batchid} 
+				</if>
+				<if test="status!='' and status!=null">
+					and r.status = #{status} 
+				</if>
+				<if test="status =='' or status == null">
+					and r.status != '20' 
+				</if>
+			)	
+	</select>
+</mapper>
+	

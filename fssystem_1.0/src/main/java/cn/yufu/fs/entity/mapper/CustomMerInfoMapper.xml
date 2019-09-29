@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.CustomMerInfoMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.CustomMerInfo" >
+  
+    <result column="BATCH_ID" property="batchId" jdbcType="VARCHAR" />
+    <result column="MER_NO" property="merNo" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="TRAN_START_DATE" property="tranStartDate" jdbcType="VARCHAR" />
+    <result column="TRAN_END_DATE" property="tranEndDate" jdbcType="VARCHAR" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+    <result column="DEAL_DATE" property="dealDate" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="VARCHAR" />
+    <result column="CHOICE_FLAG" property="choiceFlag" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD2" property="freeField2" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD3" property="freeField3" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    BATCH_ID, MER_NO, COMPANY_NAME, TRAN_START_DATE, TRAN_END_DATE, ORDER_DATE, DEAL_DATE, 
+    FLAG, CHOICE_FLAG, FREE_FIELD2, FREE_FIELD3
+  </sql>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    select count(*) from T_CUSTOM_MER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap">
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_CUSTOM_MER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    order by DEAL_DATE DESC, BATCH_ID DESC 
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+   	SELECT * FROM (
+	SELECT c.*, ROWNUM rn FROM(
+	select
+	<if test="example.distinct">
+		example.distinct
+	</if>
+	<include refid="Base_Column_List" />
+	from T_CUSTOM_MER_INFO 
+	<if test="_parameter != null">
+		<include refid="Example_Where_Clause" />
+	</if>
+	order by DEAL_DATE DESC, BATCH_ID DESC ) c 
+	WHERE <![CDATA[ ROWNUM <= #{endResult} ]]>)
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="selectByPrimay" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_CUSTOM_MER_INFO WHERE BATCH_ID = #{0}
+  </select>
+  
+  <insert id="insert">
+    insert into T_CUSTOM_MER_INFO (BATCH_ID, MER_NO, COMPANY_NAME, 
+      TRAN_START_DATE, TRAN_END_DATE, ORDER_DATE, CHOICE_FLAG)
+    values (#{batchId,jdbcType=VARCHAR}, #{merNo,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{tranStartDate,jdbcType=VARCHAR}, #{tranEndDate,jdbcType=VARCHAR}, 
+      #{orderDate,jdbcType=VARCHAR}, #{choiceFlag,jdbcType=VARCHAR})
+  </insert>
+  
+  <delete id="deleteByPrimay">
+    delete from T_CUSTOM_MER_INFO WHERE BATCH_ID = #{0}
+  </delete>
+
+  <update id="updateByPrimay" >
+    update T_CUSTOM_MER_INFO
+    set MER_NO = #{merNo,jdbcType=VARCHAR},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      TRAN_START_DATE = #{tranStartDate,jdbcType=VARCHAR},
+      TRAN_END_DATE = #{tranEndDate,jdbcType=VARCHAR},
+      ORDER_DATE = #{orderDate,jdbcType=VARCHAR},
+      CHOICE_FLAG = #{choiceFlag,jdbcType=VARCHAR}
+      WHERE BATCH_ID = #{batchId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "cn.com.jansh.mapper.data.HuodongrewardMapper">
+	<!-- 获取所有机构的名称和CODE -->
+	<select id="queryAllDate" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME 
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			 	1 = 1 and orgstatus = 1 and delflag = 1
+		ORDER BY CREATETIME DESC
+	</select>
+</mapper>
+	

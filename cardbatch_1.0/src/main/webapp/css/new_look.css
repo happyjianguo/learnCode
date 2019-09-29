@@ -1,0 +1,202 @@
+@CHARSET "UTF-8";
+
+/*.list {
+	color: #094e87;
+
+*/
+/*表体的行背景色交替变换
+字体颜色
+*/
+.list td {
+	background: expression((  this.parentNode.rowIndex)%  2==  0?  "#f7fbfc":
+		 "#FFFFFF");
+	color: #094e87;
+}
+/*
+
+.thea {
+	color: #094e87;
+}
+*/
+/*表眉字体颜色
+背景颜色
+表眉禁止滑动
+*/
+#tl td {
+	background-color: #e4f0fe;
+	BORDER-RIGHT: 1px solid #B8DBED;
+	/*BORDER-TOP: 1px solid #B8DBED;*/
+	BORDER-LEFT: 1px solid #FFFFFF;
+	BORDER-BOTTOM: 1px solid #B8DBED;
+	line-height: 20px;
+}
+
+.tl {
+	height: 35px;
+	background-color: #e4f0fe;
+	position: relative;
+	top: expression(this.offsetParent.scrollTop);
+	color: #094e87;
+	/* border:1px  #b2d0d2 ;*/
+}
+/* 展现区域的div
+table  th{
+   
+    border-collapse:collapse;
+}
+	*/
+.dlist {
+	position:absolute; 
+	top:132px;
+	overflow-y: auto;
+	overflow-x: auto;
+	width: 99.7%;
+	/*
+	border-style: solid;
+	border-width: 1px;
+	border-color:b2d0d2;
+	*/
+	border:1px solid #ddd;
+	left:0.1px;
+	float:left;
+	margin: 1px;
+}
+
+.serch {
+	background-color: #cef0fe;
+	color: #094e87;
+	border-style: solid;
+	border-color: #aecfd8;
+	border-width: 1px;
+}
+
+.nbutton {
+	background-image: url('../image1/buntton1/2.gif');
+	BORDER-RIGHT: 0px solid #079CE4;
+	BORDER-TOP: 0px solid #E2F5FE;
+	FONT-SIZE: 12px;
+	BORDER-LEFT: 0px solid #E2F5FE;
+	COLOR: #09487e;
+	PADDING-TOP: 0px;
+	BORDER-BOTTOM: 0px solid #079CE4;
+	HEIGHT: 25px;
+	width: 64px;
+}
+/******************************** 按钮 **********************************/
+button {
+	border: 0;
+	background: url(../images/emp/btn_bg.png) no-repeat;
+	cursor: pointer;
+	color: #000;
+	padding-top: 3px;
+	margin: 5px 5px 0px 0px;
+	height: 25px;
+	width: 80px;
+}
+
+.button {
+	border: 0;
+	background: url(../images/emp/btn_bg.png) no-repeat;
+	cursor: pointer;
+	color: #000;
+	padding-top: 3px;
+	margin: 5px 5px 0px 0px;
+	height: 25px;
+	width: 80px;
+}
+
+.button8 {
+	border: 0;
+	background: url(../image1/buntton1/8.gif) no-repeat;
+	cursor: pointer;
+	color: #000;
+	height: 25px;
+	width: 116px;
+}
+
+.button6 {
+	border: 0;
+	background: url(../image1/buntton1/8.gif) no-repeat;
+	cursor: pointer;
+	color: #000;
+	height: 25px;
+	width: 89px;
+}
+
+.button2 {
+	border: 0;
+	background: url(../image1/buntton1/8.gif) no-repeat;
+	cursor: pointer;
+	color: #000;
+	height: 25px;
+	width: 64px;
+}
+/* displayTag 的样式
+table.dpTable {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border: 1px solid #F65432;
+	width: 100%;
+	border-collapse: collapse;
+} */
+table.dpTable thead tr {
+	height: 35px;
+	font-size: 12px;
+	font-weight: normal;
+	background-color: #e4f0fe;
+	BORDER-RIGHT: 1px solid #B8DBED;
+	/*BORDER-TOP: 1px solid #B8DBED;*/
+	BORDER-LEFT: 1px solid #FFFFFF;
+	BORDER-BOTTOM: 1px solid #B8DBED;
+	line-height: 20px;
+}
+
+table.dpTable tbody tr td {
+	background: expression(( this.parentNode.rowIndex)%2==0?"#f7fbfc":"#FFFFFF");
+	color: #094e87;
+}
+
+table.dpTable tr td {
+	BORDER-RIGHT: 1px solid #B8DBED;
+	BORDER-TOP: 1px solid #FFFFFF;
+	BORDER-LEFT: 1px solid #FFFFFF;
+	BORDER-BOTTOM: 1px solid #B8DBED;
+	line-height: 20px;
+	height: 28px;
+}
+
+th.sorted a,th.sortable a {
+	font-weight: normal;
+	background-position: right;
+	background-repeat: no-repeat;
+	display: block;
+	width: 100%;
+	text-decoration: none;
+	padding-top: 2px;
+}
+
+th.sorted a:visited,th.sortable a:visited {
+	text-decoration: none;
+}
+
+th.sortable a {
+	background-image: url(../images/arrow_off.png);
+}
+
+th.order1 a {
+	background-image: url(../images/arrow_down.png);
+}
+
+th.order2 a {
+	background-image: url(../images/arrow_up.png);
+}
+
+table.dpTable thead th {
+	font-weight: normal;
+}
+
+span.pagebanner {
+	width: 100%;
+	text-align: right;
+	padding-right: 20px;
+}

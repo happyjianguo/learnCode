@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.ViewMerFeeDetailMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.ViewMerFeeDetail" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DETAIL_ID" property="detailId" jdbcType="VARCHAR" />
+    <result column="MER_NO" property="merNo" jdbcType="VARCHAR" />
+    <result column="MER_NAME" property="merName" jdbcType="VARCHAR" />
+    <result column="CARD_NO" property="cardNo" jdbcType="VARCHAR" />
+    <result column="TERM_NO" property="termNo" jdbcType="VARCHAR" />
+    <result column="TIMEZONE" property="timezone" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="TRAN_AMT" property="tranAmt" jdbcType="DECIMAL" />
+    <result column="TRAN_TYPE" property="tranType" jdbcType="VARCHAR" />
+    <result column="TRAN_DATE" property="tranDate" jdbcType="VARCHAR" />
+    <result column="TRAN_TIME" property="tranTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DETAIL_ID, MER_NO, MER_NAME, CARD_NO, TERM_NO, TIMEZONE, FEE, TRAN_AMT, TRAN_TYPE, 
+    TRAN_DATE, TRAN_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.fs.entity.ViewMerFeeDetailExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from VIEW_MER_FEE_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.yufu.fs.entity.ViewMerFeeDetailExample" >
+    delete from VIEW_MER_FEE_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.fs.entity.ViewMerFeeDetail" >
+    insert into VIEW_MER_FEE_DETAIL (ID, DETAIL_ID, MER_NO, 
+      MER_NAME, CARD_NO, TERM_NO, 
+      TIMEZONE, FEE, TRAN_AMT, 
+      TRAN_TYPE, TRAN_DATE, TRAN_TIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{detailId,jdbcType=VARCHAR}, #{merNo,jdbcType=VARCHAR}, 
+      #{merName,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, #{termNo,jdbcType=VARCHAR}, 
+      #{timezone,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, #{tranAmt,jdbcType=DECIMAL}, 
+      #{tranType,jdbcType=VARCHAR}, #{tranDate,jdbcType=VARCHAR}, #{tranTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.fs.entity.ViewMerFeeDetail" >
+    insert into VIEW_MER_FEE_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="detailId != null" >
+        DETAIL_ID,
+      </if>
+      <if test="merNo != null" >
+        MER_NO,
+      </if>
+      <if test="merName != null" >
+        MER_NAME,
+      </if>
+      <if test="cardNo != null" >
+        CARD_NO,
+      </if>
+      <if test="termNo != null" >
+        TERM_NO,
+      </if>
+      <if test="timezone != null" >
+        TIMEZONE,
+      </if>
+      <if test="fee != null" >
+        FEE,
+      </if>
+      <if test="tranAmt != null" >
+        TRAN_AMT,
+      </if>
+      <if test="tranType != null" >
+        TRAN_TYPE,
+      </if>
+      <if test="tranDate != null" >
+        TRAN_DATE,
+      </if>
+      <if test="tranTime != null" >
+        TRAN_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="merNo != null" >
+        #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merName != null" >
+        #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="termNo != null" >
+        #{termNo,jdbcType=VARCHAR},
+      </if>
+      <if test="timezone != null" >
+        #{timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="tranAmt != null" >
+        #{tranAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="tranType != null" >
+        #{tranType,jdbcType=VARCHAR},
+      </if>
+      <if test="tranDate != null" >
+        #{tranDate,jdbcType=VARCHAR},
+      </if>
+      <if test="tranTime != null" >
+        #{tranTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.fs.entity.ViewMerFeeDetailExample" resultType="java.lang.Integer" >
+    select count(*) from VIEW_MER_FEE_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update VIEW_MER_FEE_DETAIL
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailId != null" >
+        DETAIL_ID = #{record.detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merNo != null" >
+        MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merName != null" >
+        MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNo != null" >
+        CARD_NO = #{record.cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.termNo != null" >
+        TERM_NO = #{record.termNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timezone != null" >
+        TIMEZONE = #{record.timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fee != null" >
+        FEE = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tranAmt != null" >
+        TRAN_AMT = #{record.tranAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tranType != null" >
+        TRAN_TYPE = #{record.tranType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tranDate != null" >
+        TRAN_DATE = #{record.tranDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tranTime != null" >
+        TRAN_TIME = #{record.tranTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update VIEW_MER_FEE_DETAIL
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DETAIL_ID = #{record.detailId,jdbcType=VARCHAR},
+      MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      CARD_NO = #{record.cardNo,jdbcType=VARCHAR},
+      TERM_NO = #{record.termNo,jdbcType=VARCHAR},
+      TIMEZONE = #{record.timezone,jdbcType=VARCHAR},
+      FEE = #{record.fee,jdbcType=DECIMAL},
+      TRAN_AMT = #{record.tranAmt,jdbcType=DECIMAL},
+      TRAN_TYPE = #{record.tranType,jdbcType=VARCHAR},
+      TRAN_DATE = #{record.tranDate,jdbcType=VARCHAR},
+      TRAN_TIME = #{record.tranTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+   <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT a.*, ROWNUM rn FROM(
+		select
+		<if test="example.distinct">
+			example.distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from VIEW_MER_FEE_DETAIL
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="example.orderByClause != null">
+			order by ${example.orderByClause}
+		</if>)
+		a
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select>   
+  <select id="getSumAmtByExample" parameterType="java.lang.String" resultType="java.lang.String">
+	select to_char(sum(tran_amt), 'fm999999999999990.90') || '#' ||
+	       to_char(sum(fee), 'fm999999999999990.90') as fee
+	  from VIEW_MER_FEE_DETAIL
+	 where id = #{id}
+  </select>
+</mapper>

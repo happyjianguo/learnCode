@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdfeeRuleCkjfDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.CrdfeeRuleCkjf" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="IID" property="iid" jdbcType="VARCHAR" />
+    <result column="USEMONTH" property="usemonth" jdbcType="VARCHAR" />
+    <result column="ACCTYPE4" property="acctype4" jdbcType="VARCHAR" />
+    <result column="ACCTYPE9" property="acctype9" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="VARCHAR" />
+    <result column="INSERTTIME" property="inserttime" jdbcType="VARCHAR" />
+    <result column="UPDATTIME" property="updattime" jdbcType="VARCHAR" />
+    <result column="OPER" property="oper" jdbcType="VARCHAR" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    to_char(ID) AS ID, IID, USEMONTH, ACCTYPE4, ACCTYPE9, FLAG, INSERTTIME, UPDATTIME, OPER, RESERVED1, 
+    RESERVED3, RESERVED2
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM CRDFEE_RULE_CKJF WHERE 1=1
+    <if test="id != null and id.trim().length() != 0">
+    	AND ID = #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="iid != null and iid.trim().length() != 0">
+    	AND IID = #{iid}
+    </if>
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+   	FROM CRDFEE_RULE_CKJF WHERE 1=1 
+   	<if test="iid != null and iid.trim().length() != 0">
+    	AND IID = #{iid}
+    </if>
+    ORDER BY ID DESC 
+  </select>
+
+  <delete id="delete">
+    DELETE FROM  CRDFEE_RULE_CKJF WHERE ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert">
+    INSERT INTO CRDFEE_RULE_CKJF (IID, USEMONTH, ACCTYPE4, ACCTYPE9, FLAG, 
+      INSERTTIME, UPDATTIME, OPER)
+    VALUES (#{iid,jdbcType=VARCHAR}, #{usemonth,jdbcType=VARCHAR}, 
+      #{acctype4,jdbcType=VARCHAR}, #{acctype9,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, 
+      #{inserttime,jdbcType=VARCHAR}, #{updattime,jdbcType=VARCHAR}, 
+      #{updateBy.loginName,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update">
+    UPDATE CRDFEE_RULE_CKJF
+    SET IID = #{iid,jdbcType=VARCHAR},
+      USEMONTH = #{usemonth,jdbcType=VARCHAR},
+      ACCTYPE4 = #{acctype4,jdbcType=VARCHAR},
+      ACCTYPE9 = #{acctype9,jdbcType=VARCHAR},
+      FLAG = #{flag,jdbcType=VARCHAR},
+      UPDATTIME = #{updattime,jdbcType=VARCHAR},
+      OPER = #{updateBy.loginName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

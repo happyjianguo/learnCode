@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+    "http://directwebremoting.org/dwr10.dtd">
+<dwr>
+	<init>
+	</init>
+	<allow>
+		<!-- 角色 -->
+		<create javascript="roleManage" creator="new">
+			<param name="class" value="com.pay.system.role.dao.RoleDao" />
+			<include method="getRoleListjs" />
+			<include method="checkUserCode" />
+		</create>
+		<!-- 用户组 -->
+		<create javascript="deptManage" creator="new">
+			<param name="class" value="com.pay.system.dept.dao.DeptDao" />
+			<include method="getDeptList" />
+			<include method="getDeptInfoByLevel" />
+			<include method="getLevel" />
+			<include method="getDeptByLevel" />
+		</create>
+		<convert match="com.pay.system.role.bean.RoleBean" converter="bean" />
+		<convert match="com.pay.system.dept.bean.DeptBean" converter="bean" />
+		<create creator="new" javascript="ShellService">
+			<param name="class" value="com.pay.batch.bflowlog.tool.ShellService" />
+			<include method="submitstats" />
+			<include method="readstats" />
+			
+		</create>
+		<!-- 添加商户信息时，获取分机构编号 -->
+		<convert match="com.pay.merchant.bean.BranchBean" converter="bean" />
+		<convert match="com.pay.merchant.bean.TaxBean" converter="bean" />
+		<convert match="com.pay.merchant.bean.AreaBean" converter="bean" />
+		<convert match="com.pay.merchant.bean.AreaBean" converter="bean" />
+		<convert match="com.pay.merchant.bean.OfficialBean" converter="bean" />
+		<convert match="com.pay.merchant.bean.MerchantBean" converter="bean" />
+		<convert match="com.pay.merchant.bean.CrdroutingBean" converter="bean" />
+		<convert match="com.pay.merchant.bean.Mrch_acc_xBean" converter="bean" />
+		<create javascript="instManage" creator="new">
+			<param name="class" value="com.pay.merchant.dao.Merchantdao" />
+			<include method="getBrncodeJs" />
+			<include method="getTaxcodeJs" />
+			<include method="getCityByFid" />
+			<include method="getAreaXCityByFid" />
+			<include method="getOfficialJs" />
+			<include method="getMerchantBeanList" />
+			<include method="getMerchantBeanListByMrchNoOrName" />
+			<include method="getCrdroutingByIid" />
+			<include method="checkMrchNo" />
+			<include method="checkAccNo" />
+		</create>
+		<!-- 添加终端信息 -->
+		<convert match="com.pay.terminal.bean.MrchAccxBean" converter="bean" />
+		<create javascript="terminalManage" creator="new">
+			<param name="class" value="com.pay.terminal.dao.TerminalDao" />
+			<include method="getMrchAccxBeanList" />
+			<include method="checkTermCode" />
+			<include method="checkTermno" />
+		</create>
+		<convert match="com.pay.bank.bean.TBankInfoBean" converter="bean"/>
+		<create javascript="tBankInfoManage" creator="new">
+			<param name="class" value="com.pay.bank.dao.TBankInfoDao"/>
+			<include method="checkTBankInfoPK"/>
+			<include method="getTBankInfoListByBankName"/>
+		</create>
+		<create javascript="tBranchInfoManage" creator="new">
+			<param name="class" value="com.pay.bank.dao.TBranchInfoDao"/>
+			<include method="checkTBranchInfoPK"/>
+		</create>
+		<create javascript="sysParameterManage" creator="new">
+			<param name="class" value="com.pay.sysParameter.dao.SysParameterDao"/>
+			<include method="checkSysParameter"/>
+		</create>	
+		<!-- 商户信息统计-添加商户信息 -->
+		<convert match="com.pay.merInfoStatistics.bean.MerchantInfo" converter="bean"/>		
+		<create javascript="merchantInfoManage" creator="new">
+			<param name="class" value="com.pay.merInfoStatistics.dao.MerchantInfoDao"/>
+			<include method="checkMerchantInfoPK"/>
+			<include method="getCityByFid"/>
+			<include method="getMerchantInfoListByIdOrName"/>
+		</create>
+		
+		<!-- 商户信息统计-添加终端信息 -->
+		<convert match="com.pay.merInfoStatistics.bean.TerminalInfo" converter="bean"/>		
+		<create javascript="terminalInfoManage" creator="new">
+			<param name="class" value="com.pay.merInfoStatistics.dao.TerminalInfoDao"/>
+			<include method="checkTerminalInfoPK"/>
+		</create>	
+		<!-- 制卡 -->	
+		<create creator="new" javascript="ShellServiceOfHousekeep">
+			<param name="class" value="com.pay.batch.bflowlog.tool.ShellServiceOfHousekeep" />
+			<include method="submitstats" />
+			<include method="readstats" />
+			<include method="checkkabin" />
+			<include method="readstatsSix"/>
+			<include method="readstatsOfMakeCard"/>	
+			<include method="readstatsOfNC"/>
+		</create>		
+		<create creator="new" javascript="CrdformatMapService">
+			<param name="class" value="com.pay.batch.bflowlog.dao.CrdformatMapDao"/>
+            <include method="getIidMapStrByIid"/>
+            <include method="checkCrdformatMapPK"/>
+		</create>		
+	</allow>
+	<signatures>
+	</signatures>
+</dwr>   

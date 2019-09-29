@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CAccountDao">
+    
+	<sql id="cAccountColumns">
+		t.pan AS "pan",
+		m.accno AS "accno",
+		m.typecode AS "typecode",
+		m.currcode AS "currcode",
+		m.avlbal AS "avlbal"
+	</sql>
+	
+	<sql id="cAccountJoins">
+	</sql>
+    
+	<select id="get" resultType="CAccount">
+		SELECT 
+			<include refid="cAccountColumns"/>
+		FROM accdet  m  , crddet t 
+		<include refid="cAccountJoins"/>
+		WHERE m.id=t.accdet_id 
+		AND 
+  		t.pan = #{pan}
+	</select>
+	
+	<select id="findList" resultType="CAccount">
+		SELECT 
+			t.pan AS "pan",
+			m.accno AS "accno",
+			m.typecode AS "typecode",
+			m.currcode AS "currcode",
+			m.avlbal AS "avlbal"
+		FROM  accdet  m  , crddet t 
+		<where>
+			 m.id=t.accdet_id  
+			<if test="pan != null and pan != ''">
+				AND t.pan = #{pan}
+			</if>
+			<if test="pan == null or pan == ''">
+				AND t.pan = ''
+			</if>
+					
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CAccount">
+		SELECT 
+			t.pan AS "pan",
+			m.accno AS "accno",
+			m.typecode AS "typecode",
+			m.currcode AS "currcode",
+			m.avlbal AS "avlbal"
+		FROM  accdet  m  , crddet t 
+		<where>
+			 m.id=t.accdet_id  
+			<if test="pan != null and pan != ''">
+				AND t.pan = #{pan}
+			</if>
+			<if test="pan == null or pan == ''">
+				AND t.pan = ''
+			</if>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<insert id="insert">
+
+	</insert>
+	<update id="cAccountSave" parameterType="cn.yufu.system.modules.cortexs.entity.CAccount">
+		UPDATE accdet  t  set   	
+			t.avlbal=#{avlbal}
+		WHERE  
+      t.id  =(select  m.accdet_id  from  crddet m  where  m.pan=#{pan})    and  t.typecode=#{typecode}
+      
+	</update>
+	
+
+	
+</mapper>

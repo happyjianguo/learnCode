@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.fs.dao.OrdersConsumptionMapper">
+	<select id="querycount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select
+			count(*)
+		from 
+			t_transaction_records_his t
+		where 
+			t.cardnumber = #{cardnumber}
+	</select>
+	
+	<!-- 
+	<select id="querycount" resultType="java.lang.Integer">
+		select
+			count(*)
+		from 
+			t_transaction_records_his t
+		where 
+			t.cardnumber in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+     		#{item}
+    	</foreach>
+	</select>
+	-->
+
+	<select id="queryList" resultType="cn.yufu.fs.entity.OrdersConsumption">
+    	SELECT
+    		*
+  		FROM 
+  			(
+  			SELECT 
+  				ROWNUM rn, 
+				t1.cardnumber,
+				t1.merchantnumber,
+				t1.transactiondate,
+				t1.transactiontime,
+				t1.transactionmoney
+          	FROM 
+          		(
+				select
+					t.cardnumber,
+					t.merchantnumber,
+					t.transactiondate,
+					t.transactiontime,
+					t.transactionmoney
+				from 
+					t_transaction_records_his t
+				where 
+					t.cardnumber in
+				<foreach collection="cardlist" item="item" index="index" open="(" close=")" separator=",">
+		     		#{item}
+		    	</foreach>
+		    	order by t.transactiondate desc ,t.transactiontime desc
+          		) t1
+         	WHERE 
+         		<![CDATA[ ROWNUM <= #{endResult} ]]>
+         	) t2
+ 		WHERE 
+ 			t2.rn >= #{startResult}
+	</select>
+	<select id="queryTotalList" resultType="java.math.BigDecimal">
+    	select
+			sum(t.transactionmoney) transactionmoney
+		from 
+			t_transaction_records_his t
+		where 
+			t.cardnumber in
+		<foreach collection="cardlist" item="item" index="index" open="(" close=")" separator=",">
+	    		#{item}
+	   	</foreach>
+	</select>
+	
+	<select id="getFukaorders"  parameterType="java.lang.String" resultType="cn.yufu.fs.entity.FukaOrders">
+		select
+			t.ORDERCODE ordercode,
+			t.ADMIN_NAME adminName,
+			t.ADMIN_REALNAME adminRealname,
+			t.POINTID pointid,
+			t.POINT_NAME pointName,
+			t.COMPANY_ID companyId,
+			t.CARDTOTALPRICE companyName,
+			t.CARDTOTALPRICE cardtotalprice,
+			t.OUTCARDVERIFYTIME outcardverifytime,
+			t.PROVISIONS provisions
+		from
+			fuka_orders t
+		where
+			t.ORDERCODE=#{ordercode}
+	</select>
+</mapper>

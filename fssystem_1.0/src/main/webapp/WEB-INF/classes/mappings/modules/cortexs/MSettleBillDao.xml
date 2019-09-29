@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.MSettleBillDao">
+
+    
+	<sql id="mSettleBillColumns">
+		a.INST_ID AS "instId",
+		a.MRCHNO AS "mrchno",
+		a.MRCHT_NAME AS "mrchtName",
+		a.ADDRESS AS "address",
+		a.ADD_DATE AS "addDate",
+		a.CITY_NO AS "cityNo",
+		a.PROVINCE AS "province",
+		a.ZONE AS "zone",
+		a.STATE AS "state",
+		a.TYPE_YF AS "typeYf",
+		a.AGENT AS "agent",
+		a.ID_TYPE AS "idType",
+		a.ID_NO AS "idNo",
+		a.ID_VALIDITY AS "idValidity",
+		a.BUS_LIC_NO AS "busLicNo",
+		a.BUS_LIC_VALIDITY AS "busLicValidity",
+		a.TAX_ID AS "taxId",
+		a.TAX_ID_VALIDITY AS "taxIdValidity",
+		a.ORG_ID AS "orgId",
+		a.ORG_VALIDITY AS "orgValidity",
+		a.TELNO1 AS "telno1",
+		a.POSTCODE AS "postcode",
+		a.CONTACT3 AS "contact3",
+		a.ACCNO AS "accno",
+		a.MERCHANT_ID AS "merchantId",
+		a.BUS_LIC_PIC AS "busLicPic",
+		a.TAX_ID_PIC AS "taxIdPic",
+		a.ORG_ID_PIC AS "orgIdPic",
+		a.LEGAL_REP AS "legalRep",
+		a.LR_ID_TYPE AS "lrIdType",
+		a.LR_ID_NO AS "lrIdNo",
+		a.LR_ID_VALIDITY AS "lrIdValidity",
+		a.FS_CYCLE AS "fsCycle",
+		a.FS_CYCLE_PARAM AS "fsCycleParam",
+		to_char(a.LAST_SETTLE_DATE,'yyyymmdd') AS "lastSettleDate",
+		a.IS_CONSUMP_CATEGORY AS "isConsumpCategory",
+		a.AMT_CONSUMP_CATEGORY AS "amtConsumpCategory",
+		a.IS_FMRCHNO_DECIDE AS "isFmrchnoDecide",
+		a.FS_KP_CYCLE AS "fsKpCycle",
+		a.FS_KP_CYCLE_PARAM AS "fsKpCycleParam",
+		to_char(a.LAST_KP_DATE,'yyyymmdd')  AS "lastKpDate",
+		a.IS_BJ AS "isBj",
+		a.IS_CARD_TYPE_GROUP AS "isCardTypeGroup",
+		a.IS_KP AS "isKp",
+		a.DISABLED_DATE AS "disabledDate",
+		a.ENABLE_DATE AS "enableDate",
+		a.MERGE_MONEY_FLAG AS "mergeMoneyFlag",
+		a.MRCH_SNIPPET AS "mrchSnippet"
+	</sql>
+	
+	<sql id="mSettleBillJoins">
+	</sql>
+    
+	<select id="get" resultType="MSettleBill">
+		SELECT 
+			<include refid="mSettleBillColumns"/>
+		FROM merchant_x a
+		<include refid="mSettleBillJoins"/>
+		WHERE a.mrchno = #{id}
+	</select>
+	
+	<select id="findList" resultType="MSettleBill">
+		SELECT 
+			<include refid="mSettleBillColumns"/>
+		FROM merchant_x a
+		<include refid="mSettleBillJoins"/>
+		<where>
+			<if test="mrchno != null and mrchno != ''">
+				AND a.MRCHNO = #{mrchno}
+			</if>
+			<if test="mrchtName != null and mrchtName != ''">
+				AND a.MRCHT_NAME like '%'||#{mrchtName}||'%'
+			</if>			
+		
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MSettleBill">
+		SELECT 
+			<include refid="mSettleBillColumns"/>
+		FROM merchant_x a
+		<include refid="mSettleBillJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<update id="update">
+		UPDATE merchant_x SET 	
+			MRCHNO = #{mrchno},
+			FS_CYCLE = #{fsCycle},
+			FS_CYCLE_PARAM = #{fsCycleParam},
+			<![CDATA[ LAST_SETTLE_DATE = to_date(#{lastSettleDate},'yyyyMMdd') ]]>,
+			IS_CONSUMP_CATEGORY = #{isConsumpCategory},
+			AMT_CONSUMP_CATEGORY = #{amtConsumpCategory},
+			MERGE_MONEY_FLAG	= #{mergeMoneyFlag},
+			IS_CARD_TYPE_GROUP	= #{isCardTypeGroup},
+			IS_FMRCHNO_DECIDE	= #{isFmrchnoDecide},
+			IS_KP	= #{isKp},
+			FS_KP_CYCLE	= #{fsKpCycle},
+			FS_KP_CYCLE_PARAM	= #{fsKpCycleParam},
+			<![CDATA[ LAST_KP_DATE	= to_date(#{lastKpDate},'yyyyMMdd') ]]> 
+		WHERE MRCHNO = #{mrchno}
+	</update>
+
+
+
+<select id="getSysParameterList" resultType="cn.yufu.system.modules.cortexs.entity.SysParameterBean">
+		SELECT 
+			a.param_id AS "paramId", 
+			a.param_type AS "paramType",
+			a.param_name AS "paramName", 
+			a.param_value AS "paramValue", 
+			a.param_notes AS "paramNotes", 
+			a.parent_id AS "parentId", 
+			a.enable  AS "enable"
+		FROM sys_parameter a
+ 		<where>			
+				 a.param_type = #{paramType}	
+		</where>
+	</select>
+
+</mapper>

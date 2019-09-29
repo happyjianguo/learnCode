@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.IMRoleMapper">
+	<sql id="columns">ROLEID,ROLENAME,STATUS,UPDATETIME,CREATETIME
+	</sql>
+	<resultMap type="IMRole" id="IMRoleMap">
+		<result column="ROLEID" property="roleId" />
+		<result column="ROLENAME" property="roleName" />
+		<result column="STATUS" property="status" />
+		<result column="UPDATETIME" property="updateTime" />
+		<result column="CREATETIME" property="createTime" />
+	</resultMap>
+	<insert id="insert" parameterType="IMRole">
+		INSERT INTO
+		FSMROLE(ROLEID,ROLENAME,STATUS,UPDATETIME,CREATETIME)
+		VALUES
+		(#{roleId},#{roleName},#{status},#{updateTime},#{createTime})
+
+	</insert>
+	<select id="selectAll" resultMap="IMRoleMap">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		FSMROLE
+		WHERE
+		ROLEID != "R0001"
+		ORDER BY UPDATETIME DESC
+	</select>
+
+	<select id="selectOneByName" parameterType="String" resultType="IMRole">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		FSMROLE
+		WHERE
+		ROLENAME=#{roleName}
+	</select>
+
+	<select id="selectOneById" parameterType="String" resultType="IMRole">
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		FSMROLE
+		WHERE
+		ROLEID=#{roleId}
+	</select>
+
+	<update id="update" parameterType="IMRole">
+		UPDATE
+		FSMROLE
+		SET
+		ROLENAME=#{roleName},
+		STATUS=#{status},
+		UPDATETIME=#{updateTime}
+		WHERE
+		ROLEID=#{roleId}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM
+		FSMROLE
+		WHERE
+		ROLEID=#{roleId}
+	</delete>
+	<select id="selectRolelistByroleids" parameterType="java.lang.String" resultMap="IMRoleMap" >
+		SELECT
+		<include refid="columns"></include>
+		FROM
+		FSMROLE
+		WHERE
+		ROLEID in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")">
+		#{idItem}
+		</foreach>	
+		ORDER BY UPDATETIME DESC	
+	</select>		
+</mapper>

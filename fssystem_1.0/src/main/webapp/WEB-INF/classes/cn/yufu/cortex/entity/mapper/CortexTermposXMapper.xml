@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.CortexTermposXMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.CortexTermposX" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="POS_TEL" property="posTel" jdbcType="VARCHAR" />
+    <result column="BATCH_NO" property="batchNo" jdbcType="DECIMAL" />
+    <result column="ADD_DATE" property="addDate" jdbcType="DATE" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="CITY_NO" property="cityNo" jdbcType="DECIMAL" />
+    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+    <result column="ZONE" property="zone" jdbcType="DECIMAL" />
+    <result column="SETTLE_MRCH_ACC_ID" property="settleMrchAccId" jdbcType="DECIMAL" />
+    <result column="TERMCODE" property="termcode" jdbcType="VARCHAR" />
+    <result column="TIMEZONE" property="timezone" jdbcType="VARCHAR" />
+    <result column="INST_ID" property="instId" jdbcType="DECIMAL" />
+    <result column="MRCHNO" property="mrchno" jdbcType="VARCHAR" />
+    <result column="TERM_STAT" property="termStat" jdbcType="CHAR" />
+    <result column="CONSUMP_CATEGORY" property="consumpCategory" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, POS_TEL, BATCH_NO, ADD_DATE, LOCATION, STATE, CITY_NO, PROVINCE, ZONE, SETTLE_MRCH_ACC_ID, 
+    TERMCODE, TIMEZONE, INST_ID, MRCHNO, TERM_STAT, CONSUMP_CATEGORY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.CortexTermposXExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TERMPOS_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TERMPOS_X
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TERMPOS_X
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.CortexTermposXExample" >
+    delete from TERMPOS_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.CortexTermposX" >
+    insert into TERMPOS_X (ID, POS_TEL, BATCH_NO, 
+      ADD_DATE, LOCATION, STATE, 
+      CITY_NO, PROVINCE, ZONE, 
+      SETTLE_MRCH_ACC_ID, TERMCODE, TIMEZONE, 
+      INST_ID, MRCHNO, TERM_STAT, 
+      CONSUMP_CATEGORY)
+    values (#{id,jdbcType=DECIMAL}, #{posTel,jdbcType=VARCHAR}, #{batchNo,jdbcType=DECIMAL}, 
+      #{addDate,jdbcType=DATE}, #{location,jdbcType=VARCHAR}, #{state,jdbcType=DECIMAL}, 
+      #{cityNo,jdbcType=DECIMAL}, #{province,jdbcType=DECIMAL}, #{zone,jdbcType=DECIMAL}, 
+      #{settleMrchAccId,jdbcType=DECIMAL}, #{termcode,jdbcType=VARCHAR}, #{timezone,jdbcType=VARCHAR}, 
+      #{instId,jdbcType=DECIMAL}, #{mrchno,jdbcType=VARCHAR}, #{termStat,jdbcType=CHAR}, 
+      #{consumpCategory,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.CortexTermposX" >
+    insert into TERMPOS_X
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="posTel != null" >
+        POS_TEL,
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO,
+      </if>
+      <if test="addDate != null" >
+        ADD_DATE,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="zone != null" >
+        ZONE,
+      </if>
+      <if test="settleMrchAccId != null" >
+        SETTLE_MRCH_ACC_ID,
+      </if>
+      <if test="termcode != null" >
+        TERMCODE,
+      </if>
+      <if test="timezone != null" >
+        TIMEZONE,
+      </if>
+      <if test="instId != null" >
+        INST_ID,
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO,
+      </if>
+      <if test="termStat != null" >
+        TERM_STAT,
+      </if>
+      <if test="consumpCategory != null" >
+        CONSUMP_CATEGORY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="posTel != null" >
+        #{posTel,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=DECIMAL},
+      </if>
+      <if test="addDate != null" >
+        #{addDate,jdbcType=DATE},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="zone != null" >
+        #{zone,jdbcType=DECIMAL},
+      </if>
+      <if test="settleMrchAccId != null" >
+        #{settleMrchAccId,jdbcType=DECIMAL},
+      </if>
+      <if test="termcode != null" >
+        #{termcode,jdbcType=VARCHAR},
+      </if>
+      <if test="timezone != null" >
+        #{timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="instId != null" >
+        #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="termStat != null" >
+        #{termStat,jdbcType=CHAR},
+      </if>
+      <if test="consumpCategory != null" >
+        #{consumpCategory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.CortexTermposXExample" resultType="java.lang.Integer" >
+    select count(*) from TERMPOS_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TERMPOS_X
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.posTel != null" >
+        POS_TEL = #{record.posTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchNo != null" >
+        BATCH_NO = #{record.batchNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.addDate != null" >
+        ADD_DATE = #{record.addDate,jdbcType=DATE},
+      </if>
+      <if test="record.location != null" >
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cityNo != null" >
+        CITY_NO = #{record.cityNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.province != null" >
+        PROVINCE = #{record.province,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zone != null" >
+        ZONE = #{record.zone,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settleMrchAccId != null" >
+        SETTLE_MRCH_ACC_ID = #{record.settleMrchAccId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.termcode != null" >
+        TERMCODE = #{record.termcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timezone != null" >
+        TIMEZONE = #{record.timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instId != null" >
+        INST_ID = #{record.instId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrchno != null" >
+        MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.termStat != null" >
+        TERM_STAT = #{record.termStat,jdbcType=CHAR},
+      </if>
+      <if test="record.consumpCategory != null" >
+        CONSUMP_CATEGORY = #{record.consumpCategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TERMPOS_X
+    set ID = #{record.id,jdbcType=DECIMAL},
+      POS_TEL = #{record.posTel,jdbcType=VARCHAR},
+      BATCH_NO = #{record.batchNo,jdbcType=DECIMAL},
+      ADD_DATE = #{record.addDate,jdbcType=DATE},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=DECIMAL},
+      CITY_NO = #{record.cityNo,jdbcType=DECIMAL},
+      PROVINCE = #{record.province,jdbcType=DECIMAL},
+      ZONE = #{record.zone,jdbcType=DECIMAL},
+      SETTLE_MRCH_ACC_ID = #{record.settleMrchAccId,jdbcType=DECIMAL},
+      TERMCODE = #{record.termcode,jdbcType=VARCHAR},
+      TIMEZONE = #{record.timezone,jdbcType=VARCHAR},
+      INST_ID = #{record.instId,jdbcType=DECIMAL},
+      MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      TERM_STAT = #{record.termStat,jdbcType=CHAR},
+      CONSUMP_CATEGORY = #{record.consumpCategory,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.CortexTermposX" >
+    update TERMPOS_X
+    <set >
+      <if test="posTel != null" >
+        POS_TEL = #{posTel,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO = #{batchNo,jdbcType=DECIMAL},
+      </if>
+      <if test="addDate != null" >
+        ADD_DATE = #{addDate,jdbcType=DATE},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO = #{cityNo,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="zone != null" >
+        ZONE = #{zone,jdbcType=DECIMAL},
+      </if>
+      <if test="settleMrchAccId != null" >
+        SETTLE_MRCH_ACC_ID = #{settleMrchAccId,jdbcType=DECIMAL},
+      </if>
+      <if test="termcode != null" >
+        TERMCODE = #{termcode,jdbcType=VARCHAR},
+      </if>
+      <if test="timezone != null" >
+        TIMEZONE = #{timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="instId != null" >
+        INST_ID = #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO = #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="termStat != null" >
+        TERM_STAT = #{termStat,jdbcType=CHAR},
+      </if>
+      <if test="consumpCategory != null" >
+        CONSUMP_CATEGORY = #{consumpCategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.CortexTermposX" >
+    update TERMPOS_X
+    set POS_TEL = #{posTel,jdbcType=VARCHAR},
+      BATCH_NO = #{batchNo,jdbcType=DECIMAL},
+      ADD_DATE = #{addDate,jdbcType=DATE},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=DECIMAL},
+      CITY_NO = #{cityNo,jdbcType=DECIMAL},
+      PROVINCE = #{province,jdbcType=DECIMAL},
+      ZONE = #{zone,jdbcType=DECIMAL},
+      SETTLE_MRCH_ACC_ID = #{settleMrchAccId,jdbcType=DECIMAL},
+      TERMCODE = #{termcode,jdbcType=VARCHAR},
+      TIMEZONE = #{timezone,jdbcType=VARCHAR},
+      INST_ID = #{instId,jdbcType=DECIMAL},
+      MRCHNO = #{mrchno,jdbcType=VARCHAR},
+      TERM_STAT = #{termStat,jdbcType=CHAR},
+      CONSUMP_CATEGORY = #{consumpCategory,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

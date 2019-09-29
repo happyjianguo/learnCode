@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources />
+
+	<form-beans>
+
+		<!-- 终端机管理 -->
+		<form-bean name="edcTpduForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcTpduForm" />
+		<!-- 终端基本资料 -->
+		<form-bean name="edcTerminalForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcTerminalForm" />
+		<!-- 终端基本资料导入 -->
+		<form-bean name="edcTerminalUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcTerminalUploadForm" />
+		<!-- 银行终端管理导入 -->
+		<form-bean name="edcTerminalOrmUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcTerminalOrmUploadForm" />
+		<!-- 银行终端信息管理 -->
+		<form-bean name="edcTerminalOrmForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcTerminalOrmForm" />
+		<!-- 新福卡银行终端管理导入 -->
+		<form-bean name="edcNewfkterminalOrmUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcNewfkterminalOrmUploadForm" />
+		<!-- 新福卡银行终端信息管理 -->
+		<form-bean name="edcNewfkterminalOrmForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcNewfkterminalOrmForm" />
+		<form-bean name="edcBlackForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcBlackForm" />
+		<!-- 支付宝、微信终端管理导入-->
+		<form-bean name="edcAlipayWeChatUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcAlipayWeChatUploadForm" />
+		<!-- 支付宝、微信终端信息管理 -->
+		<form-bean name="edcAlipayWeChatForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcAlipayWeChatForm" />
+			
+		<!-- 专属卡终端管理导入-->
+		<form-bean name="edcZskterminalOrmUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcZskterminalOrmUploadForm" />
+		<!-- 专属卡终端信息管理 -->
+		<form-bean name="edcZskterminalOrmForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcZskterminalOrmForm" />
+		
+		<!-- 终端受理卡类 -->
+		<form-bean name="edcCardForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcCardForm" />
+		<!--终端转换 -->
+		<form-bean name="edcSwitchForm"
+			type="cn.yufu.posp.terminalmanager.web.form.EdcSwitchForm" />
+		<!--卡账户管理 -->
+		<form-bean name="cardAcctForm"
+			type="cn.yufu.posp.terminalmanager.web.form.CardAcctForm" />
+		<!--其他参数管理 -->
+		<form-bean name="sysParameterForm"
+			type="cn.yufu.posp.terminalmanager.web.form.SysParameterForm" />
+		<!-- 交易模块信息 -->
+		<form-bean name="tranModuleInfForm"
+			type="cn.yufu.posp.sysparam.web.form.TranModuleInfForm" />
+
+
+		<form-bean name="jgForm" type="cn.yufu.posp.jgmanager.web.form.JgForm" />
+		<form-bean name="bankInfoForm" type="cn.yufu.posp.bank.web.form.BankInfoForm" />
+		<form-bean name="banktypeForm" type="cn.yufu.posp.bank.web.form.BanktypeForm" />
+		<form-bean name="userForm"
+			type="cn.yufu.posp.usermanager.web.form.OaUserForm"></form-bean>
+		<form-bean name="groupForm"
+			type="cn.yufu.posp.usermanager.web.form.OaGroupForm"></form-bean>
+		<form-bean name="clientForm"
+			type="cn.yufu.posp.client.web.form.OaClientComputerInfoForm"></form-bean>
+		<form-bean name="cardTypeForm"
+			type="cn.yufu.posp.cardtype.web.form.CardTypeForm"></form-bean>
+		<form-bean name="cardTypeUploadForm"
+			type="cn.yufu.posp.cardtype.web.form.CardTypeUploadForm"></form-bean>
+		<form-bean name="card1TypeForm"
+			type="cn.yufu.posp.cardtype.web.form.Card1TypeForm"></form-bean>
+		<form-bean name="sysForm"
+			type="cn.yufu.posp.sysparam.web.form.SysParamForm"></form-bean>
+		<form-bean name="advRouteForm" type="cn.yufu.posp.route.web.form.AdvRouteForm"></form-bean>
+		<form-bean name="bankCardRouteForm"
+			type="cn.yufu.posp.route.web.form.BankCardRouteForm"></form-bean>
+		<form-bean name="cardRouteForm" type="cn.yufu.posp.route.web.form.CardRouteForm"></form-bean>
+		<form-bean name="defaultRouteForm"
+			type="cn.yufu.posp.route.web.form.DefaultRouteForm"></form-bean>
+		<form-bean name="tranRouteForm" type="cn.yufu.posp.route.web.form.TranRouteForm"></form-bean>
+
+		<!-- 商户管理  -->
+		<form-bean name="merchantForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantForm"></form-bean>
+		<form-bean name="merchantUploadForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantUploadForm"></form-bean>
+		<form-bean name="merchantUserForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantUserForm"></form-bean>
+		<!-- 商户身份  -->
+		<form-bean name="merchantIdentityForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantIdentityForm"></form-bean>
+		<!-- 商户管理  -->
+		<form-bean name="merchantBoForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantBoForm"></form-bean>
+		<!-- 商户受理卡类  -->
+		<form-bean name="merchantCardForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantCardForm"></form-bean>
+		<!-- 商户转换 -->
+		<form-bean name="merchantSwitchForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantSwitchForm"></form-bean>
+		<!-- 商户黑名单 -->
+		<form-bean name="merchantBlackForm"
+			type="cn.yufu.posp.merchant.web.form.MerchantBlackForm"></form-bean>
+		<!-- mcc管理 -->
+		<form-bean name="mccForm"
+			type="cn.yufu.posp.merchant.web.form.MccParamForm"></form-bean>
+		<!-- 模板管理 -->
+		<form-bean name="sysModuleForm"
+			type="cn.yufu.posp.sysModule.web.form.SysModuleForm"></form-bean>
+		<!-- 模板管理 -->
+		<form-bean name="sysModuleOtherForm"
+			type="cn.yufu.posp.sysModule.web.form.SysModuleOtherForm"></form-bean>
+		<!-- query -->
+
+		<form-bean name="curTranLsForm"
+			type="cn.yufu.posp.queryManager.web.form.CurTranLsForm" />
+		<form-bean name="tblStlmReguForm"
+			type="cn.yufu.posp.ruleManager.web.form.TblStlmReguForm" />
+		<form-bean name="btsKeyForm"
+			type="cn.yufu.posp.keyManager.web.form.BtsKeyForm" />
+		<form-bean name="pospZmkKeyForm"
+			type="cn.yufu.posp.keyManager.web.form.PospZmkKeyForm" />
+		<form-bean name="operateLogForm"
+			type="cn.yufu.posp.logManager.web.form.OperateLogForm" />
+
+		<form-bean name="analyzeMerclearBookForm"
+			type="cn.yufu.posp.bookManager.web.form.AnalyzeMerclearBookForm" />
+		<form-bean name="analyzeMerfeeBookForm"
+			type="cn.yufu.posp.bookManager.web.form.AnalyzeMerfeeBookForm" />
+		<form-bean name="analyzeMerstlBookForm"
+			type="cn.yufu.posp.bookManager.web.form.AnalyzeMerstlBookForm" />
+		<form-bean name="analyzeCupcheckBookForm"
+			type="cn.yufu.posp.bookManager.web.form.AnalyzeCupcheckBookForm" />
+		<form-bean name="analyzeCupcheckErrForm"
+			type="cn.yufu.posp.bookManager.web.form.AnalyzeCupcheckErrForm" />
+		<form-bean name="analyzeCupcheckOkForm"
+			type="cn.yufu.posp.bookManager.web.form.AnalyzeCupcheckOkForm" />
+		<form-bean name="analyzeCupcheckStaticsForm"
+			type="cn.yufu.posp.bookManager.web.form.AnalyzeCupcheckStaticsForm" />
+			
+		<!-- 区域卡卡BIN管理  -->
+		<form-bean name="cardBinAreaForm"
+			type="cn.yufu.posp.cardBinArea.web.form.CardBinAreaForm"></form-bean>		
+		<form-bean name="edcCardBinAreaForm"
+			type="cn.yufu.posp.cardBinArea.web.form.EdcCardBinAreaForm"></form-bean>
+		
+		<!-- POS签购单要素设置 -->
+		<form-bean name="posReceiptInfoForm"
+			type="cn.yufu.posp.merchant.web.form.PosReceiptInfoForm"></form-bean>
+			
+		<!-- 业务场景费率 -->
+		<form-bean name="tabBusinessRatesForm"
+			type="cn.yufu.posp.merchant.web.form.TabBusinessRatesForm"></form-bean>			
+		<!-- 业务角色菜单 -->
+		<form-bean name="tabBusRoleMenuForm"
+			type="cn.yufu.posp.merchant.web.form.TabBusRoleMenuForm"></form-bean>
+		<!-- 商户交易参数-->
+		<form-bean name="tblMerchantTranParamForm"
+			type="cn.yufu.posp.merchant.web.form.TblMerchantTranParamForm"></form-bean>	
+		<!-- 授权免密卡BIN信息-->
+		<form-bean name="tblNoPasswdCardBinForm"
+			type="cn.yufu.posp.merchant.web.form.TblNoPasswdCardBinForm"></form-bean>
+											
+	</form-beans>
+
+
+	<global-exceptions>
+		<exception key="errors.general"
+			handler="cn.yufu.posp.common.common.exception.OAExceptionHandler"
+			type="cn.yufu.posp.common.common.exception.OAException" path="/jsp/common/Error.jsp" />
+	</global-exceptions>
+
+	<global-forwards>
+		<forward name="queryWorkItems" path="/queryWorkItems.do?type=Ready" />
+	</global-forwards>
+	<action-mappings>
+
+
+
+
+		<!-- 终端TPDU信息 -->
+		<action path="/edcTpdu" name="edcTpduForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcTpduDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcTpduQuery.jsp">
+			<forward name="showAllEdcTpdu" path="/jsp/edc/edcTpduQuery.jsp" />
+			<forward name="createEdcTpdu" path="/edcTpdu.do?method=queryEdcTpdu" />
+			<forward name="saveEdcTpdu" path="/edcTpdu.do?method=queryEdcTpdu" />
+			<forward name="deleteEdcTpdu" path="/edcTpdu.do?method=queryEdcTpdu" />
+			<forward name="edcTpduSr" path="/jsp/edc/edcTpduAdd.jsp" />
+			<forward name="queryEdcTpduByKey" path="/jsp/edc/edcTpduEdit.jsp" />
+		</action>
+
+		<!-- 终端基本资料信息 -->
+		<action path="/edcTerminal" name="edcTerminalForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcTerminalDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcTerminalQuery.jsp">
+			<forward name="showAllEdcTerminal" path="/jsp/edc/edcTerminalQuery.jsp" />
+			<forward name="createEdcTerminal" path="/edcTerminal.do?method=queryEdcTerminal" />
+			<forward name="saveEdcTerminal" path="/edcTerminal.do?method=queryEdcTerminal" />
+			<forward name="deleteEdcTerminal" path="/edcTerminal.do?method=queryEdcTerminal" />
+			<forward name="edcTerminalSr" path="/jsp/edc/edcTerminalAdd.jsp" />
+			<forward name="queryEdcTerminalByKey" path="/jsp/edc/edcTerminalEdit.jsp" />
+			<forward name="showAllEdcTerminalMode" path="/jsp/edc/edcTerminalModeQuery.jsp" />
+			<forward name="showEdcTerminalModeList" path="/jsp/edc/selEdcTerminalMode.jsp" />
+			<forward name="queryEdcTerminalMode" path="/edcTerminal.do?method=queryEdcTerminalMode" />
+			<forward name="queryDetail" path="/jsp/edc/edcTerminalDetail.jsp" />
+		</action>
+		<!-- 终端基本资料信息导入 -->
+		<action path="/edcTerminalUpload" name="edcTerminalUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcTerminalDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcTerminalQuery.jsp">
+		</action>
+		
+		<!-- 银行终端管理导入 -->
+		<action path="/edcTerminalOrmUpload" name="edcTerminalOrmUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcTerminalOrmDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcTerminalOrmQuery.jsp">
+		</action>
+		
+		<!-- 新福卡银行终端管理导入 -->
+		<action path="/edcNewfkterminalOrmUpload" name="edcNewfkterminalOrmUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcNewfkterminalOrmDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcNewfkterminalOrmQuery.jsp">
+		</action>
+		
+		<!-- 支付宝、微信终端管理导入 -->
+		<action path="/edcAlipayWeChatUpload" name="edcAlipayWeChatUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcAlipayWeChatDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcAlipayWeChatQuery.jsp">
+		</action>
+		
+		<!-- 支付宝、微信终端管理导入 -->
+		<action path="/edcZskterminalOrmUpload" name="edcZskterminalOrmUploadForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcZskterminalOrmDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcZskterminalOrmQuery.jsp">
+		</action>
+
+		<!-- 终端转换 -->
+		<action path="/edcSwitch" name="edcSwitchForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcSwitchDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcSwitchQuery.jsp">
+			<forward name="showAllEdcSwitch" path="/jsp/edc/edcSwitchQuery.jsp" />
+			<forward name="createEdcSwitch" path="/edcSwitch.do?method=queryEdcSwitch" />
+			<forward name="saveEdcSwitch" path="/edcSwitch.do?method=queryEdcSwitch" />
+			<forward name="deleteEdcSwitch" path="/edcSwitch.do?method=queryEdcSwitch" />
+			<forward name="edcSwitchSr" path="/jsp/edc/edcSwitchAdd.jsp" />
+			<forward name="queryEdcSwitchByKey" path="/jsp/edc/edcSwitchEdit.jsp" />
+		</action>
+
+		<!-- 终端受理卡类 -->
+		<action path="/edcCard" name="edcCardForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcCardDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcCardQuery.jsp">
+			<forward name="showAllEdcCard" path="/jsp/edc/edcCardQuery.jsp" />
+			<forward name="createEdcCard" path="/edcCard.do?method=queryEdcCard" />
+			<forward name="saveEdcCard" path="/edcCard.do?method=queryEdcCard" />
+			<forward name="deleteEdcCard" path="/edcCard.do?method=queryEdcCard" />
+			<forward name="edcCardSr" path="/jsp/edc/edcCardAdd.jsp" />
+			<forward name="queryEdcCardByKey" path="/jsp/edc/edcCardEdit.jsp" />
+		</action>
+
+		<!-- 终端机管理模块公用-条件约束检查    -->
+		<action path="/edcCheck"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcCheckDispatchAction"
+			parameter="method" />
+
+		<!-- 卡账户管理 -->
+		<action path="/cardAcct" name="cardAcctForm"
+			type="cn.yufu.posp.terminalmanager.web.action.CardAcctDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/cardAcctQuery.jsp">
+			<forward name="showAllCardAcct" path="/jsp/edc/cardAcctQuery.jsp" />
+			<forward name="createCardAcct" path="/cardAcct.do?method=queryCardAcct" />
+			<forward name="saveCardAcct" path="/cardAcct.do?method=queryCardAcct" />
+			<forward name="deleteCardAcct" path="/cardAcct.do?method=queryCardAcct" />
+			<forward name="cardAcctSr" path="/jsp/edc/cardAcctAdd.jsp" />
+			<forward name="queryCardAcctByKey" path="/jsp/edc/cardAcctEdit.jsp" />
+		</action>
+
+		<!-- 其他参数管理 -->
+		<action path="/sysParameter" name="sysParameterForm"
+			type="cn.yufu.posp.terminalmanager.web.action.SysParameterDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/sysparam/sysParameterQuery.jsp">
+			<forward name="showAllSysParameter" path="/jsp/sysparam/sysParameterQuery.jsp" />
+			<forward name="createSysParameter" path="/sysParameter.do?method=querySysParameter" />
+			<forward name="saveSysParameter" path="/sysParameter.do?method=querySysParameter" />
+			<forward name="deleteSysParameter" path="/sysParameter.do?method=querySysParameter" />
+			<forward name="sysParameterSr" path="/jsp/sysparam/sysParameterAdd.jsp" />
+			<forward name="querySysParameterByKey" path="/jsp/sysparam/sysParameterEdit.jsp" />
+		</action>
+
+
+		<!-- 用户管理-->
+		<action path="/User" name="userForm"
+			type="cn.yufu.posp.usermanager.web.action.UserDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="showAllUser" path="/jsp/user/searchUser.jsp" />
+			<forward name="showcreateUser" path="/jsp/user/addUser.jsp" />
+			<forward name="creatUser" path="/User.do?method=queryUser" />
+			<forward name="deleteUser" path="/User.do?method=queryUser" />
+			<forward name="showModifyUser" path="/jsp/user/updateUser.jsp" />
+			<forward name="saveNotice" path="/User.do?method=queryUser" />
+			<forward name="tree" path="/jsp/tree/test.jsp" />
+
+			<forward name="saveUserPwd" path="/jsp/user/updateUserPwdSuccess.jsp" />
+			<forward name="showUserUpdatePwd" path="/jsp/user/updateUserPwd.jsp" />
+
+		</action>
+		<!-- 角色管理-->
+		<action path="/UserGroup" name="groupForm"
+			type="cn.yufu.posp.usermanager.web.action.GroupDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/userGroup/searchGroup.jsp">
+			<forward name="showAllUserGroup" path="/jsp/userGroup/searchUserGroup.jsp" />
+			<forward name="showcreateUserGroup" path="/jsp/userGroup/addUserGroup.jsp" />
+			<forward name="creatUserGroup" path="/UserGroup.do?method=queryUserGroup" />
+			<forward name="deleteUserGroup" path="/UserGroup.do?method=queryUserGroup" />
+			<forward name="showModifyUserGroup" path="/jsp/userGroup/updateUserGroup.jsp" />
+			<forward name="saveUserGroup" path="/UserGroup.do?method=queryUserGroup" />
+		</action>
+		<!-- 登陆管理-->
+		<action path="/UserLogin" name="userForm"
+			type="cn.yufu.posp.usermanager.web.action.UserDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="sucess" path="/jsp/index.jsp" />
+			<forward name="error" path="/jsp/userLogin.jsp" />
+		</action>
+		<action path="/UserLogout" name="userForm"
+			type="cn.yufu.posp.usermanager.web.action.UserDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="sucess" path="/jsp/index.jsp" />
+			<forward name="error" path="/jsp/userLogin.jsp" />
+		</action>
+		<!-- 参数管理-->
+		<action path="/sys" name="sysForm"
+			type="cn.yufu.posp.sysparam.web.action.SysParamDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/jk/searchJk.jsp">
+			<forward name="updateSys" path="/jsp/sysparam/sysXG.jsp" />
+
+		</action>
+		<!-- 卡类型管理-->
+		<action path="/cardType" name="cardTypeForm"
+			type="cn.yufu.posp.cardtype.web.action.CardTypeDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showAllCardType" path="/jsp/cardtype/cardTypeLB.jsp" />
+			<forward name="createCardType" path="/cardType.do?method=queryCardType" />
+			<forward name="showModifyCardType" path="/jsp/cardtype/cardTypeXG.jsp" />
+			<forward name="addCardType" path="/jsp/cardtype/cardTypeSR.jsp" />
+			<forward name="adderr" path="/jsp/cardtype/Error.jsp" />
+		</action>
+		<!-- 卡类型上传 -->
+		<action path="/cardTypeUpload" name="cardTypeUploadForm"
+			type="cn.yufu.posp.cardtype.web.action.CardTypeDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="createCardType" path="/cardType.do?method=queryCardType" />
+		</action>
+		<!-- 卡类型管理-->
+		<action path="/card1Type" name="card1TypeForm"
+			type="cn.yufu.posp.cardtype.web.action.Card1TypeDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showAllCardType" path="/jsp/cardtype/card1TypeQuery.jsp" />
+			<forward name="createCardType" path="/card1Type.do?method=queryCardType" />
+			<forward name="showModifyCardType" path="/jsp/cardtype/card1TypeEdit.jsp" />
+			<forward name="addCardType" path="/jsp/cardtype/card1TypeAdd.jsp" />
+			<forward name="adderr" path="/jsp/cardtype/Error.jsp" />
+		</action>
+		<!-- 通知路由管理-->
+		<action path="/advRoute" name="advRouteForm"
+			type="cn.yufu.posp.route.web.action.AdvRouteDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showAllAdvRoute" path="/jsp/route/advRoute/advRouteLB.jsp" />
+			<forward name="createAdvRoute" path="/advRoute.do?method=queryAdvRoute" />
+			<forward name="showModifyAdvRoute" path="/jsp/route/advRoute/advRouteXG.jsp" />
+			<forward name="addAdvRoute" path="/jsp/route/advRoute/advRouteSR.jsp" />
+			<forward name="adderr" path="/jsp/route/advRoute/Error.jsp" />
+		</action>
+		<!-- 发卡方路由管理-->
+		<action path="/bankCardRoute" name="bankCardRouteForm"
+			type="cn.yufu.posp.route.web.action.BankCardRouteDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showAllBankCardRoute" path="/jsp/route/bankCardRoute/bankCardRouteLB.jsp" />
+			<forward name="createBankCardRoute" path="/bankCardRoute.do?method=queryBankCardRoute" />
+			<forward name="showModifyBankCardRoute" path="/jsp/route/bankCardRoute/bankCardRouteXG.jsp" />
+			<forward name="addBankCardRoute" path="/jsp/route/bankCardRoute/bankCardRouteSR.jsp" />
+			<forward name="adderr" path="/jsp/route/bankCardRoute/Error.jsp" />
+		</action>
+		<!-- 卡段路由管理-->
+		<action path="/cardRoute" name="cardRouteForm"
+			type="cn.yufu.posp.route.web.action.CardRouteDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showAllCardRoute" path="/jsp/route/cardRoute/cardRouteLB.jsp" />
+			<forward name="createCardRoute" path="/cardRoute.do?method=queryCardRoute" />
+			<forward name="showModifyCardRoute" path="/jsp/route/cardRoute/cardRouteXG.jsp" />
+			<forward name="addCardRoute" path="/jsp/route/cardRoute/cardRouteSR.jsp" />
+		</action>
+		<!-- 缺省路由管理-->
+		<action path="/defaultRoute" name="defaultRouteForm"
+			type="cn.yufu.posp.route.web.action.DefaultRouteDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showAllDefaultRoute" path="/jsp/route/defaultRoute/defaultRouteLB.jsp" />
+			<forward name="createDefaultRoute" path="/defaultRoute.do?method=queryDefaultRoute" />
+			<forward name="showModifyDefaultRoute" path="/jsp/route/defaultRoute/defaultRouteXG.jsp" />
+			<forward name="addDefaultRoute" path="/jsp/route/defaultRoute/defaultRouteSR.jsp" />
+
+		</action>
+		<!-- 交易路由管理-->
+		<action path="/tranRoute" name="tranRouteForm"
+			type="cn.yufu.posp.route.web.action.TranRouteDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showTranRoute" path="/jsp/route/tranRoute/tranRouteLB.jsp" />
+			<forward name="creaTranRoute" path="/tranRoute.do?method=queryTranRoute" />
+			<forward name="showModifyTranRoute" path="/jsp/route/tranRoute/tranRouteXG.jsp" />
+			<forward name="addTranRoute" path="/jsp/route/tranRoute/tranRouteSR.jsp" />
+			<forward name="adderr" path="/jsp/route/tranRoute/Error.jsp" />
+		</action>
+		<action path="/jk" name="jkForm"
+			type="cn.yufu.posp.jk.web.action.SystemInterfaceDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jk/searchJk.jsp">
+			<forward name="addJk" path="/jsp/jk/addJk.jsp" />
+			<forward name="searchJk" path="/jsp/jk/searchJk.jsp" />
+			<forward name="updateJk" path="/jsp/jk/updateJk.jsp" />
+			<forward name="deleteJk" path="/jsp/jk/deleteJk.jsp" />
+		</action>
+		<action path="/att" name="attForm"
+			type="cn.yufu.posp.jk.web.action.SystemInterfaceDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jk/searchJk.jsp">
+			<forward name="updateAtt" path="/jsp/jk/updateAtt.jsp" />
+		</action>
+		<action path="/mac" name="macForm"
+			type="cn.yufu.posp.jk.web.action.SystemInterfaceDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jk/searchJk.jsp">
+			<forward name="updateMac" path="/jsp/jk/updateMac.jsp" />
+		</action>
+		<action path="/mess" name="messForm"
+			type="cn.yufu.posp.jk.web.action.SystemInterfaceDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jk/searchJk.jsp">
+			<forward name="updateMess" path="/jsp/jk/updateMess.jsp" />
+		</action>
+		<action path="/trade" name="tradeForm"
+			type="cn.yufu.posp.jk.web.action.SystemInterfaceDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/jk/searchJk.jsp">
+			<forward name="updateTrade" path="/jsp/jk/updateTrade.jsp" />
+		</action>
+
+
+		<!-- 客户端管理 -->
+		<action path="/clientInfo" name="clientForm"
+			type="cn.yufu.posp.client.web.action.OaClientComputerInfoAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/client/clientQuery.jsp" />
+			<forward name="editToQuery" path="/clientInfo.do?method=queryAll" />
+			<forward name="add" path="/jsp/client/clientAdd.jsp" />
+			<forward name="edit" path="/jsp/client/clientEdit.jsp" />
+		</action>
+		<!-- 商户管理  -->
+		<action path="/merchant" name="merchantForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/merchantQuery.jsp"></forward>
+			<forward name="editToQuery" path="/merchant.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/merchantAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/merchantEdit.jsp" />
+			<forward name="selArea" path="/jsp/merchant/selArea.jsp" />
+		</action>
+		<action path="/merchantUpload" name="merchantUploadForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+		</action>
+		<!-- 商户用户管理  -->
+		<action path="/merchantUser" name="merchantUserForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantUserAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/merchantUserQuery.jsp"></forward>
+			<forward name="editToQuery" path="/merchantUser.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/merchantUserAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/merchantUserEdit.jsp" />
+		</action>
+		<!-- 商户身份  -->
+		<action path="/merchantIdentity" name="merchantIdentityForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantIdentityAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/merchantIdentityQuery.jsp"></forward>
+			<forward name="editToQuery" path="/merchantIdentity.do?method=queryAll" />
+			<forward name="edit" path="/jsp/merchant/merchantIdentityEdit.jsp" />
+		</action>
+		<!-- 商户审核  -->
+		<action path="/merchantCheck" name="merchantBoForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantCheckAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/merchantCheckQuery.jsp"></forward>
+			<forward name="checkToQuery" path="/merchantCheck.do?method=queryAll" />
+			<forward name="check" path="/jsp/merchant/merchantCheck.jsp" />
+		</action>
+		<!-- 商户信息  -->
+		<action path="/merchantInfo" name="merchantBoForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="baseInfo" path="/jsp/merchant/merchantBaseInfo.jsp" />
+			<forward name="query" path="/merchantInfo.do?method=baseInfo" />
+		</action>
+
+		<!-- 受理卡 -->
+		<action path="/merchantCard" name="merchantCardForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantCardAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/merchantCardQuery.jsp"></forward>
+			<forward name="editToQuery" path="/merchantCard.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/merchantCardAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/merchantCardEdit.jsp" />
+		</action>
+		<!-- 商户转换  -->
+		<action path="/merchantSwitch" name="merchantSwitchForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantSwitchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/merchantSwitchQuery.jsp"></forward>
+			<forward name="editToQuery" path="/merchantSwitch.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/merchantSwitchAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/merchantSwitchEdit.jsp" />
+		</action>
+		<!-- 商户黑名单 -->
+		<action path="/merchantBlack" name="merchantBlackForm"
+			type="cn.yufu.posp.merchant.web.action.MerchantBlackAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/merchantBlackQuery.jsp"></forward>
+			<forward name="editToQuery" path="/merchantBlack.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/merchantBlackAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/merchantBlackEdit.jsp" />
+		</action>
+
+		<!-- POS签购单要素设置 -->
+		<action path="/posReceiptInfo" name="posReceiptInfoForm"
+			type="cn.yufu.posp.merchant.web.action.PosReceiptInfoAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/posReceiptInfoQuery.jsp"></forward>
+			<forward name="editToQuery" path="/posReceiptInfo.do?method=queryAll" />
+			<forward name="edit" path="/jsp/merchant/posReceiptInfoEdit.jsp" />
+		</action>
+		<!-- mcc管理  -->
+		<action path="/mccParam" name="mccForm"
+			type="cn.yufu.posp.merchant.web.action.MccParamAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/sysparam/mccParamQuery.jsp"></forward>
+			<forward name="editToQuery" path="/mccParam.do?method=queryAll" />
+			<forward name="add" path="/jsp/sysparam/mccParamAdd.jsp" />
+			<forward name="edit" path="/jsp/sysparam/mccParamEdit.jsp" />
+		</action>
+		<!-- 模板管理  -->
+		<action path="/sysModule" name="sysModuleForm"
+			type="cn.yufu.posp.sysModule.web.action.SysModuleAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/sysModule/sysModuleQuery.jsp"></forward>
+			<forward name="editToQuery" path="/sysModule.do?method=queryAll" />
+			<forward name="add" path="/jsp/sysModule/sysModuleAdd.jsp" />
+			<forward name="edit" path="/jsp/sysModule/sysModuleEdit.jsp" />
+		</action>
+		<!-- 模板管理  -->
+		<action path="/sysModuleOther" name="sysModuleForm"
+			type="cn.yufu.posp.sysModule.web.action.SysModuleOtherAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/sysModule/sysModuleOtherQuery.jsp"></forward>
+			<forward name="editToQuery" path="/sysModuleOther.do?method=queryAll" />
+			<forward name="add" path="/jsp/sysModule/sysModuleOtherAdd.jsp" />
+			<forward name="edit" path="/jsp/sysModule/sysModuleOtherEdit.jsp" />
+		</action>
+		<!--
+			风险控制 <action path="/riskInfo" name="riskInfoForm"
+			type="cn.yufu.posp.risk.web.action.RiskInfoAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query"
+			path="/jsp/riskInfo/riskInfoQuery.jsp"></forward> <forward
+			name="editToQuery" path="/riskInfo.do?method=queryAll" /> <forward
+			name="add" path="/jsp/riskInfo/riskInfoAdd.jsp"/> <forward
+			name="edit" path="/jsp/riskInfo/riskInfoEdit.jsp"/> </action>
+		-->
+		<!--  机构  -->
+		<action path="/Jg" name="jgForm"
+			type="cn.yufu.posp.jgmanager.web.action.JgDispatchAction" scope="request"
+			validate="false" parameter="method" input="/jsp/jg/JGLB.jsp">
+			<forward name="showAllJg" path="/jsp/jg/JGLB.jsp" />
+			<forward name="createJg" path="/Jg.do?method=queryJg" />
+			<forward name="deleteJg" path="/Jg.do?method=queryJg" />
+			<forward name="showModifyJg" path="/jsp/jg/JGXG.jsp" />
+			<forward name="saveJg" path="/Jg.do?method=queryJg" />
+			<forward name="jgsr" path="/jsp/jg/JGSR.jsp" />
+		</action>
+
+		<!-- 微信支付宝查询流水  -->
+		<action path="/queryWechatAlipay" name="curTranLsForm"
+			type="cn.yufu.posp.queryManager.web.action.CurTranLsWechatAlipayAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/queryWechatAlipay/curTranLsQuery.jsp"></forward>
+			<forward name="queryDay" path="/jsp/queryWechatAlipay/curTranDayLsQuery.jsp"></forward>
+			<forward name="detail" path="/jsp/queryWechatAlipay/detailQuery.jsp"></forward>
+		</action>
+		<!-- 查询流水  -->
+		<action path="/queryCurTranLs" name="curTranLsForm"
+			type="cn.yufu.posp.queryManager.web.action.CurTranLsDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/queryManager/curTranLsQuery.jsp"></forward>
+			<forward name="queryDay" path="/jsp/queryManager/curTranDayLsQuery.jsp"></forward>
+			<forward name="detail" path="/jsp/queryManager/detailQuery.jsp"></forward>
+		</action>
+		<action path="/queryCurTranLsWarn" name="curTranLsForm"
+			type="cn.yufu.posp.queryManager.web.action.CurTranLsWarnDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/queryManager/curTranLsWarnQuery.jsp"></forward>
+			<forward name="detail" path="/jsp/queryManager/detailQuery.jsp"></forward>
+		</action>
+		<action path="/queryCurTranLsReport" name="curTranLsForm"
+			type="cn.yufu.posp.queryManager.web.action.CurTranLsReportDispatchAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/queryManager/curTranLsReportQuery.jsp"></forward>
+			<forward name="detail" path="/jsp/queryManager/detailQuery.jsp"></forward>
+		</action>
+
+		<!-- 规则管理  -->
+		<action path="/ruleManager" name="curTranLsForm"
+			type="cn.yufu.posp.ruleManager.web.action.RuleManagerDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/ruleManager/ruleTempQuery.jsp">
+			<forward name="queryTempAll" path="/jsp/ruleManager/ruleTempQuery.jsp"></forward>
+			<forward name="queryRuleAll" path="/jsp/ruleManager/ruleConfigQuery.jsp"></forward>
+			<forward name="addRule" path="/jsp/ruleManager/ruleAdd.jsp"></forward>
+			<forward name="editToQuery" path="/ruleManager.do?method=queryTempAll" />
+			<forward name="queryOne" path="/jsp/ruleManager/ruleDetail.jsp" />
+		</action>
+
+		<action path="/stlmRegu" name="tblStlmReguForm"
+			type="cn.yufu.posp.ruleManager.web.action.StlmReguDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/ruleManager/ruleTempQuery.jsp">
+			<forward name="query" path="/jsp/ruleManager/stlmReguQuery.jsp"></forward>
+			<forward name="add" path="/jsp/ruleManager/stlmReguAdd.jsp"></forward>
+			<forward name="edit" path="/jsp/ruleManager/stlmReguEdit.jsp"></forward>
+			<forward name="editToQuery" path="/stlmRegu.do?method=queryAll" />
+		</action>
+
+
+		<!-- 联行  -->
+		<action path="/bankInfo" name="bankInfoForm"
+			type="cn.yufu.posp.bank.web.action.BankInfoAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bank/bankInfoQuery.jsp"></forward>
+			<forward name="editToQuery" path="/bankInfo.do?method=queryAll" />
+			<forward name="add" path="/jsp/bank/bankInfoAdd.jsp" />
+			<forward name="edit" path="/jsp/bank/bankInfoEdit.jsp" />
+		</action>
+
+		<action path="/banktype" name="banktypeForm"
+			type="cn.yufu.posp.bank.web.action.BanktypeAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bank/banktypeQuery.jsp"></forward>
+			<forward name="editToQuery" path="/banktype.do?method=queryAll" />
+			<forward name="add" path="/jsp/bank/banktypeAdd.jsp" />
+			<forward name="edit" path="/jsp/bank/banktypeEdit.jsp" />
+		</action>
+
+
+		<!-- 终端黑名单 -->
+		<action path="/edcBlack" name="edcBlackForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcBlackDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcBlackQuery.jsp">
+			<forward name="query" path="/jsp/edc/edcBlackQuery.jsp" />
+			<forward name="editToQuery" path="/edcBlack.do?method=queryAll" />
+			<forward name="add" path="/jsp/edc/edcBlackAdd.jsp" />
+			<forward name="edit" path="/jsp/edc/edcBlackEdit.jsp" />
+		</action>
+
+		<!-- 银行终端信息管理 -->
+		<action path="/edcTerminalOrm" name="edcTerminalOrmForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcTerminalOrmDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcTerminalOrmQuery.jsp">
+			<forward name="query" path="/jsp/edc/edcTerminalOrmQuery.jsp" />
+			<forward name="editToQuery" path="/edcTerminalOrm.do?method=queryEdcTerminalOrm" />
+			<forward name="add" path="/jsp/edc/edcTerminalOrmAdd.jsp" />
+			<forward name="edit" path="/jsp/edc/edcTerminalOrmEdit.jsp" />
+			<forward name="syncParam" path="/jsp/edc/edcTerminalOrmSyncParam.jsp" />
+		</action>
+
+		<!-- 新福卡银行终端信息管理 -->
+		<action path="/edcNewfkterminalOrm" name="edcNewfkterminalOrmForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcNewfkterminalOrmDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcNewfkterminalOrmQuery.jsp">
+			<forward name="query" path="/jsp/edc/edcNewfkterminalOrmQuery.jsp" />
+			<forward name="editToQuery" path="/edcNewfkterminalOrm.do?method=queryEdcNewfkterminalOrm" />
+			<forward name="add" path="/jsp/edc/edcNewfkterminalOrmAdd.jsp" />
+			<forward name="edit" path="/jsp/edc/edcNewfkterminalOrmEdit.jsp" />
+		</action>
+		
+		<!-- 支付宝、微信终端信息管理 -->
+		<action path="/edcAlipayWeChat" name="edcAlipayWeChatForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcAlipayWeChatDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcAlipayWeChatQuery.jsp">
+			<forward name="query" path="/jsp/edc/edcAlipayWeChatQuery.jsp" />
+			<forward name="editToQuery" path="/edcAlipayWeChat.do?method=queryEdcAlipayWeChat" />
+			<forward name="add" path="/jsp/edc/edcAlipayWeChatAdd.jsp" />
+			<forward name="edit" path="/jsp/edc/edcAlipayWeChatEdit.jsp" />
+		</action>
+		
+		<!-- 专属卡终端信息管理 -->
+		<action path="/edcZskterminalOrm" name="edcZskterminalOrmForm"
+			type="cn.yufu.posp.terminalmanager.web.action.EdcZskterminalOrmDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/edc/edcZskterminalOrmQuery.jsp">
+			<forward name="query" path="/jsp/edc/edcZskterminalOrmQuery.jsp" />
+			<forward name="editToQuery" path="/edcZskterminalOrm.do?method=queryEdcZskterminalOrm" />
+			<forward name="add" path="/jsp/edc/edcZskterminalOrmAdd.jsp" />
+			<forward name="edit" path="/jsp/edc/edcZskterminalOrmEdit.jsp" />
+		</action>
+
+		<!-- TMKMasterKEY -->
+		<action path="/TMKMasterKEY" name="btsKeyForm"
+			type="cn.yufu.posp.keyManager.web.action.TMKMasterKEYDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/keyManager/TMKMasterKEYQuery.jsp">
+			<forward name="query" path="/jsp/keyManager/TMKMasterKEYQuery.jsp" />
+			<forward name="changequery" path="/jsp/keyManager/TMKMasterKEYChangeQuery.jsp" />
+			<forward name="queryExport" path="/jsp/keyManager/TMKMasterKEYExport.jsp" />
+			<forward name="editToQuery" path="/TMKMasterKEY.do?method=queryAll" />
+			<forward name="editToChangeQuery" path="/TMKMasterKEY.do?method=queryChangeAll" />
+			<forward name="add" path="/jsp/keyManager/TMKMasterKEYAdd.jsp" />
+			<forward name="edit" path="/jsp/keyManager/TMKMasterKEYEdit.jsp" />
+			<forward name="changeedit" path="/jsp/keyManager/TMKMasterKEYChangeEdit.jsp" />
+			<forward name="show" path="/jsp/keyManager/TMKMasterKEYShow.jsp" />
+			<forward name="changeshow" path="/jsp/keyManager/TMKMasterKEYChangeShow.jsp" />
+			
+		</action>
+		<action path="/PospZmkKey" name="pospZmkKeyForm"
+			type="cn.yufu.posp.keyManager.web.action.PospZmkKeyDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/keyManager/PospZmkKeyQuery.jsp">
+			<forward name="query" path="/jsp/keyManager/pospZmkKeyQuery.jsp" />
+			<forward name="queryExport" path="/jsp/keyManager/pospZmkKeyExport.jsp" />
+			<forward name="editToQuery" path="/PospZmkKey.do?method=queryAll" />
+			<forward name="add" path="/jsp/keyManager/pospZmkKeyAdd.jsp" />
+			<forward name="edit" path="/jsp/keyManager/pospZmkKeyEdit.jsp" />
+		</action>
+		<action path="/tranModule" name="tranModuleInfForm"
+			type="cn.yufu.posp.sysparam.web.action.TranModuleDispatchAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsp/sysparam/tranModuleQuery.jsp">
+			<forward name="query" path="/jsp/sysparam/tranModuleQuery.jsp"></forward>
+			<forward name="editToQuery" path="/tranModule.do?method=queryAll" />
+			<forward name="add" path="/jsp/sysparam/tranModuleAdd.jsp" />
+			<forward name="edit" path="/jsp/sysparam/tranModuleEdit.jsp" />
+		</action>
+		<action path="/log" name="operateLogForm"
+			type="cn.yufu.posp.logManager.web.action.LogAction" scope="request"
+			validate="false" parameter="method" input="/jsp/sysparam/tranModuleQuery.jsp">
+			<forward name="query" path="/jsp/log/logQuery.jsp"></forward>
+			<forward name="view" path="/jsp/log/logView.jsp" />
+		</action>
+
+		<!-- 票据管理  -->
+		<action path="/merclearBook" name="analyzeMerclearBookForm"
+			type="cn.yufu.posp.bookManager.web.action.AnalyzeMerclearBookAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bookManager/merclearBookQuery.jsp"></forward>
+			<forward name="toQuery" path="/merclearBook.do?method=queryAll" />
+			<forward name="detail" path="/jsp/bookManager/merclearBookDetail.jsp" />
+		</action>
+		<action path="/merfeeBook" name="analyzeMerfeeBookForm"
+			type="cn.yufu.posp.bookManager.web.action.AnalyzeMerfeeBookAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bookManager/merfeeBookQuery.jsp"></forward>
+			<forward name="toQuery" path="/merfeeBook.do?method=queryAll" />
+			<forward name="detail" path="/jsp/bookManager/merfeeBookDetail.jsp" />
+		</action>
+		<action path="/merstlBook" name="analyzeMerstlBookForm"
+			type="cn.yufu.posp.bookManager.web.action.AnalyzeMerstlBookAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bookManager/merstlBookQuery.jsp"></forward>
+			<forward name="toQuery" path="/merstlBook.do?method=queryAll" />
+			<forward name="detail" path="/jsp/bookManager/merstlBookDetail.jsp" />
+		</action>
+		<action path="/cupcheckBook" name="analyzeCupcheckBookForm"
+			type="cn.yufu.posp.bookManager.web.action.AnalyzeCupcheckBookAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bookManager/cupcheckBookQuery.jsp"></forward>
+			<forward name="toQuery" path="/cupcheckBook.do?method=queryAll" />
+			<forward name="detail" path="/jsp/bookManager/cupcheckBookDetail.jsp" />
+		</action>
+		<action path="/cupcheckErr" name="analyzeCupcheckErrForm"
+			type="cn.yufu.posp.bookManager.web.action.AnalyzeCupcheckErrAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bookManager/cupcheckErrQuery.jsp"></forward>
+			<forward name="toQuery" path="/cupcheckErr.do?method=queryAll" />
+			<forward name="detail" path="/jsp/bookManager/cupcheckErrDetail.jsp" />
+		</action>
+		<action path="/cupcheckOk" name="analyzeCupcheckOkForm"
+			type="cn.yufu.posp.bookManager.web.action.AnalyzeCupcheckOkAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bookManager/cupcheckOkQuery.jsp"></forward>
+			<forward name="toQuery" path="/cupcheckOk.do?method=queryAll" />
+			<forward name="detail" path="/jsp/bookManager/cupcheckOkDetail.jsp" />
+		</action>
+		<action path="/cupcheckStatics" name="analyzeCupcheckStaticsForm"
+			type="cn.yufu.posp.bookManager.web.action.AnalyzeCupcheckStaticsAction"
+			scope="request" validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/bookManager/cupcheckStaticsQuery.jsp"></forward>
+			<forward name="toQuery" path="/cupcheckStatics.do?method=queryAll" />
+			<forward name="detail" path="/jsp/bookManager/cupcheckStaticsDetail.jsp" />
+		</action>
+		<!--区域卡卡bin-->
+		<action path="/cardBinArea" name="cardBinAreaForm"
+			type="cn.yufu.posp.cardBinArea.web.action.CardBinAreaAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/cardBinArea/cardBinAreaQuery.jsp"></forward>
+			<forward name="editToQuery" path="/cardBinArea.do?method=queryAll" />
+			<forward name="add" path="/jsp/cardBinArea/cardBinAreaAdd.jsp" />
+			<forward name="edit" path="/jsp/cardBinArea/cardBinAreaEdit.jsp" />
+			<forward name="sel" path="/jsp/cardBinArea/selCardBinArea.jsp" />			
+		</action>
+		<!--终端区域卡卡bin-->
+		<action path="/edcCardBinArea" name="edcCardBinAreaForm"
+			type="cn.yufu.posp.cardBinArea.web.action.EdcCardBinAreaAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/cardBinArea/edcCardBinAreaQuery.jsp"></forward>
+			<forward name="editToQuery" path="/edcCardBinArea.do?method=queryAll" />
+			<forward name="add" path="/jsp/cardBinArea/edcCardBinAreaAdd.jsp" />
+			<forward name="edit" path="/jsp/cardBinArea/edcCardBinAreaEdit.jsp" />
+		</action>	
+
+
+		<!-- 业务场景费率 -->
+		<action path="/tabBusinessRates" name="tabBusinessRatesForm"
+			type="cn.yufu.posp.merchant.web.action.TabBusinessRatesAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/tabBusinessRatesQuery.jsp"></forward>
+			<forward name="editToQuery" path="/tabBusinessRates.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/tabBusinessRatesAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/tabBusinessRatesEdit.jsp" />
+		</action>
+		
+		<!-- 业务角色菜单 -->
+		<action path="/tabBusRoleMenu" name="tabBusRoleMenuForm"
+			type="cn.yufu.posp.merchant.web.action.TabBusRoleMenuAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/tabBusRoleMenuQuery.jsp"></forward>
+			<forward name="editToQuery" path="/tabBusRoleMenu.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/tabBusRoleMenuAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/tabBusRoleMenuEdit.jsp" />
+		</action>
+		
+		<!-- 商户交易参数 -->
+		<action path="/tblMerchantTranParam" name="tblMerchantTranParamForm"
+			type="cn.yufu.posp.merchant.web.action.TblMerchantTranParamAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/tblMerchantTranParamQuery.jsp"></forward>
+			<forward name="editToQuery" path="/tblMerchantTranParam.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/tblMerchantTranParamAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/tblMerchantTranParamEdit.jsp" />
+		</action>
+		
+		<!-- 授权免密卡BIN信息 -->
+		<action path="/tblNoPasswdCardBin" name="tblNoPasswdCardBinForm"
+			type="cn.yufu.posp.merchant.web.action.TblNoPasswdCardBinAction" scope="request"
+			validate="false" parameter="method" input="/jsp/user/searchUser.jsp">
+			<forward name="query" path="/jsp/merchant/tblNoPasswdCardBinQuery.jsp"></forward>
+			<forward name="editToQuery" path="/tblNoPasswdCardBin.do?method=queryAll" />
+			<forward name="add" path="/jsp/merchant/tblNoPasswdCardBinAdd.jsp" />
+			<forward name="edit" path="/jsp/merchant/tblNoPasswdCardBinEdit.jsp" />
+		</action>
+		
+	</action-mappings>
+	<message-resources parameter="cn.yufu.posp.common.web.ApplicationResources" />
+	<!--MessageResource definition in order to use validator framework -->
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml, /WEB-INF/validation.xml" />
+	</plug-in>
+
+</struts-config>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "cn.com.jansh.mapper.system.CloudplatformorginationMapper">
+	<!-- 初始化总机构下拉列表 -->
+	<select id="queryParentOrgination" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			(
+				PARENTORGID = #{parentorgid} AND DELFLAG = #{delflag}
+			)	
+		ORDER BY UPDATETIME DESC
+	</select>
+	<!-- 初始化总机构下拉列表 -->
+	<select id="selectOrgByorgNameAnddelFlag" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME,
+				DELFLAG
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			(
+				ORGNAME = #{orgname} AND DELFLAG = #{delflag}
+			)	
+	</select>
+	<!-- 新增时初始化总机构下拉列表 -->
+	<select id="queryParentOrginationByStatus" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			(
+				PARENTORGID = #{parentorgid} AND DELFLAG = #{delflag}
+			)	
+		ORDER BY UPDATETIME DESC
+	</select>
+	<!-- 查询机构 -->
+	<select id="queryOrgination" parameterType="CloudplatformorginationEntity" resultType="CloudplatformorginationEntity" >
+		SELECT
+				a.ID,
+				a.PARENTORGID,
+				a.ORGNAME,
+				a.NOTE,
+				a.ORGSTATUS,
+				a.CREATETIME,
+				a.UPDATETIME,
+				b.ORGNAME PARENTORGNAME
+		FROM
+				CLOUDPLATFORMORGINATION a
+				    LEFT JOIN CLOUDPLATFORMORGINATION b
+				    on a.PARENTORGID = b.ID
+		WHERE 
+			(
+				1=1
+				<if test="orgstatus!='' and orgstatus!=null">
+					AND a.ORGSTATUS = #{orgstatus} 
+				</if>
+				<if test="orgname!='' and orgname!=null">
+					AND a.ORGNAME LIKE CONCAT(CONCAT('%', #{orgname}), '%')
+				</if>
+				<if test="parentorgid!='' and parentorgid!=null">
+					AND a.PARENTORGID = #{parentorgid} 
+				</if>
+				AND a.DELFLAG = #{delflag}
+			)	
+		ORDER BY UPDATETIME DESC
+	</select>
+	<!-- 通过机构名查询机构 -->
+	<select id="selectOrginationByorgName" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			(
+				ORGNAME = #{orgname} 
+			)	
+	</select>
+	<!-- 通过机构ID查询机构 -->
+	<select id="selectOrginationById" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				a.ID,
+				a.PARENTORGID,
+				a.ORGNAME,
+				a.NOTE,
+				a.ORGSTATUS,
+				a.CREATETIME,
+				a.UPDATETIME,
+				b.ORGNAME PARENTORGNAME
+		FROM
+				CLOUDPLATFORMORGINATION a
+				    LEFT JOIN CLOUDPLATFORMORGINATION b
+				    on a.PARENTORGID = b.ID
+		WHERE 
+			(
+				a.ID = #{id} 
+			)	
+	</select>
+	<!-- 通过机构ID查询机构 -->
+	<select id="selectFsmUserbyOrgid" parameterType="Map" resultType="FsmUserEntity" >
+		SELECT
+			USERID,
+			ORGID,
+			USERNAME,
+			PASSWD,
+			CNAME,
+			PWDERRNUM,
+			STATUS,
+			UPDATETIME,
+			CREATETIME,
+			EMAIL,
+			PHONENO
+		FROM
+			FSMUSER 
+		WHERE
+		(
+		ORGID = #{orgid}
+		)	
+	</select>
+	<!-- 通过手机号码查询用户 -->
+	<select id="selectFsmUserbyPhoneno" parameterType="Map" resultType="FsmUserEntity" >
+		SELECT
+			USERID,
+			ORGID,
+			USERNAME,
+			PASSWD,
+			CNAME,
+			PWDERRNUM,
+			STATUS,
+			UPDATETIME,
+			CREATETIME,
+			EMAIL,
+			PHONENO
+		FROM
+			FSMUSER 
+		WHERE
+		(
+		PHONENO = #{phoneno}
+		)	
+	</select>
+	<!-- 通过机构id查询平台币  -->
+	<select id="selectAccountsurplusbyOrgid" parameterType="Map" resultType="CloudaccountsurplusEntity" >
+	SELECT
+		ID,
+		ORGID,
+		CURRENTMONEY,
+		TOTALMONEY,
+		CREATETIME,
+		UPDATETIME
+	FROM
+		CLOUDACCOUNTSURPLUS
+	WHERE
+		(
+		ORGID = #{orgid}
+		)	
+	</select>
+	<!-- 通过当前机构ID查询此机构是否为其他机构的父机构 -->
+	<select id="selectOrginationParentId" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME,
+				DELFLAG
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			(
+				PARENTORGID = #{parentorgid} 
+				AND DELFLAG = #{delflag}
+			)
+	</select>	
+	<select id="sOrginationParentIdAndStatus" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME,
+				DELFLAG
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			(
+				ID = #{id} 
+				AND DELFLAG = #{delflag}
+			)	
+	</select>
+	<select id="sOrginationChildIdAndStatus" parameterType="Map" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME,
+				DELFLAG
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			(
+				PARENTORGID = #{parentorgid} 
+				AND ORGSTATUS != #{orgstatus}
+				AND DELFLAG = #{delflag}
+			)	
+	</select>
+	<!-- 插入数据 -->
+	<insert id="insertOrgination" parameterType="CloudplatformorginationEntity">
+		INSERT INTO 
+			CLOUDPLATFORMORGINATION
+			( 	ID,
+				PARENTORGID,
+				ORGNAME,
+				NOTE,
+				ORGSTATUS,
+				CREATETIME,
+				UPDATETIME,
+				DELFLAG
+			) VALUES 
+			(	#{id},
+				#{parentorgid},
+				#{orgname},
+				#{note},
+				#{orgstatus},
+				#{createtime},
+				#{updatetime},
+				#{delflag}
+			)
+	</insert>
+	<!-- 更新机构 -->
+	<update id="editOrgination" parameterType="CloudplatformorginationEntity">
+		UPDATE
+			CLOUDPLATFORMORGINATION
+		<set>  
+	        <if test="id != '' and id != null">  
+	            ID=#{id},
+	        </if>  
+	        <if test="parentorgid != '' and parentorgid != null">  
+				PARENTORGID=#{parentorgid},
+	        </if>  
+	        <if test="orgname != '' and orgname != null">  
+	            ORGNAME=#{orgname},
+	        </if>  
+	        <if test="note != null">  
+	            NOTE=#{note},  
+	        </if>
+	        <if test="orgstatus != '' and orgstatus != null">  
+	            ORGSTATUS=#{orgstatus}, 
+	        </if>
+	        <if test="createtime != '' and createtime != null">  
+	            CREATETIME=#{createtime} 
+	        </if>
+	        <if test="updatetime != '' and updatetime != null">  
+	            UPDATETIME=#{updatetime} 
+	        </if>
+   		</set>
+		WHERE
+			ID=#{id}
+	</update>
+	
+	<!-- 获取所有机构的名称和CODE -->
+	<select id="queryAllDate" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME 
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			 	1 = 1 and delflag = 1
+		ORDER BY CREATETIME DESC
+	</select>
+	<!-- 获取所有机构的名称和CODE -->
+	<select id="queryAllDate2" resultType="CloudplatformorginationEntity" >
+		SELECT
+				ID,
+				PARENTORGID,
+				ORGNAME 
+		FROM
+				CLOUDPLATFORMORGINATION
+		WHERE 
+			 	1 = 1 and orgstatus = 1 and delflag = 1
+		ORDER BY CREATETIME DESC
+	</select>
+	<!-- 删除机构 -->
+	<!-- <delete id="delOrginationById" parameterType="String">
+		DELETE FROM
+			CLOUDPLATFORMORGINATION
+		WHERE
+			ID=#{id}
+	</delete> -->
+	<!-- 删除机构  -->
+	<update id="delOrginationById" parameterType="Map">
+		UPDATE
+			CLOUDPLATFORMORGINATION
+		SET
+			DELFLAG=#{delflag},
+			ORGSTATUS=#{orgstatus}
+		WHERE
+			ID=#{id}
+	</update>
+</mapper>
+	

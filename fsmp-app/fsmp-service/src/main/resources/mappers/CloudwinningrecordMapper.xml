@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.component.CloudwinningrecordMapper">
+	<select id="select" parameterType="CloudwinningrecordEntity" resultType="CloudwinningrecordEntity">
+		SELECT
+		    ID,
+		    AWARDID,
+		    OPENID,
+		    ORGID,
+		    GAMEID,
+		    WINNERPHONE,
+		    SENDSTATUS,
+		    PRIZESTYLE,
+		    CREATETIME,
+		    UPDATETIME,
+		    PRELIMINARYSTATUS,
+		    PRELIMINARYPER,
+		    REVIEWPER,
+		    PRIZENAME,
+		    PRIZETYPE
+		FROM
+    		cloudwinningrecord
+		WHERE
+			1=1
+			<if test="openid != '' and openid != null">
+				AND OPENID = #{openid}
+			</if>
+			<if test="orgid != '' and orgid != null">
+				AND ORGID = #{orgid}
+			</if>
+			<if test="gameid != '' and gameid != null">
+				AND GAMEID = #{gameid}
+			</if>
+			<if test="winnerphone != '' and winnerphone != null">
+				AND WINNERPHONE = #{winnerphone}
+			</if>
+			<if test="sendstatus != '' and sendstatus != null">
+				AND SENDSTATUS = #{sendstatus}
+			</if>
+			<if test="prizestyle != '' and prizestyle != null">
+				AND SENDSTATUS = #{sendstatus}
+			</if>
+			<if test="createtime != '' and createtime != null">
+				AND CREATETIME = #{createtime}
+			</if>
+			<if test="updatetime != '' and updatetime != null">
+				AND UPDATETIME = #{updatetime}
+			</if>
+			<if test="preliminarystatus != '' and preliminarystatus != null">
+				AND PRELIMINARYSTATUS = #{preliminarystatus}
+			</if>
+			<if test="preliminaryper != '' and preliminaryper != null">
+				AND PRELIMINARYPER = #{preliminaryper}
+			</if>
+			<if test="reviewper != '' and reviewper != null">
+				AND REVIEWPER = #{reviewper}
+			</if>
+			<if test="prizetype != '' and prizetype != null">
+				AND PRIZETYPE = #{prizetype}
+			</if>
+			<if test="id != '' and id != null">
+				AND ID = #{id}
+			</if>
+		ORDER BY CREATETIME DESC
+	</select>
+	
+	<select id="selectRecords" resultType="ShowOrderBO">
+		SELECT
+		    L.ID,
+		    L.AWARDID,
+		    L.OPENID,
+		  	L.ORGID,
+		    N.GAMENAME,
+		    L.WINNERPHONE,
+		    L.SENDSTATUS,
+		    M.PRIZENAME AS PRIZESTYLENAME,
+		    date_format(L.CREATETIME, '%Y-%m-%d %H:%i:%s') as CREATETIME,
+		    L.UPDATETIME,
+		    L.PRELIMINARYSTATUS,
+		    L.PRELIMINARYPER,
+		    L.REVIEWPER,
+		    L.PRIZENAME,
+		    L.PRIZETYPE
+		FROM
+    		cloudwinningrecord L
+    	LEFT JOIN
+    		CLOUDVIRGOOD M
+    	ON L.PRIZESTYLE = M.ID
+    	LEFT JOIN
+    		CLOUDGAMEPARAM N
+    	ON L.GAMEID = N.GAMEID
+		WHERE
+			1=1
+			<if test="beginTime != null and beginTime !='' and endTime != null and endTime !=''">
+				AND L.CREATETIME between #{beginTime} and #{endTime}
+			</if>
+			<if test="prizetype != null and prizetype !=''">
+				AND L.PRIZETYPE = #{prizetype}
+			</if>
+			<if test="sendstatus != null">
+				AND L.SENDSTATUS in
+				<foreach item="item" index="index" collection="sendstatus"  open="(" separator="," close=")">
+				         #{item}   
+				</foreach> 
+			</if>
+			<if test="vrid != null and vrid !=''">
+				AND L.PRIZESTYLE = #{vrid}
+			</if>
+			<if test="gpid != null and gpid !=''">
+				AND L.GAMEID = #{gpid}
+			</if>
+			<if test="id != null and id !=''">
+				AND L.ID = #{id}
+			</if>
+			<if test="phone != null and phone !=''">
+				AND L.WINNERPHONE like "%${phone}%"
+			</if>
+		ORDER BY L.CREATETIME DESC
+		<if test="length !=null and length !='0'">
+			LIMIT #{start},#{length}
+		</if>
+	</select>
+	
+	<select id="sumPrice" resultType="String">
+		SELECT
+		   SUM(M.PRIZEPRICE)
+		FROM
+    		cloudwinningrecord L
+    	LEFT JOIN
+    		CLOUDVIRGOOD M
+    	ON L.PRIZESTYLE = M.ID
+		WHERE
+			1=1
+			<if test="beginTime != null and beginTime !='' and endTime != null and endTime !=''">
+				AND L.CREATETIME between #{beginTime} and #{endTime}
+			</if>
+			<if test="prizetype != null and prizetype !=''">
+				AND L.PRIZETYPE = #{prizetype}
+			</if>
+			<if test="sendstatus != null">
+				AND L.SENDSTATUS in
+				<foreach item="item" index="index" collection="sendstatus"  open="(" separator="," close=")">
+				         #{item}   
+				</foreach> 
+			</if>
+			<if test="vrid != null and vrid !=''">
+				AND L.PRIZESTYLE = #{vrid}
+			</if>
+			<if test="gpid != null and gpid !=''">
+				AND L.GAMEID = #{gpid}
+			</if>
+			<if test="phone != null and phone !=''">
+				AND L.WINNERPHONE like "%${phone}%"
+			</if>
+	</select>
+	
+	<select id="selectRecordsCount" resultType="Integer">
+		SELECT
+		    COUNT(1)
+		FROM
+    		cloudwinningrecord
+		WHERE
+			1=1
+			<if test="beginTime != null and beginTime !='' and endTime != null and endTime !=''">
+				AND CREATETIME between #{beginTime} and #{endTime}
+			</if>
+			<if test="prizetype != null and prizetype !=''">
+				AND PRIZETYPE = #{prizetype}
+			</if>
+			<if test="sendstatus != null">
+				AND SENDSTATUS in
+				<foreach item="item" index="index" collection="sendstatus"  open="(" separator="," close=")">
+				         #{item}   
+				</foreach> 
+			</if>
+			<if test="vrid != null and vrid !=''">
+				AND PRIZESTYLE = #{vrid}
+			</if>
+			<if test="gpid != null and gpid !=''">
+				AND GAMEID = #{gpid}
+			</if>
+			<if test="phone != null and phone !=''">
+				AND WINNERPHONE like "%${phone}%"
+			</if>
+		ORDER BY CREATETIME DESC
+	</select>
+	
+	<select id="selectByStatus" resultType="CloudwinningrecordEntity">
+		SELECT
+		    ID,
+		    AWARDID,
+		    OPENID,
+		    ORGID,
+		    GAMEID,
+		    WINNERPHONE,
+		    SENDSTATUS,
+		    PRIZESTYLE,
+		    CREATETIME,
+		    UPDATETIME,
+		    PRELIMINARYSTATUS,
+		    PRELIMINARYPER,
+		    REVIEWPER,
+		    PRIZENAME,
+		    PRIZETYPE
+		FROM
+    		cloudwinningrecord
+		WHERE
+			1=1 and SENDSTATUS in
+			<foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+			         #{item}   
+			</foreach> 
+			
+		ORDER BY CREATETIME DESC
+	</select>
+	
+	
+	<insert id="insert" parameterType="CloudwinningrecordEntity">
+		INSERT
+			INTO
+			    cloudwinningrecord
+			    (
+			        ID,
+			        AWARDID,
+			        OPENID,
+			        ORGID,
+			        GAMEID,
+			        WINNERPHONE,
+			        SENDSTATUS,
+			        PRIZESTYLE,
+			        CREATETIME,
+			        UPDATETIME,
+			        PRELIMINARYSTATUS,
+			        PRELIMINARYPER,
+			        REVIEWPER,
+			        PRIZENAME,
+		    		PRIZETYPE
+			        )
+		    VALUES
+		    (
+		        #{id},
+		        #{awardid},
+		        #{openid},
+		        #{orgid},
+		        #{gameid},
+		        #{winnerphone},
+		        #{sendstatus},
+		        #{prizestyle},
+		        #{createtime},
+		        #{updatetime},
+		        #{preliminarystatus},
+		        #{preliminaryper},
+		        #{reviewper},
+		        #{prizename},
+		        #{prizetype}
+		    
+		    )
+	</insert>
+	
+	<update id="update" parameterType="CloudwinningrecordEntity">
+	    UPDATE
+		    cloudwinningrecord
+		<set> 
+			<if test="sendstatus != null">    
+		    	SENDSTATUS = #{sendstatus},
+		    </if>
+		    <if test="preliminarystatus != null">    
+		    	PRELIMINARYSTATUS = #{preliminarystatus},
+		    </if>
+		    <if test="preliminaryper != null">    
+		    	PRELIMINARYPER = #{preliminaryper},
+		    </if>
+		    <if test="reviewper != null">    
+		    	REVIEWPER = #{reviewper},
+		    </if>
+		     <if test="updatetime != null">    
+		    	UPDATETIME = #{updatetime}
+		    </if>
+		</set>    
+		    WHERE
+		        ID = #{id}
+     </update>
+     <update id="batchUpdate">
+	    UPDATE
+		    cloudwinningrecord
+		SET
+		    	SENDSTATUS = '0'
+		WHERE 1=1 
+		    <if test="list != null">
+		    	 AND    ID IN
+			    <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+				         #{item}   
+				</foreach> 
+		    </if>
+     </update>
+</mapper>

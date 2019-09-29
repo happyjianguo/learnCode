@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.TermPosMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.TermPos" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="TYPEID" property="typeid" jdbcType="DECIMAL" />
+    <result column="TERMCODE" property="termcode" jdbcType="VARCHAR" />
+    <result column="TESTFLAG" property="testflag" jdbcType="DECIMAL" />
+    <result column="STATUSID" property="statusid" jdbcType="DECIMAL" />
+    <result column="CURRCODE" property="currcode" jdbcType="CHAR" />
+    <result column="TERMNO" property="termno" jdbcType="DECIMAL" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="CONACCNO" property="conaccno" jdbcType="VARCHAR" />
+    <result column="CONCUR" property="concur" jdbcType="CHAR" />
+    <result column="POSCHIC" property="poschic" jdbcType="CHAR" />
+    <result column="POSCHAC" property="poschac" jdbcType="CHAR" />
+    <result column="POSCRC" property="poscrc" jdbcType="CHAR" />
+    <result column="POSOE" property="posoe" jdbcType="CHAR" />
+    <result column="POSCDOC" property="poscdoc" jdbcType="CHAR" />
+    <result column="POSTOC" property="postoc" jdbcType="CHAR" />
+    <result column="POSPCC" property="pospcc" jdbcType="CHAR" />
+    <result column="TIMEZONE" property="timezone" jdbcType="VARCHAR" />
+    <result column="CAT_PARAMS" property="catParams" jdbcType="VARCHAR" />
+    <result column="MERCHANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    <result column="TERMTYPE" property="termtype" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, VERNO_CTX, TYPEID, TERMCODE, TESTFLAG, STATUSID, CURRCODE, TERMNO, LOCATION, 
+    CONACCNO, CONCUR, POSCHIC, POSCHAC, POSCRC, POSOE, POSCDOC, POSTOC, POSPCC, TIMEZONE, 
+    CAT_PARAMS, MERCHANT_ID, TERMTYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.TermPosExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TERMPOS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TERMPOS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TERMPOS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.TermPosExample" >
+    delete from TERMPOS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.TermPos" >
+    insert into TERMPOS (ID, VERNO_CTX, TYPEID, 
+      TERMCODE, TESTFLAG, STATUSID, 
+      CURRCODE, TERMNO, LOCATION, 
+      CONACCNO, CONCUR, POSCHIC, 
+      POSCHAC, POSCRC, POSOE, POSCDOC, 
+      POSTOC, POSPCC, TIMEZONE, 
+      CAT_PARAMS, MERCHANT_ID, TERMTYPE
+      )
+    values (#{id,jdbcType=DECIMAL}, #{vernoCtx,jdbcType=DECIMAL}, #{typeid,jdbcType=DECIMAL}, 
+      #{termcode,jdbcType=VARCHAR}, #{testflag,jdbcType=DECIMAL}, #{statusid,jdbcType=DECIMAL}, 
+      #{currcode,jdbcType=CHAR}, #{termno,jdbcType=DECIMAL}, #{location,jdbcType=VARCHAR}, 
+      #{conaccno,jdbcType=VARCHAR}, #{concur,jdbcType=CHAR}, #{poschic,jdbcType=CHAR}, 
+      #{poschac,jdbcType=CHAR}, #{poscrc,jdbcType=CHAR}, #{posoe,jdbcType=CHAR}, #{poscdoc,jdbcType=CHAR}, 
+      #{postoc,jdbcType=CHAR}, #{pospcc,jdbcType=CHAR}, #{timezone,jdbcType=VARCHAR}, 
+      #{catParams,jdbcType=VARCHAR}, #{merchantId,jdbcType=DECIMAL}, #{termtype,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.TermPos" >
+    insert into TERMPOS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX,
+      </if>
+      <if test="typeid != null" >
+        TYPEID,
+      </if>
+      <if test="termcode != null" >
+        TERMCODE,
+      </if>
+      <if test="testflag != null" >
+        TESTFLAG,
+      </if>
+      <if test="statusid != null" >
+        STATUSID,
+      </if>
+      <if test="currcode != null" >
+        CURRCODE,
+      </if>
+      <if test="termno != null" >
+        TERMNO,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="conaccno != null" >
+        CONACCNO,
+      </if>
+      <if test="concur != null" >
+        CONCUR,
+      </if>
+      <if test="poschic != null" >
+        POSCHIC,
+      </if>
+      <if test="poschac != null" >
+        POSCHAC,
+      </if>
+      <if test="poscrc != null" >
+        POSCRC,
+      </if>
+      <if test="posoe != null" >
+        POSOE,
+      </if>
+      <if test="poscdoc != null" >
+        POSCDOC,
+      </if>
+      <if test="postoc != null" >
+        POSTOC,
+      </if>
+      <if test="pospcc != null" >
+        POSPCC,
+      </if>
+      <if test="timezone != null" >
+        TIMEZONE,
+      </if>
+      <if test="catParams != null" >
+        CAT_PARAMS,
+      </if>
+      <if test="merchantId != null" >
+        MERCHANT_ID,
+      </if>
+      <if test="termtype != null" >
+        TERMTYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="vernoCtx != null" >
+        #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=DECIMAL},
+      </if>
+      <if test="termcode != null" >
+        #{termcode,jdbcType=VARCHAR},
+      </if>
+      <if test="testflag != null" >
+        #{testflag,jdbcType=DECIMAL},
+      </if>
+      <if test="statusid != null" >
+        #{statusid,jdbcType=DECIMAL},
+      </if>
+      <if test="currcode != null" >
+        #{currcode,jdbcType=CHAR},
+      </if>
+      <if test="termno != null" >
+        #{termno,jdbcType=DECIMAL},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="conaccno != null" >
+        #{conaccno,jdbcType=VARCHAR},
+      </if>
+      <if test="concur != null" >
+        #{concur,jdbcType=CHAR},
+      </if>
+      <if test="poschic != null" >
+        #{poschic,jdbcType=CHAR},
+      </if>
+      <if test="poschac != null" >
+        #{poschac,jdbcType=CHAR},
+      </if>
+      <if test="poscrc != null" >
+        #{poscrc,jdbcType=CHAR},
+      </if>
+      <if test="posoe != null" >
+        #{posoe,jdbcType=CHAR},
+      </if>
+      <if test="poscdoc != null" >
+        #{poscdoc,jdbcType=CHAR},
+      </if>
+      <if test="postoc != null" >
+        #{postoc,jdbcType=CHAR},
+      </if>
+      <if test="pospcc != null" >
+        #{pospcc,jdbcType=CHAR},
+      </if>
+      <if test="timezone != null" >
+        #{timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="catParams != null" >
+        #{catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="termtype != null" >
+        #{termtype,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.TermPosExample" resultType="java.lang.Integer" >
+    select count(*) from TERMPOS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TERMPOS
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vernoCtx != null" >
+        VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.typeid != null" >
+        TYPEID = #{record.typeid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.termcode != null" >
+        TERMCODE = #{record.termcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testflag != null" >
+        TESTFLAG = #{record.testflag,jdbcType=DECIMAL},
+      </if>
+      <if test="record.statusid != null" >
+        STATUSID = #{record.statusid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currcode != null" >
+        CURRCODE = #{record.currcode,jdbcType=CHAR},
+      </if>
+      <if test="record.termno != null" >
+        TERMNO = #{record.termno,jdbcType=DECIMAL},
+      </if>
+      <if test="record.location != null" >
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conaccno != null" >
+        CONACCNO = #{record.conaccno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.concur != null" >
+        CONCUR = #{record.concur,jdbcType=CHAR},
+      </if>
+      <if test="record.poschic != null" >
+        POSCHIC = #{record.poschic,jdbcType=CHAR},
+      </if>
+      <if test="record.poschac != null" >
+        POSCHAC = #{record.poschac,jdbcType=CHAR},
+      </if>
+      <if test="record.poscrc != null" >
+        POSCRC = #{record.poscrc,jdbcType=CHAR},
+      </if>
+      <if test="record.posoe != null" >
+        POSOE = #{record.posoe,jdbcType=CHAR},
+      </if>
+      <if test="record.poscdoc != null" >
+        POSCDOC = #{record.poscdoc,jdbcType=CHAR},
+      </if>
+      <if test="record.postoc != null" >
+        POSTOC = #{record.postoc,jdbcType=CHAR},
+      </if>
+      <if test="record.pospcc != null" >
+        POSPCC = #{record.pospcc,jdbcType=CHAR},
+      </if>
+      <if test="record.timezone != null" >
+        TIMEZONE = #{record.timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.catParams != null" >
+        CAT_PARAMS = #{record.catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantId != null" >
+        MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.termtype != null" >
+        TERMTYPE = #{record.termtype,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TERMPOS
+    set ID = #{record.id,jdbcType=DECIMAL},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      TYPEID = #{record.typeid,jdbcType=DECIMAL},
+      TERMCODE = #{record.termcode,jdbcType=VARCHAR},
+      TESTFLAG = #{record.testflag,jdbcType=DECIMAL},
+      STATUSID = #{record.statusid,jdbcType=DECIMAL},
+      CURRCODE = #{record.currcode,jdbcType=CHAR},
+      TERMNO = #{record.termno,jdbcType=DECIMAL},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      CONACCNO = #{record.conaccno,jdbcType=VARCHAR},
+      CONCUR = #{record.concur,jdbcType=CHAR},
+      POSCHIC = #{record.poschic,jdbcType=CHAR},
+      POSCHAC = #{record.poschac,jdbcType=CHAR},
+      POSCRC = #{record.poscrc,jdbcType=CHAR},
+      POSOE = #{record.posoe,jdbcType=CHAR},
+      POSCDOC = #{record.poscdoc,jdbcType=CHAR},
+      POSTOC = #{record.postoc,jdbcType=CHAR},
+      POSPCC = #{record.pospcc,jdbcType=CHAR},
+      TIMEZONE = #{record.timezone,jdbcType=VARCHAR},
+      CAT_PARAMS = #{record.catParams,jdbcType=VARCHAR},
+      MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      TERMTYPE = #{record.termtype,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.TermPos" >
+    update TERMPOS
+    <set >
+      <if test="vernoCtx != null" >
+        VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="typeid != null" >
+        TYPEID = #{typeid,jdbcType=DECIMAL},
+      </if>
+      <if test="termcode != null" >
+        TERMCODE = #{termcode,jdbcType=VARCHAR},
+      </if>
+      <if test="testflag != null" >
+        TESTFLAG = #{testflag,jdbcType=DECIMAL},
+      </if>
+      <if test="statusid != null" >
+        STATUSID = #{statusid,jdbcType=DECIMAL},
+      </if>
+      <if test="currcode != null" >
+        CURRCODE = #{currcode,jdbcType=CHAR},
+      </if>
+      <if test="termno != null" >
+        TERMNO = #{termno,jdbcType=DECIMAL},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="conaccno != null" >
+        CONACCNO = #{conaccno,jdbcType=VARCHAR},
+      </if>
+      <if test="concur != null" >
+        CONCUR = #{concur,jdbcType=CHAR},
+      </if>
+      <if test="poschic != null" >
+        POSCHIC = #{poschic,jdbcType=CHAR},
+      </if>
+      <if test="poschac != null" >
+        POSCHAC = #{poschac,jdbcType=CHAR},
+      </if>
+      <if test="poscrc != null" >
+        POSCRC = #{poscrc,jdbcType=CHAR},
+      </if>
+      <if test="posoe != null" >
+        POSOE = #{posoe,jdbcType=CHAR},
+      </if>
+      <if test="poscdoc != null" >
+        POSCDOC = #{poscdoc,jdbcType=CHAR},
+      </if>
+      <if test="postoc != null" >
+        POSTOC = #{postoc,jdbcType=CHAR},
+      </if>
+      <if test="pospcc != null" >
+        POSPCC = #{pospcc,jdbcType=CHAR},
+      </if>
+      <if test="timezone != null" >
+        TIMEZONE = #{timezone,jdbcType=VARCHAR},
+      </if>
+      <if test="catParams != null" >
+        CAT_PARAMS = #{catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        MERCHANT_ID = #{merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="termtype != null" >
+        TERMTYPE = #{termtype,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.TermPos" >
+    update TERMPOS
+    set VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      TYPEID = #{typeid,jdbcType=DECIMAL},
+      TERMCODE = #{termcode,jdbcType=VARCHAR},
+      TESTFLAG = #{testflag,jdbcType=DECIMAL},
+      STATUSID = #{statusid,jdbcType=DECIMAL},
+      CURRCODE = #{currcode,jdbcType=CHAR},
+      TERMNO = #{termno,jdbcType=DECIMAL},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      CONACCNO = #{conaccno,jdbcType=VARCHAR},
+      CONCUR = #{concur,jdbcType=CHAR},
+      POSCHIC = #{poschic,jdbcType=CHAR},
+      POSCHAC = #{poschac,jdbcType=CHAR},
+      POSCRC = #{poscrc,jdbcType=CHAR},
+      POSOE = #{posoe,jdbcType=CHAR},
+      POSCDOC = #{poscdoc,jdbcType=CHAR},
+      POSTOC = #{postoc,jdbcType=CHAR},
+      POSPCC = #{pospcc,jdbcType=CHAR},
+      TIMEZONE = #{timezone,jdbcType=VARCHAR},
+      CAT_PARAMS = #{catParams,jdbcType=VARCHAR},
+      MERCHANT_ID = #{merchantId,jdbcType=DECIMAL},
+      TERMTYPE = #{termtype,jdbcType=CHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfBillMapper">
+	
+	
+	<select id="query" parameterType="CfOfbillEntity" resultType="CfOfbillEntity">
+		SELECT
+		    ob.CPNO cpno,
+		    ob.SPNO spno,
+		    ob.NUM num,
+		    ob.SIZE size,
+		    ob.PHONE phone,
+		    cb.status platstatus,
+		    cb.responsecode ofstatus,
+		    ca.acname acname,
+		    ob.OPRICE oprice,
+		    ob.OTIME otime,
+		    ob.STATUS status
+		FROM
+		    cf_ofbill ob
+		    	LEFT JOIN cf_currbusilog cb
+		    		ON ob.SPNO = cb.ORDERID
+		    			LEFT JOIN cf_accessclient ca
+		    				ON cb.apno = ca.id
+		WHERE (
+				1=1
+				<if test="starttime!='' and starttime!=null and endtime!='' and endtime!=null">
+					and ob.OTIME between #{starttime} and #{endtime} 
+				</if> 	 
+				<if test="status!='' and status!=null">
+					and ob.STATUS = #{status} 
+				</if>
+				)
+		order by
+			ob.otime desc
+	</select>
+</mapper>
+
+	

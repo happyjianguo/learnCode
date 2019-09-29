@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.TransactionRecordsHisTMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.TransactionRecordsHisT" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MERCHANTNUMBER" property="merchantnumber" jdbcType="VARCHAR" />
+    <result column="TERMINALNUMBER" property="terminalnumber" jdbcType="VARCHAR" />
+    <result column="CARDNUMBER" property="cardnumber" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONMONEY" property="transactionmoney" jdbcType="DECIMAL" />
+    <result column="CARDACCOUNTMONEY" property="cardaccountmoney" jdbcType="DECIMAL" />
+    <result column="TRUEACCOUNTMONEY" property="trueaccountmoney" jdbcType="DECIMAL" />
+    <result column="INTEGRATIONACCOUNTMONEY" property="integrationaccountmoney" jdbcType="DECIMAL" />
+    <result column="SERIALNUMBER" property="serialnumber" jdbcType="DECIMAL" />
+    <result column="LOTNO" property="lotno" jdbcType="DECIMAL" />
+    <result column="REFERENCENUMBER" property="referencenumber" jdbcType="VARCHAR" />
+    <result column="RETURNPOINTS" property="returnpoints" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONTYPE" property="transactiontype" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONSTATUS" property="transactionstatus" jdbcType="DECIMAL" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="DECIMAL" />
+    <result column="CARDTYPENAME" property="cardtypename" jdbcType="CHAR" />
+    <result column="MERCHANTTYPE" property="merchanttype" jdbcType="VARCHAR" />
+    <result column="MERCHANTSECTORS" property="merchantsectors" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="CHAR" />
+    <result column="CITY" property="city" jdbcType="CHAR" />
+    <result column="AREA" property="area" jdbcType="CHAR" />
+    <result column="DATASOURCEID" property="datasourceid" jdbcType="DECIMAL" />
+    <result column="ADDDATE" property="adddate" jdbcType="DATE" />
+    <result column="SETTLEMENTACCOUNT" property="settlementaccount" jdbcType="VARCHAR" />
+    <result column="PERFEE" property="perfee" jdbcType="DECIMAL" />
+    <result column="FEE_ORDER" property="feeOrder" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONTIME" property="transactiontime" jdbcType="VARCHAR" />
+    <result column="TERMINALLOCATION" property="terminallocation" jdbcType="VARCHAR" />
+    <result column="DATASOURCE" property="datasource" jdbcType="VARCHAR" />
+    <result column="TLOGID" property="tlogid" jdbcType="DECIMAL" />
+    <result column="TLOGADDDATE" property="tlogadddate" jdbcType="VARCHAR" />
+    <result column="SETTLEMENTDATE" property="settlementdate" jdbcType="VARCHAR" />
+    <result column="ISEXCLUSIVE" property="isexclusive" jdbcType="VARCHAR" />
+    <result column="CONSUMETYPE" property="consumetype" jdbcType="VARCHAR" />
+    <result column="STANORG" property="stanorg" jdbcType="DECIMAL" />
+    <result column="RRN" property="rrn" jdbcType="VARCHAR" />
+    <result column="TERMTYPE" property="termtype" jdbcType="VARCHAR" />
+    <result column="TERMSEQ" property="termseq" jdbcType="DECIMAL" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="AIID" property="aiid" jdbcType="VARCHAR" />
+    <result column="TXNSRC" property="txnsrc" jdbcType="CHAR" />
+    <result column="TXNSRCORG" property="txnsrcorg" jdbcType="CHAR" />
+    <result column="TXNCODE" property="txncode" jdbcType="DECIMAL" />
+    <result column="TXNSTATUS" property="txnstatus" jdbcType="DECIMAL" />
+    <result column="CURTXN" property="curtxn" jdbcType="CHAR" />
+    <result column="AMTTXN" property="amttxn" jdbcType="DECIMAL" />
+    <result column="AMTTXNFEE" property="amttxnfee" jdbcType="DECIMAL" />
+    <result column="AMTPROCFEE" property="amtprocfee" jdbcType="DECIMAL" />
+    <result column="AMTTXNORG" property="amttxnorg" jdbcType="DECIMAL" />
+    <result column="ACTYPE1" property="actype1" jdbcType="DECIMAL" />
+    <result column="ACNUM1" property="acnum1" jdbcType="VARCHAR" />
+    <result column="ACTYPE2" property="actype2" jdbcType="DECIMAL" />
+    <result column="ACNUM2" property="acnum2" jdbcType="VARCHAR" />
+    <result column="RSPCODE" property="rspcode" jdbcType="CHAR" />
+    <result column="REASONCODE" property="reasoncode" jdbcType="DECIMAL" />
+    <result column="APRVLCODE" property="aprvlcode" jdbcType="VARCHAR" />
+    <result column="SYSDATES" property="sysdates" jdbcType="DATE" />
+    <result column="RATEBILL" property="ratebill" jdbcType="DECIMAL" />
+    <result column="RATESET" property="rateset" jdbcType="DECIMAL" />
+    <result column="ADDDATA" property="adddata" jdbcType="VARCHAR" />
+    <result column="SUB_TXNCODE" property="subTxncode" jdbcType="CHAR" />
+    <result column="FLAG" property="flag" jdbcType="CHAR" />
+    <result column="AGETINEGRAL" property="agetinegral" jdbcType="CHAR" />
+    <result column="ORDERNUMBER" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="CHECK_FLAG" property="checkFlag" jdbcType="DECIMAL" />
+    <result column="CLEARBOOK_ID" property="clearbookId" jdbcType="VARCHAR" />
+    <result column="OLDSERIALNUMBER" property="oldserialnumber" jdbcType="DECIMAL" />
+    <result column="OLDLOTNO" property="oldlotno" jdbcType="DECIMAL" />
+    <result column="OLDREFERENCENUMBER" property="oldreferencenumber" jdbcType="DECIMAL" />
+    <result column="OLDTRANSDATE" property="oldtransdate" jdbcType="VARCHAR" />
+    <result column="OLDTRANSTIME" property="oldtranstime" jdbcType="VARCHAR" />
+    <result column="BUSINESS_ID" property="businessId" jdbcType="CHAR" />
+    <result column="KIND_ID" property="kindId" jdbcType="VARCHAR" />
+    <result column="CO_BRANDED_ACCOUNTMONEY" property="coBrandedAccountmoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MERCHANTNUMBER, TERMINALNUMBER, CARDNUMBER, TRANSACTIONMONEY, CARDACCOUNTMONEY, 
+    TRUEACCOUNTMONEY, INTEGRATIONACCOUNTMONEY, SERIALNUMBER, LOTNO, REFERENCENUMBER, 
+    RETURNPOINTS, TRANSACTIONTYPE, TRANSACTIONSTATUS, CARDTYPE, CARDTYPENAME, MERCHANTTYPE, 
+    MERCHANTSECTORS, PROVINCE, CITY, AREA, DATASOURCEID, ADDDATE, SETTLEMENTACCOUNT, 
+    PERFEE, FEE_ORDER, TRANSACTIONDATE, TRANSACTIONTIME, TERMINALLOCATION, DATASOURCE, 
+    TLOGID, TLOGADDDATE, SETTLEMENTDATE, ISEXCLUSIVE, CONSUMETYPE, STANORG, RRN, TERMTYPE, 
+    TERMSEQ, PAN, AIID, TXNSRC, TXNSRCORG, TXNCODE, TXNSTATUS, CURTXN, AMTTXN, AMTTXNFEE, 
+    AMTPROCFEE, AMTTXNORG, ACTYPE1, ACNUM1, ACTYPE2, ACNUM2, RSPCODE, REASONCODE, APRVLCODE, 
+    SYSDATES, RATEBILL, RATESET, ADDDATA, SUB_TXNCODE, FLAG, AGETINEGRAL, ORDERNUMBER, 
+    CHECK_FLAG, CLEARBOOK_ID, OLDSERIALNUMBER, OLDLOTNO, OLDREFERENCENUMBER, OLDTRANSDATE, 
+    OLDTRANSTIME, BUSINESS_ID, KIND_ID, CO_BRANDED_ACCOUNTMONEY
+  </sql>
+  
+  <select id="selectByExample" parameterType="cn.yufu.fs.entity.TransactionRecordsHisTExample" resultMap="BaseResultMap">
+    select
+    <if test="example.distinct">
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_TRANSACTION_RECORDS_HIS_T
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectPageList" parameterType="map" resultMap="BaseResultMap">
+	SELECT * FROM (
+	SELECT a.*, ROWNUM rn FROM(
+	SELECT 
+		<include refid="Base_Column_List" />
+    FROM T_TRANSACTION_RECORDS_HIS_T
+	<if test="_parameter != null">
+      	<include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      	order by ${example.orderByClause}
+    </if> ) a
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select>  
+  
+  <select id="countByExample" parameterType="cn.yufu.fs.entity.TransactionRecordsHisTExample" resultType="java.lang.Integer">
+    select count(*) from T_TRANSACTION_RECORDS_HIS_T
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.risk.BlackMapper">
+
+	<!-- 接口——查询黑名单验证 -->
+	<select id="selectByblackvalue" parameterType="String" resultType="BlacklistEntity" >
+		SELECT
+				BLACKID,
+				BLACKTYPE,
+				BLACKVALUE,
+				ACTIONID,
+				REMARK,
+				OVERTIME,
+				STATUS
+		FROM
+				BLACKLIST
+		WHERE 
+			(
+					1=1 AND BLACKVALUE = #{blackvalue} 
+			)	
+		ORDER BY BLACKID DESC
+	</select>
+	<!-- 接口——查询黑名单 -->
+	<select id="selectBlackInter" parameterType="Map" resultType="BlacklistEntity" >
+		SELECT
+				BLACKID,
+				BLACKTYPE,
+				BLACKVALUE,
+				ACTIONID,
+				REMARK,
+				OVERTIME,
+				STATUS
+		FROM
+				BLACKLIST
+		WHERE 
+			(
+					1 =1
+					AND BLACKVALUE = #{blackvalue} 
+					<!-- AND BLACKTYPE = #{blacktype} -->
+					AND ACTIONID = #{actionid} 
+					AND STATUS = #{status} 
+			)	
+		ORDER BY BLACKID DESC
+	</select>
+	<!-- 初始化查询黑名单 -->
+	<select id="selectByOne" parameterType="BlacklistEntity" resultType="BlacklistEntity" >
+		SELECT
+				BLACKID,
+				BLACKTYPE,
+				BLACKVALUE,
+				ACTIONID,
+				REMARK,
+				OVERTIME,
+				b.STATUS status,
+				c.PLAYNAME PLAYNAME
+		FROM
+				BLACKLIST b
+					LEFT JOIN CLOUDGAMEINIT c
+						ON b.ACTIONID = c.ID
+		WHERE 
+			(
+				1 =1
+				<if test="blackid!='' and blackid!=null">
+					AND BLACKID = #{blackid} 
+				</if>
+				<if test="blacktype!='' and blacktype!=null">
+					AND BLACKTYPE = #{blacktype} 
+				</if>
+				<if test="blackvalue!='' and blackvalue!=null">
+					AND BLACKVALUE = #{blackvalue} 
+				</if>
+				<if test="actionid!='' and actionid!=null">
+					AND ACTIONID = #{actionid} 
+				</if>
+				<if test="status!='' and status!=null">
+					AND b.STATUS = #{status} 
+				</if>
+			)	
+		ORDER BY BLACKID DESC
+	</select>
+	<!-- 通过黑名单值和活动id查询黑名单 -->
+	<select id="selectBlackByValueAndAction" parameterType="Map" resultType="BlacklistEntity" >
+		SELECT
+				BLACKID,
+				BLACKTYPE,
+				BLACKVALUE,
+				ACTIONID,
+				REMARK,
+				OVERTIME,
+				STATUS
+		FROM
+				BLACKLIST
+		WHERE 
+			(
+					1 =1 
+					AND BLACKVALUE = #{blackvalue} 
+					AND ACTIONID = #{actionid} 
+			)	
+		ORDER BY BLACKID DESC
+	</select>
+	<!-- 通过id查询黑名单 -->
+	<select id="selectBlackByBlackId" parameterType="Map" resultType="BlacklistEntity" >
+		SELECT
+				BLACKID,
+				BLACKTYPE,
+				BLACKVALUE,
+				ACTIONID,
+				REMARK,
+				OVERTIME,
+				b.STATUS STATUS,
+				c.PLAYNAME PLAYNAME
+		FROM
+				BLACKLIST b
+					LEFT JOIN CLOUDGAMEINIT c
+						ON b.ACTIONID = c.ID
+		WHERE 
+			(
+					1 =1 
+				AND BLACKID = #{blackid} 
+			)	
+	</select>
+	<!-- 插入数据 -->
+	<insert id="insertBlack" parameterType="BlacklistEntity">
+		INSERT INTO BLACKLIST
+			( 	
+				BLACKID,
+				BLACKTYPE,
+				BLACKVALUE,
+				ACTIONID,
+				REMARK,
+				OVERTIME,
+				STATUS
+			) 
+				VALUES 
+			(
+				#{blackid},
+				#{blacktype},
+				#{blackvalue},
+				#{actionid},
+				#{remark},
+				#{overtime},
+				#{status}
+			)
+	</insert>
+	<!-- 修改数据 -->
+	<update id="updateblack" parameterType="BlacklistEntity">
+		UPDATE 
+			BLACKLIST
+			<set>
+				<if test="overtime!='' and overtime!=null">
+					 OVERTIME = #{overtime},
+				</if>
+				<if test="blacktype!='' and blacktype!=null">
+					 BLACKTYPE = #{blacktype}, 
+				</if>
+				<if test="blackvalue!='' and blackvalue!=null">
+					 BLACKVALUE = #{blackvalue},
+				</if>
+				<if test="actionid!='' and actionid!=null">
+					 ACTIONID = #{actionid}, 
+				</if>
+				<if test="status!='' and status!=null">
+					 STATUS = #{status}, 
+				</if>
+				<if test="remark!='' and remark!=null">
+					 REMARK = #{remark} 
+				</if>
+			</set>
+		WHERE
+			 BLACKID = #{blackid}
+	</update>
+	<!-- 根据当前时间、过期时间对比，定时刷新黑名单状态-->
+	<update id="updateBlackListByovertime" parameterType="Map">
+		UPDATE 
+			BLACKLIST
+		SET
+			STATUS = #{status0}
+		WHERE
+			STATUS = #{status1} AND OVERTIME &lt;= #{nowsTime}
+	</update>
+	<!-- 删除公告 -->
+	<delete id="delnotice" parameterType="String">
+		DELETE FROM
+			NOTICE
+		WHERE
+			NOTICEID=#{noticeid}
+	</delete>
+	<!-- 删除数据 -->
+	<delete id="deleteblack" parameterType="String">
+		DELETE FROM
+			BLACKLIST
+		WHERE
+			BLACKID=#{blackid}
+	</delete>
+</mapper>
+	

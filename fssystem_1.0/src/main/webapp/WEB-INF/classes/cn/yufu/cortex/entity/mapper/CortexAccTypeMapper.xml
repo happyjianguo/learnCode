@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.CortexAccTypeMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.CortexAccType" >
+    <id column="INST_ID" property="instId" jdbcType="DECIMAL" />
+    <id column="TYPECODE" property="typecode" jdbcType="CHAR" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="CLASSID" property="classid" jdbcType="DECIMAL" />
+    <result column="ISOCODE" property="isocode" jdbcType="DECIMAL" />
+    <result column="CURRCODE" property="currcode" jdbcType="CHAR" />
+    <result column="CURRCODE2" property="currcode2" jdbcType="CHAR" />
+    <result column="SRVID" property="srvid" jdbcType="DECIMAL" />
+    <result column="FMTID" property="fmtid" jdbcType="DECIMAL" />
+    <result column="DESCR" property="descr" jdbcType="VARCHAR" />
+    <result column="BANKACCCODE" property="bankacccode" jdbcType="VARCHAR" />
+    <result column="NOW" property="now" jdbcType="DECIMAL" />
+    <result column="ACCLEN" property="acclen" jdbcType="DECIMAL" />
+    <result column="ALLOWSVC" property="allowsvc" jdbcType="VARCHAR" />
+    <result column="CAT_PARAMS" property="catParams" jdbcType="VARCHAR" />
+    <result column="BRKTYPE" property="brktype" jdbcType="DECIMAL" />
+    <result column="BRKOFFSET" property="brkoffset" jdbcType="DECIMAL" />
+    <result column="CAT_ACCTMRKUP_ID" property="catAcctmrkupId" jdbcType="DECIMAL" />
+    <result column="ACCLOGGING" property="acclogging" jdbcType="DECIMAL" />
+    <result column="MAXOVRRDAMT" property="maxovrrdamt" jdbcType="DECIMAL" />
+    <result column="MAXOVRRDCRLMPRCNT" property="maxovrrdcrlmprcnt" jdbcType="FLOAT" />
+    <result column="CAT_ACCTRISK_ID" property="catAcctriskId" jdbcType="DECIMAL" />
+    <result column="GENACCNUM" property="genaccnum" jdbcType="DECIMAL" />
+    <result column="ACCTYPESEQ" property="acctypeseq" jdbcType="DECIMAL" />
+    <result column="ACCNUMFRMT" property="accnumfrmt" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    INST_ID, TYPECODE, VERNO_CTX, CLASSID, ISOCODE, CURRCODE, CURRCODE2, SRVID, FMTID, 
+    DESCR, BANKACCCODE, NOW, ACCLEN, ALLOWSVC, CAT_PARAMS, BRKTYPE, BRKOFFSET, CAT_ACCTMRKUP_ID, 
+    ACCLOGGING, MAXOVRRDAMT, MAXOVRRDCRLMPRCNT, CAT_ACCTRISK_ID, GENACCNUM, ACCTYPESEQ, 
+    ACCNUMFRMT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.CortexAccTypeExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ACCTYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.CortexAccTypeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ACCTYPE
+    where INST_ID = #{instId,jdbcType=DECIMAL}
+      and TYPECODE = #{typecode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cn.yufu.cortex.entity.CortexAccTypeKey" >
+    delete from ACCTYPE
+    where INST_ID = #{instId,jdbcType=DECIMAL}
+      and TYPECODE = #{typecode,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.CortexAccTypeExample" >
+    delete from ACCTYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.CortexAccType" >
+    insert into ACCTYPE (INST_ID, TYPECODE, VERNO_CTX, 
+      CLASSID, ISOCODE, CURRCODE, 
+      CURRCODE2, SRVID, FMTID, 
+      DESCR, BANKACCCODE, NOW, 
+      ACCLEN, ALLOWSVC, CAT_PARAMS, 
+      BRKTYPE, BRKOFFSET, CAT_ACCTMRKUP_ID, 
+      ACCLOGGING, MAXOVRRDAMT, MAXOVRRDCRLMPRCNT, 
+      CAT_ACCTRISK_ID, GENACCNUM, ACCTYPESEQ, 
+      ACCNUMFRMT)
+    values (#{instId,jdbcType=DECIMAL}, #{typecode,jdbcType=CHAR}, #{vernoCtx,jdbcType=DECIMAL}, 
+      #{classid,jdbcType=DECIMAL}, #{isocode,jdbcType=DECIMAL}, #{currcode,jdbcType=CHAR}, 
+      #{currcode2,jdbcType=CHAR}, #{srvid,jdbcType=DECIMAL}, #{fmtid,jdbcType=DECIMAL}, 
+      #{descr,jdbcType=VARCHAR}, #{bankacccode,jdbcType=VARCHAR}, #{now,jdbcType=DECIMAL}, 
+      #{acclen,jdbcType=DECIMAL}, #{allowsvc,jdbcType=VARCHAR}, #{catParams,jdbcType=VARCHAR}, 
+      #{brktype,jdbcType=DECIMAL}, #{brkoffset,jdbcType=DECIMAL}, #{catAcctmrkupId,jdbcType=DECIMAL}, 
+      #{acclogging,jdbcType=DECIMAL}, #{maxovrrdamt,jdbcType=DECIMAL}, #{maxovrrdcrlmprcnt,jdbcType=FLOAT}, 
+      #{catAcctriskId,jdbcType=DECIMAL}, #{genaccnum,jdbcType=DECIMAL}, #{acctypeseq,jdbcType=DECIMAL}, 
+      #{accnumfrmt,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.CortexAccType" >
+    insert into ACCTYPE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="instId != null" >
+        INST_ID,
+      </if>
+      <if test="typecode != null" >
+        TYPECODE,
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX,
+      </if>
+      <if test="classid != null" >
+        CLASSID,
+      </if>
+      <if test="isocode != null" >
+        ISOCODE,
+      </if>
+      <if test="currcode != null" >
+        CURRCODE,
+      </if>
+      <if test="currcode2 != null" >
+        CURRCODE2,
+      </if>
+      <if test="srvid != null" >
+        SRVID,
+      </if>
+      <if test="fmtid != null" >
+        FMTID,
+      </if>
+      <if test="descr != null" >
+        DESCR,
+      </if>
+      <if test="bankacccode != null" >
+        BANKACCCODE,
+      </if>
+      <if test="now != null" >
+        NOW,
+      </if>
+      <if test="acclen != null" >
+        ACCLEN,
+      </if>
+      <if test="allowsvc != null" >
+        ALLOWSVC,
+      </if>
+      <if test="catParams != null" >
+        CAT_PARAMS,
+      </if>
+      <if test="brktype != null" >
+        BRKTYPE,
+      </if>
+      <if test="brkoffset != null" >
+        BRKOFFSET,
+      </if>
+      <if test="catAcctmrkupId != null" >
+        CAT_ACCTMRKUP_ID,
+      </if>
+      <if test="acclogging != null" >
+        ACCLOGGING,
+      </if>
+      <if test="maxovrrdamt != null" >
+        MAXOVRRDAMT,
+      </if>
+      <if test="maxovrrdcrlmprcnt != null" >
+        MAXOVRRDCRLMPRCNT,
+      </if>
+      <if test="catAcctriskId != null" >
+        CAT_ACCTRISK_ID,
+      </if>
+      <if test="genaccnum != null" >
+        GENACCNUM,
+      </if>
+      <if test="acctypeseq != null" >
+        ACCTYPESEQ,
+      </if>
+      <if test="accnumfrmt != null" >
+        ACCNUMFRMT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="instId != null" >
+        #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="typecode != null" >
+        #{typecode,jdbcType=CHAR},
+      </if>
+      <if test="vernoCtx != null" >
+        #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=DECIMAL},
+      </if>
+      <if test="isocode != null" >
+        #{isocode,jdbcType=DECIMAL},
+      </if>
+      <if test="currcode != null" >
+        #{currcode,jdbcType=CHAR},
+      </if>
+      <if test="currcode2 != null" >
+        #{currcode2,jdbcType=CHAR},
+      </if>
+      <if test="srvid != null" >
+        #{srvid,jdbcType=DECIMAL},
+      </if>
+      <if test="fmtid != null" >
+        #{fmtid,jdbcType=DECIMAL},
+      </if>
+      <if test="descr != null" >
+        #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="bankacccode != null" >
+        #{bankacccode,jdbcType=VARCHAR},
+      </if>
+      <if test="now != null" >
+        #{now,jdbcType=DECIMAL},
+      </if>
+      <if test="acclen != null" >
+        #{acclen,jdbcType=DECIMAL},
+      </if>
+      <if test="allowsvc != null" >
+        #{allowsvc,jdbcType=VARCHAR},
+      </if>
+      <if test="catParams != null" >
+        #{catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="brktype != null" >
+        #{brktype,jdbcType=DECIMAL},
+      </if>
+      <if test="brkoffset != null" >
+        #{brkoffset,jdbcType=DECIMAL},
+      </if>
+      <if test="catAcctmrkupId != null" >
+        #{catAcctmrkupId,jdbcType=DECIMAL},
+      </if>
+      <if test="acclogging != null" >
+        #{acclogging,jdbcType=DECIMAL},
+      </if>
+      <if test="maxovrrdamt != null" >
+        #{maxovrrdamt,jdbcType=DECIMAL},
+      </if>
+      <if test="maxovrrdcrlmprcnt != null" >
+        #{maxovrrdcrlmprcnt,jdbcType=FLOAT},
+      </if>
+      <if test="catAcctriskId != null" >
+        #{catAcctriskId,jdbcType=DECIMAL},
+      </if>
+      <if test="genaccnum != null" >
+        #{genaccnum,jdbcType=DECIMAL},
+      </if>
+      <if test="acctypeseq != null" >
+        #{acctypeseq,jdbcType=DECIMAL},
+      </if>
+      <if test="accnumfrmt != null" >
+        #{accnumfrmt,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.CortexAccTypeExample" resultType="java.lang.Integer" >
+    select count(*) from ACCTYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ACCTYPE
+    <set >
+      <if test="record.instId != null" >
+        INST_ID = #{record.instId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.typecode != null" >
+        TYPECODE = #{record.typecode,jdbcType=CHAR},
+      </if>
+      <if test="record.vernoCtx != null" >
+        VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.classid != null" >
+        CLASSID = #{record.classid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isocode != null" >
+        ISOCODE = #{record.isocode,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currcode != null" >
+        CURRCODE = #{record.currcode,jdbcType=CHAR},
+      </if>
+      <if test="record.currcode2 != null" >
+        CURRCODE2 = #{record.currcode2,jdbcType=CHAR},
+      </if>
+      <if test="record.srvid != null" >
+        SRVID = #{record.srvid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fmtid != null" >
+        FMTID = #{record.fmtid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.descr != null" >
+        DESCR = #{record.descr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankacccode != null" >
+        BANKACCCODE = #{record.bankacccode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.now != null" >
+        NOW = #{record.now,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acclen != null" >
+        ACCLEN = #{record.acclen,jdbcType=DECIMAL},
+      </if>
+      <if test="record.allowsvc != null" >
+        ALLOWSVC = #{record.allowsvc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.catParams != null" >
+        CAT_PARAMS = #{record.catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brktype != null" >
+        BRKTYPE = #{record.brktype,jdbcType=DECIMAL},
+      </if>
+      <if test="record.brkoffset != null" >
+        BRKOFFSET = #{record.brkoffset,jdbcType=DECIMAL},
+      </if>
+      <if test="record.catAcctmrkupId != null" >
+        CAT_ACCTMRKUP_ID = #{record.catAcctmrkupId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acclogging != null" >
+        ACCLOGGING = #{record.acclogging,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxovrrdamt != null" >
+        MAXOVRRDAMT = #{record.maxovrrdamt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxovrrdcrlmprcnt != null" >
+        MAXOVRRDCRLMPRCNT = #{record.maxovrrdcrlmprcnt,jdbcType=FLOAT},
+      </if>
+      <if test="record.catAcctriskId != null" >
+        CAT_ACCTRISK_ID = #{record.catAcctriskId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.genaccnum != null" >
+        GENACCNUM = #{record.genaccnum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acctypeseq != null" >
+        ACCTYPESEQ = #{record.acctypeseq,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accnumfrmt != null" >
+        ACCNUMFRMT = #{record.accnumfrmt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ACCTYPE
+    set INST_ID = #{record.instId,jdbcType=DECIMAL},
+      TYPECODE = #{record.typecode,jdbcType=CHAR},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      CLASSID = #{record.classid,jdbcType=DECIMAL},
+      ISOCODE = #{record.isocode,jdbcType=DECIMAL},
+      CURRCODE = #{record.currcode,jdbcType=CHAR},
+      CURRCODE2 = #{record.currcode2,jdbcType=CHAR},
+      SRVID = #{record.srvid,jdbcType=DECIMAL},
+      FMTID = #{record.fmtid,jdbcType=DECIMAL},
+      DESCR = #{record.descr,jdbcType=VARCHAR},
+      BANKACCCODE = #{record.bankacccode,jdbcType=VARCHAR},
+      NOW = #{record.now,jdbcType=DECIMAL},
+      ACCLEN = #{record.acclen,jdbcType=DECIMAL},
+      ALLOWSVC = #{record.allowsvc,jdbcType=VARCHAR},
+      CAT_PARAMS = #{record.catParams,jdbcType=VARCHAR},
+      BRKTYPE = #{record.brktype,jdbcType=DECIMAL},
+      BRKOFFSET = #{record.brkoffset,jdbcType=DECIMAL},
+      CAT_ACCTMRKUP_ID = #{record.catAcctmrkupId,jdbcType=DECIMAL},
+      ACCLOGGING = #{record.acclogging,jdbcType=DECIMAL},
+      MAXOVRRDAMT = #{record.maxovrrdamt,jdbcType=DECIMAL},
+      MAXOVRRDCRLMPRCNT = #{record.maxovrrdcrlmprcnt,jdbcType=FLOAT},
+      CAT_ACCTRISK_ID = #{record.catAcctriskId,jdbcType=DECIMAL},
+      GENACCNUM = #{record.genaccnum,jdbcType=DECIMAL},
+      ACCTYPESEQ = #{record.acctypeseq,jdbcType=DECIMAL},
+      ACCNUMFRMT = #{record.accnumfrmt,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.CortexAccType" >
+    update ACCTYPE
+    <set >
+      <if test="vernoCtx != null" >
+        VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="classid != null" >
+        CLASSID = #{classid,jdbcType=DECIMAL},
+      </if>
+      <if test="isocode != null" >
+        ISOCODE = #{isocode,jdbcType=DECIMAL},
+      </if>
+      <if test="currcode != null" >
+        CURRCODE = #{currcode,jdbcType=CHAR},
+      </if>
+      <if test="currcode2 != null" >
+        CURRCODE2 = #{currcode2,jdbcType=CHAR},
+      </if>
+      <if test="srvid != null" >
+        SRVID = #{srvid,jdbcType=DECIMAL},
+      </if>
+      <if test="fmtid != null" >
+        FMTID = #{fmtid,jdbcType=DECIMAL},
+      </if>
+      <if test="descr != null" >
+        DESCR = #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="bankacccode != null" >
+        BANKACCCODE = #{bankacccode,jdbcType=VARCHAR},
+      </if>
+      <if test="now != null" >
+        NOW = #{now,jdbcType=DECIMAL},
+      </if>
+      <if test="acclen != null" >
+        ACCLEN = #{acclen,jdbcType=DECIMAL},
+      </if>
+      <if test="allowsvc != null" >
+        ALLOWSVC = #{allowsvc,jdbcType=VARCHAR},
+      </if>
+      <if test="catParams != null" >
+        CAT_PARAMS = #{catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="brktype != null" >
+        BRKTYPE = #{brktype,jdbcType=DECIMAL},
+      </if>
+      <if test="brkoffset != null" >
+        BRKOFFSET = #{brkoffset,jdbcType=DECIMAL},
+      </if>
+      <if test="catAcctmrkupId != null" >
+        CAT_ACCTMRKUP_ID = #{catAcctmrkupId,jdbcType=DECIMAL},
+      </if>
+      <if test="acclogging != null" >
+        ACCLOGGING = #{acclogging,jdbcType=DECIMAL},
+      </if>
+      <if test="maxovrrdamt != null" >
+        MAXOVRRDAMT = #{maxovrrdamt,jdbcType=DECIMAL},
+      </if>
+      <if test="maxovrrdcrlmprcnt != null" >
+        MAXOVRRDCRLMPRCNT = #{maxovrrdcrlmprcnt,jdbcType=FLOAT},
+      </if>
+      <if test="catAcctriskId != null" >
+        CAT_ACCTRISK_ID = #{catAcctriskId,jdbcType=DECIMAL},
+      </if>
+      <if test="genaccnum != null" >
+        GENACCNUM = #{genaccnum,jdbcType=DECIMAL},
+      </if>
+      <if test="acctypeseq != null" >
+        ACCTYPESEQ = #{acctypeseq,jdbcType=DECIMAL},
+      </if>
+      <if test="accnumfrmt != null" >
+        ACCNUMFRMT = #{accnumfrmt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INST_ID = #{instId,jdbcType=DECIMAL}
+      and TYPECODE = #{typecode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.CortexAccType" >
+    update ACCTYPE
+    set VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      CLASSID = #{classid,jdbcType=DECIMAL},
+      ISOCODE = #{isocode,jdbcType=DECIMAL},
+      CURRCODE = #{currcode,jdbcType=CHAR},
+      CURRCODE2 = #{currcode2,jdbcType=CHAR},
+      SRVID = #{srvid,jdbcType=DECIMAL},
+      FMTID = #{fmtid,jdbcType=DECIMAL},
+      DESCR = #{descr,jdbcType=VARCHAR},
+      BANKACCCODE = #{bankacccode,jdbcType=VARCHAR},
+      NOW = #{now,jdbcType=DECIMAL},
+      ACCLEN = #{acclen,jdbcType=DECIMAL},
+      ALLOWSVC = #{allowsvc,jdbcType=VARCHAR},
+      CAT_PARAMS = #{catParams,jdbcType=VARCHAR},
+      BRKTYPE = #{brktype,jdbcType=DECIMAL},
+      BRKOFFSET = #{brkoffset,jdbcType=DECIMAL},
+      CAT_ACCTMRKUP_ID = #{catAcctmrkupId,jdbcType=DECIMAL},
+      ACCLOGGING = #{acclogging,jdbcType=DECIMAL},
+      MAXOVRRDAMT = #{maxovrrdamt,jdbcType=DECIMAL},
+      MAXOVRRDCRLMPRCNT = #{maxovrrdcrlmprcnt,jdbcType=FLOAT},
+      CAT_ACCTRISK_ID = #{catAcctriskId,jdbcType=DECIMAL},
+      GENACCNUM = #{genaccnum,jdbcType=DECIMAL},
+      ACCTYPESEQ = #{acctypeseq,jdbcType=DECIMAL},
+      ACCNUMFRMT = #{accnumfrmt,jdbcType=VARCHAR}
+    where INST_ID = #{instId,jdbcType=DECIMAL}
+      and TYPECODE = #{typecode,jdbcType=CHAR}
+  </update>
+</mapper>

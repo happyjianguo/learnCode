@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.query.IWinningRecordMapper">
+
+	<!-- 查询活动充值数据 -->
+	<select id="queryAll" parameterType="CloudwinningrecordEntity" resultType="CloudwinningrecordEntity">
+		SELECT
+				A.ID,
+				A.AWARDID,
+				A.OPENID,
+				A.ORGID,
+				A.GAMEID,
+				A.PRIZENAME,
+				A.WINNERPHONE,
+				A.SENDSTATUS,
+				A.PRIZESTYLE,
+				A.CREATETIME,
+				A.UPDATETIME,
+				A.PRELIMINARYSTATUS,
+				A.PRELIMINARYPER,
+				A.REVIEWPER,
+				A.PRIZETYPE,
+				A.REVIEWDES,
+				B.ORGNAME,
+				C.PLAYNAME
+		FROM
+				CLOUDWINNINGRECORD A left join CLOUDGAMEINIT C on C.ID=A.GAMEID
+				left join CLOUDPLATFORMORGINATION B on A.ORGID=B.ID
+				
+		WHERE 
+			 	1 = 1
+			 	<if test="orgid!='' and orgid!=null">
+					AND A.ORGID = #{orgid} 
+				</if>
+				<if test="openid!='' and openid!=null">
+					AND A.OPENID = #{openid} 
+				</if>
+				<if test="winnerphone!='' and winnerphone!=null">
+					AND A.WINNERPHONE = #{winnerphone} 
+				</if>
+				<if test="preliminarystatus!='' and preliminarystatus!=null">
+					AND A.PRELIMINARYSTATUS = #{preliminarystatus} 
+				</if>
+				<if test="gameid!='' and gameid!=null">
+					AND A.GAMEID = #{gameid} 
+				</if>
+		ORDER BY A.UPDATETIME DESC
+	</select>
+	
+	<!-- 根据ID查询订单审核数据 -->
+	<select id="queryByUserId" parameterType="String" resultType="CloudwinningrecordEntity">
+		SELECT
+				A.ID,
+				A.AWARDID,
+				A.OPENID,
+				A.ORGID,
+				A.GAMEID,
+				A.PRIZENAME,
+				A.WINNERPHONE,
+				A.SENDSTATUS,
+				A.PRIZESTYLE,
+				A.CREATETIME,
+				A.UPDATETIME,
+				A.PRELIMINARYSTATUS,
+				A.PRELIMINARYPER,
+				A.REVIEWPER,
+				A.PRIZETYPE,
+				A.REVIEWDES,
+				B.ORGNAME
+		FROM
+				CLOUDWINNINGRECORD A LEFT JOIN CLOUDPLATFORMORGINATION B
+				ON A.ORGID=B.ID
+		WHERE 
+			 	1 = 1 
+			 	AND A.ID = #{id} 
+	</select>
+	
+	<!-- 审核操作 -->
+	<update id="updateStatus" parameterType="CloudwinningrecordEntity">
+		UPDATE
+			CLOUDWINNINGRECORD
+		<trim prefix="set" suffixOverrides=",">
+	        <if test="preliminarystatus != '' and preliminarystatus != null">  
+	            PRELIMINARYSTATUS=#{preliminarystatus},
+	        </if>  
+	        <if test="updatetime != '' and updatetime != null">  
+	            UPDATETIME=#{updatetime},  
+	        </if>
+	        <if test="preliminaryper != '' and preliminaryper != null">  
+	            PRELIMINARYPER=#{preliminaryper},  
+	        </if>
+	        <if test="reviewdes != '' and reviewdes != null">  
+	            REVIEWDES=#{reviewdes},
+	        </if>
+   		</trim>
+		WHERE
+			ID=#{id}
+	</update>
+	
+	<!-- 批量更新操作 -->
+	<update id="batchUpdate" parameterType="List">
+       <foreach collection="list" item="item" open="" separator=";" close="">
+        UPDATE  CLOUDWINNINGRECORD 
+        	<trim prefix="set" suffixOverrides=",">
+	        	<if test="item.preliminarystatus != '' and item.preliminarystatus != null">  
+		            PRELIMINARYSTATUS = #{item.preliminarystatus},
+		        </if>
+		        <if test="item.updatetime != '' and item.updatetime != null">  
+	           		UPDATETIME=#{item.updatetime},  
+		        </if>
+		        <if test="item.preliminaryper != '' and item.preliminaryper != null">  
+		            PRELIMINARYPER=#{item.preliminaryper},  
+		        </if>
+		        <if test="item.reviewdes != '' and item.reviewdes != null">  
+		            REVIEWDES=#{item.reviewdes},
+		        </if>
+        	</trim>
+            WHERE ID = #{item.id}
+       </foreach>
+	</update> 
+	
+</mapper>

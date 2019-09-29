@@ -1,0 +1,1366 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+
+		<!--
+			An example global constant <constant>
+			<constant-name>postalCode</constant-name>
+			<constant-value>^\d{5}\d*$</constant-value> </constant> end example
+		-->
+	</global>
+
+
+	<formset>
+
+
+
+		<!--办公用品 -->
+		<form name="officeSuppliesForm">
+			<field property="name" depends="required">
+				<arg0 key="名称" resource="false" />
+			</field>
+			<field property="memo" depends="maxlength">
+				<arg0 key="备注" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+		</form>
+		<!--办公用品 类别-->
+		<form name="officeSuppliesTypeForm">
+			<field property="sort" depends="required">
+				<arg0 key="类别名称" resource="false" />
+			</field>
+			<field property="memo" depends="maxlength">
+				<arg0 key="备注" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+		</form>
+		<!--办公用品  入库-->
+		<form name="officeSuppliesStockForm">
+			<field property="goods_id" depends="required">
+				<arg0 key="物品名称" resource="false" />
+			</field>
+			<field property="buy_user" depends="required">
+				<arg0 key="采购人" resource="false" />
+			</field>
+			<field property="buy_count" depends="required">
+				<arg0 key="数量" resource="false" />
+			</field>
+			<field property="memo" depends="maxlength">
+				<arg0 key="备注" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+		</form>
+		<!--办公用品 出库 -->
+
+		<form name="officeSuppliesDrawForm">
+			<field property="goods_id" depends="required">
+				<arg0 key="物品名称" resource="false" />
+			</field>
+			<field property="draw_user" depends="required">
+				<arg0 key="采购人" resource="false" />
+			</field>
+			<field property="draw_count" depends="required">
+				<arg0 key="数量" resource="false" />
+			</field>
+			<field property="memo" depends="maxlength">
+				<arg0 key="备注" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>200</var-value>
+				</var>
+			</field>
+		</form>
+
+		<form name="noticeForm">
+			<field property="notice_title" depends="required">
+				<arg0 key="标题" resource="false" />
+			</field>
+			<field property="notice_day" depends="required,integer">
+				<arg0 key="时限天数" resource="false" />
+			</field>
+			<field property="notice_content" depends="maxlength">
+				<arg0 key="通告内容" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>1750</var-value>
+				</var>
+
+			</field>
+		</form>
+
+		<!-- 终端TPDU信息 -->
+		<form name="edcTpduForm">
+			<field property="tpdu" depends="required">
+				<arg0 key="TPDU" resource="false" />
+			</field>
+			<field property="chnlno" depends="required">
+				<arg0 key="渠道号" resource="false" />
+			</field>
+		</form>
+
+		<!-- 终端基本资料 -->
+		<form name="edcTerminalForm">
+			<field property="id.merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="id.terminalId" depends="required">
+				<arg0 key="终端编号" resource="false" />
+			</field>
+			<field property="edcType" depends="required">
+				<arg0 key="终端设备型号" resource="false" />
+			</field>
+			<field property="softVer" depends="required">
+				<arg0 key="终端软件版本" resource="false" />
+			</field>
+		</form>
+		<form name="edcBlackForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="terminalId" depends="required">
+				<arg0 key="终端编号" resource="false" />
+			</field>
+			<field property="status" depends="required">
+				<arg0 key="状态" resource="false" />
+			</field>
+		</form>
+
+		<!-- 终端转换 -->
+		<form name="edcSwitchForm">
+			<field property="id.merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="id.terminalId" depends="required">
+				<arg0 key="终端号" resource="false" />
+			</field>
+			<field property="id.bankType" depends="required">
+				<arg0 key="银行类型" resource="false" />
+			</field>
+			<field property="othTerminalId" depends="required">
+				<arg0 key="他行终端号" resource="false" />
+			</field>
+		</form>
+
+		<!-- 终端卡类信息 -->
+		<form name="edcCardForm">
+			<field property="id.merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="id.terminalId" depends="required">
+				<arg0 key="终端号" resource="false" />
+			</field>
+			<field property="id.cardType" depends="required">
+				<arg0 key="受理卡类型" resource="false" />
+			</field>
+			<field property="id.bankType" depends="required">
+				<arg0 key="银行类型" resource="false" />
+			</field>
+		</form>
+
+		<!-- 卡账户管理 -->
+		<form name="cardAcctForm">
+			<field property="cardNo" depends="required">
+				<arg0 key="卡号" resource="false" />
+			</field>
+		</form>
+
+		<!-- 其他参数管理 -->
+		<form name="sysParameterForm">
+			<field property="id.paramType" depends="required">
+				<arg0 key="参数类型" resource="false" />
+			</field>
+			<field property="id.paramName" depends="required">
+				<arg0 key="参数名称" resource="false" />
+			</field>
+			<field property="paramChinese" depends="required">
+				<arg0 key="参数中文名称" resource="false" />
+			</field>
+			<field property="paramValue" depends="required">
+				<arg0 key="参数值" resource="false" />
+			</field>
+		</form>
+
+		<!--客户端管理 -->
+		<form name="clientForm">
+			<field property="macAddr" depends="required">
+				<arg0 key="MAC地址" resource="false" />
+			</field>
+			<field property="ipAddr" depends="required">
+				<arg0 key="IP地址" resource="false" />
+			</field>
+			<field property="hostName" depends="required">
+				<arg0 key="主机名" resource="false" />
+			</field>
+			<field property="userId" depends="required">
+				<arg0 key="用户标识" resource="false" />
+			</field>
+		</form>
+
+		<!-- 商户资料管理 -->
+		<form name="merchantForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="mcc" depends="required">
+				<arg0 key="商户类型" resource="false" />
+			</field>
+			<field property="merchantCname" depends="required,maxlength">
+				<arg0 key="商户名称(中)" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>40</var-value>
+				</var>
+			</field>
+			<field property="abbrCname" depends="required">
+				<arg0 key="简称(中)" resource="false" />
+			</field>
+			<field property="merchantEname" depends="required">
+				<arg0 key="商户名称(英)" resource="false" />
+			</field>
+			<field property="abbrEname" depends="required">
+				<arg0 key="简称(英)" resource="false" />
+			</field>
+			<field property="signBankId" depends="required">
+				<arg0 key="签约行号" resource="false" />
+			</field>
+			<field property="signHostId" depends="required">
+				<arg0 key="签约主机号" resource="false" />
+			</field>
+			<field property="merchantStat" depends="required">
+				<arg0 key="商户状态" resource="false" />
+			</field>
+			<field property="refundLimit" depends="float">
+				<arg0 key="退货限额" resource="false" />
+			</field>
+		</form>
+		<!-- 商户用户管理 -->
+		<form name="merchantUserForm">
+			<field property="loginId" depends="required">
+				<arg0 key="登录用户名" resource="false" />
+			</field>
+			<field property="loginName" depends="required">
+				<arg0 key="显示用户名" resource="false" />
+			</field>
+		</form>
+		<!-- 商户身份 -->
+		<form name="merchantIdentityForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+		</form>
+		<!-- 商户资料管理 -->
+		<form name="merchantBoForm">
+			<field property="merchantId" depends="required,minlength">
+				<arg0 key="商户编号" resource="false" />
+				<arg1 name="minlength" key="${var:minlength}" resource="false" />
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>15</var-value>
+				</var>
+			</field>
+			<field property="mcc" depends="required">
+				<arg0 key="商户类型" resource="false" />
+			</field>
+			<field property="manager" depends="required">
+				<arg0 key="联系人" resource="false" />
+			</field>
+			<field property="telephone" depends="required">
+				<arg0 key="电话号码" resource="false" />
+			</field>
+			<field property="merchantCname" depends="required,maxlength">
+				<arg0 key="商户名称(中)" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>40</var-value>
+				</var>
+			</field>
+			<field property="signBankId" depends="required">
+				<arg0 key="签约行号" resource="false" />
+			</field>
+			<field property="signHostId" depends="required">
+				<arg0 key="签约主机号" resource="false" />
+			</field>
+		</form>
+		<!-- 商户管理 结束 -->
+
+		<!-- 受理卡类管理 -->
+
+		<form name="merchantCardForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="bankType" depends="required">
+				<arg0 key="银行类型" resource="false" />
+			</field>
+			<field property="cardType" depends="required">
+				<arg0 key="受理卡类型" resource="false" />
+			</field>
+			<field property="cardStat" depends="required">
+				<arg0 key="受理卡状态" resource="false" />
+			</field>
+			<field property="cardDiscount" depends="required,float">
+				<arg0 key="受理卡回扣率" resource="false" />
+			</field>
+		</form>
+		<!-- 受理卡类结束 -->
+
+		<!-- 商户转换 -->
+		<form name="merchantSwitchForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="bankType" depends="required">
+				<arg0 key="银行类型" resource="false" />
+			</field>
+			<field property="othMerchantId" depends="required">
+				<arg0 key="他行商户编号" resource="false" />
+			</field>
+			<field property="othMcc" depends="required">
+				<arg0 key="他行商户类型" resource="false" />
+			</field>
+		</form>
+		<!-- 商户转换  -->
+		<!-- 商户黑名单 -->
+		<form name="merchantBlackForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="status" depends="required">
+				<arg0 key="商户状态" resource="false" />
+			</field>
+			<field property="reason" depends="required">
+				<arg0 key="原因" resource="false" />
+			</field>
+		</form>
+		<!-- 商户黑名单  -->
+
+		<!-- POS签购单要素设置-->
+		<form name="posReceiptInfoForm">
+			<field property="hotline" depends="required">
+				<arg0 key="服务热线电话" resource="false" />
+			</field>
+			<field property="status" depends="required">
+				<arg0 key="状态标识" resource="false" />
+			</field>
+		</form>
+		<!-- POS签购单要素设置  -->
+
+
+
+
+
+
+
+
+
+
+		<!-- MCC -->
+		<form name="mccForm">
+			<field property="mcc" depends="required">
+				<arg0 key="MCC编号" resource="false" />
+			</field>
+			<field property="mccName" depends="required">
+				<arg0 key="MCC名称" resource="false" />
+			</field>
+			<field property="mccType" depends="required">
+				<arg0 key="类型编码" resource="false" />
+			</field>
+		</form>
+		<!-- Mcc -->
+		<!-- 模板form -->
+		<form name="sysModuleForm">
+			<field property="moduleId" depends="required,integer">
+				<arg0 key="模板编号" resource="false" />
+			</field>
+			<field property="progName" depends="required">
+				<arg0 key="程序名称" resource="false" />
+			</field>
+			<field property="startMode" depends="required">
+				<arg0 key="启动方式" resource="false" />
+			</field>
+		</form>
+		<!-- 模板form -->
+		<form name="sysModuleOtherForm">
+			<field property="moduleId" depends="required,integer">
+				<arg0 key="模板编号" resource="false" />
+			</field>
+			<field property="progName" depends="required">
+				<arg0 key="程序名称" resource="false" />
+			</field>
+			<field property="startMode" depends="required">
+				<arg0 key="启动方式" resource="false" />
+			</field>
+		</form>
+		<!-- 模板form -->
+		<!--
+			风险控制form <form name="riskInfoForm"> <field property="modelKind"
+			depends="required"> <arg0 key="风险控制模型" resource="false" /> </field>
+			</form>
+		-->
+		<!-- 模板form -->
+
+		<!--查询查复申请 和 凭证索取申请-->
+		<form name="hisTranLsForm">
+			<field property="reqReson" depends="required">
+				<arg0 key="类型" resource="false" />
+			</field>
+			<field property="reqNote" depends="required,maxlength">
+				<arg0 key="描述" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!--查询查复  回复 -->
+		<form name="queryTxnForm">
+			<field property="rsqNote" depends="required,maxlength">
+				<arg0 key="描述" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!--凭证索取 回复 -->
+		<form name="certTxnForm">
+			<field property="rsqNote" depends="required,maxlength">
+				<arg0 key="描述" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- 机构 -->
+		<form name="jgForm">
+			<field property="jgId" depends="required">
+				<arg0 key="机构ID" resource="false" />
+			</field>
+			<field property="jgName" depends="required">
+				<arg0 key="机构名称" resource="false" />
+			</field>
+			<field property="jgTel" depends="required">
+				<arg0 key="机构电话" resource="false" />
+			</field>
+			<field property="jgCz" depends="required">
+				<arg0 key="传真号码" resource="false" />
+			</field>
+			<field property="jgYb" depends="required">
+				<arg0 key="邮编" resource="false" />
+			</field>
+			<field property="jgSm" depends="required">
+				<arg0 key="机构说明" resource="false" />
+			</field>
+		</form>
+
+		<!-- 参数 -->
+		<form name="sysForm">
+			<field property="bankId" depends="required,maxlength">
+				<arg0 key="本机构号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="hostId" depends="required,maxlength">
+				<arg0 key="本机构主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="admBankId" depends="required,maxlength">
+				<arg0 key="管辖行机构号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="admHostId" depends="required,maxlength">
+				<arg0 key="管辖行主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="bankType" depends="required,maxlength">
+				<arg key="银行类型" resource="false" />
+			</field>
+			<field property="hostLsNo" depends="required,maxlength,integer">
+				<arg0 key="主机流水号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="hisLsDay" depends="required,maxlength,integer">
+				<arg0 key="历史流水保留天数" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="backupInterval" depends="required,maxlength,integer">
+				<arg0 key="须备份间隔天数" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="curLsDay" depends="required,maxlength,integer">
+				<arg0 key="当前流水保留天数" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="autoSafDay" depends="required,maxlength,integer">
+				<arg0 key="存储转发保留天数" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="endDay" depends="required,maxlength,integer">
+				<arg0 key="存储转发强制完成天数" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="safInterval" depends="required,maxlength,integer">
+				<arg0 key="存储转发时间间隔" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="logicDate" depends="required,maxlength">
+				<arg0 key="本地逻辑日" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>8</var-value>
+				</var>
+			</field>
+			<field property="authAmt" depends="required,double">
+				<arg key="单笔代授权限额" resource="false" />
+			</field>
+			<field property="dayAuthCnt" depends="required,integer">
+				<arg0 key="单日代授权限次" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="dayAuthAmt" depends="required,double">
+				<arg key="单日代授权限额" resource="false" />
+			</field>
+			<field property="adjustRate" depends="required,float">
+				<arg key="调帐比例" resource="false" />
+			</field>
+			<field property="confirmRate" depends="required,float">
+				<arg key="预授权确认比例" resource="false" />
+			</field>
+		</form>
+		<!-- 卡类型 -->
+		<form name="cardTypeForm">
+			<field property="cardId" depends="required,maxlength">
+				<arg0 key="卡标识号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>19</var-value>
+				</var>
+			</field>
+			<field property="cardLen" depends="required,maxlength">
+				<arg0 key="卡号长度" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="cardNoId" depends="required,maxlength">
+				<arg0 key="卡号标识" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>19</var-value>
+				</var>
+			</field>
+			<field property="cardName" depends="required,maxlength">
+				<arg0 key="中文名称" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="cardType" depends="required,maxlength">
+				<arg key="卡类型" resource="false" />
+			</field>
+			<field property="cardIdOff" depends="required,maxlength">
+				<arg0 key="卡标识起始位置" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+		</form>
+
+		<!-- 卡类型 -->
+		<form name="card1TypeForm">
+			<field property="typeEname" depends="required,maxlength">
+				<arg0 key="英文名称" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="typeName" depends="required,maxlength">
+				<arg0 key="类型名称" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="cardType" depends="required,maxlength">
+				<arg0 key="类型编码" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+
+		</form>
+
+		<!-- 交易路由 -->
+		<form name="tranRouteForm">
+			<field property="tranBit" depends="required,maxlength">
+				<arg0 key="交易位图" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>64</var-value>
+				</var>
+			</field>
+			<field property="bankType" depends="required,maxlength">
+				<arg key="银行类型" resource="false" />
+			</field>
+			<field property="rcvBankId" depends="required,maxlength">
+				<arg0 key="目标行行号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="rcvHostId" depends="required,maxlength">
+				<arg0 key="主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="moduleId" depends="required,maxlength">
+				<arg0 key="程序模板号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+		</form>
+		<!-- 发卡方路由 -->
+		<form name="bankCardRouteForm">
+			<field property="bankType" depends="required,maxlength">
+				<arg key="银行类型" resource="false" />
+			</field>
+			<field property="rcvBankId" depends="required,maxlength">
+				<arg0 key="目标行行号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="rcvHostId" depends="required,maxlength">
+				<arg0 key="主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="moduleId" depends="required,maxlength">
+				<arg0 key="程序模板号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+		</form>
+		<!-- 卡段路由 -->
+		<form name="cardRouteForm">
+			<field property="firstCardNo" depends="required,maxlength">
+				<arg0 key="起始卡段" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>19</var-value>
+				</var>
+			</field>
+			<field property="lastCardNo" depends="required,maxlength">
+				<arg0 key="结束卡段" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>19</var-value>
+				</var>
+			</field>
+			<field property="tranBit" depends="required,maxlength">
+				<arg0 key="交易位图" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>64</var-value>
+				</var>
+			</field>
+			<field property="rcvBankId" depends="required,maxlength">
+				<arg0 key="目标行行号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="rcvHostId" depends="required,maxlength">
+				<arg0 key="主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="moduleId" depends="required,maxlength">
+				<arg0 key="程序模板号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+		</form>
+		<!-- 通知路由 -->
+		<form name="advRouteForm">
+			<field property="tranType" depends="required,maxlength">
+				<arg0 key="交易类型" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+			<field property="cardType" depends="required,maxlength">
+				<arg key="卡类型" resource="false" />
+			</field>
+			<field property="rcvBankId" depends="required,maxlength">
+				<arg0 key="目标行行号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="rcvHostId" depends="required,maxlength">
+				<arg0 key="主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="moduleId" depends="required,maxlength">
+				<arg0 key="程序模板号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+		</form>
+
+
+		<!-- 缺省路由 -->
+		<form name="defaultRouteForm">
+			<field property="rcvBankId" depends="required,maxlength">
+				<arg0 key="目标行行号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="rcvHostId" depends="required,maxlength">
+				<arg0 key="主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="moduleId" depends="required,maxlength">
+				<arg0 key="程序模板号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5</var-value>
+				</var>
+			</field>
+		</form>
+		<!-- 差错 -->
+		<form name="errForm">
+			<field property="errCode" depends="required">
+				<arg0 key="差错处理方式" resource="false" />
+
+			</field>
+
+		</form>
+
+
+		<!-- 用户-->
+		<form name="userForm">
+			<field property="userId" depends="required,maxlength">
+				<arg0 key="用户名" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>15</var-value>
+				</var>
+			</field>
+			<field property="userName" depends="required,maxlength">
+				<arg0 key="用户姓名" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+
+			<field property="passwordExpiry" depends="required">
+				<arg0 key="密码有效期" resource="false" />
+			</field>
+			<field property="password" depends="required">
+				<arg0 key="用户密码" resource="false" />
+			</field>
+			<field property="pwdsub" depends="required">
+				<arg0 key="密码确认" resource="false" />
+			</field>
+			<field property="passwordAttemptsLimit" depends="integer">
+				<arg0 key="密码错误次数限定" resource="false" />
+			</field>
+
+		</form>
+
+		<!-- 角色-->
+		<form name="groupForm">
+			<field property="groupId" depends="required,maxlength">
+				<arg0 key="角色标识" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+			<field property="groupDescription" depends="maxlength">
+				<arg0 key="角色描述" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+
+			</field>
+		</form>
+		<!-- query -->
+		<form name="curTranLsForm">
+			<field property="cardNo" depends="required,maxlength">
+				<arg0 key="卡号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+		</form>
+		<!-- 联行 -->
+		<form name="bankInfoForm">
+			<field property="bankId" depends="required,maxlength">
+				<arg0 key="联行行号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="hostId" depends="required,maxlength">
+				<arg0 key="主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="bankName" depends="required">
+				<arg0 key="联行名称" resource="false" />
+			</field>
+			<field property="bankType" depends="required">
+				<arg0 key="银行类型" resource="false" />
+			</field>
+			<field property="bankId" depends="required,maxlength">
+				<arg0 key="管辖行号" resource="false" />
+				<arg1 name="admBankId" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+			</field>
+			<field property="admHostId" depends="required,maxlength">
+				<arg0 key="管辖行主机号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+		</form>
+		<form name="banktypeForm">
+			<field property="bankType" depends="required,maxlength">
+				<arg0 key="类型编码" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<field property="typeName" depends="required">
+				<arg0 key="类型名称" resource="false" />
+			</field>
+			<field property="typeEname" depends="required">
+				<arg0 key="英文名称" resource="false" />
+			</field>
+		</form>
+		<form name="tblStlmReguForm">
+			<field property="ruleNo" depends="required,maxlength">
+				<arg0 key="规则编号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>7</var-value>
+				</var>
+			</field>
+			<field property="ruleLevel" depends="required,maxlength">
+				<arg0 key="优先级" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>7</var-value>
+				</var>
+			</field>
+			<field property="startDate" depends="required">
+				<arg0 key="生效开始日期" resource="false" />
+			</field>
+			<field property="endDate" depends="required">
+				<arg0 key="生效结束日期" resource="false" />
+			</field>
+			<field property="channelNo" depends="required">
+				<arg0 key="交易渠道" resource="false" />
+			</field>
+			<field property="cardType" depends="required">
+				<arg0 key="卡种" resource="false" />
+			</field>
+			<field property="transCode" depends="required">
+				<arg0 key="交易类型" resource="false" />
+			</field>
+			<field property="mcc" depends="required">
+				<arg0 key="商户类型" resource="false" />
+			</field>
+			<field property="mchtNo" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="mchtFlg" depends="required">
+				<arg0 key="商户手续费结算方式" resource="false" />
+			</field>
+			<field property="g1CrDscFlg" depends="required">
+				<arg0 key="档次标志" resource="false" />
+			</field>
+			<field property="g1CrDscRate1" depends="required">
+				<arg0 key="档次扣率" resource="false" />
+			</field>
+			<field property="g1CrDscAmt1" depends="required">
+				<arg0 key="档次单比回佣最大金额" resource="false" />
+			</field>
+			<field property="g1CrDscAmt2" depends="required">
+				<arg0 key="档次单比回佣最小金额" resource="false" />
+			</field>
+			<field property="g1CrDscSum1" depends="required">
+				<arg0 key="档次结算周期内累计最大金额" resource="false" />
+			</field>
+			<field property="g1CrDscSum2" depends="required">
+				<arg0 key="档次结算周期内累计最小金额" resource="false" />
+			</field>
+			<field property="g1CrDscFee" depends="required">
+				<arg0 key="档次在结算周期内的固定收费金额 " resource="false" />
+			</field>
+		</form>
+		<!-- 终端基本资料 -->
+		<form name="edcTerminalOrmForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="terminalId" depends="required">
+				<arg0 key="终端编号" resource="false" />
+			</field>
+			<field property="bankMerchantId" depends="required">
+				<arg0 key="银行商户号" resource="false" />
+			</field>
+			<field property="bankTerminalId" depends="required">
+				<arg0 key="银行终端号" resource="false" />
+			</field>
+			<field property="moduleId" depends="required">
+				<arg0 key="模块ID" resource="false" />
+			</field>
+			<field property="sysTrace" depends="required">
+				<arg0 key="系统流水号" resource="false" />
+			</field>
+			<field property="bankTrace" depends="required">
+				<arg0 key="银行流水号" resource="false" />
+			</field>
+			<field property="batchNo" depends="required">
+				<arg0 key="批次号" resource="false" />
+			</field>
+		</form>
+		<!-- 终端基本资料 -->
+		<form name="edcNewfkterminalOrmForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="terminalId" depends="required">
+				<arg0 key="终端编号" resource="false" />
+			</field>
+			<field property="bankMerchantId" depends="required">
+				<arg0 key="银行商户号" resource="false" />
+			</field>
+			<field property="bankTerminalId" depends="required">
+				<arg0 key="银行终端号" resource="false" />
+			</field>
+			<field property="moduleId" depends="required">
+				<arg0 key="模块ID" resource="false" />
+			</field>
+			<field property="sysTrace" depends="required">
+				<arg0 key="系统流水号" resource="false" />
+			</field>
+			<field property="bankTrace" depends="required">
+				<arg0 key="银行流水号" resource="false" />
+			</field>
+			<field property="batchNo" depends="required">
+				<arg0 key="批次号" resource="false" />
+			</field>
+		</form>
+		<!-- 支付宝、微信终端基本资料 -->
+		<form name="edcAlipayWeChatForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="terminalId" depends="required">
+				<arg0 key="终端编号" resource="false" />
+			</field>
+			<field property="bankMerchantId" depends="required">
+				<arg0 key="银行商户号" resource="false" />
+			</field>
+			<!-- <field property="bankTerminalId" depends="required">
+				<arg0 key="银行终端号" resource="false" />
+			</field> -->
+			<field property="moduleId" depends="required">
+				<arg0 key="模块ID" resource="false" />
+			</field>
+			<!-- <field property="sysTrace" depends="required">
+				<arg0 key="系统流水号" resource="false" />
+			</field>
+			<field property="bankTrace" depends="required">
+				<arg0 key="银行流水号" resource="false" />
+			</field> -->
+			<field property="batchNo" depends="required">
+				<arg0 key="批次号" resource="false" />
+			</field>
+			<field property="makTmk" depends="required">
+				<arg0 key="工作密钥密文MAC_KEY(终端签到获取)(MD5_KEY)" resource="false" />
+			</field>
+		</form>
+		<!-- 专属卡终端基本资料 -->
+		<form name="edcZskterminalOrmForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="terminalId" depends="required">
+				<arg0 key="终端编号" resource="false" />
+			</field>
+			<field property="bankMerchantId" depends="required">
+				<arg0 key="银行商户号" resource="false" />
+			</field>
+			<field property="bankTerminalId" depends="required">
+				<arg0 key="银行终端号" resource="false" />
+			</field>
+			<field property="moduleId" depends="required">
+				<arg0 key="模块ID" resource="false" />
+			</field>
+			<field property="sysTrace" depends="required">
+				<arg0 key="系统流水号" resource="false" />
+			</field>
+			<field property="bankTrace" depends="required">
+				<arg0 key="银行流水号" resource="false" />
+			</field>
+			<field property="batchNo" depends="required">
+				<arg0 key="批次号" resource="false" />
+			</field>
+			<field property="makTmk" depends="required">
+				<arg0 key="工作密钥密文MAC_KEY(终端签到获取)(MD5_KEY)" resource="false" />
+			</field>
+		</form>
+		<!-- 终端密钥 -->
+		<form name="btsKeyForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+			</field>
+			<field property="terminalId" depends="required">
+				<arg0 key="终端编号" resource="false" />
+			</field>
+			<field property="tmkmasterKey" depends="required">
+				<arg0 key="TMK通讯主密钥" resource="false" />
+			</field>
+		</form>
+		<!-- 交易模块信息 -->
+		<form name="tranModuleInfForm">
+			<field property="moduleId" depends="required">
+				<arg0 key="渠道模块号" resource="false" />
+			</field>
+			<field property="tranType" depends="required">
+				<arg0 key="交易类型代码" resource="false" />
+			</field>
+			<field property="msgId" depends="required">
+				<arg0 key="报文中获取MessgeId" resource="false" />
+			</field>
+			<field property="typeCode" depends="required">
+				<arg0 key="网络管理码/交易类型编码" resource="false" />
+			</field>
+			<field property="tranName" depends="required">
+				<arg0 key="交易名称" resource="false" />
+			</field>
+			<field property="reqBitmap" depends="required">
+				<arg0 key="请求报文位图" resource="false" />
+			</field>
+			<field property="respBitmap" depends="required">
+				<arg0 key="响应报文位图" resource="false" />
+			</field>
+			<field property="settFlag" depends="required">
+				<arg0 key="参加结算标志" resource="false" />
+			</field>
+			<field property="writeLsFlag" depends="required">
+				<arg0 key="是否记录流水" resource="false" />
+			</field>
+			<field property="checkMacFlag" depends="required">
+				<arg0 key="MAC校验标志" resource="false" />
+			</field>
+			<field property="flag" depends="required">
+				<arg0 key="开通标志" resource="false" />
+			</field>
+		</form>
+		<form name="pospZmkKeyForm">
+			<field property="moduleId" depends="required">
+				<arg0 key="模块号" resource="false" />
+			</field>
+		</form>
+		<form name="operateLogForm">
+			<field property="logId" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		<form name="analyzeMerclearBookForm">
+			<field property="id" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		<form name="analyzeMerfeeBookForm">
+			<field property="id" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		<form name="analyzeMerstlBookForm">
+			<field property="id" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		<form name="analyzeCupcheckBookForm">
+			<field property="bookid" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		<form name="analyzeCupcheckErrForm">
+			<field property="bookid" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		<form name="analyzeCupcheckOkForm">
+			<field property="bookid" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		<form name="analyzeCupcheckStaticsForm">
+			<field property="bookid" depends="required">
+				<arg0 key="ID" resource="false" />
+			</field>
+		</form>
+		
+				<!--区域卡卡BIN -->
+		<form name="cardBinAreaForm">
+			<field property="cardBin" depends="required">
+				<arg0 key="卡bin" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>9</var-value>
+				</var>
+			</field>
+			<field property="areaCode" depends="required">
+				<arg0 key="地区" resource="false" />
+			</field>
+			<field property="status" depends="required">
+				<arg0 key="状态" resource="false" />
+			</field>
+		</form>
+		<!--区域卡卡BIN -->
+		<form name="edcCardBinAreaForm">
+			<field property="cardBin" depends="required">
+				<arg0 key="卡bin" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>9</var-value>
+				</var>
+			</field>
+			<field property="merchantId" depends="required">
+				<arg0 key="商户号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>15</var-value>
+				</var>
+			</field>
+			<field property="status" depends="required">
+				<arg0 key="状态" resource="false" />
+			</field>
+		</form>
+		
+		<!-- 业务场景费率 -->
+		<form name="tabBusinessRatesForm">
+			<field property="businessname" depends="required">
+				<arg0 key="业务中文名称" resource="false" />
+			</field>
+			<field property="rate" depends="required">
+				<arg0 key="业务费率" resource="false" />
+			</field>
+		</form>
+		<!-- 业务场景费率 -->
+		
+		
+		<!-- 业务角色菜单 -->
+		<form name="tabBusRoleMenuForm">
+			<field property="busRoleName" depends="required">
+				<arg0 key="业务角色中文名称" resource="false" />
+			</field>
+			<field property="menuList" depends="required">
+				<arg0 key="角色业务菜单列表" resource="false" />
+			</field>
+		</form>
+		<!-- 业务角色菜单 -->
+		<!-- 商户交易参数 -->
+		<form name="tblMerchantTranParamForm">
+			<field property="merchantId" depends="required">
+				<arg0 key="商户编号" resource="false" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>15</var-value>
+				</var>
+			</field>
+			<field property="nopasswdMaxamt" depends="required">
+				<arg0 key="免密授信限额" resource="false" />
+			</field>
+		</form>
+		<!-- 商户交易参数 -->
+		
+		<!-- 授权免密卡BIN信息 -->
+		<form name="tblNoPasswdCardBinForm">
+			<field property="firstCardBin" depends="required">
+				<arg0 key="卡信息" resource="false" />
+			</field>
+			<field property="nopasswdMaxamt" depends="required">
+				<arg0 key="免密授信限额" resource="false" />
+			</field>
+		</form>
+		<!-- 授权免密卡BIN信息-->
+	</formset>
+</form-validation>
+

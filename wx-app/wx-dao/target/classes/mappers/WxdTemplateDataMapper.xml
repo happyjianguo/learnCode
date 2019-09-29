@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.dao.mapper.WxdTemplateDataMapper">
+
+	<resultMap type="WxdTemplateData" id="WxdTemplateDataList">
+    	<result column="TEMPLATENO" property="templateno"/>
+    	<result column="TEMPLATEBKEY" property="templatebkey"/>
+    	<result column="TEMPLATEBVALUE" property="templatebvalue"/>
+    	<result column="TEMPLATEBCOLOR" property="templatebcolor"/>
+    	<result column="TEMPLATEBSEQ" property="templatebseq"/>
+    </resultMap>
+    
+	<select id="selectByTempNo" parameterType="String" resultMap="WxdTemplateDataList">
+		SELECT 
+			TEMPLATENO,TEMPLATEID,TEMPLATEBKEY,TEMPLATEBVALUE,TEMPLATEBCOLOR,TEMPLATEBSEQ
+		FROM 
+			WXDTEMPLATEDATA 
+		WHERE 
+			TEMPLATENO=#{template_no}
+		ORDER BY TEMPLATEBSEQ ASC
+	</select>
+</mapper>

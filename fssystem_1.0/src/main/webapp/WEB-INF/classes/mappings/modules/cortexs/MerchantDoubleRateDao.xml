@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.MerchantDoubleRateDao">
+    
+	<sql id="merchantDoubleRateColumns">
+		a.id AS "id",
+		a.merchant_id AS "merchantId",
+		a.card_bin AS "cardBin",
+		a.rate AS "rate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		b.mrcht_name AS "mrchtName"
+	</sql>
+	
+	<sql id="merchantDoubleRateJoins">
+		 left join merchant_x b on a.merchant_id=b.mrchno
+	</sql>
+    
+	<select id="get" resultType="MerchantDoubleRate">
+		SELECT 
+			<include refid="merchantDoubleRateColumns"/>
+		FROM merchant_double_rate a
+		<include refid="merchantDoubleRateJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MerchantDoubleRate">
+		SELECT 
+			<include refid="merchantDoubleRateColumns"/>
+		FROM merchant_double_rate a
+		<include refid="merchantDoubleRateJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="merchantId != null and merchantId != ''">
+				AND a.merchant_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{merchantId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{merchantId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{merchantId},'%')</if>
+			</if>
+			<if test="cardBin != null and cardBin != ''">
+				AND a.card_bin = #{cardBin}
+			</if>
+			<if test="rate != null and rate != ''">
+				AND a.rate = #{rate}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MerchantDoubleRate">
+		SELECT 
+			<include refid="merchantDoubleRateColumns"/>
+		FROM merchant_double_rate a
+		<include refid="merchantDoubleRateJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO merchant_double_rate(
+			id,
+			merchant_id,
+			card_bin,
+			rate,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			MERCHANT_DOUBLE_RATE_SEQUENCE.Nextval,
+			#{merchantId},
+			#{cardBin},
+			#{rate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE merchant_double_rate SET 	
+			merchant_id = #{merchantId},
+			card_bin = #{cardBin},
+			rate = #{rate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM  merchant_double_rate 
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

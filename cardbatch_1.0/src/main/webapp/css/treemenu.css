@@ -1,0 +1,18 @@
+A.parentlink {
+	FONT-SIZE: 12px; COLOR: #333333; TEXT-DECORATION: none
+}
+A.parentlink:hover {
+	COLOR: #000000
+}
+A.childlink:hover {
+	COLOR: #000000
+}
+A.childlink {
+	FONT-SIZE: 12px; COLOR: #666666; TEXT-DECORATION: none
+}
+TD.childlink {
+	FONT-SIZE: 12px; COLOR: #666666; TEXT-DECORATION: none
+}
+.px7 {
+	FONT-SIZE: 10px; VERTICAL-ALIGN: middle
+}

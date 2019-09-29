@@ -1,0 +1,31 @@
+body,div,td,span,select,p {
+	font: 12px "宋体", Tahoma,Arial;
+	background-color: transparent;
+}
+
+.success {
+	height: 300px;
+	margin: 4px 10px 4px 210px;
+	padding:4px 0pt 0px 0px;
+	background: url(../images/icon_success.gif)  no-repeat scroll left top;
+}
+
+.success_head{
+	font-size:14px;
+	font-weight:bold;
+	margin: 10px 0px 0px 100px;
+}
+
+.success_body{
+	width: 380px;
+	margin: 10px 0px 0px 100px;
+}
+
+.success_body ul{
+	list-style-type:none;
+}
+
+.success_body li{
+	border-bottom:1px dashed #878787;
+}
+

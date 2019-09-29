@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.cortex.dao.SysParameterDao">
+
+  <resultMap id="BaseResultMap" type="com.yufupos.system.modules.cortex.entity.SysParameter">
+    <id column="PARAM_ID" jdbcType="VARCHAR" property="paramId" />
+    <result column="PARAM_TYPE" jdbcType="VARCHAR" property="paramType" />
+    <result column="PARAM_NAME" jdbcType="VARCHAR" property="paramName" />
+    <result column="PARAM_VALUE" jdbcType="VARCHAR" property="paramValue" />
+    <result column="PARAM_NOTES" jdbcType="VARCHAR" property="paramNotes" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    PARAM_ID, PARAM_TYPE, PARAM_NAME, PARAM_VALUE, PARAM_NOTES, PARENT_ID, ENABLE
+  </sql>
+  
+  <select id="findAllList" resultMap="BaseResultMap">
+  	SELECT 
+  	<include refid="Base_Column_List"></include>
+  	FROM SYS_PARAMETER
+  </select>
+  
+</mapper>

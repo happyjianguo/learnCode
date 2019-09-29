@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.fs.dao.StatisticsSellCardMapper">
+	<resultMap id="BaseResultMap" type="cn.yufu.fs.entity.StatisticsSellCard" >
+    <result column="ORDERCODE" property="ordercode" jdbcType="VARCHAR" />
+    <result column="ADMIN_NAME" property="adminName" jdbcType="VARCHAR" />
+    <result column="ADMIN_REALNAME" property="adminRealname" jdbcType="VARCHAR" />
+    <result column="POINTID" property="pointid" jdbcType="DECIMAL" />
+    <result column="POINT_NAME" property="pointName" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="CARDTOTALPRICE" property="cardtotalprice" jdbcType="DECIMAL" />
+    <result column="OUTCARDVERIFYTIME" property="outcardverifytime" jdbcType="VARCHAR" />
+    <result column="PROVISIONS" property="provisions" jdbcType="VARCHAR" />
+    <result column="PROVISIONS_RATE" property="provisionsRate" jdbcType="DECIMAL" />
+    <result column="FREE_FIELD3" property="freeField3" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD4" property="freeField4" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD5" property="freeField5" jdbcType="VARCHAR" />
+  </resultMap>
+	<select id="getFukaSalePoint" resultType="cn.yufu.fs.entity.FukaSalepoint">
+		select
+			POINT_ID pointId,
+     		CID cid,
+     		POINTCODE pointcode,
+     		POINTNAME pointname
+		from 
+			FUKA_SALEPOINT f
+	</select>
+	<select id="getFukaCompany" parameterType="java.math.BigDecimal"  resultType="cn.yufu.fs.entity.FukaCompanys">
+		select
+			COMPANY_NAME companyName
+		from 
+			FUKA_COMPANYS f
+		where cid = #{cid}
+	</select>
+	<select id="queryCnt" parameterType="cn.yufu.fs.entity.StatisticsSellCard"  resultType="java.lang.Integer">
+		select
+			count(*)
+		from 
+			FUKA_ORDERS f
+		<where>
+			<if test=" adminName != null and adminName != ''">
+				and ADMIN_NAME = #{adminName}
+			</if>
+			<if test="adminRealname != null and adminRealname != ''">
+				and ADMIN_REALNAME = #{adminRealname}
+			</if>
+			<if test="pointid != null and pointid != ''">
+				and POINTID = #{pointid}
+			</if>
+			<if test="startStlDate != null and startStlDate != ''">
+				<!-- and to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ >=  ]]> #{startStlDate} -->
+ 				and to_char(OUTCARDVERIFYTIME,'yyyy-mm-dd hh24:mi:ss') <![CDATA[ >=  ]]> #{startStlDate}
+			</if>
+			<if test="endStlDate != null and endStlDate != ''">
+				<!-- and to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ <  ]]> #{endStlDate} -->
+				and to_char(OUTCARDVERIFYTIME,'yyyy-mm-dd hh24:mi:ss') <![CDATA[ <  ]]> #{endStlDate}
+			</if>
+		</where>
+	</select>
+	<select id="queryExcelList" parameterType="cn.yufu.fs.entity.StatisticsSellCard"  resultType="cn.yufu.fs.entity.StatisticsSellCard">
+		select
+			f.ADMIN_NAME     adminName,
+			f.ADMIN_REALNAME adminRealname,
+			to_char(f.outcardverifytime, 'yy-mm-dd') outcardverifytime,
+			f.POINTID pointid,
+			f.POINT_NAME pointName,
+			sum(f.CARDTOTALPRICE) as cardtotalprice,
+			sum(f.PROVISIONS) as provisions
+		from 
+			FUKA_ORDERS f
+		<where>
+			<if test=" adminName != null and adminName != ''">
+				and ADMIN_NAME = #{adminName}
+			</if>
+			<if test="adminRealname != null and adminRealname != ''">
+				and ADMIN_REALNAME = #{adminRealname}
+			</if>
+			<if test="pointid != null and pointid != ''">
+				and POINTID = #{pointid}
+			</if>
+			<if test="startStlDate != null and startStlDate != ''">
+				<!-- and to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ >=  ]]> #{startStlDate} -->
+				and to_char(OUTCARDVERIFYTIME,'yyyy-mm-dd hh24:mi:ss') <![CDATA[ >=  ]]> #{startStlDate}
+			</if>
+			<if test="endStlDate != null and endStlDate != ''">
+				<!-- and to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ <  ]]> #{endStlDate} -->
+ 				and to_char(OUTCARDVERIFYTIME,'yyyy-mm-dd hh24:mi:ss') <![CDATA[ <  ]]> #{endStlDate}
+			</if>
+		</where>
+		group by 
+			f.POINTID,
+			f.ADMIN_NAME,
+			f.ADMIN_REALNAME,
+			to_char(f.outcardverifytime, 'yy-mm-dd'),
+			f.POINT_NAME
+ 		order by 
+            to_char(f.outcardverifytime,'yy-mm-dd') desc
+	</select>
+	<select id="getSumAmt" parameterType="cn.yufu.fs.entity.StatisticsSellCard"  resultType="cn.yufu.fs.entity.StatisticsSellCard">
+		select
+			sum(f.CARDTOTALPRICE) as cardtotalprice,
+			sum(f.PROVISIONS) as provisions
+		from 
+			FUKA_ORDERS f
+		<where>
+			<if test=" adminName != null and adminName != ''">
+				and ADMIN_NAME = #{adminName}
+			</if>
+			<if test="adminRealname != null and adminRealname != ''">
+				and ADMIN_REALNAME = #{adminRealname}
+			</if>
+			<if test="pointid != null and pointid != ''">
+				and POINTID = #{pointid}
+			</if>
+			<if test="startStlDate != null and startStlDate != ''">
+				and (to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ >=  ]]> #{startStlDate})
+			</if>
+			<if test="endStlDate != null and endStlDate != ''">
+				and (to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ <=  ]]> #{endStlDate})
+			</if>
+		</where>
+	</select>
+	 
+	<select id="queryList" parameterType="map" resultType="cn.yufu.fs.entity.StatisticsSellCard">
+		SELECT
+			f2.adminName adminName,
+			f2.adminRealname adminRealname,
+			f2.outcardverifytime outcardverifytime,
+			<!-- to_char(f2.outcardverifytime,'yy-mm-dd hh24:mi:ss') outcardverifytime, -->
+			f2.pointid pointid,
+			f2.pointName pointName,
+			f2.cardtotalprice cardtotalprice,
+			f2.provisions provisions    
+  		FROM 
+  			(
+  			SELECT 
+  				ROWNUM rn, 
+				f1.adminName adminName,
+				f1.adminRealname adminRealname,
+				f1.outcardverifytime outcardverifytime,
+				f1.pointid pointid,
+				f1.pointName pointName,
+				f1.cardtotalprice cardtotalprice,
+				f1.provisions provisions
+          	FROM 
+          		(
+				select
+					f.ADMIN_NAME  adminName,
+					f.ADMIN_REALNAME  adminRealname,
+					to_char(f.outcardverifytime,'yy-mm-dd')  outcardverifytime,
+					f.POINTID pointid,
+					f.POINT_NAME pointName,
+					sum(f.CARDTOTALPRICE)  cardtotalprice,
+					sum(f.PROVISIONS)   provisions
+				from 
+					FUKA_ORDERS f
+				<where>
+					<if test="queryModel.adminName != null and queryModel.adminName != ''">
+						and ADMIN_NAME = #{queryModel.adminName}
+					</if>
+					<if test="queryModel.adminRealname != null and queryModel.adminRealname != ''">
+						and ADMIN_REALNAME = #{queryModel.adminRealname}
+					</if>
+					<if test="queryModel.pointid != null and queryModel.pointid != ''">
+						and POINTID = #{queryModel.pointid}
+					</if>
+					<if test="queryModel.startStlDate != null and queryModel.startStlDate != ''">
+						<!-- and to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ >=  ]]> #{queryModel.startStlDate} -->
+ 						and to_char(OUTCARDVERIFYTIME,'yyyy-mm-dd hh24:mi:ss') <![CDATA[ >=  ]]> #{queryModel.startStlDate}
+					</if>
+					<if test="queryModel.endStlDate != null and queryModel.endStlDate != ''">
+						<!-- and to_char(OUTCARDVERIFYTIME,'yyyymmdd') <![CDATA[ <  ]]> #{queryModel.endStlDate} -->
+						and to_char(OUTCARDVERIFYTIME,'yyyy-mm-dd hh24:mi:ss') <![CDATA[ <  ]]> #{queryModel.endStlDate}
+					</if>
+				</where>
+				group by 
+               			f.POINTID,f.ADMIN_NAME,f.ADMIN_REALNAME,
+               			to_char(f.outcardverifytime,'yy-mm-dd'),f.POINT_NAME
+               	order by 
+               			to_char(f.outcardverifytime,'yy-mm-dd') desc
+          		) f1
+         	WHERE 
+         		<![CDATA[ ROWNUM <= #{endResult} ]]>
+         	) f2
+ 		WHERE 
+ 			<![CDATA[ f2.rn >= #{startResult} ]]>
+	</select> 
+	
+	<!-- 
+    		 	f1.ADMIN_NAME,
+				f1.ADMIN_REALNAME,
+				f1.OUTCARDVERIFYTIME,
+				f1.POINTID,
+				f1.POINT_NAME,
+				f1.CARDTOTALPRICE,
+				f1.PROVISIONS  
+				-->
+</mapper>

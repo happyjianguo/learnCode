@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.NumDescrMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.NumDescr" >
+    <id column="DESCRTYPE" property="descrtype" jdbcType="VARCHAR" />
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <id column="LANG" property="lang" jdbcType="VARCHAR" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="DESCR" property="descr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DESCRTYPE, ID, LANG, VERNO_CTX, DESCR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.NumDescrExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from NUMDESCR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.NumDescrKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from NUMDESCR
+    where DESCRTYPE = #{descrtype,jdbcType=VARCHAR}
+      and ID = #{id,jdbcType=DECIMAL}
+      and LANG = #{lang,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cn.yufu.cortex.entity.NumDescrKey" >
+    delete from NUMDESCR
+    where DESCRTYPE = #{descrtype,jdbcType=VARCHAR}
+      and ID = #{id,jdbcType=DECIMAL}
+      and LANG = #{lang,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.NumDescrExample" >
+    delete from NUMDESCR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.NumDescr" >
+    insert into NUMDESCR (DESCRTYPE, ID, LANG, 
+      VERNO_CTX, DESCR)
+    values (#{descrtype,jdbcType=VARCHAR}, #{id,jdbcType=DECIMAL}, #{lang,jdbcType=VARCHAR}, 
+      #{vernoCtx,jdbcType=DECIMAL}, #{descr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.NumDescr" >
+    insert into NUMDESCR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="descrtype != null" >
+        DESCRTYPE,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="lang != null" >
+        LANG,
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX,
+      </if>
+      <if test="descr != null" >
+        DESCR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="descrtype != null" >
+        #{descrtype,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="lang != null" >
+        #{lang,jdbcType=VARCHAR},
+      </if>
+      <if test="vernoCtx != null" >
+        #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="descr != null" >
+        #{descr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.NumDescrExample" resultType="java.lang.Integer" >
+    select count(*) from NUMDESCR
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update NUMDESCR
+    <set >
+      <if test="record.descrtype != null" >
+        DESCRTYPE = #{record.descrtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lang != null" >
+        LANG = #{record.lang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vernoCtx != null" >
+        VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.descr != null" >
+        DESCR = #{record.descr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update NUMDESCR
+    set DESCRTYPE = #{record.descrtype,jdbcType=VARCHAR},
+      ID = #{record.id,jdbcType=DECIMAL},
+      LANG = #{record.lang,jdbcType=VARCHAR},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      DESCR = #{record.descr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.NumDescr" >
+    update NUMDESCR
+    <set >
+      <if test="vernoCtx != null" >
+        VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="descr != null" >
+        DESCR = #{descr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DESCRTYPE = #{descrtype,jdbcType=VARCHAR}
+      and ID = #{id,jdbcType=DECIMAL}
+      and LANG = #{lang,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.NumDescr" >
+    update NUMDESCR
+    set VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      DESCR = #{descr,jdbcType=VARCHAR}
+    where DESCRTYPE = #{descrtype,jdbcType=VARCHAR}
+      and ID = #{id,jdbcType=DECIMAL}
+      and LANG = #{lang,jdbcType=VARCHAR}
+  </update>
+</mapper>

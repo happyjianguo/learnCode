@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.component.CloudvirgoodMapper">
+<select id="selectStatusOk" resultType="CloudvirgoodEntity">
+		SELECT
+		    ID,
+		    APID,
+		    PRIZENAME,
+		    PRIZESTYLE,
+		    CARRIER,
+		    COMBOVALUE,
+		    PRIZEPRICE,
+		    PERVALUE,
+		    IMAGEPATH,
+		    STATUS,
+		    NOTE,
+		    CREATETIME,
+		    UPDATETIME,
+		    PROVINCE,
+		    URANGE
+		FROM
+		    CLOUDVIRGOOD
+		WHERE
+			<!-- 1=1 -->
+			<!-- <if test="prizename != '' and prizename != null">
+				AND PRIZENAME = #{prizename}
+			</if>
+			<if test="prizestyle != '' and prizestyle != null">
+				AND PRIZESTYLE = #{prizestyle}
+			</if>
+			<if test="carrier != '' and carrier != null">
+				AND CARRIER = #{carrier}
+			</if>
+			<if test="combovalue != '' and combovalue != null">
+				AND COMBOVALUE = #{combovalue}
+			</if>
+			<if test="status != '' and status != null">
+				AND STATUS = #{status}
+			</if> -->
+			STATUS="kt"
+		<!-- ORDER BY CREATETIME DESC -->
+	</select>
+	<select id="selectStatusOkByapid" parameterType="String" resultType="CloudvirgoodEntity">
+		SELECT
+		    ID,
+		    APID,
+		    PRIZENAME,
+		    PRIZESTYLE,
+		    CARRIER,
+		    COMBOVALUE,
+		    PRIZEPRICE,
+		    PERVALUE,
+		    IMAGEPATH,
+		    STATUS,
+		    NOTE,
+		    CREATETIME,
+		    UPDATETIME,
+		    PROVINCE,
+		    URANGE
+		FROM
+		    CLOUDVIRGOOD
+		WHERE
+			1=1 
+			<!-- <if test="prizename != '' and prizename != null">
+				AND PRIZENAME = #{prizename}
+			</if>
+			<if test="prizestyle != '' and prizestyle != null">
+				AND PRIZESTYLE = #{prizestyle}
+			</if>
+			<if test="carrier != '' and carrier != null">
+				AND CARRIER = #{carrier}
+			</if>
+			<if test="combovalue != '' and combovalue != null">
+				AND COMBOVALUE = #{combovalue}
+			</if>
+			<if test="status != '' and status != null">
+				AND STATUS = #{status}
+			</if> -->
+			<if test="status != '' and status != null">
+				AND STATUS = #{status}
+			</if>
+			<if test="id != '' and id != null">
+				and ID = #{id}  
+			</if>
+		<!-- ORDER BY CREATETIME DESC -->
+	</select>
+	
+	<insert id="insert" parameterType="CloudvirgoodEntity">
+		INSERT
+		    CLOUDVIRGOOD
+		    (
+		        ID,
+		        APID,
+			    PRIZENAME,
+			    PRIZESTYLE,
+			    CARRIER,
+			    COMBOVALUE,
+			    PRIZEPRICE,
+			    PERVALUE,
+			    IMAGEPATH,
+			    STATUS,
+			    NOTE,
+			    CREATETIME,
+			    UPDATETIME,
+			    PROVINCE,
+			    URANGE
+		    )
+		    VALUES
+		    (
+		        #{id},
+		        #{apid},
+		        #{prizename},
+		        #{prizestyle},
+		        #{carrier},
+		        #{combovalue},
+		        #{prizeprice},
+		        #{pervalue},
+		        #{imagepath},
+		        #{status},
+		        #{note},
+		        #{createtime},
+		        #{updatetime},
+		        #{province},
+		        #{urange}
+		    )
+	</insert>
+	
+	
+	
+	<insert id="insertList" parameterType="java.util.List" >
+		INSERT
+		    CLOUDVIRGOOD
+		    (
+		        ID,
+		        APID,
+			    PRIZENAME,
+			    PRIZESTYLE,
+			    CARRIER,
+			    COMBOVALUE,
+			    PRIZEPRICE,
+			    PERVALUE,
+			    IMAGEPATH,
+			    STATUS,
+			    NOTE,
+			    CREATETIME,
+			    UPDATETIME,
+			    PROVINCE,
+			    URANGE
+		    )
+		    VALUES
+		    <foreach collection="list" item="item" index="index" separator="," >
+				(
+					#{item.id},
+			        #{item.apid},
+			        #{item.prizename},
+			        #{item.prizestyle},
+			        #{item.carrier},
+			        #{item.combovalue},
+			        #{item.prizeprice},
+			        #{item.pervalue},
+			        #{item.imagepath},
+			        #{item.status},
+			        #{item.note},
+			        #{item.createtime},
+			        #{item.updatetime},
+			        #{item.province},
+			        #{item.urange}
+				)
+			</foreach>
+	</insert>
+	<update id="update" parameterType="IMUserRole">
+	    UPDATE
+	        CLOUDVIRGOOD
+	     <set> 
+	        <if test="prizename != null">    
+	            PRIZENAME = #{prizename},    
+	        </if>
+	        <if test="prizestyle != null">    
+	            PRIZESTYLE = #{prizestyle},    
+	        </if> 
+	        <if test="carrier != null">    
+	            CARRIER = #{carrier},    
+	        </if>
+	        <if test="combovalue != null">    
+	            COMBOVALUE = #{combovalue},    
+	        </if> 
+	        <if test="prizeprice != null">    
+	            PRIZEPRICE = #{prizeprice},    
+	        </if> 
+	        <if test="pervalue != null">    
+	            PERVALUE = #{pervalue},    
+	        </if>
+	        <if test="imagepath != null">    
+	            IMAGEPATH = #{imagepath},    
+	        </if>
+	        <if test="status != null">    
+	            STATUS = #{status},    
+	        </if> 
+	        <if test="note != null">    
+	            NOTE = #{note},    
+	        </if> 
+	        <if test="updatetime != null">    
+	            UPDATETIME = #{updatetime},    
+	        </if> 
+	    </set>    
+	    WHERE
+	        APID = #{apid}
+     </update>
+     
+     
+     <update id="updateList" parameterType="java.util.List">
+     	<foreach collection="list" item="item" index="index" separator=";" >
+			    UPDATE
+			        CLOUDVIRGOOD
+			     <set> 
+			        <if test="item.prizename != null">    
+			            PRIZENAME = #{item.prizename},    
+			        </if>
+			        <if test="item.prizestyle != null">    
+			            PRIZESTYLE = #{item.prizestyle},    
+			        </if> 
+			        <if test="item.carrier != null">    
+			            CARRIER = #{item.carrier},    
+			        </if>
+			        <if test="item.combovalue != null">    
+			            COMBOVALUE = #{item.combovalue},    
+			        </if> 
+			        <if test="item.prizeprice != null">    
+			            PRIZEPRICE = #{item.prizeprice},    
+			        </if> 
+			        <if test="item.pervalue != null">    
+			            PERVALUE = #{item.pervalue},    
+			        </if>
+			        <if test="item.imagepath != null">    
+			            IMAGEPATH = #{item.imagepath},    
+			        </if>
+			        <if test="item.status != null">    
+			            STATUS = #{item.status},    
+			        </if> 
+			        <if test="item.note != null">    
+			            NOTE = #{item.note},    
+			        </if> 
+			        <if test="item.updatetime != null">    
+			            UPDATETIME = #{item.updatetime},    
+			        </if> 
+			    </set>    
+			    WHERE
+			        APID = #{item.apid}
+	     </foreach>   
+     </update>
+     
+     <delete id="delete" >
+		DELETE FROM CLOUDVIRGOOD
+	</delete>
+</mapper>

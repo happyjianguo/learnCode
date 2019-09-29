@@ -1,0 +1,152 @@
+/* login*/
+
+.loginBox{
+	background: url(../img/login_bg.jpg) repeat-y;
+	background-size: 100% 100%;
+	position: absolute;
+	top:0;
+	left: 0;
+	height:100%;
+	width:100%;
+	min-width: 1200px;
+	min-height: 800px;
+}
+.loginBox .contact{
+	color: #fff;
+	text-align: center;
+	margin: 20px 0;
+	font-size: 22px;
+}
+.loginBox .contact span{
+	padding: 25px;
+}
+.loginBox .contact span i{
+	padding-right: 10px;
+}
+.loginBox .nav{
+	background:rgba(68,64,63,0.7);
+	height: 60px;
+	line-height: 60px;
+	position: relative;
+	margin-top: 50px;
+}
+.loginBox .nav .logo{
+	width: 62px;
+	display: inline-block;
+	position: absolute;
+	left:12%;
+	top: -2px;
+}
+.loginBox .nav .logo img{
+	width:100%;
+}
+.loginBox .nav .menu{
+	display: inline-block;
+	position: absolute;
+	right: 12%;
+}
+.loginBox .nav .menu li{
+	display: inline-block;
+	margin: 0 30px;
+	padding: 0 10px;
+	text-align: center;
+	font-size:16px ;
+}
+.loginBox .nav .menu li a{
+	display: block;
+	color: #fff;
+	font-weight: bold;
+}
+.loginBox .nav .menu li:hover{
+	height: 60px;
+	border-bottom: 4px solid #fff;
+	color: #fff;
+}
+.loginBox .nav .menu .active{
+	height: 60px;
+	border-bottom: 4px solid #fff;
+	color: #fff;	
+}
+
+.login{
+	width: 18%;
+	min-width:300px;
+	height:520px;
+	position: absolute;
+	top:24%;
+	right: 14%;
+	padding: 20px 30px;
+	background: #44403f;
+	box-shadow: 0px 30px 55px #c98124;
+    -webkit-box-shadow: 0px 30px 55px #c98124;
+}
+.login .title{
+	padding-top: 10px;
+	font-size: 30px;
+	font-weight: bold;
+	color: #fff;
+	width:100px;
+	margin: 0 auto;
+}
+.login .title img{
+	width:100%;
+}
+.login .confirm{
+	background-color: #f9b705;
+	text-align: center;
+	padding: 10px 0;
+	font-size: 24px;
+	font-weight: 500;
+	color: #fff;
+	width: 100%;
+	outline: none;
+	border: 0;
+	line-height: 34px;
+}
+.login .input{
+	padding: 15px 10px;
+	border:0;
+	width: 100%;
+	text-indent: 39px;
+	border-radius:0;
+	margin: 0;
+}
+.login .i-icon{
+	position: absolute;
+	left: 10px;
+	top:12px;
+	z-index: 1;
+	color: #888;
+	font-size: 28px;
+	font-weight: 500;
+}
+.login .p-r{
+	margin: 35px 0;
+}
+.login .l-password{
+	margin-top: 60px;
+}
+
+.login .l-prompt{
+	position: absolute;
+	top:60px;
+	left:0;
+	color:#ff0;
+	display:block;
+	width: 100%;
+}
+.login .l-b{
+	position: absolute;
+	color: #ccc;
+	bottom: 25px;
+	width: 84%;
+}
+
+.login-t{
+	position: absolute;
+	top:22%;
+	left:8%;
+	width: 52%;
+	min-width:690px;
+}
+

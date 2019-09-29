@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdfeelogDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.Crdfeelog" >
+    <id column="ID" property="crdFeeLogId" jdbcType="DECIMAL" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="TURENAMEFALG" property="turenamefalg" jdbcType="VARCHAR" />
+    <result column="NEARLYDATE" property="nearlyDate" jdbcType="VARCHAR" />
+    <result column="LOCAL_DATE" property="localDate" jdbcType="VARCHAR" />
+    <result column="MERCHANTNO" property="merchantno" jdbcType="VARCHAR" />
+    <result column="TERMCODE" property="termcode" jdbcType="VARCHAR" />
+    <result column="AVLBAL" property="avlbal" jdbcType="DECIMAL" />
+    <result column="RATE" property="rate" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="FEE_RULE" property="feeRule" jdbcType="DECIMAL" />
+    <result column="TLOG_ID" property="tlogId" jdbcType="DECIMAL" />
+    <result column="TRAN_DATE" property="tranDate" jdbcType="VARCHAR" />
+    <result column="TRAN_TIME" property="tranTime" jdbcType="VARCHAR" />
+    <result column="STAN" property="stan" jdbcType="DECIMAL" />
+    <result column="RRN" property="rrn" jdbcType="VARCHAR" />
+    <result column="TXNCODE" property="txncode" jdbcType="DECIMAL" />
+    <result column="TXNSRC" property="txnsrc" jdbcType="VARCHAR" />
+    <result column="RSPCODE" property="rspcode" jdbcType="CHAR" />
+    <result column="TXNSTATUS" property="txnstatus" jdbcType="DECIMAL" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="RESERVED3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="RESERVED4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="noTranYear" property="noTranYear" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, VERNO_CTX, PAN,TURENAMEFALG,NEARLYDATE,LOCAL_DATE, MERCHANTNO, TERMCODE, AVLBAL, 
+    RATE, FEE, FEE_RULE, TLOG_ID, TRAN_DATE, TRAN_TIME, STAN, RRN, TXNCODE, TXNSRC,
+    RSPCODE, TXNSTATUS, RESERVED1, RESERVED2, RESERVED3, RESERVED4,
+    Months_Between(to_date(LOCAL_DATE,'yyyyMMdd'), to_date(NEARLYDATE,'yyyyMMdd')) AS noTranYear
+  </sql>
+  
+  <sql id="Base_Where_Condition">
+   	<if test="pan != null and pan.trim().length() != 0" >
+     	AND PAN = #{pan}
+   	</if>
+   	<if test="begainLocalDate != null and begainLocalDate.trim().length() != 0" >
+   		AND <![CDATA[ LOCAL_DATE >= #{begainLocalDate} ]]>
+   		AND <![CDATA[ LOCAL_DATE <= #{endLocalDate} ]]>
+   	</if>
+   	<if test="txnstatus != null and txnstatus == 7" >
+     	AND TXNSTATUS = 7
+   	</if>
+   	<if test="reserved1 != null and reserved1.trim().length() != 0" >
+     	AND RESERVED1 = #{reserved1}
+   	</if>
+   	<if test="txnstatus != null and txnstatus == 0" >
+     	AND (TXNSTATUS != 7 OR TXNSTATUS IS NULL)
+   	</if>
+   	<if test="txncode != null">
+     	AND TXNCODE = #{txncode}
+   	</if>
+  </sql>
+  
+   <select id="get" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM CRDFEELOG
+    where ID = #{crdFeeLogId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM CRDFEELOG
+    where 1=1 
+    <if test="ids != null">
+		AND ID IN 
+		<foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+        	#{id}       
+		</foreach> 
+	</if>
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM CRDFEELOG
+    <where>
+    	<include refid="Base_Where_Condition" />
+    </where>
+    ORDER BY LOCAL_DATE DESC,TRAN_DATE DESC,TRAN_TIME DESC,AVLBAL DESC,FEE DESC
+  </select>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    select COUNT(*) FROM CRDFEELOG
+    <where>
+    	<include refid="Base_Where_Condition" />
+    </where>
+  </select>
+  
+  <select id="getConsumeSum" resultType="java.math.BigDecimal">
+   	SELECT SUM(FEE) AS FEE FROM CRDFEELOG 
+   		WHERE (RESERVED1 IS NULL OR RESERVED1 != '1') AND TXNCODE = '0'
+    <include refid="Base_Where_Condition" />
+  </select>
+  
+  <select id="getRefundSum" resultType="java.math.BigDecimal">
+    SELECT SUM(FEE) AS FEE FROM CRDFEELOG 
+    <where>
+    	<if test="pan != null and pan.trim().length() != 0" >
+	     	AND PAN = #{pan}
+	   	</if>
+	   	<if test="begainLocalDate != null and begainLocalDate.trim().length() != 0" >
+	   		AND <![CDATA[ LOCAL_DATE >= #{begainLocalDate} ]]>
+	   		AND <![CDATA[ LOCAL_DATE <= #{endLocalDate} ]]>
+	   	</if>
+	   	<if test="txnstatus != null and txnstatus == 7" >
+	     	AND TXNSTATUS = 7
+	   	</if>
+	   	<if test="reserved1 != null and reserved1.trim().length() != 0" >
+	     	AND RESERVED1 = #{reserved1}
+	   	</if>
+	   	<if test="txnstatus != null and txnstatus == 0" >
+	     	AND (TXNSTATUS != 7 OR TXNSTATUS IS NULL)
+	   	</if>
+	   	<if test="txncode != null and txncode == 20">
+	     	AND TXNCODE = 20 
+	   	</if>
+	   	<if test="txncode != 20">
+	     	AND RESERVED1 = '1' 
+	   	</if>
+    </where>
+  </select>
+  
+  <update id="refund">
+    UPDATE CRDFEELOG 
+    SET RESERVED1 = #{reserved1}, 
+    	RESERVED2 = #{reserved2}
+    where 1=1 
+    <if test="ids != null">
+		AND ID IN 
+		<foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+        	#{id}       
+		</foreach> 
+	</if>
+  </update>
+</mapper>

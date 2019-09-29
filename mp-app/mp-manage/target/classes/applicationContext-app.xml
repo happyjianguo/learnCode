@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- <bean class="cn.com.jansh.base.util.AppContextRegister" /> -->
+
+	<context:component-scan base-package="cn.com.jansh.service" />
+
+	<context:component-scan base-package="com.jansh.core.service" />
+
+	<!-- 登录失败监听 -->
+	<bean class="com.jansh.core.service.listener.AuthenticationFailureListener">
+		<property name="authenticationService" ref="authenticationService"></property>
+	</bean>
+	<!-- 登录成功监听 -->
+	<bean class="com.jansh.core.service.listener.AuthenticationSuccessEventListener">
+		<property name="authenticationService" ref="authenticationService"></property>
+	</bean>
+	<bean id="authenticationService" class="cn.com.jansh.service.core.AuthenticationServiceImpl" />
+	
+	<!-- 配置文件信息获取 -->
+	<bean id="globalPropertiesService" class="cn.com.jansh.service.system.GlobalPropertiesService"/>
+	
+	<!-- 配置otp认证 -->
+	<!-- <bean id="oTPAuth" class="com.jansh.core.security.otp.OTPAuth"> -->
+	<!-- <property name="config" value="classpath:key127_0_0_1.acf" /> -->
+	<!-- </bean> -->
+	<bean id="httpClientComponent" class="com.jansh.core.service.component.HttpClientComponent">
+	</bean>
+
+	<!-- 注解验证 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
+	<!-- 菜单状态过滤器 -->
+	<bean id="menuStatusFilter" class="com.jansh.core.web.filter.MenuStatusFilter"></bean>
+
+	<!-- 页面装饰器过滤器 -->
+	<bean id="mySiteMeshFilter" class="com.jansh.core.web.filter.MySiteMeshFilter">
+		<property name="dcoratorPaths">
+			<!-- 渲染器 -->
+			<map>
+				<entry key="/*" value="/WEB-INF/views/layout/main.jsp" />
+			</map>
+		</property>
+		<property name="excludedPaths">
+			<!-- 不被渲染的路径 -->
+			<list>
+				<value>/resources/*</value>
+				<value>/login*</value>
+			</list>
+		</property>
+	</bean>
+</beans>

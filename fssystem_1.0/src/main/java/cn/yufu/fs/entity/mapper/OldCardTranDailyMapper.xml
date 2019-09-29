@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.OldCardTranDailyMapper" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.OldCardTranDaily" >
+    <!-- <id column="ID" property="id" jdbcType="VARCHAR" /> -->
+    <result column="TRANSACTIONMONEY" property="transactionmoney" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONMONEY_ACC" property="transactionmoneyAcc" jdbcType="DECIMAL" />
+    <result column="PROVISIONS_AMT" property="provisionsAmt" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="CARD_SUM" property="cardSum" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    TRANSACTIONMONEY, TRANSACTIONMONEY_ACC, PROVISIONS_AMT, TRANSACTIONDATE, CARD_SUM
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.fs.entity.OldCardTranDailyExample" >
+    select
+    <include refid="Base_Column_List" />
+    from T_OLDCARD_TRAN_DAILY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" />
+    from T_OLDCARD_TRAN_DAILY  where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+	SELECT * FROM (
+	SELECT c.*, ROWNUM rn FROM( SELECT
+	<include refid="Base_Column_List" />
+	FROM T_OLDCARD_TRAN_DAILY 
+	<if test="_parameter != null">
+		<include refid="Example_Where_Clause" />
+	</if>
+	<if test="example.orderByClause != null">
+		ORDER BY ${example.orderByClause}
+	</if>)
+	c
+	WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+	WHERE rn &gt; ${startResult}
+  </select> 
+  
+  <select id="countByExample" parameterType="cn.yufu.fs.entity.OldCardTranDailyExample" resultType="java.lang.Integer" >
+    select count(*) from T_OLDCARD_TRAN_DAILY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+</mapper>

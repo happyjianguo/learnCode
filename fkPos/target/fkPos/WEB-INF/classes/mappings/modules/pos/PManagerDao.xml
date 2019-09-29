@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.PManagerDao">
+    
+	<sql id="pManagerColumns">
+		a.id AS "id",
+		a.manager_name AS "managerName",
+		a.manager_status AS "managerStatus",
+		a.manager_area AS "managerArea",
+		a.manager_role AS "managerRole",
+		a.father_id AS "fatherId",
+		a.manager_tel AS "managerTel",
+		a.manager_email AS "managerEmail",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="pManagerJoins">
+	</sql>
+    
+	<select id="get" resultType="PManager">
+		SELECT 
+			<include refid="pManagerColumns"/>
+		FROM p_manager a
+		<include refid="pManagerJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PManager">
+		SELECT 
+			<include refid="pManagerColumns"/>
+		FROM p_manager a
+		<include refid="pManagerJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="managerName != null and managerName != ''">
+				AND a.manager_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{managerName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{managerName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{managerName},'%')</if>
+			</if>
+			<if test="managerStatus != null and managerStatus != ''">
+				AND a.manager_status = #{managerStatus}
+			</if>
+			<if test="managerArea != null and managerArea != ''">
+				AND a.manager_area = #{managerArea}
+			</if>
+			<if test="managerRole != null and managerRole != ''">
+				AND a.manager_role = #{managerRole}
+			</if>
+			<if test="fatherId != null and fatherId != ''">
+				AND a.father_id = #{fatherId}
+			</if>
+			<if test="managerTel != null and managerTel != ''">
+				AND a.manager_tel = #{managerTel}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PManager">
+		SELECT 
+			<include refid="pManagerColumns"/>
+		FROM p_manager a
+		<include refid="pManagerJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO p_manager(
+			id,
+			manager_name,
+			manager_status,
+			manager_area,
+			manager_role,
+			father_id,
+			manager_tel,
+			manager_email,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			SEQ_P_MANAGER.Nextval,
+			#{managerName},
+			#{managerStatus},
+			#{managerArea},
+			#{managerRole},
+			#{fatherId},
+			#{managerTel},
+			#{managerEmail},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE p_manager SET 	
+			manager_name = #{managerName},
+			manager_status = #{managerStatus},
+			manager_area = #{managerArea},
+			manager_role = #{managerRole},
+			father_id = #{fatherId},
+			manager_tel = #{managerTel},
+			manager_email = #{managerEmail},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE p_manager SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

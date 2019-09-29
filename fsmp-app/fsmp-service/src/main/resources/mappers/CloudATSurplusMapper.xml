@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.component.CloudATSurplusMapper">
+
+	<insert id="insert" parameterType="CloudATSurplusEntitiy">
+		INSERT INTO
+			CLOUDACCOUNTSURPLUS(ID,ORGID,CURRENTMONEY,TOTALMONEY,CREATETIME,UPDATETIME)
+		VALUES(
+			#{id},#{orgid},#{currentMoney},#{totalMoney},#{createTime},#{updateTime}
+		)
+		
+	</insert>
+	
+	<select id="selectByOrgid" parameterType="String" resultType="CloudATSurplusEntitiy">
+		SELECT 
+			ID,ORGID,CURRENTMONEY,TOTALMONEY,CREATETIME,UPDATETIME
+		FROM
+			CLOUDACCOUNTSURPLUS
+		WHERE
+			ORGID = #{orgid}
+	</select>
+	
+	<update id="update" parameterType="CloudATSurplusEntitiy">
+		UPDATE 
+			CLOUDACCOUNTSURPLUS
+		SET
+			<if test="currentMoney !=null and currentMoney != ''">
+					CURRENTMONEY = #{currentMoney},
+			</if>
+			<if test="totalMoney !=null and totalMoney != ''">
+					TOTALMONEY = #{totalMoney},
+			</if>
+			<if test="updateTime !=null and updateTime != ''">
+					UPDATETIME = #{updateTime}
+			</if>
+		WHERE
+			ORGID = #{orgid}
+	</update>
+	<update id="updateBalance">
+		UPDATE 
+			CLOUDACCOUNTSURPLUS
+		SET
+			<if test="coinBuy !=null and coinBuy != ''">
+					CURRENTMONEY = CURRENTMONEY + #{coinBuy},
+					TOTALMONEY = TOTALMONEY + #{coinBuy},
+			</if>
+			<if test="updateTime !=null and updateTime != ''">
+					UPDATETIME = #{updateTime}
+			</if>
+		WHERE
+			ORGID = #{orgid}
+	</update>
+</mapper>

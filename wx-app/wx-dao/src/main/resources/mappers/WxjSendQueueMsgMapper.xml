@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.dao.mapper.WxjSendQueueMsgMapper">
+	<insert id="insertWxjSendQueryMsg" parameterType="WxjSendQueueMsg">
+		INSERT INTO 
+			WXJSENDQUEUEMSG(AUTOID,DOCID,INSERTTIME,PROCESSFLAG,MSGTYPE,MSGCD) 
+		VALUES 
+			(WXJSENDQUEUEMSG_SEQ.nextval,#{docId},#{insertTime},#{processFlag},#{msgType},#{msgCd})
+	</insert>
+	<select id="selectByProFlag" parameterType="String" resultType="WxjSendQueueMsg">
+		SELECT 
+			*
+	    FROM 
+	    	WXJSENDQUEUEMSG
+	    WHERE 
+	    	PROCESSFLAG = #{proFlag}
+	    AND
+	    	rownum = 1
+	    ORDER BY AUTOID ASC
+	</select>
+	<update id="updateByWSQM" parameterType="Map">
+		UPDATE 
+			WXJSENDQUEUEMSG
+		SET 
+			PROCESSFLAG = #{newProcessFlag}
+		WHERE
+			PROCESSFLAG = #{oldProcessFlag}
+		AND 
+			AUTOID = #{autoId}
+	</update>
+</mapper>

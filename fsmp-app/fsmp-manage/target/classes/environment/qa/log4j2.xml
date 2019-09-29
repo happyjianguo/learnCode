@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout charset="GBK" pattern="%d %-5p [%t] %C:%L - %m%n"/>
+<!-- 			<PatternLayout charset="GBK" pattern="%d %-5p [%t] %l - %m%n"/> -->
+		</Console>
+		
+		<RollingFile name="RollingFile" fileName="/home/tomcatadm/logs/fsmp_manage/fsmp_manage.log" filePattern="/home/tomcatadm/logs/fsmp_manage/fsmp_manage-%d{yyyyMMdd}-%i.log">
+	    	<PatternLayout charset="UTF-8" pattern="%d %-5p [%t] %c %L - %m%n"/>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+<!-- 				<SizeBasedTriggeringPolicy size="250 MB"/> -->
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="org.springframework.web.method.HandlerMethod" level="trace" additivity="false">
+<!-- 			<AppenderRef ref="Console"/> -->
+			<AppenderRef ref="RollingFile"/>
+		</Logger>
+		<!-- mybatis 打印日志 -->
+		<Logger name="cn.com.jansh.mapper" level="trace" additivity="false">
+<!-- 			<AppenderRef ref="Console"/> -->
+			<AppenderRef ref="RollingFile"/>
+		</Logger>
+
+		<Root level="debug">
+<!-- 			<AppenderRef ref="Console"/> -->
+			<AppenderRef ref="RollingFile"/>
+		</Root>
+	</Loggers>
+</Configuration>

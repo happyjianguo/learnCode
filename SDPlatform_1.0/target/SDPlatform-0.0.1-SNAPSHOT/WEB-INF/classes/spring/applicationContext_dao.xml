@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+
+	<bean id="sessionFactoryLs"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSourceTranc" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/yufu/posp/queryManager/domain/model/CurTranLs.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/VCurTranLs.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/CurTranLsWarn.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/TblExpCurTranLog.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.query.substitutions">char=to_char,date=to_date,to_date=timestamp,time=to_date</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sessionFactoryQry"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSourceQry" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBase.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBaseBo.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantExtra.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantRefund.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantCard.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBlack.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantSwitch.hbm.xml</value>
+				
+				<value>cn/yufu/posp/merchant/domain/model/PosReceiptInfo.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabBusinessRatesModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabBusRoleMenuModel.hbm.xml</value>
+							
+				<value>cn/yufu/posp/merchant/domain/model/TblMerchantTranParamModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TblNoPasswdCardBinModel.hbm.xml</value>
+				
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.query.substitutions">char=to_char,date=to_date,to_date=timestamp,time=to_date</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

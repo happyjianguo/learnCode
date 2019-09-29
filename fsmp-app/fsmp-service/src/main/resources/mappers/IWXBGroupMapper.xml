@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.IWXBGroupMapper">
+	<sql id="columns">GROUPID,GROUPNAME,COUNT,APPID,UPDATETIME,CREATETIME
+	</sql>
+	<insert id="saveGroupInfo" parameterType="WXBGroup">
+		insert into WXBGROUP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="groupId != null">
+				GROUPID,
+			</if>
+			<if test="groupName != null">
+				GROUPNAME,
+			</if>
+			<if test="count != null">
+				COUNT,
+			</if>
+			<if test="appid != null">
+				appid,
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME,
+			</if>
+			<if test="createTime != null">
+				CREATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="groupId != null">
+				#{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="count != null">
+				#{count,jdbcType=VARCHAR},
+			</if>
+			<if test="appid != null">
+				#{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+
+		</trim>
+	</insert>
+	<update id="updateGroupName" parameterType="WXBGroup">
+		UPDATE WXBGROUP SET
+		GROUPNAME=#{groupName} 
+		WHERE
+			GROUPID =#{groupId}
+		AND
+			APPID =#{appid}
+	</update>
+	<select id="findByGroupName" parameterType="String" resultType="int">
+		SELECT count(1) FROM  WXBGROUP
+		WHERE
+		 GROUPNAME=#{groupName} AND APPID=#{appid}
+	</select>
+	<select id="getGroupListWithId" parameterType="String"
+		resultType="WXBGroup">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXBGROUP where GROUPID = #{groupId}
+	</select>
+	<delete id="deleteGroupById" parameterType="String">
+		DELETE FROM WXBGROUP
+		WHERE GROUPID=#{groupId} AND APPID=#{appid}
+	</delete>
+	<select id="selectGroupAll" resultType="WXBGroup">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXBGROUP
+	</select>
+	<select id="selectGroupAllByPlatformId" resultType="WXBGroup">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXBGROUP WHERE APPID=#{appid}
+	</select>
+</mapper>

@@ -1,0 +1,265 @@
+@CHARSET "UTF-8";
+
+.top img {
+	width: 100%;
+}
+
+.main {
+	background: #fff;
+	padding: 15px 20px;
+	margin: 15px 0;
+}
+
+.tabbox {
+	min-height: 210px;
+}
+
+.tabbox ul li {
+	margin-bottom: 15px;
+	border-bottom: 1px solid #e6e6e6;
+	position: relative;
+}
+
+.tabinput {
+	height: 30px;
+	line-height: 30px;
+	width: 100%;
+	border: 0;
+	padding-left: 35px;
+	background: url(../img/m_ui.png) no-repeat;
+	background-size: 24px;
+	font-size: 0.95em;
+}
+.tabinput-bg{
+	background:#eaeaea url(../img/m_ui.png) no-repeat;
+	background-size: 24px;
+}
+.tabinput:focus {
+	font-size: 1.05em;
+}
+
+.nameInput {
+	background-position: 0 0;
+}
+
+.cardInput {
+	background-position: 0 -52px;
+}
+
+.mcInput {
+	background-position: 0 -104px;
+}
+
+.phoneInput {
+	background-position: 0 -158px;
+}
+
+.codeInput {
+	background-position: 0 -210px;
+}
+
+.checkbut {
+	position: absolute;
+	right: 0;
+	top: -15px;
+	background: #00a2f8;
+	border: 0;
+	width: 90px;
+	height: 45px;
+	color: #fff;
+	font-size: 0.85em;
+	opacity: 1;
+}
+
+.checkbut:disabled {
+	opacity: 0.5;
+}
+
+.checkbut:active {
+	opacity: 1;
+	background: #0088d0;
+}
+
+.checkbut_xy {
+	background: #eee;
+	color: #9e9e9e;
+}
+
+.checkbut_xy:active {
+	background: #dfdfdf;
+}
+
+.
+@media screen and (max-width:320px) {
+}
+/* tab*/
+.tit {
+	overflow: hidden;
+	background: #fff;
+}
+
+#table {
+	color: #828282;
+}
+
+.table {
+	display: none;
+	overflow: hidden;
+}
+
+#table div.selectTag {
+	display: block
+}
+
+#tags li {
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+#tags li a {
+	font-size: 14px;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	display: block;
+	text-decoration: none;
+	color: #8a8a8a;
+	border-bottom: 1px solid #c3c3c3;
+}
+
+#tags li.selectTag {
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+#tags li.selectTag a {
+	color: #00a2f8;
+	font-size: 16px;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	display: block;
+	text-decoration: none;
+	border-bottom: 2px solid #00a2f8;
+}
+/*弹窗*/
+#end {
+	position: absolute;
+	width: 300px;
+	height: 130px;
+	background: #fff;
+	border-radius: 5px;
+	z-index: 100;
+	display: none;
+	text-align: center;
+}
+
+#end h3 {
+	color: #8a8a8a;
+	margin-top: 30px;
+	font-size: 1em;
+	font-weight: normal;
+}
+
+.res {
+	width: 100%;
+	height: 50px;
+	font-size: 1em;
+	border-top: 1px solid #eaeaae;
+	background: #f5f5f5;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.select {
+	border: 0;
+	color: #8a8a8a;
+	border-radius: 0 0 5px 5px;
+}
+
+.select:active {
+	background: #eaeaea;
+}
+/* 复选框*/
+.checkbox {
+	padding: 0 10px;
+	font-size: 0.75em;
+}
+
+.checkbox span {
+	color: #00a2f8;
+	padding-left: 8px;
+	color: #9a9a9a;
+	display: inline-block;
+}
+
+.checkbox span a {
+	color: #00a2f8;
+}
+
+.checkbox span i {
+	color: #00a2f8;
+}
+
+.checkbox div {
+	padding-bottom: 5px;
+}
+
+.regular-checkbox {
+	display: none;
+}
+
+.regular-checkbox+label {
+	background-color: #fafafa;
+	border: 1px solid #cacece;
+	width: 18px;
+	height: 18px;
+	border-radius: 1px;
+	float: left;
+	display: inline-block;
+	position: relative;
+}
+
+.regular-checkbox:checked+label:after {
+	content: '\2714';
+	font-size: 12px;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	left: 0px;
+	top: 0px;
+	color: #fff;
+	border: 0;
+	border-radius: 1px;
+	text-align: center;
+	background: #00a2f8;
+}
+
+.footer {
+	color: #1f77ba;
+	padding: 10% 0 8%; 0;
+	text-align: center;
+	font-size: 0.75em;
+}
+
+.footer span {
+	width: 52%;
+	display: inline-block;
+}
+
+.footer span:first-child {
+	width: 22%;
+	text-align: right;
+}
+
+.footer span:last-child {
+	width: 22%;
+	text-align: left;
+}
+
+.footer span img {
+	width: 100%;
+}

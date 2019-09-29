@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "cn.com.jansh.mapper.game.IGameparamMapper">
+	<!-- 页面初始化查询所有数据 -->
+	<select id="getGameNameAndCode" parameterType="Map" resultType="CloudgameparamEntity" >
+		SELECT
+				c.GAMEID,
+				c.GAMENAME
+		FROM
+				CLOUDGAMEPARAM c
+					LEFT JOIN FSMUSER f
+						on c.ORGID = f.ORGID 
+		WHERE 	1=1
+			<if test="userid !=null and userid != ''">
+				AND f.USERID = #{userid}
+			</if>
+			<if test="appid !=null and appid != ''">
+				AND c.APPID = #{appid}
+			</if>
+			<if test="status !=null and status != ''">
+				AND c.STATUS = #{status}
+			</if>
+			<if test="channel !=null and channel != ''">
+				AND c.CHANNEL = #{channel}
+			</if>
+		ORDER BY c.UPDATETIME DESC
+	</select>
+	<!-- 页面初始化查询所有数据 -->
+	<select id="getGameByGameid" parameterType="Map" resultType="CloudgameparamEntity" >
+		SELECT
+				GAMEID,
+				GAMETYPE,
+				CHANNEL
+		FROM
+				CLOUDGAMEPARAM
+		WHERE 	1=1
+				AND GAMEID = #{gameid}
+	</select>
+</mapper>
+	

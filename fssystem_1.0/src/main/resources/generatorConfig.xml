@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 数据库oracle的jar包位置：已修改<classPathEntry location="D:\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" /> -->
+	<classPathEntry location="D:\InstallOracle\Insatllworkplace\product\11.2.0\dbhome_1\jdbc\lib\ojdbc5_g.jar" />
+	<context id="MySelfMybatis" targetRuntime="MyBatis3">
+		<!-- 去除自动生成的注释 -->
+		<commentGenerator>
+			<!-- <property name="suppressDate" value="true" /> -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.10.75:1521:orcl" userId="fkslt" password="fkslt" />
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!-- targetProject:自动生成代码的位置 -->
+		<!--配置实体bean -->
+		<javaModelGenerator targetPackage="cn.yufu.fs.entity" targetProject=".\src\main\java\">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="true" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!--配置实体map接口（dao） -->
+		<sqlMapGenerator targetPackage="cn.yufu.fs.entity.mapper" targetProject=".\src\main\java\">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!--配置实体bean的sql.xml -->
+		<javaClientGenerator targetPackage="cn.yufu.fs.dao" type="XMLMAPPER" targetProject=".\src\main\java\">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!-- tableName:用于自动生成代码的数据库中的表； domainObjectName:对应于数据库中的表的javaBean类名 -->
+		<!--配置实体 -->
+		<table tableName="VIEW_TRANSACTION_ACCOUNT_BOOK" domainObjectName="ClearTransactionAccount" />
+		</context>
+</generatorConfiguration>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.WankeInterestAccrualMapper" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.WankeInterestAccrual" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CARDACCOUNT" property="cardaccount" jdbcType="DECIMAL" />
+    <result column="STOCK_FUND" property="stockFund" jdbcType="DECIMAL" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="RECHARGE_AMT" property="rechargeAmt" jdbcType="DECIMAL" />
+    <result column="FIXED_DEPOSIT" property="fixedDeposit" jdbcType="DECIMAL" />
+    <result column="NET_AMOUNT" property="netAmount" jdbcType="DECIMAL" />
+    <result column="LITTLE_AMOUNT" property="littleAmount" jdbcType="DECIMAL" />
+    <result column="CURRENT_INTEREST_BASE" property="currentInterestBase" jdbcType="DECIMAL" />
+    <result column="AGREEMENT_DEPOSIT_BASE" property="agreementDepositBase" jdbcType="DECIMAL" />
+    <result column="AGREEMENT_CURRENT_INTEREST" property="agreementCurrentInterest" jdbcType="DECIMAL" />
+    <result column="AGREEMENT_DEPOSIT_INTEREST" property="agreementDepositInterest" jdbcType="DECIMAL" />
+    <result column="GROSS_INTEREST" property="grossInterest" jdbcType="DECIMAL" />
+    <result column="COMENTS" property="coments" jdbcType="VARCHAR" />
+    <result column="COMENTS1" property="coments1" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CARDACCOUNT, STOCK_FUND, TRANSACTIONDATE, RECHARGE_AMT, FIXED_DEPOSIT, NET_AMOUNT, 
+    LITTLE_AMOUNT, CURRENT_INTEREST_BASE, AGREEMENT_DEPOSIT_BASE, AGREEMENT_CURRENT_INTEREST, 
+    AGREEMENT_DEPOSIT_INTEREST, GROSS_INTEREST, COMENTS, COMENTS1
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM T_WANKE_INTEREST_ACCRUAL
+    <where>
+    	<if test="begainTransactiondate != null and begainTransactiondate.trim().length() != 0" >
+    		AND <![CDATA[ TRANSACTIONDATE >= #{begainTransactiondate} ]]>
+    	</if>
+    	<if test="endTransactiondate != null and endTransactiondate.trim().length() != 0" >
+    		AND <![CDATA[ TRANSACTIONDATE <= #{endTransactiondate} ]]>
+    	</if>
+    </where>
+     ORDER BY TRANSACTIONDATE DESC,NET_AMOUNT DESC
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM T_WANKE_INTEREST_ACCRUAL
+    WHERE ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="countByExample" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM T_WANKE_INTEREST_ACCRUAL
+    <where>
+    	<if test="begainTransactiondate != null and begainTransactiondate.trim().length() != 0" >
+    		AND <![CDATA[ TRANSACTIONDATE >= #{begainTransactiondate} ]]>
+    	</if>
+    	<if test="endTransactiondate != null and endTransactiondate.trim().length() != 0" >
+    		AND <![CDATA[ TRANSACTIONDATE <= #{endTransactiondate} ]]>
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+	SELECT * FROM (
+	SELECT c.*, ROWNUM rn FROM(
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM T_WANKE_INTEREST_ACCRUAL 
+	<where>
+    	<if test="queryModel.begainTransactiondate != null and queryModel.begainTransactiondate.trim().length() != 0" >
+    		AND <![CDATA[ TRANSACTIONDATE >= #{queryModel.begainTransactiondate} ]]>
+    	</if>
+    	<if test="queryModel.endTransactiondate != null and queryModel.endTransactiondate.trim().length() != 0" >
+    		AND <![CDATA[ TRANSACTIONDATE <= #{queryModel.endTransactiondate} ]]>
+    	</if>
+    </where>
+	ORDER BY TRANSACTIONDATE DESC,NET_AMOUNT DESC
+	) c
+	WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+	WHERE rn &gt; ${startResult}
+  </select> 
+  
+</mapper>

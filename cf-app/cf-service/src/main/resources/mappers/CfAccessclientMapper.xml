@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfAccessclientMapper">
+
+	<select id="query" resultType="CfAccessclientEntity">
+		SELECT
+			a.ID,
+			a.ACNAME,
+			a.CID,
+			c.CNAME cname,
+			a.MNAME,
+			a.PHONE,
+			a.EMAIL,
+			a.ACKEY,
+			a.BEGINTIME,
+			a.ENDTIME,
+			a.BUDGET,
+			a.STATUS,
+			a.CUMULATIVE,
+			a.CALLBACKURL
+		FROM
+			CF_ACCESSCLIENT a left join CF_CUSTOMER c 
+			 	on a.CID = c.ID 
+	</select>
+	<select id="queryby"  parameterType="CfAccessclientEntity" resultType="CfAccessclientEntity">
+		SELECT
+			a.ID,
+			a.ACNAME,
+			a.CID,
+			c.CNAME cname,
+			a.MNAME,
+			a.PHONE,
+			a.EMAIL,
+			a.ACKEY,
+			a.BEGINTIME,
+			a.ENDTIME,
+			a.BUDGET,
+			a.STATUS,
+			a.CUMULATIVE,
+			a.CALLBACKURL
+		FROM
+			CF_ACCESSCLIENT a left join CF_CUSTOMER c 
+			 	on a.CID = c.ID 
+		WHERE 
+			1=1
+			<if test="id!='' and id!=null">
+			  AND a.ID=#{id}
+			</if>
+			<if test="cid!='' and cid!=null">
+			  AND a.cid = #{cid} 
+			</if>
+			<if test="status!='' and status!=null">
+			  AND a.status = #{status} 
+			</if>	
+		order by 
+			a.begintime desc			
+	</select>	
+	<select id="queryAccessclientByTime" resultType="CfAccessclientEntity">
+		SELECT
+		    ID,
+		    ACNAME,
+		    CID,
+		    MNAME,
+		    PHONE,
+		    EMAIL,
+		    ACKEY,
+		    BEGINTIME,
+		    ENDTIME,
+		    BUDGET,
+		    STATUS,
+		    CUMULATIVE,
+		    CALLBACKURL
+		FROM
+		    cf_accessclient
+		WHERE 
+			STATUS = #{status} and
+    		<![CDATA[ 
+    			BEGINTIME > #{time} or ENDTIME < #{time}		
+			  ]]>
+	</select>
+	<update id="countCumulative" >
+		 <![CDATA[     
+			UPDATE
+			    CF_ACCESSCLIENT
+			SET
+			    CUMULATIVE = cast(CUMULATIVE as decimal(16,2)) + cast(#{price} as decimal(16,2))
+			WHERE
+		   		ID =#{acid}
+	               and (cast(CUMULATIVE as decimal(16,2)) + cast(#{price} as decimal(16,2))) < cast(budget as decimal(16,2))
+          ]]>
+	</update>
+
+    <update id="batchUpdate" >
+		UPDATE
+		    CF_ACCESSCLIENT
+		SET
+		    STATUS=#{paramstatus}
+		WHERE
+	       	 STATUS = #{wherestatus} and
+	       	 <if test="no!='' and no!=null">
+					<![CDATA[ 
+		    			BEGINTIME > #{time} or ENDTIME < #{time}		
+					 ]]>
+			</if>
+			<if test="ok!='' and ok!=null">
+					<![CDATA[ 
+		    			BEGINTIME <= #{time} and #{time} <= ENDTIME 
+					 ]]>
+			</if>
+    		
+	</update>
+    
+	<update id="minusCumulative">
+	     <![CDATA[     
+			UPDATE
+			    CF_ACCESSCLIENT
+			SET
+			    CUMULATIVE = cast(CUMULATIVE as decimal(16,2)) - cast(#{price} as decimal(16,2))
+			WHERE
+		   		ID =#{acid}
+         ]]>
+	</update>
+
+
+	<select id="selectByid" parameterType="String" resultType="CfAccessclientEntity">
+		SELECT
+			ID,
+			ACNAME,
+			CID,
+			MNAME,
+			PHONE,
+			EMAIL,
+			ACKEY,
+			BEGINTIME,
+			ENDTIME,
+			BUDGET,
+			STATUS,
+			CUMULATIVE,
+			CALLBACKURL
+		FROM
+			CF_ACCESSCLIENT
+		WHERE
+			ID = #{id}
+	</select>
+	
+	<select id="selectByName" parameterType="String" resultType="Object" >
+		SELECT
+			*
+		FROM
+			CF_ACCESSCLIENT
+		WHERE
+			ACNAME=#{acname}
+	</select>
+	<select id="queryAccessclientByCustormerId" parameterType="String" resultType="CfAccessclientEntity">
+		SELECT
+			ID,
+			ACNAME,
+			CID,
+			MNAME,
+			PHONE,
+			EMAIL,
+			ACKEY,
+			BEGINTIME,
+			ENDTIME,
+			BUDGET,
+			STATUS,
+			CUMULATIVE,
+			CALLBACKURL
+		FROM
+			CF_ACCESSCLIENT
+		WHERE
+			CID = #{id}
+	</select>
+	<select id="queryAccessclientByCustormerIdAndSta" parameterType="String" resultType="CfAccessclientEntity">
+		SELECT
+			ID,
+			ACNAME,
+			CID,
+			MNAME,
+			PHONE,
+			EMAIL,
+			ACKEY,
+			BEGINTIME,
+			ENDTIME,
+			BUDGET,
+			STATUS,
+			CUMULATIVE,
+			CALLBACKURL
+		FROM
+			CF_ACCESSCLIENT
+		WHERE
+			CID = #{id} and status = #{status}
+	</select>	
+	
+
+	<insert id="insert" parameterType="CfAccessclientEntity">
+		INSERT INTO
+			CF_ACCESSCLIENT
+				(ID,ACNAME,CID,MNAME,
+				 PHONE,EMAIL,ACKEY,
+				 BEGINTIME,ENDTIME,
+				 BUDGET,STATUS,
+				 CUMULATIVE,CALLBACKURL)
+			VALUES
+				(#{id},#{acname},#{cid},#{mname},
+				 #{phone},#{email},#{ackey},
+				 #{begintime},#{endtime},
+				 #{budget},#{status},
+				 #{cumulative},#{callbackurl})
+	</insert>
+	
+	<update id="update" parameterType="CfAccessclientEntity">
+		UPDATE 
+			CF_ACCESSCLIENT
+		SET
+			ACNAME=#{acname},
+			CID=#{cid},
+			MNAME=#{mname},
+			PHONE=#{phone},
+			EMAIL=#{email},
+			ACKEY=#{ackey},
+			BEGINTIME=#{begintime},
+			ENDTIME=#{endtime},
+			BUDGET=#{budget},
+			STATUS=#{status},
+			CUMULATIVE=#{cumulative},
+			CALLBACKURL=#{callbackurl}
+		WHERE
+			ID=#{id}
+			
+	</update>
+	
+	<delete id="delete" parameterType="string">
+		DELETE FROM
+			CF_ACCESSCLIENT
+		WHERE
+		 	ID = #{id}
+	</delete>
+
+</mapper>
+	

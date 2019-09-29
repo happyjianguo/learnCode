@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+		<title>无标题文档</title>
+		<script language=javascript type=text/javascript>
+		function changeTop(){    
+			frmElem=window.parent.document.getElementById("main");
+			if (frmElem.rows != "0,2,*") {	
+				frmElem.rows = "0,2,*";
+				Elem=document.getElementById('menuSwitch')
+				Elem.innerHTML="<a title=\"点击展开\">&nbsp;</a>";
+			} else {	
+				frmElem.rows = "50,2,*";
+				Elem=document.getElementById('menuSwitch')
+				Elem.innerHTML="<a title=\"点击收缩\">&nbsp;</a>";
+			}
+		}
+</script>
+</head>
+<body id="midbar">
+	<table style="CURSOR: pointer" height="100%" cellSpacing=0
+		cellPadding=0 width="100%" border="0" bgcolor="#1275D2" title="点击收缩/展开">
+		<tbody>
+			<tr>
+				<td id="menuSwitch" onclick="changeTop()" width="100%"
+					align="center">
+					<a title="点击收缩" >&nbsp;</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

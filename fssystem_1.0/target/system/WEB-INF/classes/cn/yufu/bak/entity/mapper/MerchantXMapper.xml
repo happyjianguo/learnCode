@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.bak.dao.MerchantXMapper">
+
+  <resultMap id="BaseResultMap" type="cn.yufu.bak.entity.MerchantX">
+    <result column="INST_ID" jdbcType="DECIMAL" property="instId" />
+    <result column="MRCHNO" jdbcType="VARCHAR" property="mrchno" />
+    <result column="MRCHT_NAME" jdbcType="VARCHAR" property="mrchtName" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="ADD_DATE" jdbcType="DECIMAL" property="addDate" />
+    <result column="CITY_NO" jdbcType="DECIMAL" property="cityNo" />
+    <result column="PROVINCE" jdbcType="DECIMAL" property="province" />
+    <result column="ZONE" jdbcType="DECIMAL" property="zone" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="TYPE_YF" jdbcType="DECIMAL" property="typeYf" />
+    <result column="AGENT" jdbcType="VARCHAR" property="agent" />
+    <result column="ID_TYPE" jdbcType="DECIMAL" property="idType" />
+    <result column="ID_NO" jdbcType="VARCHAR" property="idNo" />
+    <result column="ID_VALIDITY" jdbcType="DATE" property="idValidity" />
+    <result column="BUS_LIC_NO" jdbcType="VARCHAR" property="busLicNo" />
+    <result column="BUS_LIC_VALIDITY" jdbcType="DATE" property="busLicValidity" />
+    <result column="TAX_ID" jdbcType="VARCHAR" property="taxId" />
+    <result column="TAX_ID_VALIDITY" jdbcType="DATE" property="taxIdValidity" />
+    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+    <result column="ORG_VALIDITY" jdbcType="DATE" property="orgValidity" />
+    <result column="TELNO1" jdbcType="VARCHAR" property="telno1" />
+    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
+    <result column="CONTACT3" jdbcType="VARCHAR" property="contact3" />
+    <result column="ACCNO" jdbcType="VARCHAR" property="accno" />
+    <result column="MERCHANT_ID" jdbcType="DECIMAL" property="merchantId" />
+    <result column="BUS_LIC_PIC" jdbcType="VARCHAR" property="busLicPic" />
+    <result column="TAX_ID_PIC" jdbcType="VARCHAR" property="taxIdPic" />
+    <result column="ORG_ID_PIC" jdbcType="VARCHAR" property="orgIdPic" />
+    <result column="LEGAL_REP" jdbcType="VARCHAR" property="legalRep" />
+    <result column="LR_ID_TYPE" jdbcType="DECIMAL" property="lrIdType" />
+    <result column="LR_ID_NO" jdbcType="VARCHAR" property="lrIdNo" />
+    <result column="LR_ID_VALIDITY" jdbcType="DATE" property="lrIdValidity" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List">
+    INST_ID, MRCHNO, MRCHT_NAME, ADDRESS, ADD_DATE, CITY_NO, PROVINCE, ZONE, STATE, TYPE_YF, 
+    AGENT, ID_TYPE, ID_NO, ID_VALIDITY, BUS_LIC_NO, BUS_LIC_VALIDITY, TAX_ID, TAX_ID_VALIDITY, 
+    ORG_ID, ORG_VALIDITY, TELNO1, POSTCODE, CONTACT3, ACCNO, MERCHANT_ID, BUS_LIC_PIC, 
+    TAX_ID_PIC, ORG_ID_PIC, LEGAL_REP, LR_ID_TYPE, LR_ID_NO, LR_ID_VALIDITY
+  </sql>
+  
+  <select id="getMrchno" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT DISTINCT MRCHNO AS mrchno FROM MERCHANT_X WHERE mrcht_name LIKE '%'||#{mrchtName}||'%'
+  </select>
+  
+  <select id="getMrchtName" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT DISTINCT mrcht_name AS mrchtName FROM MERCHANT_X WHERE mrchno = #{mrchno}
+  </select>
+  
+  <select id="getLazyMerchantCounts" resultType="java.lang.Integer" >
+   	SELECT COUNT(*) FROM (
+   		 SELECT mrchno FROM MERCHANT_X GROUP BY mrchno , mrcht_name
+   	) WHERE 1=1
+    <if test="mrchnoList != null">
+    	AND mrchno NOT IN
+    	<foreach collection="mrchnoList" item="mrchno" index="index"
+	        open="(" close=")" separator=",">
+	        #{mrchno}
+    	</foreach>
+    </if>
+  </select>
+  
+  <select id="selectPageMrchList" parameterType="Map" resultMap="BaseResultMap">
+  	SELECT * FROM (
+		SELECT t.*, ROWNUM rn FROM(
+			SELECT  mrchno , mrcht_name FROM  merchant_x WHERE 1=1  
+		    <if test="mrchnoList != null">
+		    	AND mrchno NOT IN
+			    <foreach collection="mrchnoList" item="mrchno" index="index"
+			        open="(" close=")" separator=",">
+			        #{mrchno}
+			    </foreach>
+		    </if>
+			GROUP BY mrchno , mrcht_name
+		) t
+		WHERE <![CDATA[ ROWNUM <= #{endResult} ]]>)
+		WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="selectMrchList" resultMap="BaseResultMap">
+		SELECT  mrchno , mrcht_name FROM  merchant_x WHERE 1=1  
+		GROUP BY mrchno , mrcht_name ORDER BY mrchno, mrcht_name
+  </select>
+  
+</mapper>

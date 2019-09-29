@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jansh.core.mapper.SysCoreMapper">
+
+	<!-- flushInterval="21600000"一小时 -->
+	<!-- <cache eviction="LRU" flushInterval="21600000" size="512" readOnly="true"/> -->
+	
+	<resultMap type="PubsSysBase" id="PubsSysBaseMap">
+		<result column="AUTOID" property="autoId"/>
+		<result column="SYSBASEID" property="sysBaseId"/>
+		<result column="SYSBASEVALUE" property="sysBaseValue"/>
+		<result column="SYSBASEMEMO" property="sysBaseMemo"/>
+	</resultMap>
+
+	<select id="selectMenu" parameterType="Map" resultType="IMMenu">
+		SELECT
+		T.MENUID,
+		T.CNNAME,
+		T.ENNAME,
+		T.MENUURL,
+		T.PARENTID,
+		T.MENUORDER,
+		T.MENULEVEL,
+		T.ICON,
+		T.STATUS
+		FROM
+		IMMENU AS T
+		WHERE
+		T.STATUS = #{status}
+		ORDER BY
+		T.MENUORDER ASC
+	</select>
+
+	<!-- 查询系统参数 -->
+	<select id="selectOneByBaseId" parameterType="String" resultMap="PubsSysBaseMap">
+		SELECT
+		AUTOID,SYSBASEID,SYSBASEVALUE,SYSBASEMEMO
+		FROM
+		IMSYSPARA
+		WHERE
+		SYSBASEID = #{sysBaseId}
+	</select>
+
+	<!-- 插入操作日志 -->
+	<insert id="insertUserLog" parameterType="IMUserLog">
+		INSERT INTO IMUSERLOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="logId != null">
+				LOGID,
+			</if>
+			<if test="userId != null">
+				USERID,
+			</if>
+			<if test="transName != null">
+				TRANSNAME,
+			</if>
+			<if test="transTime != null">
+				TRANSTIME,
+			</if>
+			<if test="remoteIP != null">
+				REMOTEIP,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+		</trim>
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="logId != null and logId !=''">
+				#{logId},
+			</if>
+			<if test="userId != null and userId !=''">
+				#{userId},
+			</if>
+			<if test="transName != null and transName !=''">
+				#{transName},
+			</if>
+			<if test="transTime != null and transTime !=''">
+				#{transTime},
+			</if>
+			<if test="remoteIP != null and remoteIP !=''">
+				#{remoteIP},
+			</if>
+			<if test="status != null and status !=''">
+				#{status},
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 密码错误次数加1 -->
+    <update id="updateUserErrNum" parameterType="IMUser">
+		UPDATE
+		    	IMUSER    
+		    <set> 
+		        	PWDERRNUM = CONVERT(PWDERRNUM,SIGNED)+1,
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		    </set>    
+		    where USERID = #{userid} 
+	</update>	
+	<!-- 更新密码错误次数 -->
+    <update id="updateUserErr" parameterType="IMUser">
+		UPDATE
+		    	IMUSER    
+		    <set> 
+		        <if test="pwderrnum != null">
+		        	PWDERRNUM = #{pwderrnum},
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		    </set>    
+		    where USERID = #{userid} 
+	</update>	
+	<!-- 根据用户名查询用户信息 -->
+	<select id="selectUserByUserName" resultType="IMUser" parameterType="String">
+		SELECT
+			USERID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME
+		FROM
+			IMUSER 
+		WHERE USERNAME = #{userName}
+	</select>
+	<select id="selectUserByUserid" resultType="IMUser" parameterType="String">
+		SELECT
+			USERID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME
+		FROM
+			IMUSER 
+		WHERE USERID = #{userid}
+	</select>	
+	<!-- 修改管理员信息 -->
+	<update id="updateUser" parameterType="IMUser">
+		UPDATE
+		    	IMUSER    
+		    <set> 
+		    	<if test="userid != null">
+		    		USERID = #{userid},
+		    	</if>   
+		        <if test="username != null">    
+		            USERNAME = #{username},    
+		        </if>    
+		        <if test="passwd != null">    
+		            PASSWD = #{passwd},    
+		        </if> 
+		        <if test="cname != null">    
+		            CNAME = #{cname},   
+		        </if>
+		        <if test="pwderrnum != null">
+		        	PWDERRNUM = #{pwderrnum},
+		        </if>
+		         <if test="phoneno != null">
+		        	PHONENO = #{phoneno},
+		        </if>
+		         <if test="email != null">
+		        	EMAIL = #{email},
+		        </if>
+		        <if test="status != null">    
+		            STATUS = #{status},    
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		        <if test="createtime != null">    
+		            CREATETIME = #{createtime}    
+		        </if>
+		    </set>    
+		    where USERID = #{userid} 
+	</update>
+	<!-- 根据用户ID查询用户角色列表 -->
+	<select id="selectUserRole" resultType="String" parameterType="String">
+		SELECT T.ROLEID FROM IMUSERROLE T WHERE T.USERID = #{userid}
+	</select>
+	<!-- 查询资源对应权限 -->
+	<select id="queryRoleResource" resultType="SysResourceRole">
+		SELECT A.RESOURCEKEY, B.ROLEID
+		FROM
+			IMRESOURCE A, IMROLERESOURCE B
+		WHERE
+			A.RESOURCEID = B.RESOURCEID AND A. STATUS = '1' AND B. STATUS = '1' AND a.RESOURCEID NOT LIKE 'sys\_%' AND a.RESOURCEID NOT LIKE 'anonymous\_%'
+		UNION
+		SELECT A.RESOURCEKEY, B.ROLEID
+		FROM
+			IMRESOURCE A, IMROLE B
+		WHERE
+			A. STATUS = '1' AND B. STATUS = '1' AND a.RESOURCEID LIKE 'sys\_%'
+		UNION
+		SELECT A.RESOURCEKEY, 'ROLE_ANONYMOUS' as ROLEID
+		FROM
+			IMRESOURCE A
+		WHERE
+			A. STATUS = '1' AND A.RESOURCEID LIKE 'anonymous\_%'
+	</select>
+</mapper>

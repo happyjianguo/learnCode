@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.TransactionSplittingMapper" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.TransactionSplitting" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MERCHANTNUMBER" property="merchantnumber" jdbcType="VARCHAR" />
+    <result column="CARD_BIN" property="cardBin" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONMONEY" property="transactionmoney" jdbcType="DECIMAL" />
+    <result column="PERFEE" property="perfee" jdbcType="DECIMAL" />
+    <result column="FEE_ORDER" property="feeOrder" jdbcType="DECIMAL" />
+    <result column="SPLIT_AMT" property="splitAmt" jdbcType="DECIMAL" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="COMMENTS1" property="comments1" jdbcType="VARCHAR" />
+    <result column="COMMENTS2" property="comments2" jdbcType="VARCHAR" />
+    
+	<result column="minPaymentDay" property="minPaymentDay" jdbcType="VARCHAR" />
+	<result column="maxPaymentDay" property="maxPaymentDay" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    ID, MERCHANTNUMBER, CARD_BIN, TRANSACTIONDATE, TRANSACTIONMONEY, PERFEE, FEE_ORDER, 
+    SPLIT_AMT, COMMENTS, COMMENTS1, COMMENTS2, COMMENTS3
+  </sql>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    	SELECT COUNT(*) FROM (SELECT
+		MERCHANTNUMBER,CARD_BIN 
+		from T_TRANSACTION_SPLITTING 
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		GROUP BY MERCHANTNUMBER,CARD_BIN
+		)
+  </select>
+  
+  <sql id="Page_Base_Column_List" >
+    MERCHANTNUMBER, CARD_BIN, SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY, 
+    SUM(PERFEE) AS PERFEE, SUM(SPLIT_AMT) AS SPLIT_AMT, SUM(COMMENTS) AS COMMENTS, 
+    MIN(TRANSACTIONDATE) AS minPaymentDay, MAX(TRANSACTIONDATE) AS maxPaymentDay 
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Page_Base_Column_List" />
+		FROM (SELECT
+		<include refid="Base_Column_List" />
+		FROM T_TRANSACTION_SPLITTING 
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if> ) 
+		GROUP BY MERCHANTNUMBER,CARD_BIN
+		ORDER BY SPLIT_AMT DESC
+  </select> 
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT c.*, ROWNUM rn FROM(
+		SELECT 
+		<include refid="Page_Base_Column_List" />
+		FROM (SELECT
+		<include refid="Base_Column_List" />
+		FROM T_TRANSACTION_SPLITTING 
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if> )  
+		GROUP BY MERCHANTNUMBER, CARD_BIN
+		ORDER BY SPLIT_AMT DESC ) c
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select> 
+  
+  <select id="getSumAmt" resultMap="BaseResultMap">
+  	SELECT SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY, SUM(PERFEE) AS PERFEE,
+       SUM(SPLIT_AMT) AS SPLIT_AMT, SUM(COMMENTS) AS COMMENTS FROM (
+		SELECT 
+		<include refid="Page_Base_Column_List" />
+		FROM (SELECT
+		<include refid="Base_Column_List" />
+		FROM T_TRANSACTION_SPLITTING 
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if> ) 
+		GROUP BY MERCHANTNUMBER,CARD_BIN)
+  </select> 
+  
+</mapper>

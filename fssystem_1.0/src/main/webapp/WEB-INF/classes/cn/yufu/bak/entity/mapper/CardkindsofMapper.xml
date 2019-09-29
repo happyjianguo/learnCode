@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.bak.dao.CardkindsofMapper">
+
+  <resultMap id="BaseResultMapJoin" type="cn.yufu.bak.entity.Cardkindsof">
+    <id column="CARDNUMBER" jdbcType="VARCHAR" property="cardnumber" />
+    <result column="CARDKINDNAME" jdbcType="VARCHAR" property="cardkindname" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="ISEXCLUSIVE" jdbcType="VARCHAR" property="isExclusive" />
+    <result column="STLFLAG" jdbcType="VARCHAR" property="stlFlag" />
+    
+    <result column="DATABASESOURCENAME" jdbcType="VARCHAR" property="dataBaseSourceName" />
+    <result column="DATASOURCEID" jdbcType="VARCHAR" property="dataSourceId" />
+    <result column="OLDKINDID" jdbcType="VARCHAR" property="oldKindId" />
+    <result column="OLDDBCARDNAME" jdbcType="VARCHAR" property="oldDbcArdName" />
+    <result column="DATABASETYPE" jdbcType="VARCHAR" property="dataBaseType" />
+  </resultMap>
+  
+  <sql id="Base_Column_Join_List">
+  	a.CARDNUMBER, a.CARDKINDNAME, a.ISEXCLUSIVE, a.STLFLAG, a.REMARK, 
+  	b.DATABASESOURCENAME, b.DATASOURCEID, b.OLDKINDID, b.OLDDBCARDNAME, b.DATABASETYPE
+  </sql>
+  
+  <select id="getCardTypeList" resultMap="BaseResultMapJoin">
+    SELECT 
+    	<include refid="Base_Column_Join_List" />
+	FROM CARDKINDSOF a, CARDKINDANDCOMESOURCERELATION b
+	WHERE a.CARDNUMBER = b.CARDNUMBER
+	<if test="dataBaseType != null and dataBaseType.trim().length() != '0'">
+		AND b.DATABASETYPE = #{dataBaseType}
+	</if>	
+	<if test="oldKindId != null and oldKindId.trim().length() != '0'">
+		AND b.OLDKINDID = #{oldKindId}
+	</if>
+	<if test="cardnumber != null and cardnumber.trim().length() != '0'">
+		AND a.CARDNUMBER = #{cardnumber}
+	</if>
+	<if test="stlFlag != null and stlFlag.trim().length() != '0'">
+		AND a.STLFLAG = #{stlFlag}
+	</if>
+	ORDER BY a.CARDNUMBER ASC
+  </select>
+  
+  <select id="getDicCardTypeList" resultMap="BaseResultMapJoin">
+    SELECT DISTINCT  a.CARDNUMBER, a.CARDKINDNAME
+	FROM CARDKINDSOF a, CARDKINDANDCOMESOURCERELATION b
+	WHERE a.CARDNUMBER = b.CARDNUMBER
+	<if test="dataBaseType != null and dataBaseType.trim().length() != '0'">
+		AND b.DATABASETYPE = #{dataBaseType}
+	</if>	
+	<if test="oldKindId != null and oldKindId.trim().length() != '0'">
+		AND b.OLDKINDID = #{oldKindId}
+	</if>
+	<if test="cardnumber != null and cardnumber.trim().length() != '0'">
+		AND a.CARDNUMBER = #{cardnumber}
+	</if>
+	<if test="stlFlag != null and stlFlag.trim().length() != '0'">
+		AND a.STLFLAG = #{stlFlag}
+	</if>
+  </select>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List">
+    CARDNUMBER, CARDKINDNAME, REMARK, ISEXCLUSIVE, STLFLAG
+  </sql>
+  
+  <select id="getMaXCardNum" resultType="java.lang.String" >
+    SELECT MAX(TO_NUMBER(CARDNUMBER))+1 FROM CARDKINDSOF
+  </select>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    SELECT count(*) from CARDKINDSOF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMapJoin">
+		SELECT * FROM ( SELECT c.*, ROWNUM rn FROM(
+		SELECT <include refid="Base_Column_List" />
+			FROM CARDKINDSOF 
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="example.orderByClause != null">
+			ORDER BY ${example.orderByClause}
+		</if>)
+		c
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select> 
+  
+  <select id="selectByExample" resultMap="BaseResultMapJoin">
+    select
+    <include refid="Base_Column_List" />
+    from CARDKINDSOF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMapJoin">
+    select 
+    <include refid="Base_Column_List" />
+    from CARDKINDSOF
+    where CARDNUMBER = #{cardnumber,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from CARDKINDSOF
+    where CARDNUMBER = #{cardnumber,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert">
+    insert into CARDKINDSOF (CARDNUMBER, CARDKINDNAME, REMARK, ISEXCLUSIVE, STLFLAG)
+    values (#{cardnumber,jdbcType=VARCHAR}, #{cardkindname,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+      #{isExclusive,jdbcType=VARCHAR}, #{stlFlag,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" >
+    insert into CARDKINDSOF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardnumber != null">
+        CARDNUMBER,
+      </if>
+      <if test="cardkindname != null">
+        CARDKINDNAME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="isExclusive != null">
+        ISEXCLUSIVE,
+      </if>
+      <if test="stlFlag != null">
+        STLFLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardnumber != null">
+        #{cardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cardkindname != null">
+        #{cardkindname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isExclusive != null">
+        #{isExclusive,jdbcType=VARCHAR},
+      </if>
+      <if test="stlFlag != null">
+        #{stlFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" >
+    update CARDKINDSOF
+    <set>
+      <if test="cardkindname != null">
+        CARDKINDNAME = #{cardkindname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isExclusive != null">
+        ISEXCLUSIVE = #{isExclusive,jdbcType=VARCHAR},
+      </if>
+      <if test="stlFlag != null">
+        STLFLAG = #{stlFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CARDNUMBER = #{cardnumber,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey">
+    update CARDKINDSOF
+    SET CARDKINDNAME = #{cardkindname,jdbcType=VARCHAR},
+     	REMARK = #{remark,jdbcType=VARCHAR},
+     	ISEXCLUSIVE = #{isExclusive,jdbcType=VARCHAR},
+     	STLFLAG = #{stlFlag,jdbcType=VARCHAR}
+    where CARDNUMBER = #{cardnumber,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

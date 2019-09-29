@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdopenDao" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.Crdopen" >
+    <id column="OPEN_ID" property="openId" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="INDENT_NUMBER" property="indentNumber" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy.loginName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy.loginName" jdbcType="VARCHAR" />
+    <result column="RESERVED" property="reserved" jdbcType="VARCHAR" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+    
+    <result column="PAN_START" property="panStart" jdbcType="VARCHAR" />
+    <result column="PAN_END" property="panEnd" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    a.OPEN_ID, a.OPERATOR, a.INDENT_NUMBER, a.CREATE_TIME, a.CREATE_BY, 
+    a.UPDATE_TIME, a.UPDATE_BY 
+  </sql>
+  
+  <sql id="crdopenJoins">
+  	LEFT JOIN OPENCRDBATCH b ON a.INDENT_NUMBER = b.FATHER_ORDER
+  </sql>
+
+  <select id="get" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CRDOPEN a 
+    where OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getOperator" resultType="java.lang.String">
+    select DISTINCT OPERATOR from CRDOPEN 
+  </select>
+  
+  <select id="getOneDate" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CRDOPEN a 
+	<where>
+	    <if test="operator != null and operator.trim().length() != 0">
+	    	AND a.OPERATOR = #{operator}
+	    </if>
+	    <!-- <if test="indentNumber != null and indentNumber.trim().length() != 0">
+	    	AND a.INDENT_NUMBER = #{indentNumber}
+	    </if> -->
+	</where>
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    FROM CRDOPEN a 
+    WHERE 1=1
+    <if test="operator != null and operator.trim().length() != 0">
+    	AND a.OPERATOR = #{operator}
+    </if>
+    <if test="indentNumber != null and indentNumber.trim().length() != 0">
+    	AND a.INDENT_NUMBER = #{indentNumber}
+    </if>
+    ORDER BY a.UPDATE_TIME DESC, a.CREATE_TIME DESC 
+  </select>
+  
+  <insert id="insert">
+    insert into CRDOPEN (OPEN_ID, OPERATOR, INDENT_NUMBER, 
+      CREATE_TIME, CREATE_BY, UPDATE_TIME, 
+      UPDATE_BY)
+    values (#{openId,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{indentNumber,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createBy.loginName,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{updateBy.loginName,jdbcType=VARCHAR})
+  </insert>
+  
+  <delete id="delete">
+    delete from CRDOPEN
+    where OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update">
+    update CRDOPEN
+    set OPERATOR = #{operator,jdbcType=VARCHAR},
+      INDENT_NUMBER = #{indentNumber,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy.loginName,jdbcType=VARCHAR}
+    where OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </update>
+</mapper>

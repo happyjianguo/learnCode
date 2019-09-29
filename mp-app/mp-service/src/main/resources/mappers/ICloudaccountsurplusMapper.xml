@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.recharge.ICloudaccountsurplusMapper">
+	
+	<!-- 人工审核通过新增账户余额信息 -->
+	<insert id="insertNewAmount" parameterType="CloudaccountsurplusEntity">
+		INSERT INTO CLOUDACCOUNTSURPLUS
+			( 	ID,
+				ORGID,
+				CURRENTMONEY,
+				TOTALMONEY,
+				CREATETIME,
+				UPDATETIME
+			) VALUES 
+			(	#{id},
+				#{orgid},
+				#{currentmoney},
+				#{totalmoney},
+				#{createtime},
+				#{updatetime}
+			)
+	</insert>
+	
+	<!-- 根据ID获取手工充值待审核列表 -->
+	<select id="queryByOrgid" parameterType="String" resultType="CloudaccountsurplusEntity" >
+		SELECT
+				ID,
+				ORGID,
+				CURRENTMONEY,
+				TOTALMONEY,
+				CREATETIME,
+				UPDATETIME
+		FROM
+				CLOUDACCOUNTSURPLUS
+		WHERE 
+			 	1 = 1 
+					AND ORGID = #{orgid} 
+	</select>
+	
+	<!-- 根据机构ID更新账户余额信息   -->
+	<update id="updateAccByOrgid" parameterType="CloudaccountsurplusEntity">
+		UPDATE
+			CLOUDACCOUNTSURPLUS
+		<set>  
+	        <if test="currentmoney != '' and currentmoney != null">  
+	            CURRENTMONEY=#{currentmoney},
+	        </if>
+	        <if test="totalmoney != '' and totalmoney != null">  
+	            TOTALMONEY=#{totalmoney},
+	        </if>
+	        <if test="updatetime != '' and updatetime != null">  
+	            UPDATETIME=#{updatetime} 
+	        </if>
+   		</set>
+		WHERE
+			ORGID=#{orgid}
+	</update>
+	
+	<!-- 查询账户余额信息 -->
+	<select id="queryAll" resultType="CloudaccountsurplusEntity" >
+		SELECT
+				A.ID,
+				A.ORGID,
+				A.CURRENTMONEY,
+				A.TOTALMONEY,
+				A.CREATETIME,
+				A.UPDATETIME,
+				B.ORGNAME
+		FROM
+				CLOUDACCOUNTSURPLUS A LEFT JOIN	CLOUDPLATFORMORGINATION B
+			 	ON A.ORGID=B.ID
+		WHERE 1 = 1
+			 	<if test="orgid!='' and orgid!=null">
+					AND A.ORGID = #{orgid} 
+				</if>
+		ORDER BY A.UPDATETIME DESC,A.CREATETIME DESC
+	</select>
+	
+</mapper>

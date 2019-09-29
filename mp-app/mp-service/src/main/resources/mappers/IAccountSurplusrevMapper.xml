@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.recharge.IAccountSurplusrevMapper">
+	
+	<!-- 人工充值审批表操作 -->
+	<insert id="insert" parameterType="CloudaccountsurplusrevEntity">
+		INSERT INTO CLOUDACCOUNTSURPLUSREV
+			( 	ID,
+				ORGID,
+				AMOUNT,
+				OPERATOR,
+				RSTATUS,
+				CREATETIME
+			) VALUES 
+			(	#{id},
+				#{orgid},
+				#{amount},
+				#{operator},
+				#{rstatus},
+				#{createtime}
+			)
+	</insert>
+	
+	<!-- 查询所有充值审核记录数据 -->
+	<select id="queryAll" resultType="CloudaccountsurplusrevEntity" >
+		SELECT
+				A.ID,
+				A.ORGID,
+				A.AMOUNT,
+				A.OPERATOR,
+				A.RSTATUS,
+				A.AUDITOR,
+				A.AUDRESULT,
+				A.CREATETIME,
+				A.UPDATETIME,
+				B.ORGNAME
+		FROM
+				CLOUDACCOUNTSURPLUSREV A LEFT JOIN CLOUDPLATFORMORGINATION B
+				ON A.ORGID=B.ID
+		WHERE 
+			 	1 = 1
+			 	<if test="orgid!='' and orgid!=null">
+					AND A.ORGID = #{orgid} 
+				</if>
+				<if test="rstatus!='' and rstatus!=null">
+					AND A.RSTATUS = #{rstatus} 
+				</if>
+		ORDER BY A.UPDATETIME DESC,A.CREATETIME DESC
+	</select>
+	
+	<!-- 根据ID获取手工充值待审核列表 -->
+	<select id="queryById" parameterType="String" resultType="CloudaccountsurplusrevEntity" >
+		SELECT
+				A.ID,
+				A.ORGID,
+				A.AMOUNT,
+				A.OPERATOR,
+				A.RSTATUS,
+				A.AUDITOR,
+				A.AUDRESULT,
+				A.CREATETIME,
+				A.UPDATETIME,
+				B.ORGNAME
+		FROM
+				CLOUDACCOUNTSURPLUSREV A left join CLOUDPLATFORMORGINATION B
+				on A.ORGID=B.ID
+		WHERE 
+			 	1 = 1 
+					AND A.ID = #{id} 
+		ORDER BY A.UPDATETIME DESC,A.CREATETIME DESC
+	</select>
+	
+	<!-- 根据ID更新审核记录信息   -->
+	<update id="updateById" parameterType="CloudaccountsurplusrevEntity">
+		UPDATE
+			CLOUDACCOUNTSURPLUSREV
+		<set>  
+	        <if test="rstatus != '' and rstatus != null">  
+	            RSTATUS=#{rstatus},
+	        </if>
+	        <if test="auditor != '' and auditor != null">  
+	            AUDITOR=#{auditor},
+	        </if>
+	        <if test="audresult != '' and audresult != null">  
+	            AUDRESULT=#{audresult},
+	        </if>	       
+	        <if test="updatetime != '' and updatetime != null">  
+	            UPDATETIME=#{updatetime} 
+	        </if>
+   		</set>
+		WHERE
+			ID=#{id}
+	</update>
+	
+</mapper>

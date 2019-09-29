@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfOfbillMapper">
+
+<insert id="insert" parameterType="CfOfbillEntity">
+		INSERT INTO
+			cf_ofbill
+				(cpno,
+				 spno,
+				 num,
+				 size,
+				 phone,
+				 oprice,
+				 otime,
+				 status)
+			VALUES
+				(#{cpno},#{spno},#{num},#{size},
+				 #{phone},#{oprice},#{otime},#{status})
+</insert>
+<select id="selectBySpno" parameterType="String" resultType="CfOfbillEntity">
+		SELECT
+			 cpno,
+			 spno,
+			 num,
+			 size,
+			 phone,
+			 oprice,
+			 otime,
+			 status
+		FROM
+			cf_ofbill
+		WHERE
+			 spno = #{spno}
+</select>	
+		
+</mapper>
+	

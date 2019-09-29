@@ -1,0 +1,45 @@
+# Resources for parameter 'cn.yufu.posp.oa.web.ApplicationResources'
+# Project P/bjtj
+# -- validator --
+errors.invalid={0} 格式无效。
+errors.maxlength={0} 不能超过 {1} 字符。
+errors.minlength={0} 不能少于 {1} 字符。
+errors.range={0} 不在　{1} 到 {2} 的范围内。
+errors.required={0} 必须填写。
+errors.byte={0} 必须是一个字节。
+errors.date={0} 必须是日期类型。
+errors.double={0} 必须是一个双精度数字。
+errors.float={0} 必须是一个数字。
+errors.integer={0} 必须是一个整数。
+errors.long={0} 必须是一个长整数。
+errors.short={0} 必须是一个短整数。
+errors.creditcard={0} 不是一个有效的信用卡号。
+errors.email={0} 不是一个有效的电子邮件地址。
+
+#OfficePeopleForm 
+OfficePeopleForm.id.label=id
+OfficePeopleForm.level.label=级别
+OfficePeopleForm.name.label=名称
+OfficePeopleForm.sex.label=性别
+OfficePeopleForm.order.label=排序号
+OfficePeopleForm.remark.label=备注
+
+#AccidentForm
+AccidentForm.title.label=标题
+AccidentForm.remark.label=备注
+
+#EconomicChangeForm
+EconomicChangeForm.title.label=标题
+EconomicChangeForm.remark.label=备注
+
+#SendFileForm
+SendFileForm.title.label=发文标题
+SendFileForm.printNum.label=打印份数
+
+#InformationForm
+
+#meetingForm
+meetingApplicationForm.attendPerson.label=与参人员
+meetingTopicForm.meetingName.label=会议议题
+informationForm.title.label=标题
+informationForm.advice.label=意见

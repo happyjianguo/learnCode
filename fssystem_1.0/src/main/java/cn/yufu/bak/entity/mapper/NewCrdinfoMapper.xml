@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.bak.dao.NewCrdinfoMapper">
+  <resultMap id="BaseResultMap" type="cn.yufu.bak.entity.NewCrdinfo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="VERNO_CTX" jdbcType="DECIMAL" property="vernoCtx" />
+    <result column="PAN" jdbcType="VARCHAR" property="pan" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="ID_NUM" jdbcType="VARCHAR" property="idNum" />
+    <result column="MAIL_BOX" jdbcType="VARCHAR" property="mailBox" />
+    <result column="CELL_PHONE" jdbcType="VARCHAR" property="cellPhone" />
+    <result column="IS_CHECK_CELLPHONE" jdbcType="VARCHAR" property="isCheckCellphone" />
+    <result column="IS_ONLINE_REDEEM" jdbcType="VARCHAR" property="isOnlineRedeem" />
+    <result column="BANK_NAME" jdbcType="VARCHAR" property="bankName" />
+    <result column="BRANCH_NAME" jdbcType="VARCHAR" property="branchName" />
+    <result column="BANK_PAN" jdbcType="VARCHAR" property="bankPan" />
+    <result column="CARD_ACCEPTOR_NAME" jdbcType="VARCHAR" property="cardAcceptorName" />
+    <result column="CARD_ACCEPTOR_ID" jdbcType="VARCHAR" property="cardAcceptorId" />
+    <result column="RESERVED1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="RESERVED2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="RESERVED3" jdbcType="VARCHAR" property="reserved3" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="DATE_BIRTH" jdbcType="DATE" property="dateBirth" />
+    <result column="ID_TYPE" jdbcType="VARCHAR" property="idType" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
+    <result column="MARRIED" jdbcType="VARCHAR" property="married" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="FAX" jdbcType="VARCHAR" property="fax" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="DEGREE" jdbcType="VARCHAR" property="degree" />
+    <result column="WORK" jdbcType="VARCHAR" property="work" />
+
+    <result column="FATHER_ORDER" jdbcType="VARCHAR" property="indentNumber" />
+    <result column="MEMBER_NAME" jdbcType="VARCHAR" property="memberName" />
+    <result column="PAN_START" jdbcType="VARCHAR" property="panStart" />
+    <result column="PAN_END" jdbcType="VARCHAR" property="panEnd" />
+  </resultMap>
+  
+  <select id="getExcelData" resultMap="BaseResultMap">
+	SELECT * FROM (
+		SELECT c.*, ROWNUM rn FROM(
+		SELECT t.cust_name ,t.cell_phone , t.id_num , t.address , t.mail_box, t.PAN 
+		FROM CRDINFO t  WHERE 1=1
+		    <if test="queryModel.custName != null and queryModel.custName.trim().length() != 0">
+		  		AND t.CUST_NAME LIKE '%'||#{queryModel.custName}||'%'
+		  	</if>
+		  	<if test="queryModel.idNum != null and queryModel.idNum.trim().length() != 0">
+		  		AND t.ID_NUM = #{queryModel.idNum}
+		  	</if>
+		  	<if test="queryModel.begainTrueName != null and queryModel.begainTrueName.trim().length() != 0">
+		  		AND <![CDATA[ substr(t.reserved3,0,8) >= #{queryModel.begainTrueName} ]]>
+		  	</if>
+		  	<if test="queryModel.endTrueName != null and queryModel.endTrueName.trim().length() != 0">
+		  		AND <![CDATA[ substr(t.reserved3,0,8) <= #{queryModel.endTrueName} ]]>
+		  	</if>
+		ORDER BY t.ID DESC) c
+	WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select> 
+  
+  <select id="getCounts" resultType="java.lang.Integer">
+  	SELECT COUNT(t.pan) FROM CRDINFO t WHERE 1=1
+  	<if test="custName != null and custName.trim().length() != 0">
+  		AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+  	</if>
+  	<if test="idNum != null and idNum.trim().length() != 0">
+  		AND t.ID_NUM = #{idNum}
+  	</if>
+  	<if test="begainTrueName != null and begainTrueName.trim().length() != 0">
+  		AND <![CDATA[ substr(t.reserved3,0,8) >= #{begainTrueName} ]]>
+  	</if>
+  	<if test="endTrueName != null and endTrueName.trim().length() != 0">
+  		AND <![CDATA[ substr(t.reserved3,0,8) <= #{endTrueName} ]]>
+  	</if>
+  </select>
+  
+  <select id="selectPageList" resultMap="BaseResultMap">
+  	SELECT * FROM (
+	SELECT c.*, ROWNUM rn FROM(
+	  	SELECT t.cust_name ,t.cell_phone , t.id_num , t.address , t.mail_box, t.PAN 
+		FROM CRDINFO t  WHERE 1=1 
+		  	<if test="queryModel.custName != null and queryModel.custName.trim().length() != 0">
+		  		AND t.CUST_NAME LIKE '%'||#{queryModel.custName}||'%'
+		  	</if>
+		  	<if test="queryModel.idNum != null and queryModel.idNum.trim().length() != 0">
+		  		AND t.ID_NUM = #{queryModel.idNum}
+		  	</if>
+		  	<if test="queryModel.begainTrueName != null and queryModel.begainTrueName.trim().length() != 0">
+		  		AND <![CDATA[ substr(t.reserved3,0,8) >= #{queryModel.begainTrueName} ]]>
+		  	</if>
+		  	<if test="queryModel.endTrueName != null and queryModel.endTrueName.trim().length() != 0">
+		  		AND <![CDATA[ substr(t.reserved3,0,8) <= #{queryModel.endTrueName} ]]>
+		  	</if>
+  		ORDER BY ID DESC) c
+	WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="queryCount" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM VIEW_CRDINFO_REAL_NAME_MBER 
+  	WHERE CELL_PHONE IS NOT NULL AND CELL_PHONE != ' '
+	<if test="begainTrueName != null and begainTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) >= #{begainTrueName} ]]>
+  	</if>
+  	<if test="endTrueName != null and endTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) <= #{endTrueName} ]]>
+  	</if> 
+	<if test="operator != null and operator.trim().length() != 0">
+		AND OPERATOR = #{operator} 
+	</if> 
+	<if test="memberName != null and memberName.trim().length() != 0">
+		AND MEMBER_NAME = #{memberName} 
+	</if>	
+  </select>
+  
+  <select id="getPageList" parameterType="Map" resultMap="BaseResultMap">
+  	SELECT * FROM (
+	SELECT v.*, ROWNUM rn FROM( SELECT 
+	FATHER_ORDER, PAN_START, PAN_END, ID, PAN, CUST_NAME, ID_NUM, MAIL_BOX, 
+	CELL_PHONE, ADDRESS, RESERVED3, MEMBER_NAME FROM VIEW_CRDINFO_REAL_NAME_MBER 
+	WHERE CELL_PHONE IS NOT NULL AND CELL_PHONE != ' '
+	<if test="queryModel.begainTrueName != null and queryModel.begainTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) >= #{queryModel.begainTrueName} ]]>
+  	</if>
+  	<if test="queryModel.endTrueName != null and queryModel.endTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) <= #{queryModel.endTrueName} ]]>
+  	</if> 
+	<if test="queryModel.operator != null and queryModel.operator.trim().length() != 0">
+		AND OPERATOR = #{queryModel.operator} 
+	</if> 
+	<if test="queryModel.memberName != null and queryModel.memberName.trim().length() != 0">
+		AND MEMBER_NAME = #{queryModel.memberName} 
+	</if>) v
+	WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="getAllList" resultMap="BaseResultMap">
+	SELECT FATHER_ORDER, PAN_START, PAN_END, ID, PAN, CUST_NAME, ID_NUM, MAIL_BOX, 
+	CELL_PHONE, ADDRESS, RESERVED3, MEMBER_NAME FROM VIEW_CRDINFO_REAL_NAME_MBER 
+	WHERE CELL_PHONE IS NOT NULL AND CELL_PHONE != ' '
+	<if test="begainTrueName != null and begainTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) >= #{begainTrueName} ]]>
+  	</if>
+  	<if test="endTrueName != null and endTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) <= #{endTrueName} ]]>
+  	</if> 
+	<if test="operator != null and operator.trim().length() != 0">
+		AND OPERATOR = #{operator} 
+	</if> 
+	<if test="memberName != null and memberName.trim().length() != 0">
+		AND MEMBER_NAME = #{memberName} 
+	</if>
+  </select>
+  
+  <select id="getPeopleCount" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM (
+  	SELECT CELL_PHONE FROM VIEW_CRDINFO_REAL_NAME_MBER 
+	WHERE CELL_PHONE IS NOT NULL AND CELL_PHONE != ' '
+	<if test="begainTrueName != null and begainTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) >= #{begainTrueName} ]]>
+  	</if>
+  	<if test="endTrueName != null and endTrueName.trim().length() != 0">
+  		AND <![CDATA[ SUBSTR(RESERVED3,0,8) <= #{endTrueName} ]]>
+  	</if> 
+	<if test="operator != null and operator.trim().length() != 0">
+		AND OPERATOR = #{operator} 
+	</if> 
+	<if test="memberName != null and memberName.trim().length() != 0">
+		AND MEMBER_NAME = #{memberName} 
+	</if>
+	GROUP BY CELL_PHONE)
+  </select>
+  
+</mapper>

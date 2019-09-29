@@ -1,0 +1,215 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+body,td,tr,p,table,input,select {
+	font-size: 12px;
+}
+
+a.see:link {
+	font-size: 12px;
+	color: #757500;
+	text-decoration: none;
+}
+a.see:visited {
+	font-size: 12px;
+	color: #757500;
+	text-decoration: none;
+}
+a.see:hover {
+	font-size: 12px;
+	color: #CC6600;
+	text-decoration: underline;
+}
+a:link {
+	font-size: 12px;
+	color: #ffffff;
+	text-decoration: none;
+}
+a:visited {
+	font-size: 12px;
+	color: #ffffff;
+	text-decoration: none;
+}
+a:hover {
+	font-size: 12px;
+	color: #CC0000;
+	text-decoration: underline;
+}
+
+
+/*head start*/
+.head_logo {
+	background-image: url(../images/head_logo.jpg);
+	background-repeat: no-repeat;
+	height: 73px;
+	width: 691px;
+}
+.head_bg {
+	background-image: url(../images/head_bg.jpg);
+	background-repeat: repeat-x;
+	height: 73px;
+	vertical-align: bottom;
+}
+.head_dot {
+	background-image: url(../images/head_dot.gif);
+	background-repeat: repeat-y;
+	vertical-align: 50%;
+	text-align: center;
+}
+.head_line {
+	background-image: url(../images/head_line.gif);
+	background-repeat: repeat-x;
+	height: 3px;
+}
+/*head end*/
+/*tree start*/
+.tree_bg {
+	background-image: url(../menu/images/bg.gif);
+}
+/*tree end*/
+/*foot start*/
+.foot_1 {
+	background-image: url(../images/foot_1.jpg);
+	text-align: center;
+}
+.foot_2 {
+	background-image: url(../images/foot_2.jpg);
+	background-repeat: no-repeat;
+	width: 28px;
+}
+.foot_3 {
+	background-image: url(../images/foot_3.gif);
+}
+/*foot end*/
+/*place start*/
+.place {
+	background-image: url(../images/place_bg.jpg);
+	background-repeat: repeat-y;
+	vertical-align: 50%;
+	padding-left: 15px;
+}
+.info {
+	vertical-align: 50%;
+	font-size: 12px;
+	color: #FF0000;
+	text-align: left;
+}
+/*place end*/
+/*table1 start*/
+.table1_border {
+	border: 1px solid #0266C4;
+}
+.table1_head_title {
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-image: url(../images/table1_head_bg.jpg);
+	background-repeat: repeat-x;
+	/*border: 1px solid #FFFFFF;*/
+	height: 18px;
+	text-indent: 15px;
+	letter-spacing: 3px;
+}
+.table1_head_title a {
+	color: #ffffff;
+}
+.table1_head_line {
+	background-image: url(../images/table1_head_line.gif);
+	background-repeat: repeat-x;
+	height: 3px;
+}
+/*table1 end*/
+/*table2 start*/
+.table2_border {
+	background-color: #C8C8C8;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.table2_td_title{
+	font-size: 12px;
+	font-weight: bold;
+	color: #666666;
+	letter-spacing: 2px;
+	vertical-align: 50%;
+	background-color: #F7F7F7;
+	height: 25px;
+	text-align: center;
+}
+.table2_td {
+	background-color: #FFFFFF;
+	padding-left: 5px;
+	height: 25px;
+	vertical-align: 50%;
+}
+.table2_btn {
+	background-color: #FFFFFF;
+	text-align: center;
+	padding: 3px;
+}
+/*table2 end*/
+/*table3 start*/
+.table3_border {
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+.table3_title {
+	font-size: 12px;
+	color: #000000;
+	background-image: url(../images/table3_title.jpg);
+	background-repeat: no-repeat;
+	letter-spacing: 2px;
+	text-indent: 30px;
+	vertical-align: 50%;
+	height: 22px;
+	width: 150px;
+}
+/*table3 end*/
+/*table4 start*/
+.table4_border {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border: 1px solid #AAAAAA;
+}
+.table4_head_title {
+	font-size: 12px;
+	color: #666666;
+	background-image: url(../images/table_head_bg.jpg);
+	background-repeat: repeat-x;
+	text-align: center;
+	letter-spacing: 1px;
+	vertical-align: 50%;
+	font-weight: bold;
+	height: 28px;
+}
+.table4_li_white {
+	font-size: 12px;
+	color: #444444;
+	background-image: url(../images/tr_li_whitebg.gif);
+	background-repeat: repeat-x;
+	text-align: center;
+	vertical-align: 50%;
+	height: 24px;
+}
+.table4_li_gray {
+	font-size: 12px;
+	color: #444444;
+	background-image: url(../images/tr_li_graybg.gif);
+	background-repeat: repeat-x;
+	text-align: center;
+	vertical-align: 50%;
+	height: 24px;
+}
+.table_border{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+/*table4 end*/
+/*link strat*/
+.number {
+	color: #CC0000;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+/*link end*/

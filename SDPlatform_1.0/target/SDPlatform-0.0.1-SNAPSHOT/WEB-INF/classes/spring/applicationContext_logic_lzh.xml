@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="UserLogic" class="cn.yufu.posp.usermanager.domain.logic.UserLogic" />
+	<bean id="UserGroupLogic" class="cn.yufu.posp.usermanager.domain.logic.UserGroupLogic" />
+	<bean id="JgLogic" class="cn.yufu.posp.jgmanager.domain.logic.JgLogic" />
+	<bean id="sysLogic" class="cn.yufu.posp.sysparam.domain.logic.SysParamLogic" /> 
+	<bean id="cardTypeLogic" class="cn.yufu.posp.cardtype.domain.logic.CardTypeLogic" /> 
+	<bean id="card1TypeLogic" class="cn.yufu.posp.cardtype.domain.logic.Card1TypeLogic" />
+	<bean id="routeLogic" class="cn.yufu.posp.route.domain.logic.RouteLogic" />
+	
+	<bean id="curTranLsLogic" class="cn.yufu.posp.queryManager.domain.logic.CurTranLsLogic" />
+	<bean id="curTranLsWarnLogic" class="cn.yufu.posp.queryManager.domain.logic.CurTranLsWarnLogic" />
+	<bean id="curTranLsReportLogic" class="cn.yufu.posp.queryManager.domain.logic.CurTranLsReportLogic" />
+	<bean id="curTranLsWechatAlipayLogic" class="cn.yufu.posp.queryManager.domain.logic.CurTranLsWechatAlipayLogic" />
+</beans>

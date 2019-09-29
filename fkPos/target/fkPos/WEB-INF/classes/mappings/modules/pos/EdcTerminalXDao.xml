@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.EdcTerminalXDao">
+    
+	<sql id="edcTerminalXColumns">
+		a.terminal_id AS "terminalId",
+		a.upgrade_date AS "upgradeDate",
+		a.upgrade_version AS "upgradeVersion",
+		a.HISTORY_VERSION AS "historyVersion",
+		a.store_contacts AS "storeContacts",
+		a.store_phone AS "storePhone",
+		a.merchant_advisor AS "merchantAdvisor",
+		a.terminal_area AS "terminalArea",
+		a.terminal_province AS "terminalProvince",
+		a.terminal_city AS "terminalCity",
+		a.terminal_zone AS "terminalZone",
+		a.terminal_position AS "terminalPosition",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.disable_date AS "disableDate",
+		a.usable_date AS "usableDate"
+	</sql>
+	
+	<sql id="edcTerminalXJoins">
+	</sql>
+    
+	<select id="get" resultType="EdcTerminalX">
+		SELECT 
+			<include refid="edcTerminalXColumns"/>
+		FROM edc_terminal_x a
+		<include refid="edcTerminalXJoins"/>
+		WHERE a.terminal_id = #{terminalId}
+	</select>
+	
+	<select id="getEdcTerminalX" resultType="EdcTerminalX">
+		SELECT 
+			<include refid="edcTerminalXColumns"/>
+		FROM edc_terminal_x a
+		<include refid="edcTerminalXJoins"/>
+		WHERE a.terminal_id = #{terminalId}
+	</select>
+	
+	<select id="findList" resultType="EdcTerminalX">
+		SELECT 
+			<include refid="edcTerminalXColumns"/>
+		FROM edc_terminal_x a
+		<include refid="edcTerminalXJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="terminalId != null and terminalId != ''">
+				AND a.terminal_id = #{terminalId}
+			</if>
+			<if test="upgradeDate != null and upgradeDate != ''">
+				AND a.upgrade_date = #{upgradeDate}
+			</if>
+			<if test="upgradeVersion != null and upgradeVersion != ''">
+				AND a.upgrade_version = #{upgradeVersion}
+			</if>
+			<if test="storeContacts != null and storeContacts != ''">
+				AND a.store_contacts LIKE 
+					<if test="dbName == 'oracle'">'%'||#{storeContacts}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{storeContacts}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{storeContacts},'%')</if>
+			</if>
+			<if test="merchantAdvisor != null and merchantAdvisor != ''">
+				AND a.merchant_advisor = #{merchantAdvisor}
+			</if>
+			<if test="terminalArea != null and terminalArea != ''">
+				AND a.terminal_area = #{terminalArea}
+			</if>
+			<if test="terminalProvince != null and terminalProvince != ''">
+				AND a.terminal_province = #{terminalProvince}
+			</if>
+			<if test="terminalCity != null and terminalCity != ''">
+				AND a.terminal_city = #{terminalCity}
+			</if>
+			<if test="terminalZone != null and terminalZone != ''">
+				AND a.terminal_zone = #{terminalZone}
+			</if>
+			<if test="terminalPosition != null and terminalPosition != ''">
+				AND a.terminal_position LIKE 
+					<if test="dbName == 'oracle'">'%'||#{terminalPosition}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{terminalPosition}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{terminalPosition},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="EdcTerminalX">
+		SELECT 
+			<include refid="edcTerminalXColumns"/>
+		FROM edc_terminal_x a
+		<include refid="edcTerminalXJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO edc_terminal_x(
+			terminal_id,
+			upgrade_date,
+			upgrade_version,
+			store_contacts,
+			store_phone,
+			merchant_advisor,
+			terminal_area,
+			terminal_province,
+			terminal_city,
+			terminal_zone,
+			terminal_position,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			HISTORY_VERSION,
+			disable_date,
+			usable_date,
+			del_flag
+		) VALUES (
+			#{terminalId},
+			#{upgradeDate},
+			#{upgradeVersion},
+			#{storeContacts},
+			#{storePhone},
+			#{merchantAdvisor},
+			#{terminalArea},
+			#{terminalProvince},
+			#{terminalCity},
+			#{terminalZone},
+			#{terminalPosition},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{historyVersion},
+			#{disableDate},
+			#{usableDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE edc_terminal_x SET 	
+			terminal_id = #{terminalId},
+			upgrade_date = #{upgradeDate},
+			upgrade_version = #{upgradeVersion},
+			HISTORY_VERSION = #{historyVersion},
+			store_contacts = #{storeContacts},
+			store_phone = #{storePhone},
+			merchant_advisor = #{merchantAdvisor},
+			terminal_area = #{terminalArea},
+			terminal_province = #{terminalProvince},
+			terminal_city = #{terminalCity},
+			terminal_zone = #{terminalZone},
+			terminal_position = #{terminalPosition},
+			disable_date = #{disableDate},
+			usable_date = #{usableDate},
+			remarks = #{remarks}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="disableTerminal">
+		UPDATE edc_terminal_x SET 	
+			disable_date = #{disableDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="usableTerminal">
+		UPDATE edc_terminal_x SET 	
+			usable_date = #{usableDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="delete">
+		delete from edc_terminal_x 
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="importUpdate">
+		UPDATE edc_terminal_x SET 	
+			store_contacts = #{storeContacts},
+			store_phone = #{storePhone},
+			merchant_advisor = #{merchantAdvisor},
+			terminal_area = #{terminalArea},
+			terminal_province = #{terminalProvince},
+			terminal_city = #{terminalCity},
+			terminal_zone = #{terminalZone},
+			terminal_position = #{terminalPosition},
+			update_date = #{updateDate},
+			update_by = #{updateBy.id}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<insert id="importInsert">
+		INSERT INTO edc_terminal_x(
+			terminal_id,
+			upgrade_date,
+			upgrade_version,
+			store_contacts,
+			store_phone,
+			merchant_advisor,
+			terminal_area,
+			terminal_province,
+			terminal_city,
+			terminal_zone,
+			terminal_position,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			HISTORY_VERSION,
+			del_flag
+		) VALUES (
+			#{terminalId},
+			#{upgradeDate},
+			#{upgradeVersion},
+			#{storeContacts},
+			#{storePhone},
+			#{merchantAdvisor},
+			#{terminalArea},
+			#{terminalProvince},
+			#{terminalCity},
+			#{terminalZone},
+			#{terminalPosition},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{historyVersion},
+			#{delFlag}
+		)
+	</insert>
+	
+</mapper>

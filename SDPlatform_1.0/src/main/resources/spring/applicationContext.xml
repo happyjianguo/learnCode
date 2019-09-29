@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+		<!-- 定义受环境影响易变的变量 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<!-- 标准配置 -->
+				<value>classpath*:/jdbc.properties</value>
+				<value>classpath*:/shiro/shiro-client.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 数据库连接配置 -->
+	<bean id="dataSourcePosp" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${pospDriverClass}" />
+		<property name="url" value="${pospJdbcUrl}" />
+		<property name="username" value="${pospAppUser}" />
+		<property name="password" value="${pospAppUserPwd}" />
+	</bean>
+	
+	<bean id="dataSourceAcquire" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${acquireDriverClass}" />
+		<property name="url" value="${acquireJdbcUrl}" />
+		<property name="username" value="${acquireAppUser}" />
+		<property name="password" value="${acquireAppUserPwd}" />
+	</bean>
+	
+	<bean id="dataSourceSettle" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${settleDriverClass}" />
+		<property name="url" value="${settleJdbcUrl}" />
+		<property name="username" value="${settleAppUser}" />
+		<property name="password" value="${settleAppUserPwd}" />
+	</bean>
+
+	<bean id="dataSourceTranc" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${trancDriverClass}" />
+		<property name="url" value="${trancJdbcUrl}" />
+		<property name="username" value="${trancAppUser}" />
+		<property name="password" value="${trancAppUserPwd}" />
+	</bean>
+	<!-- hibernate配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSourcePosp" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/yufu/posp/usermanager/domain/model/OaUserInfo.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaGroupInfo.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaGroupAccess.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaConsoleMenu.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaConsoleMenuOptRelation.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/Test.hbm.xml</value>
+				<value>cn/yufu/posp/jgmanager/domain/model/Jg.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBase.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBaseBo.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantExtra.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantRefund.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantCard.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBlack.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantSwitch.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantUser.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantUserRela.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MccParam.hbm.xml</value>
+				<value>cn/yufu/posp/sysModule/domain/model/SysModule.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/TPreTpdu.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcCard.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcSwitch.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcTerminal.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcTerminalOrm.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcNewfkterminalOrm.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/BankInfo.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/CardAcct.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/Cardtype.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/SysParameter.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcBlack.hbm.xml</value>
+				<value>cn/yufu/posp/cardtype/domain/model/CardType.hbm.xml</value>
+				<value>cn/yufu/posp/cardtype/domain/model/Cardtype1.hbm.xml</value>
+				<value>cn/yufu/posp/sysparam/domain/model/SysParam.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/TranRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/CardRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/BankcardRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/AdvRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/DefaultRoute.hbm.xml</value>
+				<value>cn/yufu/posp/bank/domain/model/BankInfo.hbm.xml</value>
+				
+				<value>cn/yufu/posp/queryManager/domain/model/CurTranLs.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/VCurTranLs.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/CurTranLsWarn.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/TblExpCurTranLog.hbm.xml</value>
+				
+				<value>cn/yufu/posp/client/domain/model/OaClientComputerInfo.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleTemplate.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleTempParam.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleTempParamList.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleConfig.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleConfigParam.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/TblStlmRegu.hbm.xml</value>
+				<value>cn/yufu/posp/keyManager/domain/model/BtsKey.hbm.xml</value>
+				<value>cn/yufu/posp/keyManager/domain/model/PospZmkKey.hbm.xml</value>
+				<value>cn/yufu/posp/bank/domain/model/Banktype.hbm.xml</value>
+				<value>cn/yufu/posp/sysparam/domain/model/TranModuleInf.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantIdentity.hbm.xml</value>
+				<value>cn/yufu/posp/logManager/domain/model/OperateLog.hbm.xml</value>
+				<value>cn/yufu/posp/sysparam/domain/model/AreaCodeInfo.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/SysRespCode.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/SysIssuInst.hbm.xml</value>
+				
+				<value>cn/yufu/posp/cardBinArea/domain/model/CardBinArea.hbm.xml</value>
+				<value>cn/yufu/posp/cardBinArea/domain/model/EdcCardBinArea.hbm.xml</value>
+				
+				<value>cn/yufu/posp/merchant/domain/model/PosReceiptInfo.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabBusinessRatesModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabBusRoleMenuModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabTermIdBusRoleModel.hbm.xml</value>
+								
+				<value>cn/yufu/posp/merchant/domain/model/TblMerchantTranParamModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TblNoPasswdCardBinModel.hbm.xml</value>
+				
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!--				<prop key="hibernate.jdbc.batch_size">20</prop>-->
+				<!--
+					<prop
+					key="hibernate.query.substitutions">char=to_char,date=to_date,to_date=timestamp,time=to_date</prop>
+				-->
+				<!--				<prop key="hibernate.dbcp.maxActive">100</prop>-->
+				<!--				<prop key="hibernate.dbcp.whenExhaustedAction">1</prop>-->
+				<!--				<prop key="hibernate.dbcp.maxWait">120000</prop>-->
+				<!--				<prop key="hibernate.dbcp.maxIdle">10</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxActive">100</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.whenExhaustedAction">1</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxWait">120000</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxIdel">10</prop>-->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sessionFactoryAcquire"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSourceAcquire" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/yufu/posp/usermanager/domain/model/OaUserInfo.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaGroupInfo.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaGroupAccess.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaConsoleMenu.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/OaConsoleMenuOptRelation.hbm.xml</value>
+				<value>cn/yufu/posp/usermanager/domain/model/Test.hbm.xml</value>
+				<value>cn/yufu/posp/jgmanager/domain/model/Jg.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBase.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBaseBo.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantExtra.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantRefund.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantCard.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantBlack.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantSwitch.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantUser.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MerchantUserRela.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/MccParam.hbm.xml</value>
+				<value>cn/yufu/posp/sysModule/domain/model/SysModule.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/TPreTpdu.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcCard.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcSwitch.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcTerminal.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcTerminalOrm.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcNewfkterminalOrm.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcAlipayWeChat.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcZskterminalOrm.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/BankInfo.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/CardAcct.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/Cardtype.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/SysParameter.hbm.xml</value>
+				<value>cn/yufu/posp/terminalmanager/domain/model/EdcBlack.hbm.xml</value>
+				<value>cn/yufu/posp/cardtype/domain/model/CardType.hbm.xml</value>
+				<value>cn/yufu/posp/cardtype/domain/model/Cardtype1.hbm.xml</value>
+				<value>cn/yufu/posp/sysparam/domain/model/SysParam.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/TranRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/CardRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/BankcardRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/AdvRoute.hbm.xml</value>
+				<value>cn/yufu/posp/route/domain/model/DefaultRoute.hbm.xml</value>
+				<value>cn/yufu/posp/bank/domain/model/BankInfo.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/CurTranLs.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/VCurTranLs.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/CurTranLsWarn.hbm.xml</value>
+				<value>cn/yufu/posp/queryManager/domain/model/TblExpCurTranLog.hbm.xml</value>
+				<value>cn/yufu/posp/client/domain/model/OaClientComputerInfo.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleTemplate.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleTempParam.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleTempParamList.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleConfig.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/RuleConfigParam.hbm.xml</value>
+				<value>cn/yufu/posp/ruleManager/domain/model/TblStlmRegu.hbm.xml</value>
+				<value>cn/yufu/posp/keyManager/domain/model/BtsKey.hbm.xml</value>
+				<value>cn/yufu/posp/keyManager/domain/model/PospZmkKey.hbm.xml</value>
+				<value>cn/yufu/posp/bank/domain/model/Banktype.hbm.xml</value>
+				<value>cn/yufu/posp/sysparam/domain/model/TranModuleInf.hbm.xml</value>
+				<value>cn/yufu/posp/logManager/domain/model/OperateLog.hbm.xml</value>
+				
+				<value>cn/yufu/posp/merchant/domain/model/PosReceiptInfo.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabBusinessRatesModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabBusRoleMenuModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TabTermIdBusRoleModel.hbm.xml</value>
+				
+				<value>cn/yufu/posp/merchant/domain/model/TblMerchantTranParamModel.hbm.xml</value>
+				<value>cn/yufu/posp/merchant/domain/model/TblNoPasswdCardBinModel.hbm.xml</value>
+				
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!--				<prop key="hibernate.jdbc.batch_size">20</prop>-->
+				<!--
+					<prop
+					key="hibernate.query.substitutions">char=to_char,date=to_date,to_date=timestamp,time=to_date</prop>
+				-->
+				<!--				<prop key="hibernate.dbcp.maxActive">100</prop>-->
+				<!--				<prop key="hibernate.dbcp.whenExhaustedAction">1</prop>-->
+				<!--				<prop key="hibernate.dbcp.maxWait">120000</prop>-->
+				<!--				<prop key="hibernate.dbcp.maxIdle">10</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxActive">100</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.whenExhaustedAction">1</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxWait">120000</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxIdel">10</prop>-->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="sessionFactorySettle"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSourceSettle" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/yufu/posp/bookManager/domain/model/AnalyzeMerclearBook.hbm.xml</value>
+				<value>cn/yufu/posp/bookManager/domain/model/AnalyzeMerfeeBook.hbm.xml</value>
+				<value>cn/yufu/posp/bookManager/domain/model/AnalyzeMerstlBook.hbm.xml</value>
+				<value>cn/yufu/posp/bookManager/domain/model/AnalyzeCupcheckBook.hbm.xml</value>
+				<value>cn/yufu/posp/bookManager/domain/model/AnalyzeCupcheckErr.hbm.xml</value>
+				<value>cn/yufu/posp/bookManager/domain/model/AnalyzeCupcheckOk.hbm.xml</value>
+				<value>cn/yufu/posp/bookManager/domain/model/AnalyzeCupcheckStatics.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!--				<prop key="hibernate.jdbc.batch_size">20</prop>-->
+				<!--
+					<prop
+					key="hibernate.query.substitutions">char=to_char,date=to_date,to_date=timestamp,time=to_date</prop>
+				-->
+				<!--				<prop key="hibernate.dbcp.maxActive">100</prop>-->
+				<!--				<prop key="hibernate.dbcp.whenExhaustedAction">1</prop>-->
+				<!--				<prop key="hibernate.dbcp.maxWait">120000</prop>-->
+				<!--				<prop key="hibernate.dbcp.maxIdle">10</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxActive">100</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.whenExhaustedAction">1</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxWait">120000</prop>-->
+				<!--				<prop key="hibernate.dbcp.ps.maxIdel">10</prop>-->
+			</props>
+		</property>
+	</bean>
+
+	<!-- 声明一个 Hibernate 3 的 事务管理器供代理类自动管理事务用 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<!-- 需要引入aop的命名空间 -->
+	<aop:config>
+		<aop:pointcut id="daoMethods"
+			expression="execution(* cn.yufu.posp..domain.logic.*Logic.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="daoMethods" />
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" timeout="120"
+				rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+	<bean id="dataSourcePospProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <property name="targetDataSource" ref="dataSourcePosp"/>
+    </bean>
+    <bean id="jdbcTemplatePosp" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSourcePospProxy"/>
+    </bean>
+	<bean id="syncMerchant" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${syncMerchantUrl}" />
+		<property name="serviceInterface" value="cn.yufu.posp.merchant.domain.logic.MerchantService" />
+	</bean>
+	<bean id="syncParam" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${syncParamUrl}" />
+		<property name="serviceInterface" value="cn.yufu.posp.sysparam.domain.logic.ParamService" />
+	</bean>
+	
+    <import resource="classpath:shiro/shiro-config.xml"/>
+</beans>

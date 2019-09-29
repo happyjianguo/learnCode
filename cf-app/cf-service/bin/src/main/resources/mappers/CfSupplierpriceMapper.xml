@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfSupplierpriceMapper">
+
+	<select id="query" parameterType="CfSupplierpriceEntity" resultType="CfSupplierpriceEntity" >
+		SELECT 
+			p.ID,
+		    p.PNAME,
+		    s.SNAME sname,
+		    ISPNO,
+		    IPSTYPE,
+		    p.PNO,
+		    cf.pname proname,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS
+		FROM
+			CF_SUPPLIERPRICE p 
+				left join CF_SUPPLIER s 
+					on p.sid = s.id 
+						left join CF_PROVINCE cf 
+							on p.pno = cf.pno
+		WHERE 
+			(
+				1=1
+				<!-- CREAGETIME between #{begintime} and #{endtime} -->
+				<if test="id!='' and id!=null">
+					and p.ID=#{id}
+				</if>
+				<if test="pname!='' and pname!=null">
+					and p.PNAME like CONCAT('%','${pname}','%' )
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and ISPNO = #{ispno}
+				</if>
+				<if test="ipstype!='' and ipstype!=null">
+					and IPSTYPE = #{ipstype} 
+				</if>
+				<if test="pno!='' and pno!=null">
+					and p.PNO = #{pno} 
+				</if>
+				<if test="size!='' and size!=null">
+					and SIZE = #{size} 
+				</if>
+				<if test="sid!='' and sid!=null">
+					and SID = #{sid} 
+				</if>
+				<if test="price!='' and price!=null">
+					and PRICE = #{price} 
+				</if>
+				<if test="status!='' and status!=null">
+					and STATUS = #{status} 
+				</if>
+			)
+		order by 
+			begintime desc
+	</select>
+	
+	<select id="queryprice" resultType="CfSupplierpriceEntity" >
+		SELECT 
+			ID,
+		    PNAME,
+		    ISPNO,
+		    IPSTYPE,
+		    PNO,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS
+		FROM
+			CF_SUPPLIERPRICE 
+	</select>
+
+	<select id="querySupplierpriceByTime" resultType="CfSupplierpriceEntity" >
+		SELECT 
+			ID,
+		    PNAME,
+		    ISPNO,
+		    IPSTYPE,
+		    PNO,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS
+		FROM
+			CF_SUPPLIERPRICE
+		WHERE 
+			STATUS = #{status} and
+    		<![CDATA[ 
+    			BEGINTIME > #{time} or ENDTIME < #{time}		
+			  ]]> 
+	</select>
+
+	<select id="queryrecharge" parameterType="CfSupplierpriceEntity" resultType="CfSupplierpriceEntity" >
+		SELECT 
+		    ID,
+		    PNAME,
+		    ISPNO,
+		    IPSTYPE,
+		    PNO,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CPORDERNOS
+		FROM
+			CF_SUPPLIERPRICE
+		WHERE 
+			(
+				1=1
+				<!-- CREAGETIME between #{begintime} and #{endtime} -->
+				<if test="id!='' and id!=null">
+					and ID=#{id}
+				</if>
+				<if test="pname!='' and pname!=null">
+					and PNAME = #{pname} 
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and ISPNO = #{ispno}
+				</if>
+				<if test="ipstype!='' and ipstype!=null">
+					and IPSTYPE = #{ipstype} 
+				</if>
+				<if test="pno!='' and pno!=null">
+					and PNO = #{pno} 
+				</if>
+				<if test="size!='' and size!=null">
+					and SIZE = #{size} 
+				</if>
+				<if test="sid!='' and sid!=null">
+					and SID = #{sid} 
+				</if>
+				<if test="price!='' and price!=null">
+					and PRICE = #{price} 
+				</if>
+				<if test="status!='' and status!=null">
+					and STATUS = #{status} 
+				</if>
+			)
+		ORDER BY
+			(price + 0)
+		ASC
+
+	</select>
+	<select id="querySupplierpriceByid"  resultType="CfSupplierpriceEntity" >
+		SELECT 
+			ID,
+		    PNAME,
+		    ISPNO,
+		    IPSTYPE,
+		    PNO,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CPORDERNOS
+		FROM
+			CF_SUPPLIERPRICE
+		WHERE 
+			ID=#{id}
+	</select>
+	<select id="querySupplierpriceByName" parameterType="String" resultType="CfSupplierpriceEntity" >
+		SELECT 
+			ID,
+		    PNAME,
+		    ISPNO,
+		    IPSTYPE,
+		    PNO,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CPORDERNOS
+		FROM
+			CF_SUPPLIERPRICE
+		WHERE 
+			PNAME=#{pname}
+	</select>
+	<select id="selectSupplierPriceBySid"  parameterType="String" resultType="CfSupplierpriceEntity" >
+		SELECT 
+			ID,
+		    PNAME,
+		    ISPNO,
+		    IPSTYPE,
+		    PNO,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CPORDERNOS
+		FROM
+			CF_SUPPLIERPRICE
+		WHERE 
+			SID=#{sid}
+	</select>	
+	<select id="selectSupplierpriceBySid"  parameterType="String" resultType="CfSupplierpriceEntity" >
+		SELECT 
+			ID,
+		    PNAME,
+		    ISPNO,
+		    IPSTYPE,
+		    PNO,
+		    SIZE,
+		    SID,
+		    PRICE,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CPORDERNOS
+		FROM
+			CF_SUPPLIERPRICE
+		WHERE 
+			SID=#{sid}
+	</select>		
+	<select id="queryprovince"  parameterType="CfSupplierpriceEntity" resultType="CfSupplierpriceEntity" >
+		select 
+			pro.pno pno,
+			pro.pname pname
+		from  
+			cf_PROVINCE pro
+		where 
+			pno in (
+				select 
+					distinct pno
+				FROM
+			    	cf_supplierprice su
+			    where 
+			    	ISPNO = #{ispno} AND IpsTYPE = #{ipstype}
+			) 
+			ORDER BY PORDER
+	</select>
+	<select id="queryFaceValue" parameterType="CfSupplierpriceEntity" resultType="String" >
+		SELECT
+		    distinct SIZE
+		FROM
+		    cf_supplierprice
+		where 
+		    ISPNO = #{ispno} and IPSTYPE = #{ipstype} and PNO = #{pno} 
+	</select>
+	
+	<select id="queryIpsno" resultType="String">
+		SELECT 
+		    distinct ISPNO
+		FROM
+			CF_SUPPLIERPRICE
+	</select>
+	<select id="queryIpsType" resultType="String">
+		SELECT 
+		    distinct IPSTYPE
+		FROM
+			CF_SUPPLIERPRICE
+		WHERE 
+			ISPNO = #{ispno}
+	</select>
+	<insert id="addCFSupplierprice" parameterType="CfSupplierpriceEntity">
+		INSERT
+			INTO
+			    cf_supplierprice
+			    (
+			        ID,
+			        PNAME,
+			        ISPNO,
+			        IPSTYPE,
+			        PNO,
+			        SIZE,
+			        SID,
+			        PRICE,
+			        BEGINTIME,
+			        ENDTIME,
+			        STATUS,
+			        CPORDERNOS
+			    )
+			    VALUES
+			    (
+			        #{id},
+			        #{pname},
+			        #{ispno},
+			        #{ipstype},
+			        #{pno},
+			        #{size},
+			        #{sid},
+			        #{price},
+			        #{begintime},
+			        #{endtime},
+			        #{status},
+			        #{cpordernos}
+			    )
+	</insert>
+	<update id="batchUpdate" >
+		UPDATE
+		    CF_SUPPLIERPRICE
+		SET
+		    STATUS=#{paramstatus}
+		WHERE
+		    STATUS = #{wherestatus} and
+	       	 <if test="no!='' and no!=null">
+					<![CDATA[ 
+		    			BEGINTIME > #{time} or ENDTIME < #{time}		
+					 ]]>
+			</if>
+			<if test="ok!='' and ok!=null">
+					<![CDATA[ 
+		    			BEGINTIME <= #{time} and #{time} <= ENDTIME 
+					 ]]>
+			</if>  
+	</update>
+	
+	<update id="updateSupplierprice" parameterType="CfSupplierpriceEntity">
+		UPDATE
+		    cf_supplierprice
+		SET
+	        PNAME=#{pname},
+	        ISPNO= #{ispno},
+	        IPSTYPE=#{ipstype},
+	        PNO= #{pno},
+	        SIZE=#{size},
+	        SID=#{sid},
+	        PRICE=#{price},
+	        BEGINTIME= #{begintime},
+	        ENDTIME=#{endtime},
+	        STATUS=#{status}
+		WHERE
+		    ID = #{id}
+	</update>
+	<!-- <update id="delSupplierprice" parameterType="String">
+		UPDATE
+		    cf_supplierprice
+		SET
+	        STATUS='de'
+		WHERE
+		    ID = #{id}
+	</update> -->
+	<delete id="delSupplierprice" parameterType="String">
+		DELETE FROM cf_supplierprice WHERE ID = #{id}
+	</delete>
+</mapper>

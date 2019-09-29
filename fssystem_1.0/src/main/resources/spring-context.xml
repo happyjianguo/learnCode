@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>Spring Configuration</description>
+	
+    <!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:settings.properties" />
+	
+	<!-- 加载应用属性实例，可通过  @Value("#{APP_PROP['jdbc.driver']}") String jdbcDriver 方式引用 -->
+    <util:properties id="APP_PROP" location="classpath:settings.properties" local-override="true"/>
+	
+	<!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
+	<context:component-scan base-package="cn.yufu"><!-- base-package 如果多个，用“,”分隔 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+
+	<!-- fs数据库 -->
+	<bean id="dataSourceFs" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${fsDriverClass}"></property>
+		<property name="jdbcUrl" value="${fsJdbcUrl}"></property>
+		<property name="user" value="${fsAppUser}"></property>
+		<property name="password" value="${fsAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="sqlSessionFactoryFs" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceFs" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/fs/entity/mapper/*Mapper.xml" />
+	</bean>		
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.fs" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryFs" />
+	</bean>	
+	
+	<!-- cortex数据库 -->
+	<bean id="dataSourceCortex" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${cortexDriverClass}"></property>
+		<property name="jdbcUrl" value="${cortexJdbcUrl}"></property>
+		<property name="user" value="${cortexAppUser}"></property>
+		<property name="password" value="${cortexAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="sqlSessionFactoryCortex" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceCortex" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/cortex/entity/mapper/*Mapper.xml" />
+	</bean>		
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.cortex" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryCortex" />
+	</bean>	
+	
+	<!-- bak数据库 -->
+	<bean id="dataSourceBak" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${cortexBakDriverClass}"></property>
+		<property name="jdbcUrl" value="${cortexBakJdbcUrl}"></property>
+		<property name="user" value="${cortexBakAppUser}"></property>
+		<property name="password" value="${cortexBakAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="sqlSessionFactoryBak" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceBak" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/bak/entity/mapper/*Mapper.xml" />
+	</bean>		
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.bak" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBak" />
+	</bean>	
+			
+				
+	<!-- 事务管理器配置,单数据源事务 -->
+	<bean id="transactionManagerFs" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceFs" />
+	</bean>
+	<bean id="transactionManagerCortex" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceCortex" />
+	</bean>
+	<bean id="transactionManagerBak" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceBak" />
+	</bean>
+	
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManagerFs" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerCortex" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerBak" proxy-target-class="true" />
+
+	<!-- 配置 JSR303 Bean Validator 定义 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- 缓存配置 -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:${ehcache.configFile}" />
+	</bean>
+	
+</beans>

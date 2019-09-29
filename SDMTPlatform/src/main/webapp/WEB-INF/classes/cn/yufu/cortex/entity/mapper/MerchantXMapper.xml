@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.MerchantXMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.MerchantX" >
+    <result column="INST_ID" property="instId" jdbcType="DECIMAL" />
+    <result column="MRCHNO" property="mrchno" jdbcType="VARCHAR" />
+    <result column="MRCHT_NAME" property="mrchtName" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="ADD_DATE" property="addDate" jdbcType="DECIMAL" />
+    <result column="CITY_NO" property="cityNo" jdbcType="DECIMAL" />
+    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+    <result column="ZONE" property="zone" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="TYPE_YF" property="typeYf" jdbcType="DECIMAL" />
+    <result column="AGENT" property="agent" jdbcType="VARCHAR" />
+    <result column="ID_TYPE" property="idType" jdbcType="DECIMAL" />
+    <result column="ID_NO" property="idNo" jdbcType="VARCHAR" />
+    <result column="ID_VALIDITY" property="idValidity" jdbcType="DATE" />
+    <result column="BUS_LIC_NO" property="busLicNo" jdbcType="VARCHAR" />
+    <result column="BUS_LIC_VALIDITY" property="busLicValidity" jdbcType="DATE" />
+    <result column="TAX_ID" property="taxId" jdbcType="VARCHAR" />
+    <result column="TAX_ID_VALIDITY" property="taxIdValidity" jdbcType="DATE" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="ORG_VALIDITY" property="orgValidity" jdbcType="DATE" />
+    <result column="TELNO1" property="telno1" jdbcType="VARCHAR" />
+    <result column="POSTCODE" property="postcode" jdbcType="VARCHAR" />
+    <result column="CONTACT3" property="contact3" jdbcType="VARCHAR" />
+    <result column="ACCNO" property="accno" jdbcType="VARCHAR" />
+    <result column="MERCHANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    <result column="BUS_LIC_PIC" property="busLicPic" jdbcType="VARCHAR" />
+    <result column="TAX_ID_PIC" property="taxIdPic" jdbcType="VARCHAR" />
+    <result column="ORG_ID_PIC" property="orgIdPic" jdbcType="VARCHAR" />
+    <result column="LEGAL_REP" property="legalRep" jdbcType="VARCHAR" />
+    <result column="LR_ID_TYPE" property="lrIdType" jdbcType="DECIMAL" />
+    <result column="LR_ID_NO" property="lrIdNo" jdbcType="VARCHAR" />
+    <result column="LR_ID_VALIDITY" property="lrIdValidity" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    INST_ID, MRCHNO, MRCHT_NAME, ADDRESS, ADD_DATE, CITY_NO, PROVINCE, ZONE, STATE, TYPE_YF, 
+    AGENT, ID_TYPE, ID_NO, ID_VALIDITY, BUS_LIC_NO, BUS_LIC_VALIDITY, TAX_ID, TAX_ID_VALIDITY, 
+    ORG_ID, ORG_VALIDITY, TELNO1, POSTCODE, CONTACT3, ACCNO, MERCHANT_ID, BUS_LIC_PIC, 
+    TAX_ID_PIC, ORG_ID_PIC, LEGAL_REP, LR_ID_TYPE, LR_ID_NO, LR_ID_VALIDITY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.MerchantXExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from MERCHANT_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.MerchantXExample" >
+    delete from MERCHANT_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.MerchantX" >
+    insert into MERCHANT_X (INST_ID, MRCHNO, MRCHT_NAME, 
+      ADDRESS, ADD_DATE, CITY_NO, 
+      PROVINCE, ZONE, STATE, 
+      TYPE_YF, AGENT, ID_TYPE, 
+      ID_NO, ID_VALIDITY, BUS_LIC_NO, 
+      BUS_LIC_VALIDITY, TAX_ID, TAX_ID_VALIDITY, 
+      ORG_ID, ORG_VALIDITY, TELNO1, 
+      POSTCODE, CONTACT3, ACCNO, 
+      MERCHANT_ID, BUS_LIC_PIC, TAX_ID_PIC, 
+      ORG_ID_PIC, LEGAL_REP, LR_ID_TYPE, 
+      LR_ID_NO, LR_ID_VALIDITY)
+    values (#{instId,jdbcType=DECIMAL}, #{mrchno,jdbcType=VARCHAR}, #{mrchtName,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{addDate,jdbcType=DECIMAL}, #{cityNo,jdbcType=DECIMAL}, 
+      #{province,jdbcType=DECIMAL}, #{zone,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, 
+      #{typeYf,jdbcType=DECIMAL}, #{agent,jdbcType=VARCHAR}, #{idType,jdbcType=DECIMAL}, 
+      #{idNo,jdbcType=VARCHAR}, #{idValidity,jdbcType=DATE}, #{busLicNo,jdbcType=VARCHAR}, 
+      #{busLicValidity,jdbcType=DATE}, #{taxId,jdbcType=VARCHAR}, #{taxIdValidity,jdbcType=DATE}, 
+      #{orgId,jdbcType=VARCHAR}, #{orgValidity,jdbcType=DATE}, #{telno1,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{contact3,jdbcType=VARCHAR}, #{accno,jdbcType=VARCHAR}, 
+      #{merchantId,jdbcType=DECIMAL}, #{busLicPic,jdbcType=VARCHAR}, #{taxIdPic,jdbcType=VARCHAR}, 
+      #{orgIdPic,jdbcType=VARCHAR}, #{legalRep,jdbcType=VARCHAR}, #{lrIdType,jdbcType=DECIMAL}, 
+      #{lrIdNo,jdbcType=VARCHAR}, #{lrIdValidity,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.MerchantX" >
+    insert into MERCHANT_X
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="instId != null" >
+        INST_ID,
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO,
+      </if>
+      <if test="mrchtName != null" >
+        MRCHT_NAME,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="addDate != null" >
+        ADD_DATE,
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="zone != null" >
+        ZONE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="typeYf != null" >
+        TYPE_YF,
+      </if>
+      <if test="agent != null" >
+        AGENT,
+      </if>
+      <if test="idType != null" >
+        ID_TYPE,
+      </if>
+      <if test="idNo != null" >
+        ID_NO,
+      </if>
+      <if test="idValidity != null" >
+        ID_VALIDITY,
+      </if>
+      <if test="busLicNo != null" >
+        BUS_LIC_NO,
+      </if>
+      <if test="busLicValidity != null" >
+        BUS_LIC_VALIDITY,
+      </if>
+      <if test="taxId != null" >
+        TAX_ID,
+      </if>
+      <if test="taxIdValidity != null" >
+        TAX_ID_VALIDITY,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgValidity != null" >
+        ORG_VALIDITY,
+      </if>
+      <if test="telno1 != null" >
+        TELNO1,
+      </if>
+      <if test="postcode != null" >
+        POSTCODE,
+      </if>
+      <if test="contact3 != null" >
+        CONTACT3,
+      </if>
+      <if test="accno != null" >
+        ACCNO,
+      </if>
+      <if test="merchantId != null" >
+        MERCHANT_ID,
+      </if>
+      <if test="busLicPic != null" >
+        BUS_LIC_PIC,
+      </if>
+      <if test="taxIdPic != null" >
+        TAX_ID_PIC,
+      </if>
+      <if test="orgIdPic != null" >
+        ORG_ID_PIC,
+      </if>
+      <if test="legalRep != null" >
+        LEGAL_REP,
+      </if>
+      <if test="lrIdType != null" >
+        LR_ID_TYPE,
+      </if>
+      <if test="lrIdNo != null" >
+        LR_ID_NO,
+      </if>
+      <if test="lrIdValidity != null" >
+        LR_ID_VALIDITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="instId != null" >
+        #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="mrchtName != null" >
+        #{mrchtName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null" >
+        #{addDate,jdbcType=DECIMAL},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=DECIMAL},
+      </if>
+      <if test="zone != null" >
+        #{zone,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="typeYf != null" >
+        #{typeYf,jdbcType=DECIMAL},
+      </if>
+      <if test="agent != null" >
+        #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=DECIMAL},
+      </if>
+      <if test="idNo != null" >
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idValidity != null" >
+        #{idValidity,jdbcType=DATE},
+      </if>
+      <if test="busLicNo != null" >
+        #{busLicNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busLicValidity != null" >
+        #{busLicValidity,jdbcType=DATE},
+      </if>
+      <if test="taxId != null" >
+        #{taxId,jdbcType=VARCHAR},
+      </if>
+      <if test="taxIdValidity != null" >
+        #{taxIdValidity,jdbcType=DATE},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgValidity != null" >
+        #{orgValidity,jdbcType=DATE},
+      </if>
+      <if test="telno1 != null" >
+        #{telno1,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="contact3 != null" >
+        #{contact3,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="busLicPic != null" >
+        #{busLicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="taxIdPic != null" >
+        #{taxIdPic,jdbcType=VARCHAR},
+      </if>
+      <if test="orgIdPic != null" >
+        #{orgIdPic,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRep != null" >
+        #{legalRep,jdbcType=VARCHAR},
+      </if>
+      <if test="lrIdType != null" >
+        #{lrIdType,jdbcType=DECIMAL},
+      </if>
+      <if test="lrIdNo != null" >
+        #{lrIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lrIdValidity != null" >
+        #{lrIdValidity,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.MerchantXExample" resultType="java.lang.Integer" >
+    select count(*) from MERCHANT_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update MERCHANT_X
+    <set >
+      <if test="record.instId != null" >
+        INST_ID = #{record.instId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrchno != null" >
+        MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mrchtName != null" >
+        MRCHT_NAME = #{record.mrchtName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addDate != null" >
+        ADD_DATE = #{record.addDate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cityNo != null" >
+        CITY_NO = #{record.cityNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.province != null" >
+        PROVINCE = #{record.province,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zone != null" >
+        ZONE = #{record.zone,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=DECIMAL},
+      </if>
+      <if test="record.typeYf != null" >
+        TYPE_YF = #{record.typeYf,jdbcType=DECIMAL},
+      </if>
+      <if test="record.agent != null" >
+        AGENT = #{record.agent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idType != null" >
+        ID_TYPE = #{record.idType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.idNo != null" >
+        ID_NO = #{record.idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idValidity != null" >
+        ID_VALIDITY = #{record.idValidity,jdbcType=DATE},
+      </if>
+      <if test="record.busLicNo != null" >
+        BUS_LIC_NO = #{record.busLicNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busLicValidity != null" >
+        BUS_LIC_VALIDITY = #{record.busLicValidity,jdbcType=DATE},
+      </if>
+      <if test="record.taxId != null" >
+        TAX_ID = #{record.taxId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxIdValidity != null" >
+        TAX_ID_VALIDITY = #{record.taxIdValidity,jdbcType=DATE},
+      </if>
+      <if test="record.orgId != null" >
+        ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgValidity != null" >
+        ORG_VALIDITY = #{record.orgValidity,jdbcType=DATE},
+      </if>
+      <if test="record.telno1 != null" >
+        TELNO1 = #{record.telno1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact3 != null" >
+        CONTACT3 = #{record.contact3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accno != null" >
+        ACCNO = #{record.accno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantId != null" >
+        MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.busLicPic != null" >
+        BUS_LIC_PIC = #{record.busLicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxIdPic != null" >
+        TAX_ID_PIC = #{record.taxIdPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgIdPic != null" >
+        ORG_ID_PIC = #{record.orgIdPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalRep != null" >
+        LEGAL_REP = #{record.legalRep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lrIdType != null" >
+        LR_ID_TYPE = #{record.lrIdType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lrIdNo != null" >
+        LR_ID_NO = #{record.lrIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lrIdValidity != null" >
+        LR_ID_VALIDITY = #{record.lrIdValidity,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update MERCHANT_X
+    set INST_ID = #{record.instId,jdbcType=DECIMAL},
+      MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      MRCHT_NAME = #{record.mrchtName,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      ADD_DATE = #{record.addDate,jdbcType=DECIMAL},
+      CITY_NO = #{record.cityNo,jdbcType=DECIMAL},
+      PROVINCE = #{record.province,jdbcType=DECIMAL},
+      ZONE = #{record.zone,jdbcType=DECIMAL},
+      STATE = #{record.state,jdbcType=DECIMAL},
+      TYPE_YF = #{record.typeYf,jdbcType=DECIMAL},
+      AGENT = #{record.agent,jdbcType=VARCHAR},
+      ID_TYPE = #{record.idType,jdbcType=DECIMAL},
+      ID_NO = #{record.idNo,jdbcType=VARCHAR},
+      ID_VALIDITY = #{record.idValidity,jdbcType=DATE},
+      BUS_LIC_NO = #{record.busLicNo,jdbcType=VARCHAR},
+      BUS_LIC_VALIDITY = #{record.busLicValidity,jdbcType=DATE},
+      TAX_ID = #{record.taxId,jdbcType=VARCHAR},
+      TAX_ID_VALIDITY = #{record.taxIdValidity,jdbcType=DATE},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      ORG_VALIDITY = #{record.orgValidity,jdbcType=DATE},
+      TELNO1 = #{record.telno1,jdbcType=VARCHAR},
+      POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      CONTACT3 = #{record.contact3,jdbcType=VARCHAR},
+      ACCNO = #{record.accno,jdbcType=VARCHAR},
+      MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      BUS_LIC_PIC = #{record.busLicPic,jdbcType=VARCHAR},
+      TAX_ID_PIC = #{record.taxIdPic,jdbcType=VARCHAR},
+      ORG_ID_PIC = #{record.orgIdPic,jdbcType=VARCHAR},
+      LEGAL_REP = #{record.legalRep,jdbcType=VARCHAR},
+      LR_ID_TYPE = #{record.lrIdType,jdbcType=DECIMAL},
+      LR_ID_NO = #{record.lrIdNo,jdbcType=VARCHAR},
+      LR_ID_VALIDITY = #{record.lrIdValidity,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

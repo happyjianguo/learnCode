@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+	http://www.springframework.org/schema/jee 
+	http://www.springframework.org/schema/jee/spring-jee-4.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>Spring公共配置 </description>
+	
+	<!-- 定义受环境影响易变的变量 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<!-- 标准配置 -->
+				<value>classpath*:/jdbc.properties</value>
+				<value>classpath*:/shiro/shiro-client.properties</value>
+			</list>
+		</property>
+	</bean>
+	<import resource="classpath:shiro/shiro-config.xml"/>
+	
+	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+	<context:component-scan base-package="cn.yufu" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<bean id="dataSourceSdmtpf" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${sdmtpfDriverClass}"></property>
+		<property name="jdbcUrl" value="${sdmtpfJdbcUrl}"></property>
+		<property name="user" value="${sdmtpfAppUser}"></property>
+		<property name="password" value="${sdmtpfAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="dataSourcePosp" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${pospDriverClass}"></property>
+		<property name="jdbcUrl" value="${pospJdbcUrl}"></property>
+		<property name="user" value="${pospAppUser}"></property>
+		<property name="password" value="${pospAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="dataSourceCortex" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${cortexDriverClass}"></property>
+		<property name="jdbcUrl" value="${cortexJdbcUrl}"></property>
+		<property name="user" value="${cortexAppUser}"></property>
+		<property name="password" value="${cortexAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="dataSourceCortexBak" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${cortexBakDriverClass}"></property>
+		<property name="jdbcUrl" value="${cortexBakJdbcUrl}"></property>
+		<property name="user" value="${cortexBakAppUser}"></property>
+		<property name="password" value="${cortexBakAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="dataSourceYufuOld" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${yufuOldDriverClass}"></property>
+		<property name="jdbcUrl" value="${yufuOldJdbcUrl}"></property>
+		<property name="user" value="${yufuOldAppUser}"></property>
+		<property name="password" value="${yufuOldAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="dataSourceYufuOldSwitch" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${yufuOldSwitchDriverClass}"></property>
+		<property name="jdbcUrl" value="${yufuOldSwitchJdbcUrl}"></property>
+		<property name="user" value="${yufuOldSwitchAppUser}"></property>
+		<property name="password" value="${yufuOldSwitchAppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="dataSourceYufuOld1" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${yufuOld1DriverClass}"></property>
+		<property name="jdbcUrl" value="${yufuOld1JdbcUrl}"></property>
+		<property name="user" value="${yufuOld1AppUser}"></property>
+		<property name="password" value="${yufuOld1AppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	<bean id="dataSourceYufuOld2" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${yufuOld2DriverClass}"></property>
+		<property name="jdbcUrl" value="${yufuOld2JdbcUrl}"></property>
+		<property name="user" value="${yufuOld2AppUser}"></property>
+		<property name="password" value="${yufuOld2AppUserPwd}"></property>
+		<property name="acquireIncrement" value="${acquireIncrement}"></property>
+		<property name="maxIdleTime" value="${maxIdleTime}"></property>
+		<property name="initialPoolSize" value="${initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${maxPoolSize}"></property>
+		<property name="minPoolSize" value="${minPoolSize}"></property>
+		<property name="maxStatements" value="${maxStatements}"></property>
+		<property name="maxStatementsPerConnection" value="${maxStatementsPerConnection}"></property>
+	</bean>
+	
+	<bean id="sqlSessionFactorySdmtpf" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceSdmtpf" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/SDMTPlatform/entity/mapper/*Mapper.xml" />
+	</bean>	
+	<bean id="sqlSessionFactoryPosp" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourcePosp" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/posp/entity/mapper/*Mapper.xml" />
+	</bean>
+	<bean id="sqlSessionFactoryCortex" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceCortex" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/cortex/entity/mapper/*Mapper.xml" />
+	</bean>
+	<bean id="sqlSessionFactoryCortexBak" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceCortexBak" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/cortexBak/entity/mapper/*Mapper.xml" />
+	</bean>
+	<bean id="sqlSessionFactoryYufuOld" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceYufuOld" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/yufuOld/entity/mapper/*Mapper.xml" />
+	</bean>	
+	<bean id="sqlSessionFactoryYufuOldSwitch" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceYufuOldSwitch" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/yufuOldSwitch/entity/mapper/*Mapper.xml" />
+	</bean>	
+	<bean id="sqlSessionFactoryYufuOld1" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceYufuOld1" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/yufuOld1/entity/mapper/*Mapper.xml" />
+	</bean>	
+	<bean id="sqlSessionFactoryYufuOld2" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceYufuOld2" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<property name="mapperLocations" value="classpath:cn/yufu/yufuOld2/entity/mapper/*Mapper.xml" />
+	</bean>	
+	
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.SDMTPlatform" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactorySdmtpf" />
+	</bean>	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.posp" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryPosp" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.cortex" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryCortex" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.cortexBak" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryCortexBak" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.yufuOld" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryYufuOld" />
+	</bean>	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.yufuOldSwitch" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryYufuOldSwitch" />
+	</bean>	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.yufuOld1" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryYufuOld1" />
+	</bean>	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.yufu.yufuOld2" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryYufuOld2" />
+	</bean>	
+			
+	<!-- 事务管理器配置,单数据源事务 -->
+	<bean id="transactionManagerSdmtpf" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceSdmtpf" />
+	</bean>
+	<bean id="transactionManagerPosp" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourcePosp" />
+	</bean>
+	<bean id="transactionManagerCortex" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceCortex" />
+	</bean>
+	<bean id="transactionManagerCortexBak" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceCortexBak" />
+	</bean>
+	<bean id="transactionManagerYufuOld" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceYufuOld" />
+	</bean>
+	<bean id="transactionManagerYufuOldSwitch" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceYufuOldSwitch" />
+	</bean>
+	<bean id="transactionManagerYufuOld1" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceYufuOld1" />
+	</bean>
+	<bean id="transactionManagerYufuOld2" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceYufuOld2" />
+	</bean>
+	
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManagerSdmtpf" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerPosp" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerCortex" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerCortexBak" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerYufuOld" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerYufuOldSwitch" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerYufuOld1" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManagerYufuOld2" proxy-target-class="true" />
+
+</beans>

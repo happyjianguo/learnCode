@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.IWXDResMessageMapper">
+	<sql id="columns">RESMSGID,RESTYPE,RESMSGNAME,RESMSGKEY,MSGTYPE,MSGID,APPID,UPDATETIME,CREATETIME
+	</sql>
+	<select id="getMsgByType" parameterType="String"
+		resultType="WXDResMessage">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXDRESMESSAGE WHERE MSGTYPE=#{msgType}
+		ORDER BY CREATETIME  DESC
+	</select>
+	<select id="selectResMByResmsgid" parameterType="String"
+		resultType="WXDResMessage">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXDRESMESSAGE WHERE RESMSGID=#{resmsgid}
+	</select>
+	<select id="queryPageResMessageByParams" parameterType="Map"
+		resultType="WXDResMessage">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXDRESMESSAGE
+		WHERE 1=1
+		<if test="resMsgname!='' and resMsgname!=null">
+			AND RESMSGNAME=#{resMsgname}
+		</if>
+		<if test="msgId !='' and msgId !=null">
+			AND MSGID=#{msgId}
+		</if>
+		ORDER BY CREATETIME  DESC
+	</select>
+	<select id="searchByResMsgname" parameterType="WXDResMessage"
+		resultType="WXDResMessage">
+		SELECT
+			res.RESMSGID,
+			res.RESTYPE,
+			res.RESMSGNAME,
+			res.RESMSGKEY,
+			res.MSGTYPE,
+			res.MSGID,
+			res.APPID,
+			res.UPDATETIME,
+			res.CREATETIME
+		FROM
+			WXDRESMESSAGE res
+		WHERE
+			res.RESMSGKEY = #{resMsgKey}
+			 OR 
+			res.RESMSGNAME = #{resMsgname}
+		ORDER BY CREATETIME  DESC
+	</select>
+	<select id="queryPageResMessage" parameterType="WXDResMessage"
+		resultType="WXDResMessage">
+		SELECT
+			res.RESMSGID,
+			res.RESTYPE,
+			res.RESMSGNAME,
+			res.RESMSGKEY,
+			res.MSGTYPE,
+			res.MSGID,
+			res.APPID,
+			res.UPDATETIME,
+			res.CREATETIME,
+			m.MSGNAME
+		FROM
+			WXDRESMESSAGE res LEFT JOIN WXDMESSAGE m ON res.MSGID=m.MSGID
+		WHERE
+			res.APPID = #{appid}
+		<if test="resType != null">
+			AND res.RESTYPE = #{resType}
+		</if>
+		<if test="resMsgname != null">
+			AND res.RESMSGNAME like CONCAT('%','${resMsgname}','%' )
+		</if>
+		<if test="resMsgKey != null">
+			AND res.RESMSGKEY = #{resMsgKey}
+		</if>
+		<if test="msgType != null">
+			AND res.MSGTYPE = #{msgType}
+		</if>
+		<if test="msgId != null">
+			AND res.MSGID = #{msgId}
+		</if>
+		ORDER BY res.CREATETIME  DESC
+	</select>
+	<insert id="save" parameterType="WXDResMessage">
+		INSERT INTO WXDRESMESSAGE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="resmsgId != null">
+				RESMSGID,
+			</if>
+			<if test="resType != null">
+				RESTYPE,
+			</if>
+			<if test="resMsgname != null">
+				RESMSGNAME,
+			</if>
+			<if test="resMsgKey != null">
+				RESMSGKEY,
+			</if>
+			<if test="msgType != null">
+				MSGTYPE,
+			</if>
+			<if test="msgId != null">
+				MSGID,
+			</if>
+			<if test="appid != null">
+				APPID,
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME,
+			</if>
+			<if test="createTime != null">
+				CREATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="resmsgId != null">
+				#{resmsgId},
+			</if>
+			<if test="resType != null">
+				#{resType},
+			</if>
+			<if test="resMsgname != null">
+				#{resMsgname},
+			</if>
+			<if test="resMsgKey != null">
+				#{resMsgKey},
+			</if>
+			<if test="msgType != null">
+				#{msgType},
+			</if>
+			<if test="msgId != null">
+				#{msgId},
+			</if>
+			<if test="appid != null">
+				#{appid},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="WXDResMessage">
+		UPDATE
+		WXDRESMESSAGE
+		<set>
+			<if test="resType != null">
+				RESTYPE = #{resType},
+			</if>
+			<if test="resMsgname != null">
+				RESMSGNAME = #{resMsgname},
+			</if>
+			RESMSGKEY = #{resMsgKey},
+			<if test="msgType != null">
+				MSGTYPE = #{msgType},
+			</if>
+			<if test="msgId != null">
+				MSGID = #{msgId},
+			</if>
+			<if test="appid != null">
+				APPID = #{appid},
+			</if>
+			<if test="createTime != null">
+				CREATETIME = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME = #{updateTime},
+			</if>
+		</set>
+		WHERE RESMSGID=#{resmsgId}
+	</update>
+	<delete id="deleteByIdS" parameterType="java.util.List">
+		DELETE FROM WXDRESMESSAGE where RESMSGID in
+		<foreach item="idItem" collection="list" open="(" separator=","
+			close=")">
+			#{idItem}
+		</foreach>
+	</delete>
+</mapper>

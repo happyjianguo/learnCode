@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.CardTypeBookMapper" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.CardTypeBook" >
+    <id column="CARD_TYPE_ID" property="cardTypeId" jdbcType="VARCHAR" />
+    <result column="FEE_ORDER" property="feeOrder" jdbcType="DECIMAL" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="COMMENTS1" property="comments1" jdbcType="VARCHAR" />
+    <result column="COMMENTS2" property="comments2" jdbcType="VARCHAR" />
+    <result column="COMMENTS3" property="comments3" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    CARD_TYPE_ID, FEE_ORDER, COMMENTS, COMMENTS1, COMMENTS2, COMMENTS3
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+		distinct
+	</if>
+    <include refid="Base_Column_List" />
+    from T_CARD_TYPE_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_CARD_TYPE_BOOK
+    where CARD_TYPE_ID = #{cardTypeId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey">
+    delete from T_CARD_TYPE_BOOK
+    where CARD_TYPE_ID = #{cardTypeId,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByExample">
+    delete from T_CARD_TYPE_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  <insert id="insert" >
+    insert into T_CARD_TYPE_BOOK (CARD_TYPE_ID, FEE_ORDER, COMMENTS, 
+      COMMENTS1, COMMENTS2, COMMENTS3
+      )
+    values (#{cardTypeId,jdbcType=VARCHAR}, #{feeOrder,jdbcType=DECIMAL}, #{comments,jdbcType=VARCHAR}, 
+      #{comments1,jdbcType=VARCHAR}, #{comments2,jdbcType=VARCHAR}, #{comments3,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    select count(*) from T_CARD_TYPE_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByPrimaryKey">
+    update T_CARD_TYPE_BOOK
+    set FEE_ORDER = #{feeOrder,jdbcType=DECIMAL},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      COMMENTS1 = #{comments1,jdbcType=VARCHAR},
+      COMMENTS2 = #{comments2,jdbcType=VARCHAR},
+      COMMENTS3 = #{comments3,jdbcType=VARCHAR}
+    where CARD_TYPE_ID = #{cardTypeId,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT c.*, ROWNUM rn FROM(
+		select
+		<if test="example.distinct">
+			example.distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from T_CARD_TYPE_BOOK 
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="example.orderByClause != null">
+			order by ${example.orderByClause}
+		</if>)
+		c
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select> 
+  
+</mapper>

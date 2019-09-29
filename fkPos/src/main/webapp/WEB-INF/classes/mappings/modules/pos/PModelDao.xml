@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.PModelDao">
+    
+	<sql id="pModelColumns">
+		a.model_id AS "modelId",
+		a.factory_id AS "factoryId",
+		a.factory_name AS "factoryName",
+		a.model_status AS "modelStatus",		
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="pModelJoins">
+	</sql>
+    
+	<select id="get" resultType="PModel">
+		SELECT 
+			<include refid="pModelColumns"/>
+		FROM p_model a
+		<include refid="pModelJoins"/>
+		WHERE a.model_id = #{modelId}
+	</select>
+	
+	<select id="findList" resultType="PModel">
+		SELECT 
+			<include refid="pModelColumns"/>
+		FROM p_model a
+		<include refid="pModelJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="modelId != null and modelId != ''">
+				AND a.model_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{modelId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{modelId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{modelId},'%')</if>
+			</if>
+			<if test="factoryId != null and factoryId != ''">
+				AND a.factory_id = #{factoryId}
+			</if>
+			<if test="factoryName != null and factoryName != ''">
+				AND a.factory_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{factoryName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{factoryName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{factoryName},'%')</if>
+			</if>
+			<if test="modelStatus != null and modelStatus != ''">
+				AND a.model_status=#{modelStatus}
+			</if>			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PModel">
+		SELECT 
+			<include refid="pModelColumns"/>
+		FROM p_model a
+		<include refid="pModelJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO p_model(
+			model_id,
+			factory_id,
+			factory_name,
+			model_status,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{modelId},
+			#{factoryId},
+			#{factoryName},
+			#{modelStatus},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE p_model SET 	
+			model_id = #{modelId},
+			factory_id = #{factoryId},
+			factory_name = #{factoryName},
+			model_status = #{modelStatus},
+			remarks = #{remarks}
+		WHERE model_id = #{modelId}
+	</update>
+	
+	<update id="delete">
+		UPDATE p_model SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE model_id = #{modelId}
+	</update>
+	
+</mapper>

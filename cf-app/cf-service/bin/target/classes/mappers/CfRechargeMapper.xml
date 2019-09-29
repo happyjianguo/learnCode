@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfRechargeMapper">
+	<select id="selectByStatus" parameterType="String" resultType="CfRechargeEntity">
+		select
+ 			orderid,
+		    ispno,
+		    isptype,
+		    facevalue,
+		    phone,
+		    bizid,
+		    status,
+		    province,
+		    cid,
+		    acid,
+		    source,
+		    cbstatus,
+		    userid
+		from
+  			cf_recharge
+		where 
+			status = #{status}
+	</select>
+	<select id="queryByidAndSysid"  resultType="CfRechargeEntity">
+		Select
+			orderid,
+		    ispno,
+		    isptype,
+		    facevalue,
+		    phone,
+		    bizid,
+		    status,
+		    province,
+		    cid,
+		    acid,
+		    source,
+		    cbstatus,
+		    userid
+		from
+  			cf_recharge
+		WHERE
+		    orderid = #{orderid} and acid = #{sysid}
+	</select>
+	
+	<insert id="insert"  parameterType="CfRechargeEntity">
+		INSERT
+			INTO
+			    cf_recharge
+			    (
+			    	id,
+			        orderid,
+				    ispno,
+				    isptype,
+				    facevalue,
+				    phone,
+				    bizid,
+				    status,
+				    province,
+				    cid,
+				    acid,
+				    source,
+		    		cbstatus,
+		    		userid
+			    )
+			    VALUES
+			    (
+			    	#{id},
+			        #{orderid},
+			        #{ispno},
+			        #{isptype},
+			        #{facevalue},
+			        #{phone},
+			        #{bizid},
+			        #{status},
+			        #{province},
+			        #{cid},
+			        #{acid},
+			        #{source},
+			        #{cbstatus},
+			        #{userid}
+			    )
+	</insert>
+
+	
+	<update id="updateStatus" parameterType="CfRechargeEntity">
+		UPDATE
+		    cf_recharge
+			<set> 
+		        <if test="status!='' and status!=null">
+				 	STATUS = #{status},
+				</if>
+			    <if test="bizid!='' and bizid!=null">
+					BIZID = #{bizid},
+				</if>
+		    </set> 
+		WHERE
+		    orderid = #{orderid} and STATUS != #{status}
+	</update>
+	
+	<update id="updateStatusByBizid" parameterType="CfRechargeEntity">
+		UPDATE
+		    cf_recharge
+			<set> 
+		        <if test="status!='' and status!=null">
+				 	STATUS = #{status},
+				</if>
+				<if test="cbstatus!='' and cbstatus!=null">
+				 	CBSTATUS = #{cbstatus},
+				</if>
+		    </set> 
+		WHERE
+		    BIZID = #{bizid} 
+		    <if test="cbstatus!='' and cbstatus!=null">
+				 	and CBSTATUS != #{cbstatus}
+			</if>
+	</update>
+	
+	<select id="queryCallBack" resultType="CfRechargeEntity">
+		SELECT
+		    orderid,
+		    ispno,
+		    isptype,
+		    facevalue,
+		    phone,
+		    bizid,
+		    status,
+		    province,
+		    cid,
+		    acid,
+		    source,
+		    cbstatus,
+		    userid
+		FROM
+		    cf_recharge
+		WHERE
+			source = #{source} and cbstatus = #{cbstatus} and status != #{status}
+	</select>
+</mapper>
+	
+	
+	

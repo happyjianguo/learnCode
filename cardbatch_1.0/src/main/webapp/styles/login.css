@@ -1,0 +1,85 @@
+* {
+	margin: 0 auto;
+	padding: 0;
+}
+
+body {
+	background-color: #b7cf63;
+	overflow-y:hidden; 	
+}
+
+a {
+	text-decoration: none
+}
+
+p {
+	margin: 0px;
+	padding: 0px;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border: 0
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+li {
+	list-style-type: none;
+}
+
+.inputselect {
+	font: 12px Arial;
+	color: #000;
+	height: 20px;
+	width: 180px;
+	border: 1px solid #ACCCD9;
+	vertical-align: middle;
+	text-indent: 3px;
+	line-height: 18px
+}
+.inputselect2 {
+	font: 12px Arial;
+	color: #000;
+	height: 20px;
+	width: 60px;
+	border: 1px solid #ACCCD9;
+	vertical-align: middle;
+	text-indent: 3px;
+	line-height: 18px
+}
+
+#mainWrapper {
+	width: 100%;
+	height: 600px;
+	background: url(../images/login_bg1.gif) repeat-x top;
+}
+
+#main {
+
+	margin: auto;
+	width: 100%;
+	height: 600px;
+	background: url(../images/login_bg2.gif) no-repeat top center;
+}
+
+.login_windows {
+	margin: auto;
+	padding-top: 270px;
+	padding-left: 470px;
+	width: 100%;
+	line-height: 200%
+}
+
+.errorMessage {
+	color: red;
+	font-size: 12px;
+	padding-left: 15px;
+}

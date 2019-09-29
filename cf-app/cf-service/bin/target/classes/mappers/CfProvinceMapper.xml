@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfProvinceMapper">
+	
+	<select id="query" resultType="CfProvinceEntity" >
+		SELECT
+		    PNO,
+		    PNAME,
+		    PORDER
+		FROM
+		    cf_province
+		ORDER BY PORDER
+	</select>
+	
+	
+	<select id="queryByPname" resultType="CfProvinceEntity" >
+		SELECT
+		    PNO,
+		    PNAME,
+		    PORDER
+		FROM
+		    cf_province
+		WHERE
+			pname = #{pname}
+	</select>
+	<select id="selectPnameBypno" resultType="CfProvinceEntity" >
+		SELECT
+		    PNO,
+		    PNAME,
+		    PORDER
+		FROM
+		    cf_province
+		WHERE
+			pno = #{pno}
+	</select>	
+</mapper>

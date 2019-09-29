@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.dao.mapper.IWXDNetStationMapper">
+	<sql id="columns">
+		NETID,
+		NETNAME,
+		PARENTNETID,
+		NETSTATUS,
+		NETADDRESS,
+		PHONENO,
+		LONGITUDE,
+		LATITUDE,
+		DESCRIPT
+	</sql>
+	<resultMap id="netStationMap" type="WXDNetStation">
+		<result column="NETID" property="netId" jdbcType="VARCHAR" />
+		<result column="NETNAME" property="netName" jdbcType="VARCHAR" />
+		<result column="PARENTNETID" property="parentNetId" jdbcType="VARCHAR" />
+		<result column="NETSTATUS" property="netStatus" jdbcType="VARCHAR" />
+		<result column="NETADDRESS" property="netAddress" jdbcType="VARCHAR" />
+		<result column="PHONENO" property="phoneNo" jdbcType="VARCHAR" />
+		<result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />
+		<result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />
+		<result column="DESCRIPT" property="descript" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getNetStationList" parameterType="WXDNetStation" resultMap="netStationMap">
+		SELECT <include refid="columns"></include> FROM WXDNETSTATION
+		WHERE 1=1
+		<if test="netStatus!='' and netStatus!=null">
+			and NETSTATUS=#{netStatus}
+		</if>
+		<if test="netName!='' and netName!=null">
+			and NETNAME like CONCAT('%','${netName}','%' )
+		</if>
+		<if test="longitude!='' and longitude!=null">
+			and LONGITUDE=#{longitude}
+		</if>
+		<if test="latitude!='' and latitude!=null">
+			and LATITUDE=#{latitude}
+		</if>
+		ORDER BY NETID ASC
+	</select>
+	<select id="getNetStation" parameterType="WXDNetStation" resultMap="netStationMap">
+		SELECT <include refid="columns"></include> FROM WXDNETSTATION
+		WHERE 1=1
+		<if test="netName!='' and netName!=null">
+			and NETNAME = #{netName}
+		</if>
+		<if test="netId!='' and netId!=null">
+			and NETID = #{netId}
+		</if>
+		ORDER BY NETID ASC
+	</select>
+	<insert id="addNetStationInfo" parameterType="WXDNetStation">
+		INSERT INTO WXDNETSTATION
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			NETID,
+			NETNAME,
+			PARENTNETID,
+			NETSTATUS,
+			NETADDRESS,
+			PHONENO,
+			LONGITUDE,
+			LATITUDE,
+			DESCRIPT
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{netId},
+			#{netName},
+			#{parentNetId},
+			#{netStatus},
+			#{netAddress},
+			#{phoneNo},
+			#{longitude},
+			#{latitude},
+			#{descript}
+		</trim>
+	</insert>
+	<delete id="delNetStationById" parameterType="String">
+		DELETE FROM
+		WXDNETSTATION WHERE NETID=#{netId}
+	</delete>
+
+	<update id="modifyNetStationInfo" parameterType="WXDNetStation">
+		UPDATE
+		WXDNETSTATION
+		<set>
+			<if test="netName != null">
+				NETNAME = #{netName},
+			</if>
+			<if test="parentNetId != null">
+				PARENTNETID = #{parentNetId},
+			</if>
+			<if test="netStatus != null">
+				NETSTATUS = #{netStatus},
+			</if>
+			<if test="netAddress != null">
+				NETADDRESS = #{netAddress},
+			</if>
+			<if test="phoneNo != null">
+				PHONENO = #{phoneNo},
+			</if>
+			<if test="longitude != null">
+				LONGITUDE = #{longitude},
+			</if>
+			<if test="latitude != null">
+				LATITUDE = #{latitude},
+			</if>
+			<if test="descript != null">
+				DESCRIPT = #{descript}
+			</if>
+		</set>
+		WHERE NETID = #{netId}
+	</update>
+</mapper>

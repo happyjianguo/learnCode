@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.mapper.weixin.UserAnalysisMapper">
+	<resultMap type="java.util.HashMap" id="UserMap">
+		<result property="ADATE" column="ADATE" />
+		<result property="USERCOUNT" column="USERCOUNT" />
+	</resultMap>
+	<select id="queryBeforeCountSub" parameterType="String" resultType="java.math.BigDecimal">
+		<![CDATA[
+		SELECT 
+			COUNT(1) AS COUNT
+		FROM 
+			WXBUSER
+		WHERE
+        	UPDATETIME < #{startTimeStamp} 
+        	AND APPID = #{appid}
+		]]>
+	</select>
+	<select id="queryBeforeCountSubNow" parameterType="String" resultType="java.math.BigDecimal">
+		<![CDATA[
+		SELECT COUNT(1) AS COUNT
+		FROM WXBUSER
+		WHERE
+        UPDATETIME < #{startTimeStamp} and SUBSCRIPTTYPE = '1' AND APPID = #{appid}
+		]]>
+	</select>
+
+	<select id="getAccount" parameterType="Map" resultType="AuthAccount">
+		SELECT 
+			ORGID,
+			APPID,
+			AUTH_ACCESS_TOKEN,
+			AUTH_REFRESH_TOKEN,
+			AUTH_CODE,
+			CREATETIME,
+			UPDATETIME,
+			STATUS,
+			NICKNAME,
+			HEADIMG,
+			SERVICETYPE,
+			VERIFYTYPE,
+			USERNAME,
+			ALIAS,
+			QRCODEURL
+		FROM 
+			CLOUDCOMPONENTAUTH
+		WHERE
+        	STATUS = #{status}
+        ORDER BY UPDATETIME DESC
+	</select>
+	<select id="getDataAccount" parameterType="Map" resultType="AuthAccount">
+		SELECT 
+			c.ORGID ORGID,
+			c.APPID APPID,
+			c.AUTH_ACCESS_TOKEN AUTH_ACCESS_TOKEN,
+			c.AUTH_REFRESH_TOKEN AUTH_REFRESH_TOKEN,
+			c.AUTH_CODE AUTH_CODE,
+			c.CREATETIME CREATETIME,
+			c.UPDATETIME UPDATETIME,
+			c.STATUS STATUS,
+			c.NICKNAME NICKNAME,
+			c.HEADIMG HEADIMG,
+			c.SERVICETYPE SERVICETYPE,
+			c.VERIFYTYPE VERIFYTYPE,
+			c.USERNAME USERNAME,
+			c.ALIAS ALIAS,
+			c.QRCODEURL QRCODEURL
+		FROM 
+			CLOUDCOMPONENTAUTH c
+				LEFT JOIN FSMUSER f
+					ON c.ORGID = f.ORGID
+		WHERE
+        	c.STATUS = #{status} AND f.USERID = #{userid}
+        ORDER BY UPDATETIME DESC
+	</select>
+	<select id="getAccountByOrgid" parameterType="Map" resultType="AuthAccount">
+		SELECT 
+			ORGID,
+			APPID,
+			AUTH_ACCESS_TOKEN,
+			AUTH_REFRESH_TOKEN,
+			AUTH_CODE,
+			CREATETIME,
+			UPDATETIME,
+			STATUS,
+			NICKNAME,
+			HEADIMG,
+			SERVICETYPE,
+			VERIFYTYPE,
+			USERNAME,
+			ALIAS,
+			QRCODEURL
+		FROM 
+			CLOUDCOMPONENTAUTH
+		WHERE
+        	STATUS = #{status}	AND ORGID = #{orgid}
+        ORDER BY CREATETIME DESC
+	</select>
+	
+	<select id="queryBeforeCountUnSub" parameterType="String" resultType="java.math.BigDecimal">
+		<![CDATA[
+		SELECT COUNT(1) AS COUNT
+		FROM WXBUSER
+		where
+        UPDATETIME < #{startTimeStamp} and SUBSCRIPTTYPE = '2' AND APPID = #{appid}
+		]]>
+	</select>
+	<select id="queryDateAttentionSubCount" resultType="Map">
+		<![CDATA[
+		SELECT SUBSTRING(UPDATETIME,1,10) AS ADATE,
+		COUNT(1) AS USERCOUNT
+		FROM wxbuser
+		WHERE 
+		 UPDATETIME >=#{startTimeStamp}
+		AND UPDATETIME < #{endTimeStamp}  
+		AND APPID = #{appid} 
+		GROUP BY SUBSTRING(UPDATETIME,1,10)
+		]]>
+	</select>
+	<select id="queryDateAttentionSubCountNow" resultType="Map">
+		<![CDATA[
+		SELECT 
+			SUBSTRING(SUBSCRIBETIME,1,10) AS ADATE,
+			COUNT(1) AS USERCOUNT
+		FROM 
+			wxbuser
+		WHERE 
+			SUBSCRIPTTYPE = '1'
+			AND UPDATETIME >=#{startTimeStamp}
+			AND UPDATETIME <#{endTimeStamp}  
+			AND  APPID= #{appid}
+		GROUP BY SUBSTRING(SUBSCRIBETIME,1,10)
+		]]>
+	</select>
+
+	<select id="queryDateAttentionUnSubCount" resultType="Map">
+		<![CDATA[
+		SELECT SUBSTRING(UPDATETIME,1,10) AS ADATE,
+        COUNT(1) AS USERCOUNT
+        FROM wxbuser
+        WHERE SUBSCRIPTTYPE = '2'
+        AND UPDATETIME >=#{startTimeStamp}
+        AND UPDATETIME < #{endTimeStamp}  
+        AND APPID = #{appid} 
+        GROUP BY SUBSTRING(UPDATETIME,1,10)
+		]]>
+	</select>
+	<select id="QuerryUserAnalysisTotal" parameterType="String" resultType="java.math.BigDecimal">
+		<![CDATA[
+		SELECT 
+			COUNT(1) AS COUNT
+		FROM
+			WXBUSER 
+		WHERE 
+			APPID = #{appid}	
+			AND SUBSCRIBETIME BETWEEN #{starttime} AND #{endtime}
+		]]>
+	</select>
+	<select id="QuerryUserAnalysisBytype" parameterType="String" resultType="java.math.BigDecimal">
+		<![CDATA[
+		SELECT 
+			COUNT(1) AS COUNT
+		FROM 
+			WXBUSER
+		WHERE
+         	APPID = #{appid} 
+         	AND SUBSCRIPTTYPE = #{subscriPttype}
+         	AND SUBSCRIBETIME BETWEEN #{starttime} AND #{endtime}
+		]]>
+	</select>
+
+<!-- 数据分析 -->
+	<select id="IMUserAna" resultType="IMUserAna" parameterType="String">
+		select 
+			province name,
+			count(1) value 
+		from 
+			WXBUSER 
+		where 
+			sex=#{0} and appid=#{1}
+		group by 
+			province 
+	</select>
+	
+	<select id="IMUserAnaMax" resultType="String">
+		select 
+			max(val) 
+		from (
+			select 
+				count(openid) val
+			from 
+				WXBUSER    
+			where 
+				appid=#{appid}      
+			group by    
+				province
+			) val
+	</select>
+</mapper>

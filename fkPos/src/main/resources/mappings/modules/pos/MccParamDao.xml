@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.MccParamDao">
+    
+	<sql id="mccParamColumns">
+		a.mcc AS "mcc",
+		a.mcc_name AS "mccName",
+		a.mcc_ename AS "mccEname",
+		a.mcc_type AS "mccType"
+	</sql>
+	
+	<sql id="mccParamJoins">
+	</sql>
+    
+	<select id="get" resultType="MccParam">
+		SELECT 
+			<include refid="mccParamColumns"/>
+		FROM mcc_param a
+		<include refid="mccParamJoins"/>
+		WHERE trim(a.mcc) = #{mcc}
+	</select>
+	
+	<select id="findList" resultType="MccParam">
+		SELECT 
+			<include refid="mccParamColumns"/>
+		FROM mcc_param a
+		<include refid="mccParamJoins"/>
+		<where>
+			
+			<if test="mcc != null and mcc != ''">
+				AND a.mcc = #{mcc}
+			</if>
+			<if test="mccName != null and mccName != ''">
+				AND a.mcc_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{mccName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{mccName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{mccName},'%')</if>
+			</if>
+			<if test="mccEname != null and mccEname != ''">
+				AND a.mcc_ename LIKE 
+					<if test="dbName == 'oracle'">'%'||#{mccEname}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{mccEname}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{mccEname},'%')</if>
+			</if>
+			<if test="mccType != null and mccType != ''">
+				AND a.mcc_type = #{mccType}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MccParam">
+		SELECT 
+			<include refid="mccParamColumns"/>
+		FROM mcc_param a
+		<include refid="mccParamJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mcc_param(
+			mcc,
+			mcc_name,
+			mcc_ename,
+			mcc_type
+		) VALUES (
+			#{mcc},
+			#{mccName},
+			#{mccEname},
+			#{mccType}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mcc_param SET 	
+			mcc = #{mcc},
+			mcc_name = #{mccName},
+			mcc_ename = #{mccEname},
+			mcc_type = #{mccType}
+		WHERE mcc = #{mcc}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM mcc_param
+		WHERE mcc = #{mcc}
+	</update>
+	
+</mapper>

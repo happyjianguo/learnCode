@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.com.jansh</groupId>
+		<artifactId>cf-app</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>cf-manage</artifactId>
+	<packaging>war</packaging>
+
+	<profiles>
+		<profile>
+			<id>qa</id>
+			<properties>
+				<package.environment>environment/qa</package.environment>
+				<package.packagingExcludes>
+					WEB-INF/classes/environment/,
+					WEB-INF/lib/tomcat-*.jar,
+					WEB-INF/lib/mysql-*.jar
+				</package.packagingExcludes>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<package.environment></package.environment>
+				<package.packagingExcludes>WEB-INF/classes/environment/</package.packagingExcludes>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<!-- <warName>janshfdn</warName> -->
+					<packagingExcludes>${package.packagingExcludes}</packagingExcludes>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+					<webResources>
+						<resource>
+							<directory>src/main/resources/${package.environment}</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>cn.com.jansh</groupId>
+			<artifactId>cf-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

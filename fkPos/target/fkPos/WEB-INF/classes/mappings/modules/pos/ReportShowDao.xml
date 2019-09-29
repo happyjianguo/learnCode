@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.ReportShowDao">
+    
+    <sql id="reportShowColumns">
+		a.merchant_id AS "merchantId",
+		a.mcc AS "mcc",
+		a.merchant_cname AS "merchantCname",
+		a.merchant_stat AS "merchantStat",	
+			
+		b.contract_start_date AS "contractStartDate",
+		b.contract_renewal_date AS "contractRenewalDate",
+		b.CONTRACT_END_DATE AS "contractEndDate",
+		b.merchant_company_name AS "merchantCompanyName",
+		b.renewal_type AS "renewalType",
+		b.guarantee_last_date AS "guaranteeLastDate",
+		b.guarantee_amt AS "guaranteeAmt",
+		b.market_contact_person AS "marketContactPerson",
+		b.market_contact_mobile AS "marketContactMobile",
+		b.financial_contact_person AS "financialContactPerson",
+		b.financial_contact_mobile AS "financialContactMobile",
+		b.merchant_deposit AS "merchantDeposit",
+		b.merchant_area AS "merchantArea",
+		b.store_manager AS "storeManager",
+		b.MERCHANT_ADVISOR AS "merchantAdvisor",
+		b.type_yf AS "typeYf",
+		b.CREATE_DATE AS "createTime",
+		
+		c.terminal_id AS "terminalId",
+		trim(c.terminal_stat) AS "terminalStat",
+		trim(c.edc_type) AS "edcType",
+		c.SET_DATE AS "setDate",
+		trim(c.set_addr) AS "setAddr",
+		
+		d.upgrade_date AS "upgradeDate",
+		d.upgrade_version AS "upgradeVersion",
+		d.store_contacts AS "storeContacts",
+		d.store_phone AS "storePhone",
+		d.terminal_position AS "terminalPosition",
+		d.disable_date AS "disableDate",
+		d.usable_date AS "usableDate",
+		d.terminal_province AS "terminalProvince",
+		d.terminal_city AS "terminalCity",
+		d.terminal_zone AS "terminalZone",
+		
+		e.pos_sn AS "posSn",
+		e.factory_name AS "factoryName",
+		e.model_id AS "modelId",
+		e.pos_type AS "posType",
+		e.pos_status AS "posStatus",
+		e.lay_out_flag AS "layOutFlag",
+		
+		f.id AS "pSimId",
+		f.sim_communication AS "simCommunication",
+		f.phone_number AS "phoneNumber",
+		f.serial_number AS "serialNumber",
+		f.sim_status AS "simStatus",
+		f.SIM_DEPOSIT AS "simDeposit"
+	
+	</sql>
+	
+	 <sql id="reportShowBaseColumns">
+		a.merchant_id ,
+		a.mcc ,
+		a.merchant_cname,
+		a.merchant_stat,	
+			
+		b.contract_start_date ,
+		b.contract_renewal_date ,
+		b.CONTRACT_END_DATE,
+		b.merchant_company_name ,
+		b.renewal_type ,
+		b.guarantee_last_date,
+		b.guarantee_amt ,
+		b.market_contact_person,
+		b.market_contact_mobile ,
+		b.financial_contact_person ,
+		b.financial_contact_mobile ,
+		b.merchant_deposit ,
+		b.merchant_area,
+		b.store_manager,
+		b.MERCHANT_ADVISOR,
+		b.type_yf,
+		b.CREATE_DATE,
+		
+		c.terminal_id,
+		c.terminal_stat,
+		c.edc_type,
+		c.SET_DATE,
+		c.set_addr,
+		
+		d.upgrade_date ,
+		d.upgrade_version,
+		d.store_contacts ,
+		d.store_phone ,
+		d.terminal_position ,
+		d.disable_date,
+		d.usable_date,
+		d.terminal_province,
+		d.terminal_city,
+		d.terminal_zone,
+		
+		e.pos_sn ,
+		e.factory_name,
+		e.model_id ,
+		e.pos_type,
+		e.pos_status ,
+		e.lay_out_flag,
+		
+		f.id ,
+		f.sim_communication,
+		f.phone_number,
+		f.serial_number,
+		f.sim_status,
+		f.SIM_DEPOSIT
+	</sql>
+	
+	<sql id="reportShowApliayColumns">
+		m.merchant_id AS "merchantId",
+		m.mcc AS "mcc",
+		m.merchant_cname AS "merchantCname",
+		m.merchant_stat AS "merchantStat",	
+			
+		m.contract_start_date AS "contractStartDate",
+		m.contract_renewal_date AS "contractRenewalDate",
+		m.CONTRACT_END_DATE AS "contractEndDate",
+		m.merchant_company_name AS "merchantCompanyName",
+		m.renewal_type AS "renewalType",
+		m.guarantee_last_date AS "guaranteeLastDate",
+		m.guarantee_amt AS "guaranteeAmt",
+		m.market_contact_person AS "marketContactPerson",
+		m.market_contact_mobile AS "marketContactMobile",
+		m.financial_contact_person AS "financialContactPerson",
+		m.financial_contact_mobile AS "financialContactMobile",
+		m.merchant_deposit AS "merchantDeposit",
+		m.merchant_area AS "merchantArea",
+		m.store_manager AS "storeManager",
+		m.MERCHANT_ADVISOR AS "merchantAdvisor",
+		m.type_yf AS "typeYf",
+		m.CREATE_DATE AS "createTime",
+		
+		m.terminal_id AS "terminalId",
+		trim(m.terminal_stat) AS "terminalStat",
+		trim(m.edc_type) AS "edcType",
+		m.SET_DATE AS "setDate",
+		trim(m.set_addr) AS "setAddr",
+		
+		m.upgrade_date AS "upgradeDate",
+		m.upgrade_version AS "upgradeVersion",
+		m.store_contacts AS "storeContacts",
+		m.store_phone AS "storePhone",
+		m.terminal_position AS "terminalPosition",
+		m.disable_date AS "disableDate",
+		m.usable_date AS "usableDate",
+		m.terminal_province AS "terminalProvince",
+		m.terminal_city AS "terminalCity",
+		m.terminal_zone AS "terminalZone",
+		
+		m.pos_sn AS "posSn",
+		m.factory_name AS "factoryName",
+		m.model_id AS "modelId",
+		m.pos_type AS "posType",
+		m.pos_status AS "posStatus",
+		m.lay_out_flag AS "layOutFlag",
+		
+		m.id AS "pSimId",
+		m.sim_communication AS "simCommunication",
+		m.phone_number AS "phoneNumber",
+		m.serial_number AS "serialNumber",
+		m.sim_status AS "simStatus",
+		m.SIM_DEPOSIT AS "simDeposit"
+	
+	</sql>
+	
+	<sql id="reportShowJoins">
+		LEFT JOIN (
+			SELECT
+	    	merchant_id,contract_start_date,contract_renewal_date,
+	    	CONTRACT_END_DATE ,merchant_company_name ,renewal_type,
+		    guarantee_last_date,guarantee_amt,market_contact_person,
+		    market_contact_mobile,financial_contact_person,financial_contact_mobile ,
+		    merchant_deposit,merchant_area,store_manager,type_yf,MERCHANT_ADVISOR,
+		    to_char(create_date,'YYYYMMDD') AS "CREATE_DATE"
+			FROM MERCHANT_X) b ON a.merchant_id = b.merchant_id 
+		
+		LEFT JOIN EDC_TERMINAL c ON a.merchant_id = c.merchant_id
+		
+		LEFT JOIN EDC_TERMINAL_X d ON c.terminal_id = d.terminal_id 
+		
+		LEFT JOIN P_POS e ON c.terminal_id = e.terminal_id 
+		
+		LEFT JOIN P_SIM f ON e.pos_sn = f.pos_sn 
+	</sql>
+	
+	<select id="get" resultType="ReportShow">
+		SELECT 
+		<include refid="reportShowColumns"/>
+		FROM MERCHANT_BASE a
+		<include refid="reportShowJoins"/>
+		WHERE a.merchant_id = #{merchantId}
+	</select>
+	
+	<select id="getOneData" resultType="ReportShow">
+		<if test="aplipayWeChat == null">
+			SELECT 
+				<include refid="reportShowColumns"/>
+			FROM MERCHANT_BASE a
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+			</where>
+		</if>
+		<if test="aplipayWeChat != null and aplipayWeChat.trim() == '0'.toString()">
+			SELECT 
+				<include refid="reportShowApliayColumns"/>
+			FROM ( SELECT 
+				<include refid="reportShowBaseColumns"/>
+			FROM MERCHANT_BASE a 
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+			</where>) m
+			WHERE NOT EXISTS (SELECT DISTINCT t.terminal_id FROM EDC_ALITERMINAL_ORM t 
+    		WHERE t.terminal_id IS NOT NULL AND m.terminal_id = t.terminal_id  ) 
+		</if>
+		<if test="aplipayWeChat != null and aplipayWeChat.trim() == '1'.toString()">
+			SELECT 
+				<include refid="reportShowApliayColumns"/>
+			FROM ( SELECT 
+				<include refid="reportShowBaseColumns"/>
+			FROM MERCHANT_BASE a  
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+			</where>) m
+			WHERE  EXISTS (SELECT DISTINCT t.terminal_id FROM EDC_ALITERMINAL_ORM t 
+    		WHERE t.terminal_id IS NOT NULL AND m.terminal_id = t.terminal_id  ) 
+		</if>
+	</select>
+	
+	<select id="findList" resultType="ReportShow">
+		<if test="aplipayWeChat == null">
+			SELECT 
+				<include refid="reportShowColumns"/>
+			FROM MERCHANT_BASE a
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+				<if test="terminalStat != null and terminalStat.trim().length() != 0">
+					AND trim(c.TERMINAL_STAT) = #{terminalStat}
+				</if>
+				<if test="merchantCname != null and merchantCname.trim().length() != 0">
+					AND trim(a.merchant_cname) LIKE 
+						<if test="dbName == 'oracle'">'%'||#{merchantCname}||'%'</if>
+						<if test="dbName == 'mssql'">'%'+#{merchantCname}+'%'</if>
+						<if test="dbName == 'mysql'">concat('%',#{merchantCname},'%')</if>
+				</if>
+				<if test="layOutFlag != null and layOutFlag == 'APP'.toString() ">
+					AND trim(c.terminal_id) LIKE 'A%'
+				</if>
+				<if test="layOutFlag != null and layOutFlag != 'APP'.toString() ">
+					AND trim(e.lay_out_flag) = #{layOutFlag}
+				</if>
+				<if test="merchantStat != null and merchantStat.trim().length() != 0 ">
+					AND a.merchant_stat = #{merchantStat}	
+				</if>
+				<if test="beginContractStartDate != null and beginContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) >= #{beginContractStartDate} ]]>
+				</if>
+				<if test="endContractStartDate != null and endContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) <= #{endContractStartDate} ]]>
+				</if>
+				<if test="beginCreateDate != null and beginCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) >= #{beginCreateDate} ]]>
+				</if>
+				<if test="endCreateDate != null and endCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) <= #{endCreateDate} ]]>
+				</if>
+				<if test="beginSetDate != null and beginSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) >= #{beginSetDate} ]]>
+				</if>
+				<if test="endSetDate != null and endSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) <= #{endSetDate} ]]>
+				</if>
+				<if test="contractflag != null and contractflag == '0'.toString() ">
+					AND (<![CDATA[ trim(b.CONTRACT_END_DATE) > #{contractTime} ]]>
+					OR trim(b.CONTRACT_END_DATE) IS NULL)
+				</if>
+				<if test="contractflag != null and contractflag == '1'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="contractflag != null and contractflag == '2'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) >= to_char(Sysdate, 'yyyyMMdd') ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="beginContractRenewalDate != null and beginContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) >= #{beginContractRenewalDate} ]]>
+				</if>
+				<if test="endContractRenewalDate != null and endContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) <= #{endContractRenewalDate} ]]>
+				</if>
+				<if test="terminalProvince != null and terminalProvince != ''">
+					AND d.terminal_province = #{terminalProvince}
+				</if>
+				<if test="terminalCity != null and terminalCity != ''">
+					AND d.terminal_city = #{terminalCity}
+				</if>
+				<if test="terminalZone != null and terminalZone != ''">
+					AND d.terminal_zone = #{terminalZone}
+				</if>
+			</where>
+			<choose>
+				<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+					ORDER BY ${page.orderBy}
+				</when>
+				<otherwise>
+					ORDER BY a.merchant_id DESC
+				</otherwise>
+			</choose>
+		</if>
+		<if test="aplipayWeChat != null and aplipayWeChat.trim() == '0'.toString()">
+			SELECT 
+				<include refid="reportShowApliayColumns"/>
+			FROM ( SELECT 
+				<include refid="reportShowBaseColumns"/>
+			FROM MERCHANT_BASE a 
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+				<if test="terminalStat != null and terminalStat.trim().length() != 0">
+					AND trim(c.TERMINAL_STAT) = #{terminalStat}
+				</if>
+				<if test="merchantCname != null and merchantCname.trim().length() != 0">
+					AND trim(a.merchant_cname) LIKE 
+						<if test="dbName == 'oracle'">'%'||#{merchantCname}||'%'</if>
+						<if test="dbName == 'mssql'">'%'+#{merchantCname}+'%'</if>
+						<if test="dbName == 'mysql'">concat('%',#{merchantCname},'%')</if>
+				</if>
+				<if test="layOutFlag != null and layOutFlag == 'APP'.toString() ">
+					AND trim(c.terminal_id) LIKE 'A%'
+				</if>
+				<if test="layOutFlag != null and layOutFlag != 'APP'.toString() ">
+					AND trim(e.lay_out_flag) = #{layOutFlag}
+				</if>
+				<if test="merchantStat != null and merchantStat.trim().length() != 0 ">
+					AND a.merchant_stat = #{merchantStat}	
+				</if>
+				<if test="beginContractStartDate != null and beginContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) >= #{beginContractStartDate} ]]>
+				</if>
+				<if test="endContractStartDate != null and endContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) <= #{endContractStartDate} ]]>
+				</if>
+				<if test="beginCreateDate != null and beginCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) >= #{beginCreateDate} ]]>
+				</if>
+				<if test="endCreateDate != null and endCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) <= #{endCreateDate} ]]>
+				</if>
+				<if test="beginSetDate != null and beginSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) >= #{beginSetDate} ]]>
+				</if>
+				<if test="endSetDate != null and endSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) <= #{endSetDate} ]]>
+				</if>
+				<if test="contractflag != null and contractflag == '0'.toString() ">
+					AND (<![CDATA[ trim(b.CONTRACT_END_DATE) > #{contractTime} ]]>
+					OR trim(b.CONTRACT_END_DATE) IS NULL)
+				</if>
+				<if test="contractflag != null and contractflag == '1'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="contractflag != null and contractflag == '2'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) >= to_char(Sysdate, 'yyyyMMdd') ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="beginContractRenewalDate != null and beginContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) >= #{beginContractRenewalDate} ]]>
+				</if>
+				<if test="endContractRenewalDate != null and endContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) <= #{endContractRenewalDate} ]]>
+				</if>
+				<if test="terminalProvince != null and terminalProvince != ''">
+					AND d.terminal_province = #{terminalProvince}
+				</if>
+				<if test="terminalCity != null and terminalCity != ''">
+					AND d.terminal_city = #{terminalCity}
+				</if>
+				<if test="terminalZone != null and terminalZone != ''">
+					AND d.terminal_zone = #{terminalZone}
+				</if>
+			</where>) m
+			WHERE NOT EXISTS (SELECT DISTINCT t.terminal_id FROM EDC_ALITERMINAL_ORM t 
+    		WHERE t.terminal_id IS NOT NULL AND m.terminal_id = t.terminal_id  )
+			<choose>
+				<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+					ORDER BY ${page.orderBy}
+				</when>
+				<otherwise>
+					ORDER BY m.merchant_id DESC
+				</otherwise>
+			</choose>
+		</if>
+		<if test="aplipayWeChat != null and aplipayWeChat.trim() == '1'.toString()">
+			SELECT 
+				<include refid="reportShowApliayColumns"/>
+			FROM ( SELECT 
+				<include refid="reportShowBaseColumns"/>
+			FROM MERCHANT_BASE a 
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+				<if test="terminalStat != null and terminalStat.trim().length() != 0">
+					AND trim(c.TERMINAL_STAT) = #{terminalStat}
+				</if>
+				<if test="merchantCname != null and merchantCname.trim().length() != 0">
+					AND trim(a.merchant_cname) LIKE 
+						<if test="dbName == 'oracle'">'%'||#{merchantCname}||'%'</if>
+						<if test="dbName == 'mssql'">'%'+#{merchantCname}+'%'</if>
+						<if test="dbName == 'mysql'">concat('%',#{merchantCname},'%')</if>
+				</if>
+				<if test="layOutFlag != null and layOutFlag == 'APP'.toString() ">
+					AND trim(c.terminal_id) LIKE 'A%'
+				</if>
+				<if test="layOutFlag != null and layOutFlag != 'APP'.toString() ">
+					AND trim(e.lay_out_flag) = #{layOutFlag}
+				</if>
+				<if test="merchantStat != null and merchantStat.trim().length() != 0 ">
+					AND a.merchant_stat = #{merchantStat}	
+				</if>
+				<if test="beginContractStartDate != null and beginContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) >= #{beginContractStartDate} ]]>
+				</if>
+				<if test="endContractStartDate != null and endContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) <= #{endContractStartDate} ]]>
+				</if>
+				<if test="beginCreateDate != null and beginCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) >= #{beginCreateDate} ]]>
+				</if>
+				<if test="endCreateDate != null and endCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) <= #{endCreateDate} ]]>
+				</if>
+				<if test="beginSetDate != null and beginSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) >= #{beginSetDate} ]]>
+				</if>
+				<if test="endSetDate != null and endSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) <= #{endSetDate} ]]>
+				</if>
+				<if test="contractflag != null and contractflag == '0'.toString() ">
+					AND (<![CDATA[ trim(b.CONTRACT_END_DATE) > #{contractTime} ]]>
+					OR trim(b.CONTRACT_END_DATE) IS NULL)
+				</if>
+				<if test="contractflag != null and contractflag == '1'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="contractflag != null and contractflag == '2'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) >= to_char(Sysdate, 'yyyyMMdd') ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="beginContractRenewalDate != null and beginContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) >= #{beginContractRenewalDate} ]]>
+				</if>
+				<if test="endContractRenewalDate != null and endContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) <= #{endContractRenewalDate} ]]>
+				</if>
+				<if test="terminalProvince != null and terminalProvince != ''">
+					AND d.terminal_province = #{terminalProvince}
+				</if>
+				<if test="terminalCity != null and terminalCity != ''">
+					AND d.terminal_city = #{terminalCity}
+				</if>
+				<if test="terminalZone != null and terminalZone != ''">
+					AND d.terminal_zone = #{terminalZone}
+				</if>
+			</where>) m
+			WHERE EXISTS (SELECT DISTINCT t.terminal_id FROM EDC_ALITERMINAL_ORM t 
+    		WHERE t.terminal_id IS NOT NULL AND m.terminal_id = t.terminal_id  )
+			<choose>
+				<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+					ORDER BY ${page.orderBy}
+				</when>
+				<otherwise>
+					ORDER BY m.merchant_id DESC
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="findAllList" resultType="ReportShow">
+		<if test="aplipayWeChat == null">
+			SELECT 
+				<include refid="reportShowColumns"/>
+			FROM MERCHANT_BASE a
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+				<if test="terminalStat != null and terminalStat.trim().length() != 0">
+					AND trim(c.TERMINAL_STAT) = #{terminalStat}
+				</if>
+				<if test="merchantCname != null and merchantCname.trim().length() != 0">
+					AND trim(a.merchant_cname) LIKE 
+						<if test="dbName == 'oracle'">'%'||#{merchantCname}||'%'</if>
+						<if test="dbName == 'mssql'">'%'+#{merchantCname}+'%'</if>
+						<if test="dbName == 'mysql'">concat('%',#{merchantCname},'%')</if>
+				</if>
+				<if test="layOutFlag != null and layOutFlag == 'APP'.toString() ">
+					AND trim(c.terminal_id) LIKE 'A%'
+				</if>
+				<if test="layOutFlag != null and layOutFlag != 'APP'.toString() ">
+					AND trim(e.lay_out_flag) = #{layOutFlag}
+				</if>
+				<if test="merchantStat != null and merchantStat.trim().length() != 0 ">
+					AND a.merchant_stat = #{merchantStat}	
+				</if>
+				<if test="beginContractStartDate != null and beginContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) >= #{beginContractStartDate} ]]>
+				</if>
+				<if test="endContractStartDate != null and endContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) <= #{endContractStartDate} ]]>
+				</if>
+				<if test="beginCreateDate != null and beginCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) >= #{beginCreateDate} ]]>
+				</if>
+				<if test="endCreateDate != null and endCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) <= #{endCreateDate} ]]>
+				</if>
+				<if test="beginSetDate != null and beginSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) >= #{beginSetDate} ]]>
+				</if>
+				<if test="endSetDate != null and endSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) <= #{endSetDate} ]]>
+				</if>
+				<if test="contractflag != null and contractflag == '0'.toString() ">
+					AND (<![CDATA[ trim(b.CONTRACT_END_DATE) > #{contractTime} ]]>
+					OR trim(b.CONTRACT_END_DATE) IS NULL)
+				</if>
+				<if test="contractflag != null and contractflag == '1'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="contractflag != null and contractflag == '2'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) >= to_char(Sysdate, 'yyyyMMdd') ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="beginContractRenewalDate != null and beginContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) >= #{beginContractRenewalDate} ]]>
+				</if>
+				<if test="endContractRenewalDate != null and endContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) <= #{endContractRenewalDate} ]]>
+				</if>
+				<if test="terminalProvince != null and terminalProvince != ''">
+					AND d.terminal_province = #{terminalProvince}
+				</if>
+				<if test="terminalCity != null and terminalCity != ''">
+					AND d.terminal_city = #{terminalCity}
+				</if>
+				<if test="terminalZone != null and terminalZone != ''">
+					AND d.terminal_zone = #{terminalZone}
+				</if>
+			</where>		
+			<choose>
+				<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+					ORDER BY ${page.orderBy}
+				</when>
+				<otherwise>
+					ORDER BY a.merchant_id DESC
+				</otherwise>
+			</choose>
+		</if>
+		<if test="aplipayWeChat != null and aplipayWeChat.trim() == '0'.toString()">
+			SELECT 
+				<include refid="reportShowApliayColumns"/>
+			FROM ( SELECT 
+				<include refid="reportShowBaseColumns"/>
+			FROM MERCHANT_BASE a 
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+				<if test="terminalStat != null and terminalStat.trim().length() != 0">
+					AND trim(c.TERMINAL_STAT) = #{terminalStat}
+				</if>
+				<if test="merchantCname != null and merchantCname.trim().length() != 0">
+					AND trim(a.merchant_cname) LIKE 
+						<if test="dbName == 'oracle'">'%'||#{merchantCname}||'%'</if>
+						<if test="dbName == 'mssql'">'%'+#{merchantCname}+'%'</if>
+						<if test="dbName == 'mysql'">concat('%',#{merchantCname},'%')</if>
+				</if>
+				<if test="layOutFlag != null and layOutFlag == 'APP'.toString() ">
+					AND trim(c.terminal_id) LIKE 'A%'
+				</if>
+				<if test="layOutFlag != null and layOutFlag != 'APP'.toString() ">
+					AND trim(e.lay_out_flag) = #{layOutFlag}
+				</if>
+				<if test="merchantStat != null and merchantStat.trim().length() != 0 ">
+					AND a.merchant_stat = #{merchantStat}	
+				</if>
+				<if test="beginContractStartDate != null and beginContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) >= #{beginContractStartDate} ]]>
+				</if>
+				<if test="endContractStartDate != null and endContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) <= #{endContractStartDate} ]]>
+				</if>
+				<if test="beginCreateDate != null and beginCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) >= #{beginCreateDate} ]]>
+				</if>
+				<if test="endCreateDate != null and endCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) <= #{endCreateDate} ]]>
+				</if>
+				<if test="beginSetDate != null and beginSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) >= #{beginSetDate} ]]>
+				</if>
+				<if test="endSetDate != null and endSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) <= #{endSetDate} ]]>
+				</if>
+				<if test="contractflag != null and contractflag == '0'.toString() ">
+					AND (<![CDATA[ trim(b.CONTRACT_END_DATE) > #{contractTime} ]]>
+					OR trim(b.CONTRACT_END_DATE) IS NULL)
+				</if>
+				<if test="contractflag != null and contractflag == '1'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="contractflag != null and contractflag == '2'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) >= to_char(Sysdate, 'yyyyMMdd') ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="beginContractRenewalDate != null and beginContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) >= #{beginContractRenewalDate} ]]>
+				</if>
+				<if test="endContractRenewalDate != null and endContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) <= #{endContractRenewalDate} ]]>
+				</if>
+				<if test="terminalProvince != null and terminalProvince != ''">
+					AND d.terminal_province = #{terminalProvince}
+				</if>
+				<if test="terminalCity != null and terminalCity != ''">
+					AND d.terminal_city = #{terminalCity}
+				</if>
+				<if test="terminalZone != null and terminalZone != ''">
+					AND d.terminal_zone = #{terminalZone}
+				</if>
+			</where>) m		
+			WHERE NOT EXISTS (SELECT DISTINCT t.terminal_id FROM EDC_ALITERMINAL_ORM t 
+    		WHERE t.terminal_id IS NOT NULL AND m.terminal_id = t.terminal_id  )
+			<choose>
+				<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+					ORDER BY ${page.orderBy}
+				</when>
+				<otherwise>
+					ORDER BY m.merchant_id DESC
+				</otherwise>
+			</choose>
+		</if>
+		<if test="aplipayWeChat != null and aplipayWeChat.trim() == '1'.toString()">
+			SELECT 
+				<include refid="reportShowApliayColumns"/>
+			FROM ( SELECT 
+				<include refid="reportShowBaseColumns"/>
+			FROM MERCHANT_BASE a 
+			<include refid="reportShowJoins"/>
+			<where>
+				<if test="merchantId != null and merchantId.trim().length() != 0">
+					AND trim(a.merchant_id) = #{merchantId}
+				</if>
+				<if test="terminalId != null and terminalId.trim().length() != 0">
+					AND trim(c.terminal_id) = #{terminalId}
+				</if>
+				<if test="terminalStat != null and terminalStat.trim().length() != 0">
+					AND trim(c.TERMINAL_STAT) = #{terminalStat}
+				</if>
+				<if test="merchantCname != null and merchantCname.trim().length() != 0">
+					AND trim(a.merchant_cname) LIKE 
+						<if test="dbName == 'oracle'">'%'||#{merchantCname}||'%'</if>
+						<if test="dbName == 'mssql'">'%'+#{merchantCname}+'%'</if>
+						<if test="dbName == 'mysql'">concat('%',#{merchantCname},'%')</if>
+				</if>
+				<if test="layOutFlag != null and layOutFlag == 'APP'.toString() ">
+					AND trim(c.terminal_id) LIKE 'A%'
+				</if>
+				<if test="layOutFlag != null and layOutFlag != 'APP'.toString() ">
+					AND trim(e.lay_out_flag) = #{layOutFlag}
+				</if>
+				<if test="merchantStat != null and merchantStat.trim().length() != 0 ">
+					AND a.merchant_stat = #{merchantStat}	
+				</if>
+				<if test="beginContractStartDate != null and beginContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) >= #{beginContractStartDate} ]]>
+				</if>
+				<if test="endContractStartDate != null and endContractStartDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_start_date) <= #{endContractStartDate} ]]>
+				</if>
+				<if test="beginCreateDate != null and beginCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) >= #{beginCreateDate} ]]>
+				</if>
+				<if test="endCreateDate != null and endCreateDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.CREATE_DATE) <= #{endCreateDate} ]]>
+				</if>
+				<if test="beginSetDate != null and beginSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) >= #{beginSetDate} ]]>
+				</if>
+				<if test="endSetDate != null and endSetDate.trim().length() != 0">
+					AND <![CDATA[ trim(c.SET_DATE) <= #{endSetDate} ]]>
+				</if>
+				<if test="contractflag != null and contractflag == '0'.toString() ">
+					AND (<![CDATA[ trim(b.CONTRACT_END_DATE) > #{contractTime} ]]>
+					OR trim(b.CONTRACT_END_DATE) IS NULL)
+				</if>
+				<if test="contractflag != null and contractflag == '1'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="contractflag != null and contractflag == '2'.toString() ">
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) < #{contractTime} ]]>
+					AND <![CDATA[ trim(b.CONTRACT_END_DATE) >= to_char(Sysdate, 'yyyyMMdd') ]]>
+					AND trim(b.CONTRACT_END_DATE) IS NOT NULL
+				</if>
+				<if test="beginContractRenewalDate != null and beginContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) >= #{beginContractRenewalDate} ]]>
+				</if>
+				<if test="endContractRenewalDate != null and endContractRenewalDate.trim().length() != 0">
+					AND <![CDATA[ trim(b.contract_renewal_date) <= #{endContractRenewalDate} ]]>
+				</if>
+				<if test="terminalProvince != null and terminalProvince != ''">
+					AND d.terminal_province = #{terminalProvince}
+				</if>
+				<if test="terminalCity != null and terminalCity != ''">
+					AND d.terminal_city = #{terminalCity}
+				</if>
+				<if test="terminalZone != null and terminalZone != ''">
+					AND d.terminal_zone = #{terminalZone}
+				</if>
+			</where>) m
+			WHERE EXISTS (SELECT DISTINCT t.terminal_id FROM EDC_ALITERMINAL_ORM t 
+    		WHERE t.terminal_id IS NOT NULL AND m.terminal_id = t.terminal_id  )		
+			<choose>
+				<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+					ORDER BY ${page.orderBy}
+				</when>
+				<otherwise>
+					ORDER BY m.merchant_id DESC
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+</mapper>

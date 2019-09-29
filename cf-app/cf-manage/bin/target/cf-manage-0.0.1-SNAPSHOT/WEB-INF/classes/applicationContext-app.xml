@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- <bean class="cn.com.jansh.base.util.AppContextRegister" /> -->
+
+	<context:component-scan base-package="cn.com.jansh.service,cn.com.jansh.web.listener" />
+
+	<context:component-scan base-package="cn.com.jansh.core.service" />
+	<!-- 配置otp认证 -->
+	<bean id="oTPAuth" class="cn.com.jansh.core.security.otp.OTPAuth">
+		<property name="config" value="classpath:key127_0_0_1.acf"/>
+	</bean>
+	<!-- wangSuFdnComponent组件 -->
+	 
+	<!-- <bean id="wangSuFdnComponent" class="cn.com.jansh.service.component.impl.WangSuFdnComponent">
+		
+	
+		<property name="apiKey" value="78448f3883d04a8594793fb771d3a256e155893ee79d481f960a562a75af7f94"/>
+		<property name="cpUserName" value="jscx"/>
+		<property name="orderUrl" value="https://capi.fdn.chinanetcenter.com/user/order"/>
+		<property name="queryOrderUrl" value="https://capi.fdn.chinanetcenter.com/user/queryOrder"/>
+	</bean> -->
+
+	<!-- OuFeiComponent组件 -->
+	<!-- 
+	<bean id="cuFeiComponent" class="cn.com.jansh.vo.OuFeiComponent">
+		<property name="KeyStr" value="OFCARD"/>
+		<property name="orderUrl" value="http://AXXXX.api2.ofpay.com/onlineorder.do"/>
+		<property name="userid" value="A1276142"/>
+		<property name="userpws" value="*********************"/>
+		<property name="cardid" value="140101"/>
+		<property name="version" value="6.0"/>
+		<property name="ret_url" value="cs.ftsafe.com/cf-manage/offdn/ordercb"/>
+		<property name="queryUrl" value="http://AXXXX.api2.ofpay.com/api/query.do"/>
+		<property name="queryDetailsUrl" value="http://AXXX.api2.ofpay.com/queryOrderInfo.do"/>
+				欧飞对账url
+		<property name="billUrl" value="http://AXXXX.api2.ofpay.com/querybill.do?"/>
+	</bean> 
+	 -->
+
+	<!-- QCellCoreComponent组件 -->
+	<bean id="QCellCoreComponent" class="cn.com.jansh.service.component.QCellCoreComponent">
+		<property name="qcellcoreurl" value="http://life.tenpay.com/cgi-bin/mobile/MobileQueryAttribution.cgi?chgmobile="/>
+	</bean> 
+	
+
+	<!-- 注解验证 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
+	<!-- 菜单状态过滤器 -->
+	<bean id="menuStatusFilter" class="cn.com.jansh.core.web.filter.MenuStatusFilter"></bean>
+
+	<!-- 页面装饰器过滤器 -->
+	<bean id="mySiteMeshFilter" class="cn.com.jansh.core.web.filter.MySiteMeshFilter">
+		<property name="dcoratorPaths">
+			<!-- 渲染器 -->
+			<map>
+				<entry key="/*" value="/WEB-INF/views/layout/main.jsp" />
+			</map>
+		</property>
+		<property name="excludedPaths">
+			<!-- 不被渲染的路径 -->
+			<list>
+				<value>/resources/*</value>
+				<value>/login*</value>
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.posp.dao.MerchantXMapper">
+ <select id="selectByid" parameterType="cn.yufu.posp.entity.MerchantX" resultType="cn.yufu.posp.entity.MerchantX">
+    select 
+    	MERCHANT_ID merchantId,
+    	MERCHANT_CNAME merchantCname
+    from 
+    	merchant_x 
+    WHERE 
+    	merchant_id = #{merchantId}
+  </select>
+<delete id="delete" parameterType="cn.yufu.posp.entity.MerchantX">
+	DELETE FROM merchant_x 
+	WHERE merchant_id = #{merchantId}
+</delete>
+ <insert id="insertSelective" parameterType="cn.yufu.posp.entity.MerchantX">
+    insert into MERCHANT_X
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accXName != null">
+        ACC_X_NAME,
+      </if>
+	  <if test="idDeadline1 != null">
+        ID_DEADLINE1,
+      </if>
+	  <if test="idNo1 != null">
+        ID_NO1,
+      </if>
+	  <if test="idType1 != null">
+        ID_TYPE1,
+      </if>
+	  <if test="manName != null">
+        MAN_NAME,
+      </if>
+      <if test="typeYf != null">
+		TYPE_YF,
+	  </if>
+      <if test="contractEndDate != null">
+		CONTRACT_END_DATE,
+	  </if>
+      <if test="merchantId != null">
+        MERCHANT_ID,
+      </if>
+      <if test="merchantCname != null">
+        MERCHANT_CNAME,
+      </if>
+      <if test="addressChn != null">
+        ADDRESS_CHN,
+      </if>
+      <if test="rcvName != null">
+        RCV_NAME,
+      </if>
+      <if test="rcvBank != null">
+        RCV_BANK,
+      </if>
+      <if test="contractStartDate != null">
+        CONTRACT_START_DATE,
+      </if>
+	  <if test="contractRenewalDate != null">
+        CONTRACT_RENEWAL_DATE,
+      </if>
+	  <if test="merchantCompanyName != null">
+        MERCHANT_COMPANY_NAME,
+      </if>
+	  <if test="renewalType != null">
+        RENEWAL_TYPE,
+      </if>
+	  <if test="guaranteeLastDate != null">
+        GUARANTEE_LAST_DATE,
+      </if>
+	  <if test="guaranteeAmt != null">
+        GUARANTEE_AMT,
+      </if>
+	  <if test="marketContactPerson != null">
+        MARKET_CONTACT_PERSON,
+      </if>
+	  <if test="marketContactMobile != null">
+        MARKET_CONTACT_MOBILE,
+      </if>
+	  <if test="financialContactPerson != null">
+        FINANCIAL_CONTACT_PERSON,
+      </if>
+	  <if test="financialContactMobile != null">
+        FINANCIAL_CONTACT_MOBILE,
+      </if>
+	  <if test="merchantDeposit != null">
+        MERCHANT_DEPOSIT,
+      </if>
+	  <if test="merchantArea != null">
+        MERCHANT_AREA,
+      </if>
+	  <if test="storeManager != null">
+        STORE_MANAGER,
+      </if>
+	   <if test="merchantAdvisor != null">
+        MERCHANT_ADVISOR,
+      </if>
+	   <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+	   <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accXName != null">
+        #{accXName,jdbcType=VARCHAR},
+      </if>
+	  <if test="idDeadline1 != null">
+        #{idDeadline1,jdbcType=DECIMAL},
+      </if>
+	  <if test="idNo1 != null">
+        #{idNo1,jdbcType=VARCHAR},
+      </if>
+	  <if test="idType1 != null">
+        #{idType1,jdbcType=DECIMAL},
+      </if>
+	  <if test="manName != null">
+        #{manName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeYf != null">
+        #{typeYf,jdbcType=DECIMAL},
+      </if>
+      <if test="contractEndDate != null">
+        #{contractEndDate,jdbcType=CHAR},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=CHAR},
+      </if>
+      <if test="merchantCname != null">
+        #{merchantCname,jdbcType=CHAR},
+      </if>
+      <if test="addressChn != null">
+        #{addressChn,jdbcType=CHAR},
+      </if>
+      <if test="rcvName != null">
+        #{rcvName,jdbcType=CHAR},
+      </if>
+      <if test="rcvBank != null">
+        #{rcvBank,jdbcType=CHAR},
+      </if>
+      <if test="contractStartDate != null">
+        #{contractStartDate,jdbcType=VARCHAR},
+      </if>
+	  <if test="contractRenewalDate != null">
+        #{contractRenewalDate,jdbcType=VARCHAR},
+      </if>
+	  <if test="merchantCompanyName != null">
+        #{merchantCompanyName,jdbcType=VARCHAR},
+      </if>
+	  <if test="renewalType != null">
+        #{renewalType,jdbcType=VARCHAR},
+      </if>
+	  <if test="guaranteeLastDate != null">
+        #{guaranteeLastDate,jdbcType=VARCHAR},
+      </if>
+	  <if test="guaranteeAmt != null">
+        #{guaranteeAmt,jdbcType=DECIMAL},
+      </if>
+	  <if test="marketContactPerson != null">
+        #{marketContactPerson,jdbcType=VARCHAR},
+      </if>
+	  <if test="marketContactMobile != null">
+        #{marketContactMobile,jdbcType=VARCHAR},
+      </if>
+	  <if test="financialContactPerson != null">
+        #{financialContactPerson,jdbcType=VARCHAR},
+      </if>
+	  <if test="financialContactMobile != null">
+        #{financialContactMobile,jdbcType=VARCHAR},
+      </if>
+	  <if test="merchantDeposit != null">
+        #{merchantDeposit,jdbcType=DECIMAL},
+      </if>
+	  <if test="merchantArea != null">
+        #{merchantArea,jdbcType=VARCHAR},
+      </if>
+	  <if test="storeManager != null">
+        #{storeManager,jdbcType=VARCHAR},
+      </if>
+	  <if test="merchantAdvisor != null">
+        #{merchantAdvisor,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+	   <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+ <update id="update" parameterType="cn.yufu.posp.entity.MerchantX">
+    update MERCHANT_X
+    <set>
+      <if test="typeYf != null">
+        TYPE_YF = #{typeYf,jdbcType=DECIMAL},
+      </if>
+      <if test="manName != null" >
+        MAN_NAME = #{manName,jdbcType=VARCHAR},
+      </if>
+      <if test="idType1 != null" >
+        ID_TYPE1 = #{idType1,jdbcType=DECIMAL},
+      </if>
+      <if test="idNo1 != null" >
+        ID_NO1 = #{idNo1,jdbcType=VARCHAR},
+      </if>
+      <if test="idDeadline1 != null" >
+        ID_DEADLINE1 = #{idDeadline1,jdbcType=DECIMAL},
+      </if>
+      <if test="accXName != null" >
+        ACC_X_NAME = #{accXName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractEndDate != null">
+		CONTRACT_END_DATE = #{contractEndDate,jdbcType=CHAR},
+	  </if>
+      <if test="merchantId != null">
+        MERCHANT_ID = #{merchantId,jdbcType=CHAR},
+      </if>
+      <if test="merchantCname != null">
+        MERCHANT_CNAME = #{merchantCname,jdbcType=CHAR},
+      </if>
+      <if test="addressChn != null">
+        ADDRESS_CHN = #{addressChn,jdbcType=CHAR},
+      </if>
+      <if test="rcvName != null">
+        RCV_NAME = #{rcvName,jdbcType=CHAR},
+      </if>
+      <if test="rcvBank != null">
+        RCV_BANK = #{rcvBank,jdbcType=CHAR},
+      </if>
+      <if test="contractStartDate != null">
+        CONTRACT_START_DATE = #{contractStartDate,jdbcType=VARCHAR},
+      </if>
+	  <if test="contractRenewalDate != null">
+        CONTRACT_RENEWAL_DATE = #{contractRenewalDate,jdbcType=VARCHAR},
+      </if>
+	  <if test="merchantCompanyName != null">
+        MERCHANT_COMPANY_NAME = #{merchantCompanyName,jdbcType=VARCHAR},
+      </if>
+	  <if test="renewalType != null">
+        RENEWAL_TYPE = #{renewalType,jdbcType=VARCHAR},
+      </if>
+	  <if test="guaranteeLastDate != null">
+        GUARANTEE_LAST_DATE = #{guaranteeLastDate,jdbcType=VARCHAR},
+      </if>
+	  <if test="guaranteeAmt != null">
+        GUARANTEE_AMT = #{guaranteeAmt,jdbcType=DECIMAL},
+      </if>
+	  <if test="marketContactPerson != null">
+        MARKET_CONTACT_PERSON = #{marketContactPerson,jdbcType=VARCHAR},
+      </if>
+	  <if test="marketContactMobile != null">
+        MARKET_CONTACT_MOBILE = #{marketContactMobile,jdbcType=VARCHAR},
+      </if>
+	  <if test="financialContactPerson != null">
+        FINANCIAL_CONTACT_PERSON = #{financialContactPerson,jdbcType=VARCHAR},
+      </if>
+	  <if test="financialContactMobile != null">
+        FINANCIAL_CONTACT_MOBILE = #{financialContactMobile,jdbcType=VARCHAR},
+      </if>
+	  <if test="merchantDeposit != null">
+        MERCHANT_DEPOSIT = #{merchantDeposit,jdbcType=DECIMAL},
+      </if>
+	  <if test="merchantArea != null">
+        MERCHANT_AREA = #{merchantArea,jdbcType=VARCHAR},
+      </if>
+	  <if test="storeManager != null">
+        STORE_MANAGER =  #{storeManager,jdbcType=VARCHAR},
+      </if>
+	   <if test="merchantAdvisor != null">
+        MERCHANT_ADVISOR =  #{merchantAdvisor,jdbcType=VARCHAR},
+      </if>
+	   <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+	   <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MERCHANT_ID = #{merchantId,jdbcType=CHAR}
+  </update>
+</mapper>

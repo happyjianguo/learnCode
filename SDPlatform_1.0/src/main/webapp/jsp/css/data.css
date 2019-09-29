@@ -1,0 +1,91 @@
+.Font {
+	font-family: "Arial";
+	font-size: 13px;
+	font-style: normal;
+	color: #000000;
+}
+.Head1 {
+	font-family: "Arial";
+	font-size: 13px;
+	font-weight: bold;
+	color: #333333;
+}
+.Link1 {
+	font-family: "Arial";
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	color: #9AC0CD;
+	text-decoration: none;
+}
+.Title1{
+	font-family: "Arial";
+	font-size: 14px;
+	font-weight: bold;
+	color: #9AC0CD0;
+}
+.Title2 {
+	font-family: "Arial";
+	font-size: 14px;
+	font-weight: bold;
+	color: #5B5B5B;
+}
+.Frame {
+	border-top-style: ridge;
+	border-right-style: ridge;
+	border-bottom-style: ridge;
+	border-left-style: ridge;
+	border-top-color: #C6E2FF;
+	border-right-color: #C6E2FF;
+	border-bottom-color:#C6E2FF;
+	border-left-color: #C6E2FF;
+}
+.TableFrame {
+	list-style-position: inside;
+	list-style-type: disc;
+	font-family: "Arial";
+	font-size: 13px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+	display: table-cell;
+	border: 1px ridge #999999;
+
+
+
+}
+.Link2 {
+	font-family: "Arial";
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	color: #0000CC;
+	text-decoration: none;
+}
+.button1{
+display:block;
+border:1px solid;
+border-color:#aaa #000 #000 #aaa;
+width:8em;
+background:#fco;
+}
+.a{
+background-color:#B0E2FF;
+font-family: "Arial";
+cursor:hand;
+font-style:normal;
+text-transform:capitalize;
+font-family: serif;
+}
+.a:hover{
+position:relative;
+top:1px;
+left:1px;
+border-color:#000 #aaa #aaa #000;}
+.backdrop{
+background-color: expression(this.readOnly == true?"#EEEEEE":"#FFFFFF");
+}

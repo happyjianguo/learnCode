@@ -1,0 +1,49 @@
+body,td,span,select,p {
+	font: 12px "宋体", Tahoma,Arial;
+	background-color: transparent;
+	text-align: center;
+}
+
+.mainBody{
+	width:400px;
+	margin:0 auto;	
+}
+
+.error {
+	text-align: left;
+	margin: 4px 10px 4px 210px;
+	padding:4px 0pt 0px 0px;
+	background: url(../images/icon_fail.gif)  no-repeat scroll left top;
+}
+
+.error_head{
+	font-size:14px;
+	font-weight:bold;
+	margin: 10px 0px 0px 80px;
+}
+
+.error_body{
+	width: 380px;
+	margin: 10px 0px 0px 100px;
+}
+
+.error_button{
+	margin: 10px 0px 0px 80px;
+}
+
+.error_button a{
+	color:blue;	
+	text-decoration: none;
+}
+.error_button a:hover{
+	color:blue;	
+	text-decoration: underline;
+}
+.error_body ul{
+	list-style-type:none;
+}
+
+.error_body li{
+	border-bottom:1px dashed #878787;
+}
+

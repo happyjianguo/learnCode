@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "cn.com.jansh.mapper.game.IGameTempMapper">
+	<!-- 根据ID查询是否存在记录 -->
+	<select id="select" resultType="GametemplateEntity">
+		SELECT
+				TEMPID,
+				TEMPNAME,
+				TEMPLATENAME,
+				USETIMES,
+				GAMEID,
+				CREATETIME,
+				UPDATETIME,
+				TEMPSTATUS
+		FROM
+				GAMETEMPLATE
+		WHERE 
+			1=1
+			<if test="tempid !=null and tempid !=''">
+				AND	TEMPID = #{tempid}
+			</if>
+	</select>
+	<select id="selectTempBOs" resultType="ShowTemplateBO">
+		SELECT
+				L.TEMPID,
+				L.TEMPNAME,
+				L.TEMPLATENAME,
+				L.PICTRUEURL,
+				M.DEPLOYPATH,
+				L.GAMEID,
+				L.TEMPSTATUS
+				
+		FROM
+				GAMETEMPLATE L
+		LEFT JOIN
+				CLOUDGAMEINIT M
+		ON		
+				L.GAMEID = M.ID
+		WHERE 
+			1=1
+			<if test="tempid !=null and tempid !=''">
+				AND	L.TEMPID = #{tempid}
+			</if>
+			<if test="tempstatus !=null and tempstatus !=''">
+				AND	L.TEMPSTATUS = #{tempstatus}
+			</if>
+	</select>
+</mapper>
+	

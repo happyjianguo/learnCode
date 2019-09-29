@@ -1,0 +1,59 @@
+/* base*/
+
+ul, li{ list-style: none;}
+
+a:hover,
+a:active,
+a:focus
+{ text-decoration: none; color:inherit;}
+
+
+.mt1{ margin-top: 10px;}
+.mt2{ margin-top: 20px;}
+.mt3{ margin-top: 30px;}
+.mt5{ margin-top: 50px;}
+.mt05{ margin-top: 5px;}
+
+.mb5{ margin-bottom: 5px;}
+.mb10{ margin-bottom: 10px;}
+.mb20{ margin-bottom: 20px;}
+.mb30{ margin-bottom: 30px;}
+.mb50{ margin-bottom: 50px;}
+
+.ml5{ margin-left: 5px;}
+.ml10{ margin-left: 10px;}
+.ml15{ margin-left: 15px;}
+.ml20{ margin-left: 20px;}
+.ml50{ margin-left: 50px;}
+
+.mr5{ margin-right: 5px;}
+.mr10{ margin-right: 10px;}
+.mr15{ margin-right: 15px;}
+.mr20{ margin-right: 20px;}
+.mr50{ margin-right: 50px;}
+
+.c-gray{color: #888;}
+
+.pl{ padding-left: 10px;}
+.pr{ padding-right: 10px;}
+
+.f-l{ float: left;}
+.f-r{ float: right;}
+.t-a{ text-align: center;}
+
+.p-r{ position: relative;}
+.p-ar{ position: absolute; top: 0; right: 0;}
+.p-al{ position: absolute; top: 0; left: 0;}
+.p-f{ position: fixed;}
+
+.c-gray{ color: #ccc;}
+
+
+.lh25{ line-height: 25px;}
+.lh30{ line-height: 30px;}
+.lh40{ line-height: 40px;}
+
+.line{ border-bottom: 1px solid #efefef;}
+.max-w{ width: 100%;}
+
+.clear{clear: both;}

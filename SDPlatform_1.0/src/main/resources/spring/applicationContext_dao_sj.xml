@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+	<bean id="OaClientComputerInfoDao" class="cn.yufu.posp.client.dao.hibernate.hql.OaClientComputerInfoDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- key Manager -->
+	<bean id="TMKMasterKEYDao" class="cn.yufu.posp.keyManager.dao.hibernate.hql.TMKMasterKEYDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="PospZmkKeyDao" class="cn.yufu.posp.keyManager.dao.hibernate.hql.PospZmkKeyDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="logDao" class="cn.yufu.posp.logManager.dao.hibernate.hql.LogDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+	
+</beans>

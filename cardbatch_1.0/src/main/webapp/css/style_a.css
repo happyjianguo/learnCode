@@ -1,0 +1,15 @@
+a:link    { font-size: 9pt; color: #000000; text-decoration: none}
+a:visited { font-size: 9pt; COLOR: #000000; TEXT-DECORATION: none}
+a:hover   { font-size: 9pt; COLOR: #0033cc; TEXT-DECORATION: underline}
+a:active  { font-size: 9pt; color: #000000; text-decoration: none}
+
+.green {font-family: "ËÎÌו";font-size: 12px;color: #003399;font-weight: bold;}
+.green a:link    { color: #003399; text-decoration: none}
+.green a:visited {  COLOR: #999999; TEXT-DECORATION: none}
+.green a:hover   {  COLOR: #000000; TEXT-DECORATION: underline}
+.green a:active  { color: #003399; text-decoration: none}
+
+.news A:link    { font-size: 9pt; color: #000000; text-decoration: none}
+.news a:visited { font-size: 9pt; COLOR: #000000; TEXT-DECORATION: none}
+.news a:hover   { font-size: 9pt; COLOR: #006600; TEXT-DECORATION: none}
+.news a:active  { font-size: 9pt; color: #000000; text-decoration: none}

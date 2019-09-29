@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.SDMTPlatform.dao.TerminalSDMTMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.SDMTPlatform.entity.TerminalSDMT" >
+    <id column="MERCHANT_ID" property="merchantId" jdbcType="VARCHAR" />
+    <id column="TERM_CODE" property="termCode" jdbcType="VARCHAR" />
+    <result column="EDC_TYPE" property="edcType" jdbcType="CHAR" />
+    <result column="SOFT_VER" property="softVer" jdbcType="CHAR" />
+    <result column="DOWNLOAD_FLAG" property="downloadFlag" jdbcType="CHAR" />
+    <result column="ADD_DATE" property="addDate" jdbcType="CHAR" />
+    <result column="TERM_ADDRESS" property="termAddress" jdbcType="VARCHAR" />
+    <result column="ACT_DATE" property="actDate" jdbcType="DECIMAL" />
+    <result column="ACT_TIME" property="actTime" jdbcType="DECIMAL" />
+    <result column="TERM_TEL" property="termTel" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+    <result column="ZONE" property="zone" jdbcType="VARCHAR" />
+    <result column="SETTLE_MRCH_ACC_ID" property="settleMrchAccId" jdbcType="DECIMAL" />
+    <result column="X_TIMEZONE" property="xTimezone" jdbcType="VARCHAR" />
+    <result column="SD_FLAG" property="sdFlag" jdbcType="CHAR" />
+    <result column="SD_ERROR" property="sdError" jdbcType="VARCHAR" />
+    <result column="X_FLAG" property="xFlag" jdbcType="CHAR" />
+    <result column="X_ERROR" property="xError" jdbcType="VARCHAR" />
+    <result column="YUFU_FLAG" property="yufuFlag" jdbcType="CHAR" />
+    <result column="YUFU_ERROR" property="yufuError" jdbcType="VARCHAR" />
+    <result column="X_BAK_FLAG" property="xBakFlag" jdbcType="CHAR" />
+    <result column="X_BAK_ERROR" property="xBakError" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MERCHANT_ID, TERM_CODE, EDC_TYPE, SOFT_VER, DOWNLOAD_FLAG, ADD_DATE, TERM_ADDRESS, 
+    ACT_DATE, ACT_TIME, TERM_TEL, STATE, PROVINCE, CITY_NO, ZONE, SETTLE_MRCH_ACC_ID, 
+    X_TIMEZONE, SD_FLAG, SD_ERROR, X_FLAG, X_ERROR, YUFU_FLAG, YUFU_ERROR, X_BAK_FLAG, 
+    X_BAK_ERROR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMTExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_TERMINAL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMTKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_TERMINAL
+    where MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}
+      and TERM_CODE = #{termCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMTKey" >
+    delete from T_TERMINAL
+    where MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}
+      and TERM_CODE = #{termCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMTExample" >
+    delete from T_TERMINAL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMT" >
+    insert into T_TERMINAL (MERCHANT_ID, TERM_CODE, EDC_TYPE, 
+      SOFT_VER, DOWNLOAD_FLAG, ADD_DATE, 
+      TERM_ADDRESS, ACT_DATE, ACT_TIME, 
+      TERM_TEL, STATE, PROVINCE, 
+      CITY_NO, ZONE, SETTLE_MRCH_ACC_ID, 
+      X_TIMEZONE, SD_FLAG, SD_ERROR, 
+      X_FLAG, X_ERROR, YUFU_FLAG, 
+      YUFU_ERROR, X_BAK_FLAG, X_BAK_ERROR
+      )
+    values (#{merchantId,jdbcType=VARCHAR}, #{termCode,jdbcType=VARCHAR}, #{edcType,jdbcType=CHAR}, 
+      #{softVer,jdbcType=CHAR}, #{downloadFlag,jdbcType=CHAR}, #{addDate,jdbcType=CHAR}, 
+      #{termAddress,jdbcType=VARCHAR}, #{actDate,jdbcType=DECIMAL}, #{actTime,jdbcType=DECIMAL}, 
+      #{termTel,jdbcType=VARCHAR}, #{state,jdbcType=DECIMAL}, #{province,jdbcType=VARCHAR}, 
+      #{cityNo,jdbcType=VARCHAR}, #{zone,jdbcType=VARCHAR}, #{settleMrchAccId,jdbcType=DECIMAL}, 
+      #{xTimezone,jdbcType=VARCHAR}, #{sdFlag,jdbcType=CHAR}, #{sdError,jdbcType=VARCHAR}, 
+      #{xFlag,jdbcType=CHAR}, #{xError,jdbcType=VARCHAR}, #{yufuFlag,jdbcType=CHAR}, 
+      #{yufuError,jdbcType=VARCHAR}, #{xBakFlag,jdbcType=CHAR}, #{xBakError,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMT" >
+    insert into T_TERMINAL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="merchantId != null" >
+        MERCHANT_ID,
+      </if>
+      <if test="termCode != null" >
+        TERM_CODE,
+      </if>
+      <if test="edcType != null" >
+        EDC_TYPE,
+      </if>
+      <if test="softVer != null" >
+        SOFT_VER,
+      </if>
+      <if test="downloadFlag != null" >
+        DOWNLOAD_FLAG,
+      </if>
+      <if test="addDate != null" >
+        ADD_DATE,
+      </if>
+      <if test="termAddress != null" >
+        TERM_ADDRESS,
+      </if>
+      <if test="actDate != null" >
+        ACT_DATE,
+      </if>
+      <if test="actTime != null" >
+        ACT_TIME,
+      </if>
+      <if test="termTel != null" >
+        TERM_TEL,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO,
+      </if>
+      <if test="zone != null" >
+        ZONE,
+      </if>
+      <if test="settleMrchAccId != null" >
+        SETTLE_MRCH_ACC_ID,
+      </if>
+      <if test="xTimezone != null" >
+        X_TIMEZONE,
+      </if>
+      <if test="sdFlag != null" >
+        SD_FLAG,
+      </if>
+      <if test="sdError != null" >
+        SD_ERROR,
+      </if>
+      <if test="xFlag != null" >
+        X_FLAG,
+      </if>
+      <if test="xError != null" >
+        X_ERROR,
+      </if>
+      <if test="yufuFlag != null" >
+        YUFU_FLAG,
+      </if>
+      <if test="yufuError != null" >
+        YUFU_ERROR,
+      </if>
+      <if test="xBakFlag != null" >
+        X_BAK_FLAG,
+      </if>
+      <if test="xBakError != null" >
+        X_BAK_ERROR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="termCode != null" >
+        #{termCode,jdbcType=VARCHAR},
+      </if>
+      <if test="edcType != null" >
+        #{edcType,jdbcType=CHAR},
+      </if>
+      <if test="softVer != null" >
+        #{softVer,jdbcType=CHAR},
+      </if>
+      <if test="downloadFlag != null" >
+        #{downloadFlag,jdbcType=CHAR},
+      </if>
+      <if test="addDate != null" >
+        #{addDate,jdbcType=CHAR},
+      </if>
+      <if test="termAddress != null" >
+        #{termAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="actDate != null" >
+        #{actDate,jdbcType=DECIMAL},
+      </if>
+      <if test="actTime != null" >
+        #{actTime,jdbcType=DECIMAL},
+      </if>
+      <if test="termTel != null" >
+        #{termTel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="zone != null" >
+        #{zone,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMrchAccId != null" >
+        #{settleMrchAccId,jdbcType=DECIMAL},
+      </if>
+      <if test="xTimezone != null" >
+        #{xTimezone,jdbcType=VARCHAR},
+      </if>
+      <if test="sdFlag != null" >
+        #{sdFlag,jdbcType=CHAR},
+      </if>
+      <if test="sdError != null" >
+        #{sdError,jdbcType=VARCHAR},
+      </if>
+      <if test="xFlag != null" >
+        #{xFlag,jdbcType=CHAR},
+      </if>
+      <if test="xError != null" >
+        #{xError,jdbcType=VARCHAR},
+      </if>
+      <if test="yufuFlag != null" >
+        #{yufuFlag,jdbcType=CHAR},
+      </if>
+      <if test="yufuError != null" >
+        #{yufuError,jdbcType=VARCHAR},
+      </if>
+      <if test="xBakFlag != null" >
+        #{xBakFlag,jdbcType=CHAR},
+      </if>
+      <if test="xBakError != null" >
+        #{xBakError,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMTExample" resultType="java.lang.Integer" >
+    select count(*) from T_TERMINAL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_TERMINAL
+    <set >
+      <if test="record.merchantId != null" >
+        MERCHANT_ID = #{record.merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.termCode != null" >
+        TERM_CODE = #{record.termCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edcType != null" >
+        EDC_TYPE = #{record.edcType,jdbcType=CHAR},
+      </if>
+      <if test="record.softVer != null" >
+        SOFT_VER = #{record.softVer,jdbcType=CHAR},
+      </if>
+      <if test="record.downloadFlag != null" >
+        DOWNLOAD_FLAG = #{record.downloadFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.addDate != null" >
+        ADD_DATE = #{record.addDate,jdbcType=CHAR},
+      </if>
+      <if test="record.termAddress != null" >
+        TERM_ADDRESS = #{record.termAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actDate != null" >
+        ACT_DATE = #{record.actDate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.actTime != null" >
+        ACT_TIME = #{record.actTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.termTel != null" >
+        TERM_TEL = #{record.termTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=DECIMAL},
+      </if>
+      <if test="record.province != null" >
+        PROVINCE = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityNo != null" >
+        CITY_NO = #{record.cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zone != null" >
+        ZONE = #{record.zone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleMrchAccId != null" >
+        SETTLE_MRCH_ACC_ID = #{record.settleMrchAccId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xTimezone != null" >
+        X_TIMEZONE = #{record.xTimezone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdFlag != null" >
+        SD_FLAG = #{record.sdFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.sdError != null" >
+        SD_ERROR = #{record.sdError,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xFlag != null" >
+        X_FLAG = #{record.xFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.xError != null" >
+        X_ERROR = #{record.xError,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yufuFlag != null" >
+        YUFU_FLAG = #{record.yufuFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.yufuError != null" >
+        YUFU_ERROR = #{record.yufuError,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xBakFlag != null" >
+        X_BAK_FLAG = #{record.xBakFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.xBakError != null" >
+        X_BAK_ERROR = #{record.xBakError,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_TERMINAL
+    set MERCHANT_ID = #{record.merchantId,jdbcType=VARCHAR},
+      TERM_CODE = #{record.termCode,jdbcType=VARCHAR},
+      EDC_TYPE = #{record.edcType,jdbcType=CHAR},
+      SOFT_VER = #{record.softVer,jdbcType=CHAR},
+      DOWNLOAD_FLAG = #{record.downloadFlag,jdbcType=CHAR},
+      ADD_DATE = #{record.addDate,jdbcType=CHAR},
+      TERM_ADDRESS = #{record.termAddress,jdbcType=VARCHAR},
+      ACT_DATE = #{record.actDate,jdbcType=DECIMAL},
+      ACT_TIME = #{record.actTime,jdbcType=DECIMAL},
+      TERM_TEL = #{record.termTel,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=DECIMAL},
+      PROVINCE = #{record.province,jdbcType=VARCHAR},
+      CITY_NO = #{record.cityNo,jdbcType=VARCHAR},
+      ZONE = #{record.zone,jdbcType=VARCHAR},
+      SETTLE_MRCH_ACC_ID = #{record.settleMrchAccId,jdbcType=DECIMAL},
+      X_TIMEZONE = #{record.xTimezone,jdbcType=VARCHAR},
+      SD_FLAG = #{record.sdFlag,jdbcType=CHAR},
+      SD_ERROR = #{record.sdError,jdbcType=VARCHAR},
+      X_FLAG = #{record.xFlag,jdbcType=CHAR},
+      X_ERROR = #{record.xError,jdbcType=VARCHAR},
+      YUFU_FLAG = #{record.yufuFlag,jdbcType=CHAR},
+      YUFU_ERROR = #{record.yufuError,jdbcType=VARCHAR},
+      X_BAK_FLAG = #{record.xBakFlag,jdbcType=CHAR},
+      X_BAK_ERROR = #{record.xBakError,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMT" >
+    update T_TERMINAL
+    <set >
+      <if test="edcType != null" >
+        EDC_TYPE = #{edcType,jdbcType=CHAR},
+      </if>
+      <if test="softVer != null" >
+        SOFT_VER = #{softVer,jdbcType=CHAR},
+      </if>
+      <if test="downloadFlag != null" >
+        DOWNLOAD_FLAG = #{downloadFlag,jdbcType=CHAR},
+      </if>
+      <if test="addDate != null" >
+        ADD_DATE = #{addDate,jdbcType=CHAR},
+      </if>
+      <if test="termAddress != null" >
+        TERM_ADDRESS = #{termAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="actDate != null" >
+        ACT_DATE = #{actDate,jdbcType=DECIMAL},
+      </if>
+      <if test="actTime != null" >
+        ACT_TIME = #{actTime,jdbcType=DECIMAL},
+      </if>
+      <if test="termTel != null" >
+        TERM_TEL = #{termTel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="zone != null" >
+        ZONE = #{zone,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMrchAccId != null" >
+        SETTLE_MRCH_ACC_ID = #{settleMrchAccId,jdbcType=DECIMAL},
+      </if>
+      <if test="xTimezone != null" >
+        X_TIMEZONE = #{xTimezone,jdbcType=VARCHAR},
+      </if>
+      <if test="sdFlag != null" >
+        SD_FLAG = #{sdFlag,jdbcType=CHAR},
+      </if>
+      <if test="sdError != null" >
+        SD_ERROR = #{sdError,jdbcType=VARCHAR},
+      </if>
+      <if test="xFlag != null" >
+        X_FLAG = #{xFlag,jdbcType=CHAR},
+      </if>
+      <if test="xError != null" >
+        X_ERROR = #{xError,jdbcType=VARCHAR},
+      </if>
+      <if test="yufuFlag != null" >
+        YUFU_FLAG = #{yufuFlag,jdbcType=CHAR},
+      </if>
+      <if test="yufuError != null" >
+        YUFU_ERROR = #{yufuError,jdbcType=VARCHAR},
+      </if>
+      <if test="xBakFlag != null" >
+        X_BAK_FLAG = #{xBakFlag,jdbcType=CHAR},
+      </if>
+      <if test="xBakError != null" >
+        X_BAK_ERROR = #{xBakError,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}
+      and TERM_CODE = #{termCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.SDMTPlatform.entity.TerminalSDMT" >
+    update T_TERMINAL
+    set EDC_TYPE = #{edcType,jdbcType=CHAR},
+      SOFT_VER = #{softVer,jdbcType=CHAR},
+      DOWNLOAD_FLAG = #{downloadFlag,jdbcType=CHAR},
+      ADD_DATE = #{addDate,jdbcType=CHAR},
+      TERM_ADDRESS = #{termAddress,jdbcType=VARCHAR},
+      ACT_DATE = #{actDate,jdbcType=DECIMAL},
+      ACT_TIME = #{actTime,jdbcType=DECIMAL},
+      TERM_TEL = #{termTel,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=DECIMAL},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      ZONE = #{zone,jdbcType=VARCHAR},
+      SETTLE_MRCH_ACC_ID = #{settleMrchAccId,jdbcType=DECIMAL},
+      X_TIMEZONE = #{xTimezone,jdbcType=VARCHAR},
+      SD_FLAG = #{sdFlag,jdbcType=CHAR},
+      SD_ERROR = #{sdError,jdbcType=VARCHAR},
+      X_FLAG = #{xFlag,jdbcType=CHAR},
+      X_ERROR = #{xError,jdbcType=VARCHAR},
+      YUFU_FLAG = #{yufuFlag,jdbcType=CHAR},
+      YUFU_ERROR = #{yufuError,jdbcType=VARCHAR},
+      X_BAK_FLAG = #{xBakFlag,jdbcType=CHAR},
+      X_BAK_ERROR = #{xBakError,jdbcType=VARCHAR}
+    where MERCHANT_ID = #{merchantId,jdbcType=VARCHAR}
+      and TERM_CODE = #{termCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT a.*, ROWNUM rn FROM(
+		select
+		<if test="example.distinct">
+			example.distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from T_TERMINAL
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="example.orderByClause != null">
+			order by ${example.orderByClause}
+		</if>)
+		a
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select>
+</mapper>

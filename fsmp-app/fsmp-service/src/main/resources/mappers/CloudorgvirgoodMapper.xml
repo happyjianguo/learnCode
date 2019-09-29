@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.component.CloudorgvirgoodMapper">
+
+	<insert id="insert" parameterType="CloudorgvirgoodEntity">
+		INSERT INTO
+			CLOUDORGVIRGOOD(ID,ORGID,GAMEID,PRIZESTYLE,CREATETIME)
+		VALUES(
+			#{id},#{orgid},#{gameid},#{prizestyle},#{createtime}
+		)
+	</insert>
+	
+	<select id="select" resultType="CloudorgvirgoodBO">
+		SELECT
+			L.ID,L.ORGID,L.GAMEID,L.PRIZESTYLE,M.PRIZENAME,L.CREATETIME
+		FROM
+			CLOUDORGVIRGOOD L LEFT JOIN CLOUDVIRGOOD M ON L.PRIZESTYLE = M.ID
+		WHERE
+			1=1
+			<if test="orgid != null and orgid != ''">
+				AND L.ORGID = #{orgid}
+			</if>
+			<if test="gameid != null and gameid != ''">
+				AND L.GAMEID = #{gameid}
+			</if>
+			<if test="prizestyle != null and prizestyle != ''">
+				AND L.PRIZESTYLE = #{prizestyle}
+			</if>
+	</select>
+	
+</mapper>

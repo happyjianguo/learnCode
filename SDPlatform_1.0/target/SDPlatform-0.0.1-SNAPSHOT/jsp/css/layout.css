@@ -1,0 +1,369 @@
+	body, html
+	{
+		font-family: Arial;
+		border: 0;
+		margin: 0;
+		text-align: left;
+		background: #A7B6EC;
+	}
+	Div
+	{
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+		margin:0;
+		padding:0;
+	}
+	#banner {
+		margin: 0px 0 0 0;
+		background: transparent url(../imgs/think.jpg) top left no-repeat;
+		height: 4.5em;
+		text-align: right;
+		border-top: 0px solid #fff;
+	}
+
+	#assBanner {
+		margin: 0px 0 0 0;
+		background: transparent url(../images/top3.jpg) top left no-repeat;
+		height: 7em;
+		text-align: right;
+		border-top: 0px solid #fff;
+	}
+
+	#ud-switch{
+		margin: 0px 0 0 0;
+		height: 5px;
+		width:100%
+		float:left;
+		text-align: right;
+		border-top: 0px solid #fff;
+	}
+
+    #lr-switch{
+		color: #D66C43;
+		width: 5px;
+		float:left;
+		border-right: solid 0px #D6B643;
+		padding-bottom: 1024px;
+		margin-bottom: -1024px;
+    }
+
+
+
+	#Header
+	{
+		background: #4160D5;
+		margin: 0px 0 0 0;
+		color: White;
+		height: 100px;
+	}
+	#Footer
+	{
+		margin: auto;
+		background: #D66C43;
+		margin-top: -50px;
+		height: 50px;
+		width: 1024px;
+		border: solid 3px #4160D5;
+		border-top: 0;
+		color: #FFF;
+	}
+	#Wrapper
+	{
+		display: table;
+		border: solid 2px #B8B8B8;
+		margin: auto;
+		width: 1024px;
+		height: 100%;
+		padding-bottom: 47px;
+	}
+	html>body #Wrapper {overflow:hidden;}
+
+	#Main
+	{
+		display:table;
+		text-align: left;
+		background: Orange;
+		width: 1000px;
+		margin: auto;
+		padding-bottom: 50px;
+		overflow:hidden;
+	}
+	#Column
+	{
+		background: #ECDDA7;
+		color: #D66C43;
+		width: 150px;
+		float:left;
+		border-right: solid 1px #D6B643;
+		padding-bottom: 1024px;
+		margin-bottom: -1024px;
+	}
+	#Content
+	{
+		clear: none;
+		background: #FFF;
+		color: #000;
+		float:right;
+		border:0px;
+		padding:0px;
+		width:850px;
+		padding-bottom: 1024px;
+		margin-bottom: -1024px;
+	}
+
+	#login
+	{
+	clear: none;
+	float:right;
+	border:15px;
+	padding:10px;
+	width:150px;
+	left:416px;
+	top:50px;
+	font-size: 7px;
+	color: 0367D2;
+	font-weight: bold;
+	position: absolute;
+	visibility: visible;
+	font-size: larger;
+	background-color:transparent;
+	height: 59px;
+	}
+
+	/*- Menu Tabs J--------------------------- */
+
+    #tabsJ {
+      float:left;
+      width:100%;
+      background:#F4F4F4;
+      font-size:70%;
+      font-weight:bold;
+      line-height:normal;
+	  border-bottom:1px solid #24618E;
+    }
+    #tabsJ ul {
+			margin:0;
+			padding:0px 10px 0 50px;
+			list-style:none;
+    }
+    #tabsJ li {
+      display:inline;
+      margin:0;
+      padding:0;
+    }
+    #tabsJ a {
+      float:left;
+      background:url("../images/tableft.gif") no-repeat left top;
+      margin:0;
+      padding:0 0 0 5px;
+      text-decoration:none;
+    }
+    #tabsJ a span {
+      float:left;
+      display:block;
+      background:url("../images/tabright.gif") no-repeat right top;
+      padding:5px 15px 8px 6px;
+      color:#24618E;
+    }
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+    #tabsJ a span {float:none;}
+    /* End IE5-Mac hack */
+    #tabsJ a:hover span {
+      color:#24618E;
+    }
+    #tabsJ a:active {
+      background-position:0% -42px;
+
+    }
+    #tabsJ a:active span {
+      background-position:100% -42px;
+      color:#FFF;
+    }
+
+    /*  Sub Tab J */
+    #subTabJ {
+      float:left;
+      width:100%;
+      background:#24618E;
+      font-size:70%;
+      font-weight:bold;
+      line-height:normal;
+	  border-bottom:1px solid #24618E;
+    }
+    #subTabJ ul {
+			margin:0;
+			padding:0px 10px 0 40px;
+			list-style:none;
+    }
+    #subTabJ li {
+      display:inline;
+      margin:0;
+      padding:10;
+    }
+    #subTabJ a span{
+    	color:#FFFFFF;
+    }
+
+    #tabsFNotShow {
+      float:left;
+      width:100%;
+      height:0;
+      display:none;
+      background:url("../images/lmenu/2toolbar-m.gif") repeat left top;
+      font-size:80%;
+      font-weight:bold;
+      line-height:normal;
+	  border-bottom:1px solid #666;
+    }
+    /*- Menu Tabs F--------------------------- */
+
+    #tabsF {
+      float:left;
+      width:100%;
+      background:url("../images/lmenu/2toolbar-m.gif") repeat left top;
+      font-size:80%;
+      font-weight:bold;
+      line-height:normal;
+	  border-bottom:1px solid #666;
+    }
+    #tabsF ul {
+			margin:0;
+			padding:0px 10px 0 50px;
+			list-style:none;
+    }
+    #tabsF li {
+      display:inline;
+      margin:0;
+      padding:0;
+    }
+    #tabsF a {
+      float:left;
+      background:url("../images/tableftF.gif") no-repeat left top;
+      margin:0;
+      padding:0 0 0 4px;
+      text-decoration:none;
+    }
+    #tabsF a span {
+      float:left;
+      display:block;
+      background:url("../images/tabrightF.gif") no-repeat right top;
+      padding:5px 15px 8px 6px;
+      color:#666;
+    }
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+    #tabsF a span {float:none;}
+    /* End IE5-Mac hack */
+    #tabsF a:hover span {
+      color:#FFF;
+    }
+    #tabsF a:hover {
+      background-position:0% -42px;
+    }
+    #tabsF a:hover span {
+      background-position:100% -42px;
+    }
+
+    /*  Sub Tab J */
+    #subTabF {
+      float:left;
+      width:80%;
+      background:#8BADE7;
+      font-size:80%;
+      font-weight:bold;
+      line-height:normal;
+	  border-bottom:1px solid #8BADE7;
+    }
+    #subTabF ul {
+			margin:0;
+			padding:0px 10px 0 40px;
+			list-style:none;
+    }
+    #subTabF li {
+      display:inline;
+      margin:0;
+      padding:10;
+    }
+    #subTabF a span{
+    	color:#FFFFFF;
+    }
+
+
+    /*- Menu Tabs D--------------------------- */
+
+    #tabsD {
+      float:left;
+      width:100%;
+      background:#FCF3F8;
+      font-size:93%;
+      line-height:normal;
+	  	border-bottom:1px solid #F4B7D6;
+      }
+    #tabsD ul {
+			margin:0;
+			padding:10px 10px 0 50px;
+			list-style:none;
+    }
+    #tabsD li {
+      display:inline;
+      margin:0;
+      padding:0;
+    }
+    #tabsD a {
+      float:left;
+      background:url("../images/tableftD.gif") no-repeat left top;
+      margin:0;
+      padding:0 0 0 4px;
+      text-decoration:none;
+    }
+    #tabsD a span {
+      float:left;
+      display:block;
+      background:url("../images/tabrightD.gif") no-repeat right top;
+      padding:5px 15px 4px 6px;
+      color:#C7377D;
+    }
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+    #tabsD a span {float:none;}
+    /* End IE5-Mac hack */
+    #tabsD a:hover span {
+      color:#C7377D;
+    }
+    #tabsD a:hover {
+      background-position:0% -42px;
+    }
+    #tabsD a:hover span {
+      background-position:100% -42px;
+    }
+
+    /*  Table Style for role list  */
+    .nicetable {
+		border-collapse:collapse;
+	}
+	.nicetableheader {
+		margin:5px;
+		padding: 8px;
+		border:1px solid #A7B6EC;
+		background-color:#A7B6EC;
+		color:#FFFFFF;
+		font-size: 9pt;
+		font-weight:bold;
+	}
+
+	.nicetablerow {
+		margin:5px;
+		padding: 5px;
+		border:1px solid #336699;
+		background-color:#FFFFFF;
+		color:#000000;
+		font-size: 10pt;
+		font-weight:bold;
+	}
+	#subTabExit {
+      float:right;
+      width:20%;
+      background:#8BADE7;
+      font-size:80%;
+      font-weight:bold;
+      line-height:normal;
+	  border-bottom:1px solid #8BADE7;
+    }

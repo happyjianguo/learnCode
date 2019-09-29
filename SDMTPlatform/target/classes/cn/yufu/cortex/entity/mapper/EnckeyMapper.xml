@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.EnckeyMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.Enckey" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="KEYTYPE" property="keytype" jdbcType="DECIMAL" />
+    <result column="KEYSTATUS" property="keystatus" jdbcType="DECIMAL" />
+    <result column="TSTFLAG" property="tstflag" jdbcType="DECIMAL" />
+    <result column="REFCODE" property="refcode" jdbcType="VARCHAR" />
+    <result column="KEYSEQNO" property="keyseqno" jdbcType="DECIMAL" />
+    <result column="KEYVALUE" property="keyvalue" jdbcType="VARCHAR" />
+    <result column="PREVALUE" property="prevalue" jdbcType="VARCHAR" />
+    <result column="CHECKVALUE" property="checkvalue" jdbcType="VARCHAR" />
+    <result column="ACTDATE" property="actdate" jdbcType="DATE" />
+    <result column="ACTTIME" property="acttime" jdbcType="DECIMAL" />
+    <result column="EXPIRY" property="expiry" jdbcType="DATE" />
+    <result column="LONGKEYVAL" property="longkeyval" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, VERNO_CTX, KEYTYPE, KEYSTATUS, TSTFLAG, REFCODE, KEYSEQNO, KEYVALUE, PREVALUE, 
+    CHECKVALUE, ACTDATE, ACTTIME, EXPIRY, LONGKEYVAL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.EnckeyExample" >
+    select
+    <if test="example.distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ENCKEY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENCKEY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByTermCode" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.Enckey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ENCKEY
+    where REFCODE = #{refcode}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ENCKEY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.EnckeyExample" >
+    delete from ENCKEY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="saveEditMerchantLog" parameterType="cn.yufu.cortex.entity.MerchantXRecord">
+  	insert into MERCHANT_X_RECORD (MRCHNO, MRCH_NAME, MODIFY_MODULE, 
+      REMOTE_ADDR, REMOTE_MAC, USER_AGENT, 
+      CREATE_BY, CREATE_TIME, ORIGINAL_RECORD, 
+      MODIFY_RECORD)
+    values (#{mrchno,jdbcType=VARCHAR}, #{mrchName,jdbcType=VARCHAR}, #{modifyModule,jdbcType=VARCHAR}, 
+      #{remoteAddr,jdbcType=VARCHAR}, #{remoteMac,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{originalRecord,jdbcType=CLOB}, 
+      #{modifyRecord,jdbcType=CLOB})
+  </insert>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.Enckey" >
+    insert into ENCKEY (ID, VERNO_CTX, KEYTYPE, 
+      KEYSTATUS, TSTFLAG, REFCODE, 
+      KEYSEQNO, KEYVALUE, PREVALUE, 
+      CHECKVALUE, ACTDATE, ACTTIME, 
+      EXPIRY, LONGKEYVAL)
+    values (#{id,jdbcType=DECIMAL}, #{vernoCtx,jdbcType=DECIMAL}, #{keytype,jdbcType=DECIMAL}, 
+      #{keystatus,jdbcType=DECIMAL}, #{tstflag,jdbcType=DECIMAL}, #{refcode,jdbcType=VARCHAR}, 
+      #{keyseqno,jdbcType=DECIMAL}, #{keyvalue,jdbcType=VARCHAR}, #{prevalue,jdbcType=VARCHAR}, 
+      #{checkvalue,jdbcType=VARCHAR}, #{actdate,jdbcType=DATE}, #{acttime,jdbcType=DECIMAL}, 
+      #{expiry,jdbcType=DATE}, #{longkeyval,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.Enckey" >
+    insert into ENCKEY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX,
+      </if>
+      <if test="keytype != null" >
+        KEYTYPE,
+      </if>
+      <if test="keystatus != null" >
+        KEYSTATUS,
+      </if>
+      <if test="tstflag != null" >
+        TSTFLAG,
+      </if>
+      <if test="refcode != null" >
+        REFCODE,
+      </if>
+      <if test="keyseqno != null" >
+        KEYSEQNO,
+      </if>
+      <if test="keyvalue != null" >
+        KEYVALUE,
+      </if>
+      <if test="prevalue != null" >
+        PREVALUE,
+      </if>
+      <if test="checkvalue != null" >
+        CHECKVALUE,
+      </if>
+      <if test="actdate != null" >
+        ACTDATE,
+      </if>
+      <if test="acttime != null" >
+        ACTTIME,
+      </if>
+      <if test="expiry != null" >
+        EXPIRY,
+      </if>
+      <if test="longkeyval != null" >
+        LONGKEYVAL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="vernoCtx != null" >
+        #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="keytype != null" >
+        #{keytype,jdbcType=DECIMAL},
+      </if>
+      <if test="keystatus != null" >
+        #{keystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="tstflag != null" >
+        #{tstflag,jdbcType=DECIMAL},
+      </if>
+      <if test="refcode != null" >
+        #{refcode,jdbcType=VARCHAR},
+      </if>
+      <if test="keyseqno != null" >
+        #{keyseqno,jdbcType=DECIMAL},
+      </if>
+      <if test="keyvalue != null" >
+        #{keyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="prevalue != null" >
+        #{prevalue,jdbcType=VARCHAR},
+      </if>
+      <if test="checkvalue != null" >
+        #{checkvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="actdate != null" >
+        #{actdate,jdbcType=DATE},
+      </if>
+      <if test="acttime != null" >
+        #{acttime,jdbcType=DECIMAL},
+      </if>
+      <if test="expiry != null" >
+        #{expiry,jdbcType=DATE},
+      </if>
+      <if test="longkeyval != null" >
+        #{longkeyval,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.EnckeyExample" resultType="java.lang.Integer" >
+    select count(*) from ENCKEY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ENCKEY
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vernoCtx != null" >
+        VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.keytype != null" >
+        KEYTYPE = #{record.keytype,jdbcType=DECIMAL},
+      </if>
+      <if test="record.keystatus != null" >
+        KEYSTATUS = #{record.keystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tstflag != null" >
+        TSTFLAG = #{record.tstflag,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refcode != null" >
+        REFCODE = #{record.refcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyseqno != null" >
+        KEYSEQNO = #{record.keyseqno,jdbcType=DECIMAL},
+      </if>
+      <if test="record.keyvalue != null" >
+        KEYVALUE = #{record.keyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prevalue != null" >
+        PREVALUE = #{record.prevalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkvalue != null" >
+        CHECKVALUE = #{record.checkvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actdate != null" >
+        ACTDATE = #{record.actdate,jdbcType=DATE},
+      </if>
+      <if test="record.acttime != null" >
+        ACTTIME = #{record.acttime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expiry != null" >
+        EXPIRY = #{record.expiry,jdbcType=DATE},
+      </if>
+      <if test="record.longkeyval != null" >
+        LONGKEYVAL = #{record.longkeyval,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ENCKEY
+    set ID = #{record.id,jdbcType=DECIMAL},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      KEYTYPE = #{record.keytype,jdbcType=DECIMAL},
+      KEYSTATUS = #{record.keystatus,jdbcType=DECIMAL},
+      TSTFLAG = #{record.tstflag,jdbcType=DECIMAL},
+      REFCODE = #{record.refcode,jdbcType=VARCHAR},
+      KEYSEQNO = #{record.keyseqno,jdbcType=DECIMAL},
+      KEYVALUE = #{record.keyvalue,jdbcType=VARCHAR},
+      PREVALUE = #{record.prevalue,jdbcType=VARCHAR},
+      CHECKVALUE = #{record.checkvalue,jdbcType=VARCHAR},
+      ACTDATE = #{record.actdate,jdbcType=DATE},
+      ACTTIME = #{record.acttime,jdbcType=DECIMAL},
+      EXPIRY = #{record.expiry,jdbcType=DATE},
+      LONGKEYVAL = #{record.longkeyval,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.Enckey" >
+    update ENCKEY
+    <set >
+      <if test="vernoCtx != null" >
+        VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="keytype != null" >
+        KEYTYPE = #{keytype,jdbcType=DECIMAL},
+      </if>
+      <if test="keystatus != null" >
+        KEYSTATUS = #{keystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="tstflag != null" >
+        TSTFLAG = #{tstflag,jdbcType=DECIMAL},
+      </if>
+      <if test="refcode != null" >
+        REFCODE = #{refcode,jdbcType=VARCHAR},
+      </if>
+      <if test="keyseqno != null" >
+        KEYSEQNO = #{keyseqno,jdbcType=DECIMAL},
+      </if>
+      <if test="keyvalue != null" >
+        KEYVALUE = #{keyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="prevalue != null" >
+        PREVALUE = #{prevalue,jdbcType=VARCHAR},
+      </if>
+      <if test="checkvalue != null" >
+        CHECKVALUE = #{checkvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="actdate != null" >
+        ACTDATE = #{actdate,jdbcType=DATE},
+      </if>
+      <if test="acttime != null" >
+        ACTTIME = #{acttime,jdbcType=DECIMAL},
+      </if>
+      <if test="expiry != null" >
+        EXPIRY = #{expiry,jdbcType=DATE},
+      </if>
+      <if test="longkeyval != null" >
+        LONGKEYVAL = #{longkeyval,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.Enckey" >
+    update ENCKEY
+    set VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      KEYTYPE = #{keytype,jdbcType=DECIMAL},
+      KEYSTATUS = #{keystatus,jdbcType=DECIMAL},
+      TSTFLAG = #{tstflag,jdbcType=DECIMAL},
+      REFCODE = #{refcode,jdbcType=VARCHAR},
+      KEYSEQNO = #{keyseqno,jdbcType=DECIMAL},
+      KEYVALUE = #{keyvalue,jdbcType=VARCHAR},
+      PREVALUE = #{prevalue,jdbcType=VARCHAR},
+      CHECKVALUE = #{checkvalue,jdbcType=VARCHAR},
+      ACTDATE = #{actdate,jdbcType=DATE},
+      ACTTIME = #{acttime,jdbcType=DECIMAL},
+      EXPIRY = #{expiry,jdbcType=DATE},
+      LONGKEYVAL = #{longkeyval,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="getCortexEnckeyId"  resultType="java.lang.String" >
+		select TO_CHAR(enckey_sequence.nextval) as id from dual
+  </select>  
+  
+</mapper>

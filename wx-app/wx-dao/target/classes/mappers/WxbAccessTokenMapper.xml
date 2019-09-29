@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.dao.mapper.WxbAccessTokenMapper">
+	
+	<select id="getAccessTokenByAppid" parameterType="String" resultType="WXBAccessToken">
+		SELECT
+			T.APPID,
+			T.ACCESSTOKEN,
+			T.ATUPDATETIME,
+			T.TICKET,
+			T.TTUPDATETIME
+		FROM
+			WXBACCESSTOKEN AS T
+		WHERE 
+			T.APPID = #{appid}
+	</select>
+
+	<insert id="insetAccessToken" parameterType="WXBAccessToken">
+		INSERT INTO WXBACCESSTOKEN (
+				APPID,
+				ACCESSTOKEN,
+				ATUPDATETIME,
+				TICKET,
+				TTUPDATETIME
+			)
+			VALUES
+				(
+					#{appid},
+					#{accessToken},
+					#{atUpdateTime},
+					#{ticket},
+					#{ttUpdateTime}
+				)
+	</insert>
+	
+	<update id="updateAccessToken" parameterType="WXBAccessToken">
+		UPDATE
+		WXBACCESSTOKEN SET
+			ACCESSTOKEN=#{accessToken},
+			ATUPDATETIME=#{atUpdateTime},
+			TICKET=#{ticket},
+			TTUPDATETIME=#{ttUpdateTime}
+		WHERE
+			APPID = #{appid}
+	</update>
+	
+	<delete id="deleteAccessToken" parameterType="String">
+		DELETE FROM
+			WXBACCESSTOKEN
+		WHERE 
+			APPID = #{appid}
+	</delete>
+</mapper>

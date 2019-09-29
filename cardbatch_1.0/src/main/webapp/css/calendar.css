@@ -1,0 +1,48 @@
+TD
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial;
+    BACKGROUND-COLOR: white;
+}
+TD.old-calendar-day-text
+{
+    FONT-WEIGHT: bold;
+}
+TD.old-calendar-month-text
+{
+    COLOR: white;
+    BACKGROUND-COLOR: #808080;
+}
+TD.old-calendar-separator
+{
+    HEIGHT: 1px;
+    BACKGROUND-COLOR: black;
+}
+TABLE
+{
+    BORDER-RIGHT: black;
+    BORDER-TOP: black;
+    BORDER-LEFT: black;
+    BORDER-BOTTOM: black;
+}
+TABLE.old-calendar-border
+{
+    BORDER-RIGHT: black solid;
+    BORDER-TOP: black solid;
+    BORDER-LEFT: black solid;
+    BORDER-BOTTOM: black solid;
+}
+A.old-calendar-day-text
+{
+    COLOR: black;
+    TEXT-DECORATION: none;
+}
+IMG
+{
+    BORDER-RIGHT: medium none;
+    BORDER-TOP: medium none;
+    BORDER-LEFT: medium none;
+    BORDER-BOTTOM: medium none;
+}

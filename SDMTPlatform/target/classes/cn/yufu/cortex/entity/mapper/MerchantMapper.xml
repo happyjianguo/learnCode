@@ -1,0 +1,1571 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.MerchantMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.Merchant" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="INST_ID" property="instId" jdbcType="DECIMAL" />
+    <result column="MRCHNO" property="mrchno" jdbcType="VARCHAR" />
+    <result column="HEAD_OFFICE" property="headOffice" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TRADING_AS" property="tradingAs" jdbcType="VARCHAR" />
+    <result column="ADDRESS1" property="address1" jdbcType="VARCHAR" />
+    <result column="ADDRESS2" property="address2" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="POSTCODE" property="postcode" jdbcType="VARCHAR" />
+    <result column="COUNTRYCODE" property="countrycode" jdbcType="VARCHAR" />
+    <result column="PHY_ADDRESS1" property="phyAddress1" jdbcType="VARCHAR" />
+    <result column="PHY_ADDRESS2" property="phyAddress2" jdbcType="VARCHAR" />
+    <result column="PHY_CITY" property="phyCity" jdbcType="VARCHAR" />
+    <result column="PHY_STATE" property="phyState" jdbcType="VARCHAR" />
+    <result column="PHY_POSTCODE" property="phyPostcode" jdbcType="VARCHAR" />
+    <result column="PHY_COUNTRYCODE" property="phyCountrycode" jdbcType="CHAR" />
+    <result column="REG_ADDRESS1" property="regAddress1" jdbcType="VARCHAR" />
+    <result column="REG_ADDRESS2" property="regAddress2" jdbcType="VARCHAR" />
+    <result column="REG_CITY" property="regCity" jdbcType="VARCHAR" />
+    <result column="REG_STATE" property="regState" jdbcType="VARCHAR" />
+    <result column="REG_POSTCODE" property="regPostcode" jdbcType="VARCHAR" />
+    <result column="REG_COUNTRYCODE" property="regCountrycode" jdbcType="CHAR" />
+    <result column="CURRCODE" property="currcode" jdbcType="CHAR" />
+    <result column="MRCHTYPE" property="mrchtype" jdbcType="DECIMAL" />
+    <result column="ACPTBUS" property="acptbus" jdbcType="DECIMAL" />
+    <result column="CONTACT1" property="contact1" jdbcType="VARCHAR" />
+    <result column="CONTACT2" property="contact2" jdbcType="VARCHAR" />
+    <result column="CONTACT3" property="contact3" jdbcType="VARCHAR" />
+    <result column="TELNO1" property="telno1" jdbcType="VARCHAR" />
+    <result column="TELNO2" property="telno2" jdbcType="VARCHAR" />
+    <result column="TELNO3" property="telno3" jdbcType="VARCHAR" />
+    <result column="FAXNO" property="faxno" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="TELEX" property="telex" jdbcType="VARCHAR" />
+    <result column="SORTCODE" property="sortcode" jdbcType="VARCHAR" />
+    <result column="BRNCODE" property="brncode" jdbcType="VARCHAR" />
+    <result column="ACCNO" property="accno" jdbcType="VARCHAR" />
+    <result column="ACCNM" property="accnm" jdbcType="VARCHAR" />
+    <result column="TAXCODE" property="taxcode" jdbcType="CHAR" />
+    <result column="STMTFREQ" property="stmtfreq" jdbcType="CHAR" />
+    <result column="STMTTO" property="stmtto" jdbcType="DECIMAL" />
+    <result column="STMTTO_HO" property="stmttoHo" jdbcType="DECIMAL" />
+    <result column="PAYMTYPE" property="paymtype" jdbcType="CHAR" />
+    <result column="PAYMTO" property="paymto" jdbcType="CHAR" />
+    <result column="POSFLAG" property="posflag" jdbcType="CHAR" />
+    <result column="VIPFLAG" property="vipflag" jdbcType="CHAR" />
+    <result column="MSC_CHARGE" property="mscCharge" jdbcType="CHAR" />
+    <result column="MSC_CALC" property="mscCalc" jdbcType="CHAR" />
+    <result column="MSC_TABLE" property="mscTable" jdbcType="DECIMAL" />
+    <result column="MSC" property="msc" jdbcType="FLOAT" />
+    <result column="CONTRNO" property="contrno" jdbcType="VARCHAR" />
+    <result column="CONTRDATE" property="contrdate" jdbcType="DATE" />
+    <result column="CONTRCNX" property="contrcnx" jdbcType="DATE" />
+    <result column="CONTRSIGN" property="contrsign" jdbcType="VARCHAR" />
+    <result column="OFFICIAL" property="official" jdbcType="VARCHAR" />
+    <result column="MRCHSTAT" property="mrchstat" jdbcType="DECIMAL" />
+    <result column="RNC" property="rnc" jdbcType="VARCHAR" />
+    <result column="TAXREG" property="taxreg" jdbcType="VARCHAR" />
+    <result column="RETENAMT" property="retenamt" jdbcType="FLOAT" />
+    <result column="RETENPC" property="retenpc" jdbcType="FLOAT" />
+    <result column="ZONEGEOG" property="zonegeog" jdbcType="VARCHAR" />
+    <result column="ZONECOMER" property="zonecomer" jdbcType="VARCHAR" />
+    <result column="ZONEPOSTAL" property="zonepostal" jdbcType="VARCHAR" />
+    <result column="USRDATA1" property="usrdata1" jdbcType="VARCHAR" />
+    <result column="USRDATA2" property="usrdata2" jdbcType="VARCHAR" />
+    <result column="USRDATA3" property="usrdata3" jdbcType="VARCHAR" />
+    <result column="CYCBEGIN" property="cycbegin" jdbcType="DATE" />
+    <result column="CYCLEN" property="cyclen" jdbcType="DECIMAL" />
+    <result column="NO_IMPRNTRS" property="noImprntrs" jdbcType="DECIMAL" />
+    <result column="CONACCNO" property="conaccno" jdbcType="VARCHAR" />
+    <result column="CONCUR" property="concur" jdbcType="CHAR" />
+    <result column="PAYOFFSET" property="payoffset" jdbcType="DECIMAL" />
+    <result column="ALLOWINST" property="allowinst" jdbcType="DECIMAL" />
+    <result column="PPPYMNTATTR" property="pppymntattr" jdbcType="DECIMAL" />
+    <result column="CAT_PARAMS" property="catParams" jdbcType="VARCHAR" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.yufu.cortex.entity.Merchant" extends="BaseResultMap" >
+    <result column="MEMO" property="memo" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, INST_ID, MRCHNO, HEAD_OFFICE, NAME, TRADING_AS, ADDRESS1, ADDRESS2, CITY, STATE, 
+    POSTCODE, COUNTRYCODE, PHY_ADDRESS1, PHY_ADDRESS2, PHY_CITY, PHY_STATE, PHY_POSTCODE, 
+    PHY_COUNTRYCODE, REG_ADDRESS1, REG_ADDRESS2, REG_CITY, REG_STATE, REG_POSTCODE, REG_COUNTRYCODE, 
+    CURRCODE, MRCHTYPE, ACPTBUS, CONTACT1, CONTACT2, CONTACT3, TELNO1, TELNO2, TELNO3, 
+    FAXNO, EMAIL, TELEX, SORTCODE, BRNCODE, ACCNO, ACCNM, TAXCODE, STMTFREQ, STMTTO, 
+    STMTTO_HO, PAYMTYPE, PAYMTO, POSFLAG, VIPFLAG, MSC_CHARGE, MSC_CALC, MSC_TABLE, MSC, 
+    CONTRNO, CONTRDATE, CONTRCNX, CONTRSIGN, OFFICIAL, MRCHSTAT, RNC, TAXREG, RETENAMT, 
+    RETENPC, ZONEGEOG, ZONECOMER, ZONEPOSTAL, USRDATA1, USRDATA2, USRDATA3, CYCBEGIN, 
+    CYCLEN, NO_IMPRNTRS, CONACCNO, CONCUR, PAYOFFSET, ALLOWINST, PPPYMNTATTR, CAT_PARAMS, 
+    VERNO_CTX
+  </sql>
+  <sql id="Blob_Column_List" >
+    MEMO
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.yufu.cortex.entity.MerchantExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from MERCHANT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.MerchantExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from MERCHANT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from MERCHANT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MERCHANT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.MerchantExample" >
+    delete from MERCHANT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.Merchant" >
+    insert into MERCHANT (ID, INST_ID, MRCHNO, 
+      HEAD_OFFICE, NAME, TRADING_AS, 
+      ADDRESS1, ADDRESS2, CITY, 
+      STATE, POSTCODE, COUNTRYCODE, 
+      PHY_ADDRESS1, PHY_ADDRESS2, PHY_CITY, 
+      PHY_STATE, PHY_POSTCODE, PHY_COUNTRYCODE, 
+      REG_ADDRESS1, REG_ADDRESS2, REG_CITY, 
+      REG_STATE, REG_POSTCODE, REG_COUNTRYCODE, 
+      CURRCODE, MRCHTYPE, ACPTBUS, 
+      CONTACT1, CONTACT2, CONTACT3, 
+      TELNO1, TELNO2, TELNO3, 
+      FAXNO, EMAIL, TELEX, 
+      SORTCODE, BRNCODE, ACCNO, 
+      ACCNM, TAXCODE, STMTFREQ, 
+      STMTTO, STMTTO_HO, PAYMTYPE, 
+      PAYMTO, POSFLAG, VIPFLAG, MSC_CHARGE, 
+      MSC_CALC, MSC_TABLE, MSC, 
+      CONTRNO, CONTRDATE, CONTRCNX, 
+      CONTRSIGN, OFFICIAL, MRCHSTAT, 
+      RNC, TAXREG, RETENAMT, 
+      RETENPC, ZONEGEOG, ZONECOMER, 
+      ZONEPOSTAL, USRDATA1, USRDATA2, 
+      USRDATA3, CYCBEGIN, CYCLEN, 
+      NO_IMPRNTRS, CONACCNO, CONCUR, 
+      PAYOFFSET, ALLOWINST, PPPYMNTATTR, 
+      CAT_PARAMS, VERNO_CTX, MEMO
+      )
+    values (#{id,jdbcType=DECIMAL}, #{instId,jdbcType=DECIMAL}, #{mrchno,jdbcType=VARCHAR}, 
+      #{headOffice,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{tradingAs,jdbcType=VARCHAR}, 
+      #{address1,jdbcType=VARCHAR}, #{address2,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, #{countrycode,jdbcType=VARCHAR}, 
+      #{phyAddress1,jdbcType=VARCHAR}, #{phyAddress2,jdbcType=VARCHAR}, #{phyCity,jdbcType=VARCHAR}, 
+      #{phyState,jdbcType=VARCHAR}, #{phyPostcode,jdbcType=VARCHAR}, #{phyCountrycode,jdbcType=CHAR}, 
+      #{regAddress1,jdbcType=VARCHAR}, #{regAddress2,jdbcType=VARCHAR}, #{regCity,jdbcType=VARCHAR}, 
+      #{regState,jdbcType=VARCHAR}, #{regPostcode,jdbcType=VARCHAR}, #{regCountrycode,jdbcType=CHAR}, 
+      #{currcode,jdbcType=CHAR}, #{mrchtype,jdbcType=DECIMAL}, #{acptbus,jdbcType=DECIMAL}, 
+      #{contact1,jdbcType=VARCHAR}, #{contact2,jdbcType=VARCHAR}, #{contact3,jdbcType=VARCHAR}, 
+      #{telno1,jdbcType=VARCHAR}, #{telno2,jdbcType=VARCHAR}, #{telno3,jdbcType=VARCHAR}, 
+      #{faxno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telex,jdbcType=VARCHAR}, 
+      #{sortcode,jdbcType=VARCHAR}, #{brncode,jdbcType=VARCHAR}, #{accno,jdbcType=VARCHAR}, 
+      #{accnm,jdbcType=VARCHAR}, #{taxcode,jdbcType=CHAR}, #{stmtfreq,jdbcType=CHAR}, 
+      #{stmtto,jdbcType=DECIMAL}, #{stmttoHo,jdbcType=DECIMAL}, #{paymtype,jdbcType=CHAR}, 
+      #{paymto,jdbcType=CHAR}, #{posflag,jdbcType=CHAR}, #{vipflag,jdbcType=CHAR}, #{mscCharge,jdbcType=CHAR}, 
+      #{mscCalc,jdbcType=CHAR}, #{mscTable,jdbcType=DECIMAL}, #{msc,jdbcType=FLOAT}, 
+      #{contrno,jdbcType=VARCHAR}, #{contrdate,jdbcType=DATE}, #{contrcnx,jdbcType=DATE}, 
+      #{contrsign,jdbcType=VARCHAR}, #{official,jdbcType=VARCHAR}, #{mrchstat,jdbcType=DECIMAL}, 
+      #{rnc,jdbcType=VARCHAR}, #{taxreg,jdbcType=VARCHAR}, #{retenamt,jdbcType=FLOAT}, 
+      #{retenpc,jdbcType=FLOAT}, #{zonegeog,jdbcType=VARCHAR}, #{zonecomer,jdbcType=VARCHAR}, 
+      #{zonepostal,jdbcType=VARCHAR}, #{usrdata1,jdbcType=VARCHAR}, #{usrdata2,jdbcType=VARCHAR}, 
+      #{usrdata3,jdbcType=VARCHAR}, #{cycbegin,jdbcType=DATE}, #{cyclen,jdbcType=DECIMAL}, 
+      #{noImprntrs,jdbcType=DECIMAL}, #{conaccno,jdbcType=VARCHAR}, #{concur,jdbcType=CHAR}, 
+      #{payoffset,jdbcType=DECIMAL}, #{allowinst,jdbcType=DECIMAL}, #{pppymntattr,jdbcType=DECIMAL}, 
+      #{catParams,jdbcType=VARCHAR}, #{vernoCtx,jdbcType=DECIMAL}, #{memo,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.Merchant" >
+    insert into MERCHANT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="instId != null" >
+        INST_ID,
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO,
+      </if>
+      <if test="headOffice != null" >
+        HEAD_OFFICE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="tradingAs != null" >
+        TRADING_AS,
+      </if>
+      <if test="address1 != null" >
+        ADDRESS1,
+      </if>
+      <if test="address2 != null" >
+        ADDRESS2,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="postcode != null" >
+        POSTCODE,
+      </if>
+      <if test="countrycode != null" >
+        COUNTRYCODE,
+      </if>
+      <if test="phyAddress1 != null" >
+        PHY_ADDRESS1,
+      </if>
+      <if test="phyAddress2 != null" >
+        PHY_ADDRESS2,
+      </if>
+      <if test="phyCity != null" >
+        PHY_CITY,
+      </if>
+      <if test="phyState != null" >
+        PHY_STATE,
+      </if>
+      <if test="phyPostcode != null" >
+        PHY_POSTCODE,
+      </if>
+      <if test="phyCountrycode != null" >
+        PHY_COUNTRYCODE,
+      </if>
+      <if test="regAddress1 != null" >
+        REG_ADDRESS1,
+      </if>
+      <if test="regAddress2 != null" >
+        REG_ADDRESS2,
+      </if>
+      <if test="regCity != null" >
+        REG_CITY,
+      </if>
+      <if test="regState != null" >
+        REG_STATE,
+      </if>
+      <if test="regPostcode != null" >
+        REG_POSTCODE,
+      </if>
+      <if test="regCountrycode != null" >
+        REG_COUNTRYCODE,
+      </if>
+      <if test="currcode != null" >
+        CURRCODE,
+      </if>
+      <if test="mrchtype != null" >
+        MRCHTYPE,
+      </if>
+      <if test="acptbus != null" >
+        ACPTBUS,
+      </if>
+      <if test="contact1 != null" >
+        CONTACT1,
+      </if>
+      <if test="contact2 != null" >
+        CONTACT2,
+      </if>
+      <if test="contact3 != null" >
+        CONTACT3,
+      </if>
+      <if test="telno1 != null" >
+        TELNO1,
+      </if>
+      <if test="telno2 != null" >
+        TELNO2,
+      </if>
+      <if test="telno3 != null" >
+        TELNO3,
+      </if>
+      <if test="faxno != null" >
+        FAXNO,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="telex != null" >
+        TELEX,
+      </if>
+      <if test="sortcode != null" >
+        SORTCODE,
+      </if>
+      <if test="brncode != null" >
+        BRNCODE,
+      </if>
+      <if test="accno != null" >
+        ACCNO,
+      </if>
+      <if test="accnm != null" >
+        ACCNM,
+      </if>
+      <if test="taxcode != null" >
+        TAXCODE,
+      </if>
+      <if test="stmtfreq != null" >
+        STMTFREQ,
+      </if>
+      <if test="stmtto != null" >
+        STMTTO,
+      </if>
+      <if test="stmttoHo != null" >
+        STMTTO_HO,
+      </if>
+      <if test="paymtype != null" >
+        PAYMTYPE,
+      </if>
+      <if test="paymto != null" >
+        PAYMTO,
+      </if>
+      <if test="posflag != null" >
+        POSFLAG,
+      </if>
+      <if test="vipflag != null" >
+        VIPFLAG,
+      </if>
+      <if test="mscCharge != null" >
+        MSC_CHARGE,
+      </if>
+      <if test="mscCalc != null" >
+        MSC_CALC,
+      </if>
+      <if test="mscTable != null" >
+        MSC_TABLE,
+      </if>
+      <if test="msc != null" >
+        MSC,
+      </if>
+      <if test="contrno != null" >
+        CONTRNO,
+      </if>
+      <if test="contrdate != null" >
+        CONTRDATE,
+      </if>
+      <if test="contrcnx != null" >
+        CONTRCNX,
+      </if>
+      <if test="contrsign != null" >
+        CONTRSIGN,
+      </if>
+      <if test="official != null" >
+        OFFICIAL,
+      </if>
+      <if test="mrchstat != null" >
+        MRCHSTAT,
+      </if>
+      <if test="rnc != null" >
+        RNC,
+      </if>
+      <if test="taxreg != null" >
+        TAXREG,
+      </if>
+      <if test="retenamt != null" >
+        RETENAMT,
+      </if>
+      <if test="retenpc != null" >
+        RETENPC,
+      </if>
+      <if test="zonegeog != null" >
+        ZONEGEOG,
+      </if>
+      <if test="zonecomer != null" >
+        ZONECOMER,
+      </if>
+      <if test="zonepostal != null" >
+        ZONEPOSTAL,
+      </if>
+      <if test="usrdata1 != null" >
+        USRDATA1,
+      </if>
+      <if test="usrdata2 != null" >
+        USRDATA2,
+      </if>
+      <if test="usrdata3 != null" >
+        USRDATA3,
+      </if>
+      <if test="cycbegin != null" >
+        CYCBEGIN,
+      </if>
+      <if test="cyclen != null" >
+        CYCLEN,
+      </if>
+      <if test="noImprntrs != null" >
+        NO_IMPRNTRS,
+      </if>
+      <if test="conaccno != null" >
+        CONACCNO,
+      </if>
+      <if test="concur != null" >
+        CONCUR,
+      </if>
+      <if test="payoffset != null" >
+        PAYOFFSET,
+      </if>
+      <if test="allowinst != null" >
+        ALLOWINST,
+      </if>
+      <if test="pppymntattr != null" >
+        PPPYMNTATTR,
+      </if>
+      <if test="catParams != null" >
+        CAT_PARAMS,
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="instId != null" >
+        #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="headOffice != null" >
+        #{headOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingAs != null" >
+        #{tradingAs,jdbcType=VARCHAR},
+      </if>
+      <if test="address1 != null" >
+        #{address1,jdbcType=VARCHAR},
+      </if>
+      <if test="address2 != null" >
+        #{address2,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="countrycode != null" >
+        #{countrycode,jdbcType=VARCHAR},
+      </if>
+      <if test="phyAddress1 != null" >
+        #{phyAddress1,jdbcType=VARCHAR},
+      </if>
+      <if test="phyAddress2 != null" >
+        #{phyAddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="phyCity != null" >
+        #{phyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="phyState != null" >
+        #{phyState,jdbcType=VARCHAR},
+      </if>
+      <if test="phyPostcode != null" >
+        #{phyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="phyCountrycode != null" >
+        #{phyCountrycode,jdbcType=CHAR},
+      </if>
+      <if test="regAddress1 != null" >
+        #{regAddress1,jdbcType=VARCHAR},
+      </if>
+      <if test="regAddress2 != null" >
+        #{regAddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="regCity != null" >
+        #{regCity,jdbcType=VARCHAR},
+      </if>
+      <if test="regState != null" >
+        #{regState,jdbcType=VARCHAR},
+      </if>
+      <if test="regPostcode != null" >
+        #{regPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="regCountrycode != null" >
+        #{regCountrycode,jdbcType=CHAR},
+      </if>
+      <if test="currcode != null" >
+        #{currcode,jdbcType=CHAR},
+      </if>
+      <if test="mrchtype != null" >
+        #{mrchtype,jdbcType=DECIMAL},
+      </if>
+      <if test="acptbus != null" >
+        #{acptbus,jdbcType=DECIMAL},
+      </if>
+      <if test="contact1 != null" >
+        #{contact1,jdbcType=VARCHAR},
+      </if>
+      <if test="contact2 != null" >
+        #{contact2,jdbcType=VARCHAR},
+      </if>
+      <if test="contact3 != null" >
+        #{contact3,jdbcType=VARCHAR},
+      </if>
+      <if test="telno1 != null" >
+        #{telno1,jdbcType=VARCHAR},
+      </if>
+      <if test="telno2 != null" >
+        #{telno2,jdbcType=VARCHAR},
+      </if>
+      <if test="telno3 != null" >
+        #{telno3,jdbcType=VARCHAR},
+      </if>
+      <if test="faxno != null" >
+        #{faxno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telex != null" >
+        #{telex,jdbcType=VARCHAR},
+      </if>
+      <if test="sortcode != null" >
+        #{sortcode,jdbcType=VARCHAR},
+      </if>
+      <if test="brncode != null" >
+        #{brncode,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="accnm != null" >
+        #{accnm,jdbcType=VARCHAR},
+      </if>
+      <if test="taxcode != null" >
+        #{taxcode,jdbcType=CHAR},
+      </if>
+      <if test="stmtfreq != null" >
+        #{stmtfreq,jdbcType=CHAR},
+      </if>
+      <if test="stmtto != null" >
+        #{stmtto,jdbcType=DECIMAL},
+      </if>
+      <if test="stmttoHo != null" >
+        #{stmttoHo,jdbcType=DECIMAL},
+      </if>
+      <if test="paymtype != null" >
+        #{paymtype,jdbcType=CHAR},
+      </if>
+      <if test="paymto != null" >
+        #{paymto,jdbcType=CHAR},
+      </if>
+      <if test="posflag != null" >
+        #{posflag,jdbcType=CHAR},
+      </if>
+      <if test="vipflag != null" >
+        #{vipflag,jdbcType=CHAR},
+      </if>
+      <if test="mscCharge != null" >
+        #{mscCharge,jdbcType=CHAR},
+      </if>
+      <if test="mscCalc != null" >
+        #{mscCalc,jdbcType=CHAR},
+      </if>
+      <if test="mscTable != null" >
+        #{mscTable,jdbcType=DECIMAL},
+      </if>
+      <if test="msc != null" >
+        #{msc,jdbcType=FLOAT},
+      </if>
+      <if test="contrno != null" >
+        #{contrno,jdbcType=VARCHAR},
+      </if>
+      <if test="contrdate != null" >
+        #{contrdate,jdbcType=DATE},
+      </if>
+      <if test="contrcnx != null" >
+        #{contrcnx,jdbcType=DATE},
+      </if>
+      <if test="contrsign != null" >
+        #{contrsign,jdbcType=VARCHAR},
+      </if>
+      <if test="official != null" >
+        #{official,jdbcType=VARCHAR},
+      </if>
+      <if test="mrchstat != null" >
+        #{mrchstat,jdbcType=DECIMAL},
+      </if>
+      <if test="rnc != null" >
+        #{rnc,jdbcType=VARCHAR},
+      </if>
+      <if test="taxreg != null" >
+        #{taxreg,jdbcType=VARCHAR},
+      </if>
+      <if test="retenamt != null" >
+        #{retenamt,jdbcType=FLOAT},
+      </if>
+      <if test="retenpc != null" >
+        #{retenpc,jdbcType=FLOAT},
+      </if>
+      <if test="zonegeog != null" >
+        #{zonegeog,jdbcType=VARCHAR},
+      </if>
+      <if test="zonecomer != null" >
+        #{zonecomer,jdbcType=VARCHAR},
+      </if>
+      <if test="zonepostal != null" >
+        #{zonepostal,jdbcType=VARCHAR},
+      </if>
+      <if test="usrdata1 != null" >
+        #{usrdata1,jdbcType=VARCHAR},
+      </if>
+      <if test="usrdata2 != null" >
+        #{usrdata2,jdbcType=VARCHAR},
+      </if>
+      <if test="usrdata3 != null" >
+        #{usrdata3,jdbcType=VARCHAR},
+      </if>
+      <if test="cycbegin != null" >
+        #{cycbegin,jdbcType=DATE},
+      </if>
+      <if test="cyclen != null" >
+        #{cyclen,jdbcType=DECIMAL},
+      </if>
+      <if test="noImprntrs != null" >
+        #{noImprntrs,jdbcType=DECIMAL},
+      </if>
+      <if test="conaccno != null" >
+        #{conaccno,jdbcType=VARCHAR},
+      </if>
+      <if test="concur != null" >
+        #{concur,jdbcType=CHAR},
+      </if>
+      <if test="payoffset != null" >
+        #{payoffset,jdbcType=DECIMAL},
+      </if>
+      <if test="allowinst != null" >
+        #{allowinst,jdbcType=DECIMAL},
+      </if>
+      <if test="pppymntattr != null" >
+        #{pppymntattr,jdbcType=DECIMAL},
+      </if>
+      <if test="catParams != null" >
+        #{catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="vernoCtx != null" >
+        #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.MerchantExample" resultType="java.lang.Integer" >
+    select count(*) from MERCHANT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update MERCHANT
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.instId != null" >
+        INST_ID = #{record.instId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrchno != null" >
+        MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headOffice != null" >
+        HEAD_OFFICE = #{record.headOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradingAs != null" >
+        TRADING_AS = #{record.tradingAs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address1 != null" >
+        ADDRESS1 = #{record.address1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address2 != null" >
+        ADDRESS2 = #{record.address2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        CITY = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countrycode != null" >
+        COUNTRYCODE = #{record.countrycode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phyAddress1 != null" >
+        PHY_ADDRESS1 = #{record.phyAddress1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phyAddress2 != null" >
+        PHY_ADDRESS2 = #{record.phyAddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phyCity != null" >
+        PHY_CITY = #{record.phyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phyState != null" >
+        PHY_STATE = #{record.phyState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phyPostcode != null" >
+        PHY_POSTCODE = #{record.phyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phyCountrycode != null" >
+        PHY_COUNTRYCODE = #{record.phyCountrycode,jdbcType=CHAR},
+      </if>
+      <if test="record.regAddress1 != null" >
+        REG_ADDRESS1 = #{record.regAddress1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regAddress2 != null" >
+        REG_ADDRESS2 = #{record.regAddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regCity != null" >
+        REG_CITY = #{record.regCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regState != null" >
+        REG_STATE = #{record.regState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regPostcode != null" >
+        REG_POSTCODE = #{record.regPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regCountrycode != null" >
+        REG_COUNTRYCODE = #{record.regCountrycode,jdbcType=CHAR},
+      </if>
+      <if test="record.currcode != null" >
+        CURRCODE = #{record.currcode,jdbcType=CHAR},
+      </if>
+      <if test="record.mrchtype != null" >
+        MRCHTYPE = #{record.mrchtype,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acptbus != null" >
+        ACPTBUS = #{record.acptbus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contact1 != null" >
+        CONTACT1 = #{record.contact1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact2 != null" >
+        CONTACT2 = #{record.contact2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact3 != null" >
+        CONTACT3 = #{record.contact3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telno1 != null" >
+        TELNO1 = #{record.telno1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telno2 != null" >
+        TELNO2 = #{record.telno2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telno3 != null" >
+        TELNO3 = #{record.telno3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faxno != null" >
+        FAXNO = #{record.faxno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telex != null" >
+        TELEX = #{record.telex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortcode != null" >
+        SORTCODE = #{record.sortcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brncode != null" >
+        BRNCODE = #{record.brncode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accno != null" >
+        ACCNO = #{record.accno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accnm != null" >
+        ACCNM = #{record.accnm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxcode != null" >
+        TAXCODE = #{record.taxcode,jdbcType=CHAR},
+      </if>
+      <if test="record.stmtfreq != null" >
+        STMTFREQ = #{record.stmtfreq,jdbcType=CHAR},
+      </if>
+      <if test="record.stmtto != null" >
+        STMTTO = #{record.stmtto,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stmttoHo != null" >
+        STMTTO_HO = #{record.stmttoHo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymtype != null" >
+        PAYMTYPE = #{record.paymtype,jdbcType=CHAR},
+      </if>
+      <if test="record.paymto != null" >
+        PAYMTO = #{record.paymto,jdbcType=CHAR},
+      </if>
+      <if test="record.posflag != null" >
+        POSFLAG = #{record.posflag,jdbcType=CHAR},
+      </if>
+      <if test="record.vipflag != null" >
+        VIPFLAG = #{record.vipflag,jdbcType=CHAR},
+      </if>
+      <if test="record.mscCharge != null" >
+        MSC_CHARGE = #{record.mscCharge,jdbcType=CHAR},
+      </if>
+      <if test="record.mscCalc != null" >
+        MSC_CALC = #{record.mscCalc,jdbcType=CHAR},
+      </if>
+      <if test="record.mscTable != null" >
+        MSC_TABLE = #{record.mscTable,jdbcType=DECIMAL},
+      </if>
+      <if test="record.msc != null" >
+        MSC = #{record.msc,jdbcType=FLOAT},
+      </if>
+      <if test="record.contrno != null" >
+        CONTRNO = #{record.contrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contrdate != null" >
+        CONTRDATE = #{record.contrdate,jdbcType=DATE},
+      </if>
+      <if test="record.contrcnx != null" >
+        CONTRCNX = #{record.contrcnx,jdbcType=DATE},
+      </if>
+      <if test="record.contrsign != null" >
+        CONTRSIGN = #{record.contrsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.official != null" >
+        OFFICIAL = #{record.official,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mrchstat != null" >
+        MRCHSTAT = #{record.mrchstat,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rnc != null" >
+        RNC = #{record.rnc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxreg != null" >
+        TAXREG = #{record.taxreg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retenamt != null" >
+        RETENAMT = #{record.retenamt,jdbcType=FLOAT},
+      </if>
+      <if test="record.retenpc != null" >
+        RETENPC = #{record.retenpc,jdbcType=FLOAT},
+      </if>
+      <if test="record.zonegeog != null" >
+        ZONEGEOG = #{record.zonegeog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zonecomer != null" >
+        ZONECOMER = #{record.zonecomer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zonepostal != null" >
+        ZONEPOSTAL = #{record.zonepostal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrdata1 != null" >
+        USRDATA1 = #{record.usrdata1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrdata2 != null" >
+        USRDATA2 = #{record.usrdata2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrdata3 != null" >
+        USRDATA3 = #{record.usrdata3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cycbegin != null" >
+        CYCBEGIN = #{record.cycbegin,jdbcType=DATE},
+      </if>
+      <if test="record.cyclen != null" >
+        CYCLEN = #{record.cyclen,jdbcType=DECIMAL},
+      </if>
+      <if test="record.noImprntrs != null" >
+        NO_IMPRNTRS = #{record.noImprntrs,jdbcType=DECIMAL},
+      </if>
+      <if test="record.conaccno != null" >
+        CONACCNO = #{record.conaccno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.concur != null" >
+        CONCUR = #{record.concur,jdbcType=CHAR},
+      </if>
+      <if test="record.payoffset != null" >
+        PAYOFFSET = #{record.payoffset,jdbcType=DECIMAL},
+      </if>
+      <if test="record.allowinst != null" >
+        ALLOWINST = #{record.allowinst,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pppymntattr != null" >
+        PPPYMNTATTR = #{record.pppymntattr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.catParams != null" >
+        CAT_PARAMS = #{record.catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vernoCtx != null" >
+        VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update MERCHANT
+    set ID = #{record.id,jdbcType=DECIMAL},
+      INST_ID = #{record.instId,jdbcType=DECIMAL},
+      MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      HEAD_OFFICE = #{record.headOffice,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      TRADING_AS = #{record.tradingAs,jdbcType=VARCHAR},
+      ADDRESS1 = #{record.address1,jdbcType=VARCHAR},
+      ADDRESS2 = #{record.address2,jdbcType=VARCHAR},
+      CITY = #{record.city,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      COUNTRYCODE = #{record.countrycode,jdbcType=VARCHAR},
+      PHY_ADDRESS1 = #{record.phyAddress1,jdbcType=VARCHAR},
+      PHY_ADDRESS2 = #{record.phyAddress2,jdbcType=VARCHAR},
+      PHY_CITY = #{record.phyCity,jdbcType=VARCHAR},
+      PHY_STATE = #{record.phyState,jdbcType=VARCHAR},
+      PHY_POSTCODE = #{record.phyPostcode,jdbcType=VARCHAR},
+      PHY_COUNTRYCODE = #{record.phyCountrycode,jdbcType=CHAR},
+      REG_ADDRESS1 = #{record.regAddress1,jdbcType=VARCHAR},
+      REG_ADDRESS2 = #{record.regAddress2,jdbcType=VARCHAR},
+      REG_CITY = #{record.regCity,jdbcType=VARCHAR},
+      REG_STATE = #{record.regState,jdbcType=VARCHAR},
+      REG_POSTCODE = #{record.regPostcode,jdbcType=VARCHAR},
+      REG_COUNTRYCODE = #{record.regCountrycode,jdbcType=CHAR},
+      CURRCODE = #{record.currcode,jdbcType=CHAR},
+      MRCHTYPE = #{record.mrchtype,jdbcType=DECIMAL},
+      ACPTBUS = #{record.acptbus,jdbcType=DECIMAL},
+      CONTACT1 = #{record.contact1,jdbcType=VARCHAR},
+      CONTACT2 = #{record.contact2,jdbcType=VARCHAR},
+      CONTACT3 = #{record.contact3,jdbcType=VARCHAR},
+      TELNO1 = #{record.telno1,jdbcType=VARCHAR},
+      TELNO2 = #{record.telno2,jdbcType=VARCHAR},
+      TELNO3 = #{record.telno3,jdbcType=VARCHAR},
+      FAXNO = #{record.faxno,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      TELEX = #{record.telex,jdbcType=VARCHAR},
+      SORTCODE = #{record.sortcode,jdbcType=VARCHAR},
+      BRNCODE = #{record.brncode,jdbcType=VARCHAR},
+      ACCNO = #{record.accno,jdbcType=VARCHAR},
+      ACCNM = #{record.accnm,jdbcType=VARCHAR},
+      TAXCODE = #{record.taxcode,jdbcType=CHAR},
+      STMTFREQ = #{record.stmtfreq,jdbcType=CHAR},
+      STMTTO = #{record.stmtto,jdbcType=DECIMAL},
+      STMTTO_HO = #{record.stmttoHo,jdbcType=DECIMAL},
+      PAYMTYPE = #{record.paymtype,jdbcType=CHAR},
+      PAYMTO = #{record.paymto,jdbcType=CHAR},
+      POSFLAG = #{record.posflag,jdbcType=CHAR},
+      VIPFLAG = #{record.vipflag,jdbcType=CHAR},
+      MSC_CHARGE = #{record.mscCharge,jdbcType=CHAR},
+      MSC_CALC = #{record.mscCalc,jdbcType=CHAR},
+      MSC_TABLE = #{record.mscTable,jdbcType=DECIMAL},
+      MSC = #{record.msc,jdbcType=FLOAT},
+      CONTRNO = #{record.contrno,jdbcType=VARCHAR},
+      CONTRDATE = #{record.contrdate,jdbcType=DATE},
+      CONTRCNX = #{record.contrcnx,jdbcType=DATE},
+      CONTRSIGN = #{record.contrsign,jdbcType=VARCHAR},
+      OFFICIAL = #{record.official,jdbcType=VARCHAR},
+      MRCHSTAT = #{record.mrchstat,jdbcType=DECIMAL},
+      RNC = #{record.rnc,jdbcType=VARCHAR},
+      TAXREG = #{record.taxreg,jdbcType=VARCHAR},
+      RETENAMT = #{record.retenamt,jdbcType=FLOAT},
+      RETENPC = #{record.retenpc,jdbcType=FLOAT},
+      ZONEGEOG = #{record.zonegeog,jdbcType=VARCHAR},
+      ZONECOMER = #{record.zonecomer,jdbcType=VARCHAR},
+      ZONEPOSTAL = #{record.zonepostal,jdbcType=VARCHAR},
+      USRDATA1 = #{record.usrdata1,jdbcType=VARCHAR},
+      USRDATA2 = #{record.usrdata2,jdbcType=VARCHAR},
+      USRDATA3 = #{record.usrdata3,jdbcType=VARCHAR},
+      CYCBEGIN = #{record.cycbegin,jdbcType=DATE},
+      CYCLEN = #{record.cyclen,jdbcType=DECIMAL},
+      NO_IMPRNTRS = #{record.noImprntrs,jdbcType=DECIMAL},
+      CONACCNO = #{record.conaccno,jdbcType=VARCHAR},
+      CONCUR = #{record.concur,jdbcType=CHAR},
+      PAYOFFSET = #{record.payoffset,jdbcType=DECIMAL},
+      ALLOWINST = #{record.allowinst,jdbcType=DECIMAL},
+      PPPYMNTATTR = #{record.pppymntattr,jdbcType=DECIMAL},
+      CAT_PARAMS = #{record.catParams,jdbcType=VARCHAR},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      MEMO = #{record.memo,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update MERCHANT
+    set ID = #{record.id,jdbcType=DECIMAL},
+      INST_ID = #{record.instId,jdbcType=DECIMAL},
+      MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      HEAD_OFFICE = #{record.headOffice,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      TRADING_AS = #{record.tradingAs,jdbcType=VARCHAR},
+      ADDRESS1 = #{record.address1,jdbcType=VARCHAR},
+      ADDRESS2 = #{record.address2,jdbcType=VARCHAR},
+      CITY = #{record.city,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      COUNTRYCODE = #{record.countrycode,jdbcType=VARCHAR},
+      PHY_ADDRESS1 = #{record.phyAddress1,jdbcType=VARCHAR},
+      PHY_ADDRESS2 = #{record.phyAddress2,jdbcType=VARCHAR},
+      PHY_CITY = #{record.phyCity,jdbcType=VARCHAR},
+      PHY_STATE = #{record.phyState,jdbcType=VARCHAR},
+      PHY_POSTCODE = #{record.phyPostcode,jdbcType=VARCHAR},
+      PHY_COUNTRYCODE = #{record.phyCountrycode,jdbcType=CHAR},
+      REG_ADDRESS1 = #{record.regAddress1,jdbcType=VARCHAR},
+      REG_ADDRESS2 = #{record.regAddress2,jdbcType=VARCHAR},
+      REG_CITY = #{record.regCity,jdbcType=VARCHAR},
+      REG_STATE = #{record.regState,jdbcType=VARCHAR},
+      REG_POSTCODE = #{record.regPostcode,jdbcType=VARCHAR},
+      REG_COUNTRYCODE = #{record.regCountrycode,jdbcType=CHAR},
+      CURRCODE = #{record.currcode,jdbcType=CHAR},
+      MRCHTYPE = #{record.mrchtype,jdbcType=DECIMAL},
+      ACPTBUS = #{record.acptbus,jdbcType=DECIMAL},
+      CONTACT1 = #{record.contact1,jdbcType=VARCHAR},
+      CONTACT2 = #{record.contact2,jdbcType=VARCHAR},
+      CONTACT3 = #{record.contact3,jdbcType=VARCHAR},
+      TELNO1 = #{record.telno1,jdbcType=VARCHAR},
+      TELNO2 = #{record.telno2,jdbcType=VARCHAR},
+      TELNO3 = #{record.telno3,jdbcType=VARCHAR},
+      FAXNO = #{record.faxno,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      TELEX = #{record.telex,jdbcType=VARCHAR},
+      SORTCODE = #{record.sortcode,jdbcType=VARCHAR},
+      BRNCODE = #{record.brncode,jdbcType=VARCHAR},
+      ACCNO = #{record.accno,jdbcType=VARCHAR},
+      ACCNM = #{record.accnm,jdbcType=VARCHAR},
+      TAXCODE = #{record.taxcode,jdbcType=CHAR},
+      STMTFREQ = #{record.stmtfreq,jdbcType=CHAR},
+      STMTTO = #{record.stmtto,jdbcType=DECIMAL},
+      STMTTO_HO = #{record.stmttoHo,jdbcType=DECIMAL},
+      PAYMTYPE = #{record.paymtype,jdbcType=CHAR},
+      PAYMTO = #{record.paymto,jdbcType=CHAR},
+      POSFLAG = #{record.posflag,jdbcType=CHAR},
+      VIPFLAG = #{record.vipflag,jdbcType=CHAR},
+      MSC_CHARGE = #{record.mscCharge,jdbcType=CHAR},
+      MSC_CALC = #{record.mscCalc,jdbcType=CHAR},
+      MSC_TABLE = #{record.mscTable,jdbcType=DECIMAL},
+      MSC = #{record.msc,jdbcType=FLOAT},
+      CONTRNO = #{record.contrno,jdbcType=VARCHAR},
+      CONTRDATE = #{record.contrdate,jdbcType=DATE},
+      CONTRCNX = #{record.contrcnx,jdbcType=DATE},
+      CONTRSIGN = #{record.contrsign,jdbcType=VARCHAR},
+      OFFICIAL = #{record.official,jdbcType=VARCHAR},
+      MRCHSTAT = #{record.mrchstat,jdbcType=DECIMAL},
+      RNC = #{record.rnc,jdbcType=VARCHAR},
+      TAXREG = #{record.taxreg,jdbcType=VARCHAR},
+      RETENAMT = #{record.retenamt,jdbcType=FLOAT},
+      RETENPC = #{record.retenpc,jdbcType=FLOAT},
+      ZONEGEOG = #{record.zonegeog,jdbcType=VARCHAR},
+      ZONECOMER = #{record.zonecomer,jdbcType=VARCHAR},
+      ZONEPOSTAL = #{record.zonepostal,jdbcType=VARCHAR},
+      USRDATA1 = #{record.usrdata1,jdbcType=VARCHAR},
+      USRDATA2 = #{record.usrdata2,jdbcType=VARCHAR},
+      USRDATA3 = #{record.usrdata3,jdbcType=VARCHAR},
+      CYCBEGIN = #{record.cycbegin,jdbcType=DATE},
+      CYCLEN = #{record.cyclen,jdbcType=DECIMAL},
+      NO_IMPRNTRS = #{record.noImprntrs,jdbcType=DECIMAL},
+      CONACCNO = #{record.conaccno,jdbcType=VARCHAR},
+      CONCUR = #{record.concur,jdbcType=CHAR},
+      PAYOFFSET = #{record.payoffset,jdbcType=DECIMAL},
+      ALLOWINST = #{record.allowinst,jdbcType=DECIMAL},
+      PPPYMNTATTR = #{record.pppymntattr,jdbcType=DECIMAL},
+      CAT_PARAMS = #{record.catParams,jdbcType=VARCHAR},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.Merchant" >
+    update MERCHANT
+    <set >
+      <if test="instId != null" >
+        INST_ID = #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO = #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="headOffice != null" >
+        HEAD_OFFICE = #{headOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingAs != null" >
+        TRADING_AS = #{tradingAs,jdbcType=VARCHAR},
+      </if>
+      <if test="address1 != null" >
+        ADDRESS1 = #{address1,jdbcType=VARCHAR},
+      </if>
+      <if test="address2 != null" >
+        ADDRESS2 = #{address2,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        POSTCODE = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="countrycode != null" >
+        COUNTRYCODE = #{countrycode,jdbcType=VARCHAR},
+      </if>
+      <if test="phyAddress1 != null" >
+        PHY_ADDRESS1 = #{phyAddress1,jdbcType=VARCHAR},
+      </if>
+      <if test="phyAddress2 != null" >
+        PHY_ADDRESS2 = #{phyAddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="phyCity != null" >
+        PHY_CITY = #{phyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="phyState != null" >
+        PHY_STATE = #{phyState,jdbcType=VARCHAR},
+      </if>
+      <if test="phyPostcode != null" >
+        PHY_POSTCODE = #{phyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="phyCountrycode != null" >
+        PHY_COUNTRYCODE = #{phyCountrycode,jdbcType=CHAR},
+      </if>
+      <if test="regAddress1 != null" >
+        REG_ADDRESS1 = #{regAddress1,jdbcType=VARCHAR},
+      </if>
+      <if test="regAddress2 != null" >
+        REG_ADDRESS2 = #{regAddress2,jdbcType=VARCHAR},
+      </if>
+      <if test="regCity != null" >
+        REG_CITY = #{regCity,jdbcType=VARCHAR},
+      </if>
+      <if test="regState != null" >
+        REG_STATE = #{regState,jdbcType=VARCHAR},
+      </if>
+      <if test="regPostcode != null" >
+        REG_POSTCODE = #{regPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="regCountrycode != null" >
+        REG_COUNTRYCODE = #{regCountrycode,jdbcType=CHAR},
+      </if>
+      <if test="currcode != null" >
+        CURRCODE = #{currcode,jdbcType=CHAR},
+      </if>
+      <if test="mrchtype != null" >
+        MRCHTYPE = #{mrchtype,jdbcType=DECIMAL},
+      </if>
+      <if test="acptbus != null" >
+        ACPTBUS = #{acptbus,jdbcType=DECIMAL},
+      </if>
+      <if test="contact1 != null" >
+        CONTACT1 = #{contact1,jdbcType=VARCHAR},
+      </if>
+      <if test="contact2 != null" >
+        CONTACT2 = #{contact2,jdbcType=VARCHAR},
+      </if>
+      <if test="contact3 != null" >
+        CONTACT3 = #{contact3,jdbcType=VARCHAR},
+      </if>
+      <if test="telno1 != null" >
+        TELNO1 = #{telno1,jdbcType=VARCHAR},
+      </if>
+      <if test="telno2 != null" >
+        TELNO2 = #{telno2,jdbcType=VARCHAR},
+      </if>
+      <if test="telno3 != null" >
+        TELNO3 = #{telno3,jdbcType=VARCHAR},
+      </if>
+      <if test="faxno != null" >
+        FAXNO = #{faxno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="telex != null" >
+        TELEX = #{telex,jdbcType=VARCHAR},
+      </if>
+      <if test="sortcode != null" >
+        SORTCODE = #{sortcode,jdbcType=VARCHAR},
+      </if>
+      <if test="brncode != null" >
+        BRNCODE = #{brncode,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        ACCNO = #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="accnm != null" >
+        ACCNM = #{accnm,jdbcType=VARCHAR},
+      </if>
+      <if test="taxcode != null" >
+        TAXCODE = #{taxcode,jdbcType=CHAR},
+      </if>
+      <if test="stmtfreq != null" >
+        STMTFREQ = #{stmtfreq,jdbcType=CHAR},
+      </if>
+      <if test="stmtto != null" >
+        STMTTO = #{stmtto,jdbcType=DECIMAL},
+      </if>
+      <if test="stmttoHo != null" >
+        STMTTO_HO = #{stmttoHo,jdbcType=DECIMAL},
+      </if>
+      <if test="paymtype != null" >
+        PAYMTYPE = #{paymtype,jdbcType=CHAR},
+      </if>
+      <if test="paymto != null" >
+        PAYMTO = #{paymto,jdbcType=CHAR},
+      </if>
+      <if test="posflag != null" >
+        POSFLAG = #{posflag,jdbcType=CHAR},
+      </if>
+      <if test="vipflag != null" >
+        VIPFLAG = #{vipflag,jdbcType=CHAR},
+      </if>
+      <if test="mscCharge != null" >
+        MSC_CHARGE = #{mscCharge,jdbcType=CHAR},
+      </if>
+      <if test="mscCalc != null" >
+        MSC_CALC = #{mscCalc,jdbcType=CHAR},
+      </if>
+      <if test="mscTable != null" >
+        MSC_TABLE = #{mscTable,jdbcType=DECIMAL},
+      </if>
+      <if test="msc != null" >
+        MSC = #{msc,jdbcType=FLOAT},
+      </if>
+      <if test="contrno != null" >
+        CONTRNO = #{contrno,jdbcType=VARCHAR},
+      </if>
+      <if test="contrdate != null" >
+        CONTRDATE = #{contrdate,jdbcType=DATE},
+      </if>
+      <if test="contrcnx != null" >
+        CONTRCNX = #{contrcnx,jdbcType=DATE},
+      </if>
+      <if test="contrsign != null" >
+        CONTRSIGN = #{contrsign,jdbcType=VARCHAR},
+      </if>
+      <if test="official != null" >
+        OFFICIAL = #{official,jdbcType=VARCHAR},
+      </if>
+      <if test="mrchstat != null" >
+        MRCHSTAT = #{mrchstat,jdbcType=DECIMAL},
+      </if>
+      <if test="rnc != null" >
+        RNC = #{rnc,jdbcType=VARCHAR},
+      </if>
+      <if test="taxreg != null" >
+        TAXREG = #{taxreg,jdbcType=VARCHAR},
+      </if>
+      <if test="retenamt != null" >
+        RETENAMT = #{retenamt,jdbcType=FLOAT},
+      </if>
+      <if test="retenpc != null" >
+        RETENPC = #{retenpc,jdbcType=FLOAT},
+      </if>
+      <if test="zonegeog != null" >
+        ZONEGEOG = #{zonegeog,jdbcType=VARCHAR},
+      </if>
+      <if test="zonecomer != null" >
+        ZONECOMER = #{zonecomer,jdbcType=VARCHAR},
+      </if>
+      <if test="zonepostal != null" >
+        ZONEPOSTAL = #{zonepostal,jdbcType=VARCHAR},
+      </if>
+      <if test="usrdata1 != null" >
+        USRDATA1 = #{usrdata1,jdbcType=VARCHAR},
+      </if>
+      <if test="usrdata2 != null" >
+        USRDATA2 = #{usrdata2,jdbcType=VARCHAR},
+      </if>
+      <if test="usrdata3 != null" >
+        USRDATA3 = #{usrdata3,jdbcType=VARCHAR},
+      </if>
+      <if test="cycbegin != null" >
+        CYCBEGIN = #{cycbegin,jdbcType=DATE},
+      </if>
+      <if test="cyclen != null" >
+        CYCLEN = #{cyclen,jdbcType=DECIMAL},
+      </if>
+      <if test="noImprntrs != null" >
+        NO_IMPRNTRS = #{noImprntrs,jdbcType=DECIMAL},
+      </if>
+      <if test="conaccno != null" >
+        CONACCNO = #{conaccno,jdbcType=VARCHAR},
+      </if>
+      <if test="concur != null" >
+        CONCUR = #{concur,jdbcType=CHAR},
+      </if>
+      <if test="payoffset != null" >
+        PAYOFFSET = #{payoffset,jdbcType=DECIMAL},
+      </if>
+      <if test="allowinst != null" >
+        ALLOWINST = #{allowinst,jdbcType=DECIMAL},
+      </if>
+      <if test="pppymntattr != null" >
+        PPPYMNTATTR = #{pppymntattr,jdbcType=DECIMAL},
+      </if>
+      <if test="catParams != null" >
+        CAT_PARAMS = #{catParams,jdbcType=VARCHAR},
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.yufu.cortex.entity.Merchant" >
+    update MERCHANT
+    set INST_ID = #{instId,jdbcType=DECIMAL},
+      MRCHNO = #{mrchno,jdbcType=VARCHAR},
+      HEAD_OFFICE = #{headOffice,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      TRADING_AS = #{tradingAs,jdbcType=VARCHAR},
+      ADDRESS1 = #{address1,jdbcType=VARCHAR},
+      ADDRESS2 = #{address2,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      POSTCODE = #{postcode,jdbcType=VARCHAR},
+      COUNTRYCODE = #{countrycode,jdbcType=VARCHAR},
+      PHY_ADDRESS1 = #{phyAddress1,jdbcType=VARCHAR},
+      PHY_ADDRESS2 = #{phyAddress2,jdbcType=VARCHAR},
+      PHY_CITY = #{phyCity,jdbcType=VARCHAR},
+      PHY_STATE = #{phyState,jdbcType=VARCHAR},
+      PHY_POSTCODE = #{phyPostcode,jdbcType=VARCHAR},
+      PHY_COUNTRYCODE = #{phyCountrycode,jdbcType=CHAR},
+      REG_ADDRESS1 = #{regAddress1,jdbcType=VARCHAR},
+      REG_ADDRESS2 = #{regAddress2,jdbcType=VARCHAR},
+      REG_CITY = #{regCity,jdbcType=VARCHAR},
+      REG_STATE = #{regState,jdbcType=VARCHAR},
+      REG_POSTCODE = #{regPostcode,jdbcType=VARCHAR},
+      REG_COUNTRYCODE = #{regCountrycode,jdbcType=CHAR},
+      CURRCODE = #{currcode,jdbcType=CHAR},
+      MRCHTYPE = #{mrchtype,jdbcType=DECIMAL},
+      ACPTBUS = #{acptbus,jdbcType=DECIMAL},
+      CONTACT1 = #{contact1,jdbcType=VARCHAR},
+      CONTACT2 = #{contact2,jdbcType=VARCHAR},
+      CONTACT3 = #{contact3,jdbcType=VARCHAR},
+      TELNO1 = #{telno1,jdbcType=VARCHAR},
+      TELNO2 = #{telno2,jdbcType=VARCHAR},
+      TELNO3 = #{telno3,jdbcType=VARCHAR},
+      FAXNO = #{faxno,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      TELEX = #{telex,jdbcType=VARCHAR},
+      SORTCODE = #{sortcode,jdbcType=VARCHAR},
+      BRNCODE = #{brncode,jdbcType=VARCHAR},
+      ACCNO = #{accno,jdbcType=VARCHAR},
+      ACCNM = #{accnm,jdbcType=VARCHAR},
+      TAXCODE = #{taxcode,jdbcType=CHAR},
+      STMTFREQ = #{stmtfreq,jdbcType=CHAR},
+      STMTTO = #{stmtto,jdbcType=DECIMAL},
+      STMTTO_HO = #{stmttoHo,jdbcType=DECIMAL},
+      PAYMTYPE = #{paymtype,jdbcType=CHAR},
+      PAYMTO = #{paymto,jdbcType=CHAR},
+      POSFLAG = #{posflag,jdbcType=CHAR},
+      VIPFLAG = #{vipflag,jdbcType=CHAR},
+      MSC_CHARGE = #{mscCharge,jdbcType=CHAR},
+      MSC_CALC = #{mscCalc,jdbcType=CHAR},
+      MSC_TABLE = #{mscTable,jdbcType=DECIMAL},
+      MSC = #{msc,jdbcType=FLOAT},
+      CONTRNO = #{contrno,jdbcType=VARCHAR},
+      CONTRDATE = #{contrdate,jdbcType=DATE},
+      CONTRCNX = #{contrcnx,jdbcType=DATE},
+      CONTRSIGN = #{contrsign,jdbcType=VARCHAR},
+      OFFICIAL = #{official,jdbcType=VARCHAR},
+      MRCHSTAT = #{mrchstat,jdbcType=DECIMAL},
+      RNC = #{rnc,jdbcType=VARCHAR},
+      TAXREG = #{taxreg,jdbcType=VARCHAR},
+      RETENAMT = #{retenamt,jdbcType=FLOAT},
+      RETENPC = #{retenpc,jdbcType=FLOAT},
+      ZONEGEOG = #{zonegeog,jdbcType=VARCHAR},
+      ZONECOMER = #{zonecomer,jdbcType=VARCHAR},
+      ZONEPOSTAL = #{zonepostal,jdbcType=VARCHAR},
+      USRDATA1 = #{usrdata1,jdbcType=VARCHAR},
+      USRDATA2 = #{usrdata2,jdbcType=VARCHAR},
+      USRDATA3 = #{usrdata3,jdbcType=VARCHAR},
+      CYCBEGIN = #{cycbegin,jdbcType=DATE},
+      CYCLEN = #{cyclen,jdbcType=DECIMAL},
+      NO_IMPRNTRS = #{noImprntrs,jdbcType=DECIMAL},
+      CONACCNO = #{conaccno,jdbcType=VARCHAR},
+      CONCUR = #{concur,jdbcType=CHAR},
+      PAYOFFSET = #{payoffset,jdbcType=DECIMAL},
+      ALLOWINST = #{allowinst,jdbcType=DECIMAL},
+      PPPYMNTATTR = #{pppymntattr,jdbcType=DECIMAL},
+      CAT_PARAMS = #{catParams,jdbcType=VARCHAR},
+      VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      MEMO = #{memo,jdbcType=CLOB}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.Merchant" >
+    update MERCHANT
+    set INST_ID = #{instId,jdbcType=DECIMAL},
+      MRCHNO = #{mrchno,jdbcType=VARCHAR},
+      HEAD_OFFICE = #{headOffice,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      TRADING_AS = #{tradingAs,jdbcType=VARCHAR},
+      ADDRESS1 = #{address1,jdbcType=VARCHAR},
+      ADDRESS2 = #{address2,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      POSTCODE = #{postcode,jdbcType=VARCHAR},
+      COUNTRYCODE = #{countrycode,jdbcType=VARCHAR},
+      PHY_ADDRESS1 = #{phyAddress1,jdbcType=VARCHAR},
+      PHY_ADDRESS2 = #{phyAddress2,jdbcType=VARCHAR},
+      PHY_CITY = #{phyCity,jdbcType=VARCHAR},
+      PHY_STATE = #{phyState,jdbcType=VARCHAR},
+      PHY_POSTCODE = #{phyPostcode,jdbcType=VARCHAR},
+      PHY_COUNTRYCODE = #{phyCountrycode,jdbcType=CHAR},
+      REG_ADDRESS1 = #{regAddress1,jdbcType=VARCHAR},
+      REG_ADDRESS2 = #{regAddress2,jdbcType=VARCHAR},
+      REG_CITY = #{regCity,jdbcType=VARCHAR},
+      REG_STATE = #{regState,jdbcType=VARCHAR},
+      REG_POSTCODE = #{regPostcode,jdbcType=VARCHAR},
+      REG_COUNTRYCODE = #{regCountrycode,jdbcType=CHAR},
+      CURRCODE = #{currcode,jdbcType=CHAR},
+      MRCHTYPE = #{mrchtype,jdbcType=DECIMAL},
+      ACPTBUS = #{acptbus,jdbcType=DECIMAL},
+      CONTACT1 = #{contact1,jdbcType=VARCHAR},
+      CONTACT2 = #{contact2,jdbcType=VARCHAR},
+      CONTACT3 = #{contact3,jdbcType=VARCHAR},
+      TELNO1 = #{telno1,jdbcType=VARCHAR},
+      TELNO2 = #{telno2,jdbcType=VARCHAR},
+      TELNO3 = #{telno3,jdbcType=VARCHAR},
+      FAXNO = #{faxno,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      TELEX = #{telex,jdbcType=VARCHAR},
+      SORTCODE = #{sortcode,jdbcType=VARCHAR},
+      BRNCODE = #{brncode,jdbcType=VARCHAR},
+      ACCNO = #{accno,jdbcType=VARCHAR},
+      ACCNM = #{accnm,jdbcType=VARCHAR},
+      TAXCODE = #{taxcode,jdbcType=CHAR},
+      STMTFREQ = #{stmtfreq,jdbcType=CHAR},
+      STMTTO = #{stmtto,jdbcType=DECIMAL},
+      STMTTO_HO = #{stmttoHo,jdbcType=DECIMAL},
+      PAYMTYPE = #{paymtype,jdbcType=CHAR},
+      PAYMTO = #{paymto,jdbcType=CHAR},
+      POSFLAG = #{posflag,jdbcType=CHAR},
+      VIPFLAG = #{vipflag,jdbcType=CHAR},
+      MSC_CHARGE = #{mscCharge,jdbcType=CHAR},
+      MSC_CALC = #{mscCalc,jdbcType=CHAR},
+      MSC_TABLE = #{mscTable,jdbcType=DECIMAL},
+      MSC = #{msc,jdbcType=FLOAT},
+      CONTRNO = #{contrno,jdbcType=VARCHAR},
+      CONTRDATE = #{contrdate,jdbcType=DATE},
+      CONTRCNX = #{contrcnx,jdbcType=DATE},
+      CONTRSIGN = #{contrsign,jdbcType=VARCHAR},
+      OFFICIAL = #{official,jdbcType=VARCHAR},
+      MRCHSTAT = #{mrchstat,jdbcType=DECIMAL},
+      RNC = #{rnc,jdbcType=VARCHAR},
+      TAXREG = #{taxreg,jdbcType=VARCHAR},
+      RETENAMT = #{retenamt,jdbcType=FLOAT},
+      RETENPC = #{retenpc,jdbcType=FLOAT},
+      ZONEGEOG = #{zonegeog,jdbcType=VARCHAR},
+      ZONECOMER = #{zonecomer,jdbcType=VARCHAR},
+      ZONEPOSTAL = #{zonepostal,jdbcType=VARCHAR},
+      USRDATA1 = #{usrdata1,jdbcType=VARCHAR},
+      USRDATA2 = #{usrdata2,jdbcType=VARCHAR},
+      USRDATA3 = #{usrdata3,jdbcType=VARCHAR},
+      CYCBEGIN = #{cycbegin,jdbcType=DATE},
+      CYCLEN = #{cyclen,jdbcType=DECIMAL},
+      NO_IMPRNTRS = #{noImprntrs,jdbcType=DECIMAL},
+      CONACCNO = #{conaccno,jdbcType=VARCHAR},
+      CONCUR = #{concur,jdbcType=CHAR},
+      PAYOFFSET = #{payoffset,jdbcType=DECIMAL},
+      ALLOWINST = #{allowinst,jdbcType=DECIMAL},
+      PPPYMNTATTR = #{pppymntattr,jdbcType=DECIMAL},
+      CAT_PARAMS = #{catParams,jdbcType=VARCHAR},
+      VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="getCortexMerchantId"  resultType="java.lang.String" >
+		select TO_CHAR(merchant_sequence.nextval) as id from dual
+  </select>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.MerchTerminalAccNoDao">
+    
+	<sql id="merchTerminalAccNoColumns">
+		V.MRCHNO AS "mechno",
+		V.TERMCODE AS "termcode",
+		T.ACCNO AS "accno",
+		T.ACC_NAME_X AS "accName"
+	</sql>
+	
+	<sql id="merchTerminalAccNoJoins">
+		LEFT JOIN VIEW_FKCORE_MER_STLACC_INFO@DBLINK_TO_FKSLT T ON V.SETTLE_MRCH_ACC_ID = T.ID AND V.MRCHNO = T.MRCHNO
+	</sql>
+    
+	<select id="get" resultType="MerchTerminalAccNo">
+		SELECT 
+			<include refid="merchTerminalAccNoColumns"/>
+		FROM VIEW_FKCORE_TERMPOS@DBLINK_TO_FKSLT V
+		<include refid="merchTerminalAccNoJoins"/>
+		WHERE V.TERMCODE = #{termcode}
+	</select>
+	
+	<select id="findList" resultType="MerchTerminalAccNo">
+		SELECT 
+			<include refid="merchTerminalAccNoColumns"/>
+		FROM VIEW_FKCORE_TERMPOS@DBLINK_TO_FKSLT V
+		<include refid="merchTerminalAccNoJoins"/>
+		<where>
+			<if test="mechno != null and mechno.trim().length() != 0">
+				AND V.MRCHNO = #{mechno}
+			</if>
+			<if test="termcode != null and termcode.trim().length() != 0">
+				AND V.TERMCODE = #{termcode}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MerchTerminalAccNo">
+		SELECT 
+			<include refid="merchTerminalAccNoColumns"/>
+		FROM VIEW_FKCORE_TERMPOS@DBLINK_TO_FKSLT V
+		<include refid="merchTerminalAccNoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

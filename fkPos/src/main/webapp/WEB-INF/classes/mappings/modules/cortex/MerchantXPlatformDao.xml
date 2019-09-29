@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.cortex.dao.MerchantXPlatformDao">
+
+  <resultMap id="BaseResultMap" type="com.yufupos.system.modules.cortex.entity.MerchantXPlatform">
+    <result column="INST_ID" jdbcType="DECIMAL" property="instId" />
+    <result column="MRCHNO" jdbcType="VARCHAR" property="mrchno" />
+    <result column="MRCHT_NAME" jdbcType="VARCHAR" property="mrchtName" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="ADD_DATE" jdbcType="DECIMAL" property="addDate" />
+    <result column="CITY_NO" jdbcType="DECIMAL" property="cityNo" />
+    <result column="PROVINCE" jdbcType="DECIMAL" property="province" />
+    <result column="ZONE" jdbcType="DECIMAL" property="zone" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="TYPE_YF" jdbcType="DECIMAL" property="typeYf" />
+    <result column="AGENT" jdbcType="VARCHAR" property="agent" />
+    <result column="ID_TYPE" jdbcType="DECIMAL" property="idType" />
+    <result column="ID_NO" jdbcType="VARCHAR" property="idNo" />
+    <result column="ID_VALIDITY" jdbcType="DATE" property="idValidity" />
+    <result column="BUS_LIC_NO" jdbcType="VARCHAR" property="busLicNo" />
+    <result column="BUS_LIC_VALIDITY" jdbcType="DATE" property="busLicValidity" />
+    <result column="TAX_ID" jdbcType="VARCHAR" property="taxId" />
+    <result column="TAX_ID_VALIDITY" jdbcType="DATE" property="taxIdValidity" />
+    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+    <result column="ORG_VALIDITY" jdbcType="DATE" property="orgValidity" />
+    <result column="TELNO1" jdbcType="VARCHAR" property="telno1" />
+    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
+    <result column="CONTACT3" jdbcType="VARCHAR" property="contact3" />
+    <result column="ACCNO" jdbcType="VARCHAR" property="accno" />
+    <result column="MERCHANT_ID" jdbcType="DECIMAL" property="merchantId" />
+    <result column="BUS_LIC_PIC" jdbcType="VARCHAR" property="busLicPic" />
+    <result column="TAX_ID_PIC" jdbcType="VARCHAR" property="taxIdPic" />
+    <result column="ORG_ID_PIC" jdbcType="VARCHAR" property="orgIdPic" />
+    <result column="LEGAL_REP" jdbcType="VARCHAR" property="legalRep" />
+    <result column="LR_ID_TYPE" jdbcType="DECIMAL" property="lrIdType" />
+    <result column="LR_ID_NO" jdbcType="VARCHAR" property="lrIdNo" />
+    <result column="LR_ID_VALIDITY" jdbcType="DATE" property="lrIdValidity" />
+    <result column="FS_CYCLE" jdbcType="VARCHAR" property="fsCycle" />
+    <result column="FS_CYCLE_PARAM" jdbcType="VARCHAR" property="fsCycleParam" />
+    <result column="LAST_SETTLE_DATE" jdbcType="DATE" property="lastSettleDate" />
+    <result column="IS_CONSUMP_CATEGORY" jdbcType="CHAR" property="isConsumpCategory" />
+    <result column="AMT_CONSUMP_CATEGORY" jdbcType="CHAR" property="amtConsumpCategory" />
+    <result column="IS_FMRCHNO_DECIDE" jdbcType="CHAR" property="isFmrchnoDecide" />
+    <result column="FS_KP_CYCLE" jdbcType="VARCHAR" property="fsKpCycle" />
+    <result column="FS_KP_CYCLE_PARAM" jdbcType="VARCHAR" property="fsKpCycleParam" />
+    <result column="LAST_KP_DATE" jdbcType="DATE" property="lastKpDate" />
+    <result column="IS_BJ" jdbcType="CHAR" property="isBj" />
+    <result column="IS_CARD_TYPE_GROUP" jdbcType="CHAR" property="isCardTypeGroup" />
+    <result column="IS_KP" jdbcType="CHAR" property="isKp" />
+    <result column="DISABLED_DATE" jdbcType="DATE" property="disabledDate" />
+    <result column="ENABLE_DATE" jdbcType="DATE" property="enableDate" />
+    <result column="MERGE_MONEY_FLAG" jdbcType="CHAR" property="mergeMoneyFlag" />
+    <result column="MRCH_SNIPPET" jdbcType="VARCHAR" property="mrchSnippet" />
+    <result column="CONTRACT_START_DATE" jdbcType="VARCHAR" property="contractStartDate" />
+    <result column="CONTRACT_RENEWAL_DATE" jdbcType="VARCHAR" property="contractRenewalDate" />
+    <result column="MERCHANT_COMPANY_NAME" jdbcType="VARCHAR" property="merchantCompanyName" />
+    <result column="RENEWAL_TYPE" jdbcType="VARCHAR" property="renewalType" />
+    <result column="GUARANTEE_LAST_DATE" jdbcType="VARCHAR" property="guaranteeLastDate" />
+    <result column="GUARANTEE_AMT" jdbcType="DECIMAL" property="guaranteeAmt" />
+    <result column="MARKET_CONTACT_PERSON" jdbcType="VARCHAR" property="marketContactPerson" />
+    <result column="MARKET_CONTACT_MOBILE" jdbcType="VARCHAR" property="marketContactMobile" />
+    <result column="FINANCIAL_CONTACT_PERSON" jdbcType="VARCHAR" property="financialContactPerson" />
+    <result column="FINANCIAL_CONTACT_MOBILE" jdbcType="VARCHAR" property="financialContactMobile" />
+    <result column="MERCHANT_DEPOSIT" jdbcType="DECIMAL" property="merchantDeposit" />
+    <result column="MERCHANT_AREA" jdbcType="VARCHAR" property="merchantArea" />
+    <result column="STORE_MANAGER" jdbcType="VARCHAR" property="storeManager" />
+    <result column="MERCHANT_ADVISOR" jdbcType="VARCHAR" property="merchantAdvisor" />
+    <result column="MERCHANT_ORG" jdbcType="VARCHAR" property="merchantOrg" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    INST_ID, MRCHNO, MRCHT_NAME, ADDRESS, ADD_DATE, CITY_NO, PROVINCE, ZONE, STATE, TYPE_YF, 
+    AGENT, ID_TYPE, ID_NO, ID_VALIDITY, BUS_LIC_NO, BUS_LIC_VALIDITY, TAX_ID, TAX_ID_VALIDITY, 
+    ORG_ID, ORG_VALIDITY, TELNO1, POSTCODE, CONTACT3, ACCNO, MERCHANT_ID, BUS_LIC_PIC, 
+    TAX_ID_PIC, ORG_ID_PIC, LEGAL_REP, LR_ID_TYPE, LR_ID_NO, LR_ID_VALIDITY, FS_CYCLE, 
+    FS_CYCLE_PARAM, LAST_SETTLE_DATE, IS_CONSUMP_CATEGORY, AMT_CONSUMP_CATEGORY, IS_FMRCHNO_DECIDE, 
+    FS_KP_CYCLE, FS_KP_CYCLE_PARAM, LAST_KP_DATE, IS_BJ, IS_CARD_TYPE_GROUP, IS_KP, DISABLED_DATE, 
+    ENABLE_DATE, MERGE_MONEY_FLAG, MRCH_SNIPPET, CONTRACT_START_DATE, CONTRACT_RENEWAL_DATE, 
+    MERCHANT_COMPANY_NAME, RENEWAL_TYPE, GUARANTEE_LAST_DATE, GUARANTEE_AMT, MARKET_CONTACT_PERSON, 
+    MARKET_CONTACT_MOBILE, FINANCIAL_CONTACT_PERSON, FINANCIAL_CONTACT_MOBILE, MERCHANT_DEPOSIT, 
+    MERCHANT_AREA, STORE_MANAGER, MERCHANT_ADVISOR, MERCHANT_ORG
+  </sql>
+  
+  <select id="getOneData" resultMap="BaseResultMap">
+  	SELECT 
+  	<include refid="Base_Column_List"></include>
+ 	FROM MERCHANT_X WHERE MRCHNO = #{mrchno}
+  </select>
+  
+</mapper>

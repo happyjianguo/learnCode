@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!-- 终端黑名单 -->
+	<bean id="edcBlackInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcBlackLogic" />
+    <!-- 终端TPDU信息  -->
+	<bean id="edcTpduInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcTpduLogic" />
+	<!-- 终端受理卡类  -->
+	<bean id="edcCardInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcCardLogic" />
+	<!-- 终端转换 -->
+	<bean id="edcSwitchInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcSwitchLogic" />
+	<!-- 终端基本资料 -->
+	<bean id="edcTerminalInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcTerminalLogic" />
+	<!-- 银行终端信息管理 -->
+	<bean id="edcTerminalInfoOrmLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcTerminalOrmLogic" />
+	<!-- 新福卡银行终端信息管理 -->
+	<bean id="edcNewfkerminalInfoOrmLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcNewfkterminalOrmLogic" />
+	<!-- 支付宝、微信终端信息管理 -->
+	<bean id="edcAlipayWeChatInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcAlipayWeChatLogic" />
+	<!-- 专属卡终端信息管理 -->
+	<bean id="edcZskterminalOrmLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcZskterminalOrmLogic" />
+	<!-- 公用  -->
+	<bean id="edcCommonInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.EdcCommonLogic" />
+	<!-- 卡账户管理  -->
+	<bean id="cardAcctInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.CardAcctLogic" />
+	<!-- 其他参数管理  -->
+	<bean id="sysParameterInfoLogic" class="cn.yufu.posp.terminalmanager.domain.logic.SysParameterLogic" />
+	<!-- 交易模块信息  -->
+	<bean id="TranModuleLogic" class="cn.yufu.posp.sysparam.domain.logic.TranModuleLogic" />
+	
+	<!-- 区域卡卡bin模块信息  -->
+	<bean id="CardBinAreaLogic" class="cn.yufu.posp.cardBinArea.domain.logic.CardBinAreaLogic" />
+	<bean id="EdcCardBinAreaLogic" class="cn.yufu.posp.cardBinArea.domain.logic.EdcCardBinAreaLogic" />
+</beans>

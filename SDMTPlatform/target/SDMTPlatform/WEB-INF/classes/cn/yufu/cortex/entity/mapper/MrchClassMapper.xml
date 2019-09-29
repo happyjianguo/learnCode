@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.MrchClassMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.MrchClass" >
+    <result column="INST_ID" property="instId" jdbcType="DECIMAL" />
+    <result column="MRCHNO" property="mrchno" jdbcType="VARCHAR" />
+    <result column="CLASSIFY" property="classify" jdbcType="CHAR" />
+    <result column="FMRCHNO" property="fmrchno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    INST_ID, MRCHNO, CLASSIFY, FMRCHNO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.MrchClassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from MRCH_CLASS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.MrchClassExample" >
+    delete from MRCH_CLASS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.MrchClass" >
+    insert into MRCH_CLASS (INST_ID, MRCHNO, CLASSIFY, 
+      FMRCHNO)
+    values (#{instId,jdbcType=DECIMAL}, #{mrchno,jdbcType=VARCHAR}, #{classify,jdbcType=CHAR}, 
+      #{fmrchno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.MrchClass" >
+    insert into MRCH_CLASS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="instId != null" >
+        INST_ID,
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO,
+      </if>
+      <if test="classify != null" >
+        CLASSIFY,
+      </if>
+      <if test="fmrchno != null" >
+        FMRCHNO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="instId != null" >
+        #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null" >
+        #{classify,jdbcType=CHAR},
+      </if>
+      <if test="fmrchno != null" >
+        #{fmrchno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.MrchClassExample" resultType="java.lang.Integer" >
+    select count(*) from MRCH_CLASS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update MRCH_CLASS
+    <set >
+      <if test="record.instId != null" >
+        INST_ID = #{record.instId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrchno != null" >
+        MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classify != null" >
+        CLASSIFY = #{record.classify,jdbcType=CHAR},
+      </if>
+      <if test="record.fmrchno != null" >
+        FMRCHNO = #{record.fmrchno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update MRCH_CLASS
+    set INST_ID = #{record.instId,jdbcType=DECIMAL},
+      MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      CLASSIFY = #{record.classify,jdbcType=CHAR},
+      FMRCHNO = #{record.fmrchno,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdfeeSaleCkjfDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.CrdfeeSaleCkjf" >
+    <id column="TLOG_ID" property="tlogId" jdbcType="DECIMAL" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="IID" property="iid" jdbcType="VARCHAR" />
+    <result column="AMTTXN04" property="amttxn04" jdbcType="FLOAT" />
+    <result column="AMTTXN09" property="amttxn09" jdbcType="FLOAT" />
+    <result column="DATELOCAL" property="datelocal" jdbcType="VARCHAR" />
+    <result column="TOP_CKJF_ID" property="topCkjfId" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="VARCHAR" />
+    <result column="UPDATTIME" property="updattime" jdbcType="VARCHAR" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    TLOG_ID, PAN, IID, AMTTXN04, AMTTXN09, DATELOCAL, TOP_CKJF_ID, FLAG, UPDATTIME, RESERVED1, 
+    RESERVED3, RESERVED2
+  </sql>
+  
+  <sql id="Base_Order_By">
+  	ORDER BY TLOG_ID DESC, DATELOCAL DESC, UPDATTIME DESC
+  </sql>
+  
+  <sql id="Base_Where_Condition">
+  	<where>
+  		<if test="pan != null and pan.trim().length() != 0">
+	    	AND PAN = #{pan}
+	    </if>
+	   	<if test="iid != null and iid.trim().length() != 0">
+	    	AND IID = #{iid}
+	    </if>
+	    <if test="begainTranDate != null and begainTranDate.trim().length() != 0">
+	    	AND <![CDATA[ DATELOCAL >= #{begainTranDate} ]]>
+	    </if>
+	    <if test="endTranDate != null and endTranDate.trim().length() != 0">
+	    	AND <![CDATA[ DATELOCAL <= #{endTranDate} ]]>
+	    </if>
+  	</where>
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM CRDFEE_SALE_CKJF WHERE TLOG_ID = #{tlogId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT 	<include refid="Base_Column_List" />
+   	FROM CRDFEE_SALE_CKJF  <include refid="Base_Where_Condition" /> 
+    <include refid="Base_Order_By" />
+  </select>
+  
+  <delete id="delete">
+    DELETE FROM CRDFEE_SALE_CKJF WHERE TLOG_ID = #{tlogId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert">
+    INSERT INTO CRDFEE_SALE_CKJF (TLOG_ID, PAN, IID, 
+      AMTTXN04, AMTTXN09, DATELOCAL, 
+      TOP_CKJF_ID, FLAG, UPDATTIME
+      )
+    VALUES (#{tlogId,jdbcType=DECIMAL}, #{pan,jdbcType=VARCHAR}, #{iid,jdbcType=VARCHAR}, 
+      #{amttxn04,jdbcType=FLOAT}, #{amttxn09,jdbcType=FLOAT}, #{datelocal,jdbcType=VARCHAR}, 
+      #{topCkjfId,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{updattime,jdbcType=VARCHAR}
+      )
+  </insert>
+ 
+  <update id="update" >
+    UPDATE CRDFEE_SALE_CKJF
+    SET PAN = #{pan,jdbcType=VARCHAR},
+      IID = #{iid,jdbcType=VARCHAR},
+      AMTTXN04 = #{amttxn04,jdbcType=FLOAT},
+      AMTTXN09 = #{amttxn09,jdbcType=FLOAT},
+      DATELOCAL = #{datelocal,jdbcType=VARCHAR},
+      TOP_CKJF_ID = #{topCkjfId,jdbcType=VARCHAR},
+      FLAG = #{flag,jdbcType=VARCHAR},
+      UPDATTIME = #{updattime,jdbcType=VARCHAR}
+    WHERE TLOG_ID = #{tlogId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="UserDao"
+		class="cn.yufu.posp.usermanager.dao.hibernate.hql.UserDaoHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="UserGroupDao"
+		class="cn.yufu.posp.usermanager.dao.hibernate.hql.UserGroupDaoHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="JgDao"
+		class="cn.yufu.posp.jgmanager.dao.hibernate.hql.JgDaoHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="sysDao"
+		class="cn.yufu.posp.sysparam.dao.hibernate.hql.SysParamDaoHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="cardTypeDao"
+		class="cn.yufu.posp.cardtype.dao.hibernate.hql.CardTypeDaoHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="card1TypeDao"
+		class="cn.yufu.posp.cardtype.dao.hibernate.hql.Card1TypeDaoHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="routeDao"
+		class="cn.yufu.posp.route.dao.hibernate.hql.RouteDaoHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- query -->
+	<bean id="curTranLsDao"
+		class="cn.yufu.posp.queryManager.dao.hibernate.hql.CurTranLsHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="curTranLsWarnDao"
+		class="cn.yufu.posp.queryManager.dao.hibernate.hql.CurTranLsWarnHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire" />
+		</property>
+	</bean>
+	<bean id="curTranLsReportDao"
+		class="cn.yufu.posp.queryManager.dao.hibernate.hql.CurTranLsReportHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="curTranLsWechatAlipayDao"
+		class="cn.yufu.posp.queryManager.dao.hibernate.hql.CurTranLsWechatAlipayHibernateHQLImpl"
+		abstract="false" singleton="false" lazy-init="default" autowire="default"
+		dependency-check="default">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+</beans>

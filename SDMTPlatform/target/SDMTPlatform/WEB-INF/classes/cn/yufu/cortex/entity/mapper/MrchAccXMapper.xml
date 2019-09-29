@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.MrchAccXMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.MrchAccX" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="INST_ID" property="instId" jdbcType="DECIMAL" />
+    <result column="MRCHNO" property="mrchno" jdbcType="VARCHAR" />
+    <result column="ACCNO" property="accno" jdbcType="VARCHAR" />
+    <result column="ACC_NAME" property="accName" jdbcType="VARCHAR" />
+    <result column="BANK_NO" property="bankNo" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="ACC_ADD_DATE" property="accAddDate" jdbcType="DATE" />
+    <result column="ACC_NICK_NAME" property="accNickName" jdbcType="VARCHAR" />
+    <result column="SHORT_NICK_NAME" property="shortNickName" jdbcType="VARCHAR" />
+    <result column="INDIVIDUAL" property="individual" jdbcType="CHAR" />
+    <result column="LAST_SETTLE_DATE" property="lastSettleDate" jdbcType="DATE" />
+    <result column="MERCHANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+    <result column="ACC_INTROD" property="accIntrod" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, INST_ID, MRCHNO, ACCNO, ACC_NAME, BANK_NO, BANK_NAME, ACC_ADD_DATE, ACC_NICK_NAME, 
+    SHORT_NICK_NAME, INDIVIDUAL, LAST_SETTLE_DATE, MERCHANT_ID, ACCOUNT_ID, ACC_INTROD
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.MrchAccXExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from MRCH_ACC_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MRCH_ACC_X
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MRCH_ACC_X
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.MrchAccXExample" >
+    delete from MRCH_ACC_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.MrchAccX" >
+    insert into MRCH_ACC_X (ID, INST_ID, MRCHNO, 
+      ACCNO, ACC_NAME, BANK_NO, 
+      BANK_NAME, ACC_ADD_DATE, ACC_NICK_NAME, 
+      SHORT_NICK_NAME, INDIVIDUAL, LAST_SETTLE_DATE, 
+      MERCHANT_ID, ACCOUNT_ID, ACC_INTROD
+      )
+    values (#{id,jdbcType=DECIMAL}, #{instId,jdbcType=DECIMAL}, #{mrchno,jdbcType=VARCHAR}, 
+      #{accno,jdbcType=VARCHAR}, #{accName,jdbcType=VARCHAR}, #{bankNo,jdbcType=VARCHAR}, 
+      #{bankName,jdbcType=VARCHAR}, #{accAddDate,jdbcType=DATE}, #{accNickName,jdbcType=VARCHAR}, 
+      #{shortNickName,jdbcType=VARCHAR}, #{individual,jdbcType=CHAR}, #{lastSettleDate,jdbcType=DATE}, 
+      #{merchantId,jdbcType=DECIMAL}, #{accountId,jdbcType=DECIMAL}, #{accIntrod,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.MrchAccX" >
+    insert into MRCH_ACC_X
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="instId != null" >
+        INST_ID,
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO,
+      </if>
+      <if test="accno != null" >
+        ACCNO,
+      </if>
+      <if test="accName != null" >
+        ACC_NAME,
+      </if>
+      <if test="bankNo != null" >
+        BANK_NO,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="accAddDate != null" >
+        ACC_ADD_DATE,
+      </if>
+      <if test="accNickName != null" >
+        ACC_NICK_NAME,
+      </if>
+      <if test="shortNickName != null" >
+        SHORT_NICK_NAME,
+      </if>
+      <if test="individual != null" >
+        INDIVIDUAL,
+      </if>
+      <if test="lastSettleDate != null" >
+        LAST_SETTLE_DATE,
+      </if>
+      <if test="merchantId != null" >
+        MERCHANT_ID,
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="accIntrod != null" >
+        ACC_INTROD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="instId != null" >
+        #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="accAddDate != null" >
+        #{accAddDate,jdbcType=DATE},
+      </if>
+      <if test="accNickName != null" >
+        #{accNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortNickName != null" >
+        #{shortNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="individual != null" >
+        #{individual,jdbcType=CHAR},
+      </if>
+      <if test="lastSettleDate != null" >
+        #{lastSettleDate,jdbcType=DATE},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="accIntrod != null" >
+        #{accIntrod,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.MrchAccXExample" resultType="java.lang.Integer" >
+    select count(*) from MRCH_ACC_X
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update MRCH_ACC_X
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.instId != null" >
+        INST_ID = #{record.instId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrchno != null" >
+        MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accno != null" >
+        ACCNO = #{record.accno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accName != null" >
+        ACC_NAME = #{record.accName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankNo != null" >
+        BANK_NO = #{record.bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accAddDate != null" >
+        ACC_ADD_DATE = #{record.accAddDate,jdbcType=DATE},
+      </if>
+      <if test="record.accNickName != null" >
+        ACC_NICK_NAME = #{record.accNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortNickName != null" >
+        SHORT_NICK_NAME = #{record.shortNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.individual != null" >
+        INDIVIDUAL = #{record.individual,jdbcType=CHAR},
+      </if>
+      <if test="record.lastSettleDate != null" >
+        LAST_SETTLE_DATE = #{record.lastSettleDate,jdbcType=DATE},
+      </if>
+      <if test="record.merchantId != null" >
+        MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accountId != null" >
+        ACCOUNT_ID = #{record.accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accIntrod != null" >
+        ACC_INTROD = #{record.accIntrod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update MRCH_ACC_X
+    set ID = #{record.id,jdbcType=DECIMAL},
+      INST_ID = #{record.instId,jdbcType=DECIMAL},
+      MRCHNO = #{record.mrchno,jdbcType=VARCHAR},
+      ACCNO = #{record.accno,jdbcType=VARCHAR},
+      ACC_NAME = #{record.accName,jdbcType=VARCHAR},
+      BANK_NO = #{record.bankNo,jdbcType=VARCHAR},
+      BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      ACC_ADD_DATE = #{record.accAddDate,jdbcType=DATE},
+      ACC_NICK_NAME = #{record.accNickName,jdbcType=VARCHAR},
+      SHORT_NICK_NAME = #{record.shortNickName,jdbcType=VARCHAR},
+      INDIVIDUAL = #{record.individual,jdbcType=CHAR},
+      LAST_SETTLE_DATE = #{record.lastSettleDate,jdbcType=DATE},
+      MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      ACCOUNT_ID = #{record.accountId,jdbcType=DECIMAL},
+      ACC_INTROD = #{record.accIntrod,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.MrchAccX" >
+    update MRCH_ACC_X
+    <set >
+      <if test="instId != null" >
+        INST_ID = #{instId,jdbcType=DECIMAL},
+      </if>
+      <if test="mrchno != null" >
+        MRCHNO = #{mrchno,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        ACCNO = #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        ACC_NAME = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNo != null" >
+        BANK_NO = #{bankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="accAddDate != null" >
+        ACC_ADD_DATE = #{accAddDate,jdbcType=DATE},
+      </if>
+      <if test="accNickName != null" >
+        ACC_NICK_NAME = #{accNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortNickName != null" >
+        SHORT_NICK_NAME = #{shortNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="individual != null" >
+        INDIVIDUAL = #{individual,jdbcType=CHAR},
+      </if>
+      <if test="lastSettleDate != null" >
+        LAST_SETTLE_DATE = #{lastSettleDate,jdbcType=DATE},
+      </if>
+      <if test="merchantId != null" >
+        MERCHANT_ID = #{merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="accIntrod != null" >
+        ACC_INTROD = #{accIntrod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.MrchAccX" >
+    update MRCH_ACC_X
+    set INST_ID = #{instId,jdbcType=DECIMAL},
+      MRCHNO = #{mrchno,jdbcType=VARCHAR},
+      ACCNO = #{accno,jdbcType=VARCHAR},
+      ACC_NAME = #{accName,jdbcType=VARCHAR},
+      BANK_NO = #{bankNo,jdbcType=VARCHAR},
+      BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      ACC_ADD_DATE = #{accAddDate,jdbcType=DATE},
+      ACC_NICK_NAME = #{accNickName,jdbcType=VARCHAR},
+      SHORT_NICK_NAME = #{shortNickName,jdbcType=VARCHAR},
+      INDIVIDUAL = #{individual,jdbcType=CHAR},
+      LAST_SETTLE_DATE = #{lastSettleDate,jdbcType=DATE},
+      MERCHANT_ID = #{merchantId,jdbcType=DECIMAL},
+      ACCOUNT_ID = #{accountId,jdbcType=DECIMAL},
+      ACC_INTROD = #{accIntrod,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

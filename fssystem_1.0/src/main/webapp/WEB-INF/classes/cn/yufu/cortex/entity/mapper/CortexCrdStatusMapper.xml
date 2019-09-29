@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.CortexCrdStatusMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.CortexCrdStatus" >
+    <id column="STATCODE" property="statcode" jdbcType="CHAR" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="SYSDEF" property="sysdef" jdbcType="CHAR" />
+    <result column="DESCR" property="descr" jdbcType="VARCHAR" />
+    <result column="ACTIONCODE" property="actioncode" jdbcType="CHAR" />
+    <result column="RSPCODE" property="rspcode" jdbcType="CHAR" />
+    <result column="CANCELED" property="canceled" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STATCODE, VERNO_CTX, SYSDEF, DESCR, ACTIONCODE, RSPCODE, CANCELED
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.CortexCrdStatusExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CRDSTATUS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRDSTATUS
+    where STATCODE = #{statcode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CRDSTATUS
+    where STATCODE = #{statcode,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.CortexCrdStatusExample" >
+    delete from CRDSTATUS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.CortexCrdStatus" >
+    insert into CRDSTATUS (STATCODE, VERNO_CTX, SYSDEF, 
+      DESCR, ACTIONCODE, RSPCODE, 
+      CANCELED)
+    values (#{statcode,jdbcType=CHAR}, #{vernoCtx,jdbcType=DECIMAL}, #{sysdef,jdbcType=CHAR}, 
+      #{descr,jdbcType=VARCHAR}, #{actioncode,jdbcType=CHAR}, #{rspcode,jdbcType=CHAR}, 
+      #{canceled,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.CortexCrdStatus" >
+    insert into CRDSTATUS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="statcode != null" >
+        STATCODE,
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX,
+      </if>
+      <if test="sysdef != null" >
+        SYSDEF,
+      </if>
+      <if test="descr != null" >
+        DESCR,
+      </if>
+      <if test="actioncode != null" >
+        ACTIONCODE,
+      </if>
+      <if test="rspcode != null" >
+        RSPCODE,
+      </if>
+      <if test="canceled != null" >
+        CANCELED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="statcode != null" >
+        #{statcode,jdbcType=CHAR},
+      </if>
+      <if test="vernoCtx != null" >
+        #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="sysdef != null" >
+        #{sysdef,jdbcType=CHAR},
+      </if>
+      <if test="descr != null" >
+        #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="actioncode != null" >
+        #{actioncode,jdbcType=CHAR},
+      </if>
+      <if test="rspcode != null" >
+        #{rspcode,jdbcType=CHAR},
+      </if>
+      <if test="canceled != null" >
+        #{canceled,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.CortexCrdStatusExample" resultType="java.lang.Integer" >
+    select count(*) from CRDSTATUS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update CRDSTATUS
+    <set >
+      <if test="record.statcode != null" >
+        STATCODE = #{record.statcode,jdbcType=CHAR},
+      </if>
+      <if test="record.vernoCtx != null" >
+        VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sysdef != null" >
+        SYSDEF = #{record.sysdef,jdbcType=CHAR},
+      </if>
+      <if test="record.descr != null" >
+        DESCR = #{record.descr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actioncode != null" >
+        ACTIONCODE = #{record.actioncode,jdbcType=CHAR},
+      </if>
+      <if test="record.rspcode != null" >
+        RSPCODE = #{record.rspcode,jdbcType=CHAR},
+      </if>
+      <if test="record.canceled != null" >
+        CANCELED = #{record.canceled,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update CRDSTATUS
+    set STATCODE = #{record.statcode,jdbcType=CHAR},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      SYSDEF = #{record.sysdef,jdbcType=CHAR},
+      DESCR = #{record.descr,jdbcType=VARCHAR},
+      ACTIONCODE = #{record.actioncode,jdbcType=CHAR},
+      RSPCODE = #{record.rspcode,jdbcType=CHAR},
+      CANCELED = #{record.canceled,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.CortexCrdStatus" >
+    update CRDSTATUS
+    <set >
+      <if test="vernoCtx != null" >
+        VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="sysdef != null" >
+        SYSDEF = #{sysdef,jdbcType=CHAR},
+      </if>
+      <if test="descr != null" >
+        DESCR = #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="actioncode != null" >
+        ACTIONCODE = #{actioncode,jdbcType=CHAR},
+      </if>
+      <if test="rspcode != null" >
+        RSPCODE = #{rspcode,jdbcType=CHAR},
+      </if>
+      <if test="canceled != null" >
+        CANCELED = #{canceled,jdbcType=CHAR},
+      </if>
+    </set>
+    where STATCODE = #{statcode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.CortexCrdStatus" >
+    update CRDSTATUS
+    set VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      SYSDEF = #{sysdef,jdbcType=CHAR},
+      DESCR = #{descr,jdbcType=VARCHAR},
+      ACTIONCODE = #{actioncode,jdbcType=CHAR},
+      RSPCODE = #{rspcode,jdbcType=CHAR},
+      CANCELED = #{canceled,jdbcType=CHAR}
+    where STATCODE = #{statcode,jdbcType=CHAR}
+  </update>
+</mapper>

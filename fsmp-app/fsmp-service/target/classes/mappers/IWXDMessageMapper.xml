@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.IWXDMessageMapper">
+	<sql id="columns">MSGID,APPID,MSGNAME,MEDIAID,MSGTYPE,CONTENT,UPDATETIME,CREATETIME
+	</sql>
+	<select id="queryPageMessageByParams" parameterType="Map"
+		resultType="WXDMessage">
+		SELECT
+			mes.MSGID,
+			mes.APPID,
+			mes.MSGNAME,
+			mes.MEDIAID,
+			mes.MSGTYPE,
+			mes.CONTENT,
+			mes.UPDATETIME,
+			mes.CREATETIME,
+			news.MATERIALNAME MEDIANAME
+
+		FROM
+			WXDMESSAGE mes 
+				left join WXDNEWSMATERIAL news 
+					on mes.MEDIAID = news.MATERIALID
+		WHERE
+			1=1
+		<if test="appid!='' and appid!=null">
+			and mes.APPID=#{appid}
+		</if>
+		<if test="msgName!='' and msgName!=null">
+			and mes.MSGNAME like CONCAT('%','${msgName}','%' )
+		</if>
+		<if test="msgType!='' and msgType!=null">
+			and mes.MSGTYPE=#{msgType}
+		</if>
+		<if test="mediaId!='' and mediaId!=null">
+			and mes.MEDIAID=#{mediaId}
+		</if>
+		ORDER BY mes.CREATETIME DESC
+	</select>
+	<insert id="insertMessage" parameterType="WXDMessage">
+		insert into WXDMESSAGE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="msgId != null">
+				MSGID,
+			</if>
+			<if test="msgName != null">
+				MSGNAME,
+			</if>
+			<if test="mediaId != null">
+				MEDIAID,
+			</if>
+			<if test="msgType != null">
+				MSGTYPE,
+			</if>
+			<if test="appid != null">
+				APPID,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME,
+			</if>
+			<if test="createTime != null">
+				CREATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="msgId != null">
+				#{msgId,jdbcType=VARCHAR},
+			</if>
+			<if test="msgName != null">
+				#{msgName,jdbcType=VARCHAR},
+			</if>
+			<if test="mediaId != null">
+				#{mediaId,jdbcType=VARCHAR},
+			</if>
+			<if test="msgType != null">
+				#{msgType,jdbcType=VARCHAR},
+			</if>
+			<if test="appid != null">
+				#{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="getMsgByType" parameterType="String"
+		resultType="WXDMessage">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXDMESSAGE
+		WHERE MSGTYPE=#{msgType}
+	</select>
+	<select id="selectMessage" parameterType="String"
+		resultType="WXDMessage">
+		SELECT
+		<include refid="columns"></include>
+		FROM WXDMESSAGE
+		WHERE MSGTYPE=#{msgType} AND MSGNAME=#{msgName} AND APPID=#{appid}
+	</select>
+	<select id="findByMsgId" parameterType="int" resultType="WXDMessage">
+		SELECT <include refid="columns"></include> FROM WXDMESSAGE
+		WHERE MSGID=#{msgId}
+	</select>
+	<select id="findByMediaId" parameterType="String" resultType="WXDMessage">
+		SELECT <include refid="columns"></include> FROM WXDMESSAGE
+		WHERE MEDIAID=#{mediaId}
+	</select>
+	<select id="findBySMsgId" parameterType="String" resultType="WXDMessage">
+		SELECT <include refid="columns"></include> FROM WXDMESSAGE
+		WHERE MSGID=#{msgId}
+	</select>
+	<update id="update" parameterType="WXDMessage">
+		UPDATE
+		WXDMESSAGE
+		<set>
+			<if test="msgName != null">
+				MSGNAME = #{msgName},
+			</if>
+			<if test="mediaId != null">
+				MEDIAID = #{mediaId},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME = #{updateTime},
+			</if>
+		</set>
+		WHERE MSGID=#{msgId}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM
+		wxdmessage
+		WHERE
+		msgid = #{msgId}
+	</delete>
+</mapper>

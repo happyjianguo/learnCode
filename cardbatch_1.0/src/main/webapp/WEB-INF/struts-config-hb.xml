@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<!--系统管理部分 -->
+		<form-bean name="itemForm" type="com.pay.system.item.struts.form.ItemForm" />
+		<form-bean name="roleForm" type="com.pay.system.role.struts.form.RoleForm" />
+		<form-bean name="deptForm" type="com.pay.system.dept.struts.form.DeptForm" />
+		<form-bean name="userForm" type="com.pay.system.user.struts.form.UserForm" />
+		<form-bean name="bmangerForm"
+			type="com.pay.batch.bmanger.struts.form.BMangerForm" />
+
+		<!-- 制卡系统 -->
+		<form-bean name="bflowlogForm"
+			type="com.pay.batch.bflowlog.struts.form.BFlowLogForm" />
+
+		<form-bean name="opencardForm"
+			type="com.pay.batch.opencard.struts.form.OpenCardForm" />
+		<form-bean name="depositForm"
+			type="com.pay.batch.deposit.struts.form.DepositForm" />
+		<form-bean name="depositAuditForm"
+			type="com.pay.batch.depositaudit.struts.form.DepositForm" />
+		<form-bean name="depositUndoForm"
+			type="com.pay.batch.depositundo.struts.form.DepositUndoForm" />
+		<form-bean name="redeembalForm"
+			type="com.pay.batch.redeembal.struts.form.RedeembalForm" />
+
+		<form-bean name="tlogForm" type="com.pay.batch.tlog.struts.form.TlogForm" />
+		<form-bean name="salestlogForm"
+			type="com.pay.batch.tlog.struts.form.SalestlogForm" />
+
+		<form-bean name="makeCardForm"
+			type="com.pay.batch.bflowlog.struts.form.MakeCardForm" />
+		<!-- 特制批量发卡管理 -->
+		<form-bean name="sixbflowlogForm"
+			type="com.pay.batch.bflowlog.struts.form.SixBFlowLogForm" />
+		<form-bean name="iidPinChkForm"
+			type="com.pay.batch.bflowlog.struts.form.IidPinChkForm" />
+		<!-- ETC卡号管理 -->
+		<form-bean name="crdetcpoolForm"
+			type="com.pay.batch.bflowlog.struts.form.CrdEtcPoolForm" />
+
+
+		<!-- create by mazheng -->
+		<form-bean name="merchantForm" type="com.pay.merchant.struts.form.MerchantForm" />
+		<form-bean name="merchantOrgForm" type="com.pay.merchant.struts.form.MerchantOrgForm" />
+		<form-bean name="tCardMerInfoForm" type="com.pay.merchant.struts.form.TCardMerInfoForm" />
+		<form-bean name="merchantFenrunOrgForm" type="com.pay.merchant.struts.form.MerchantFenrunOrgForm" />
+		
+		<form-bean name="mrch_acc_xForm"
+			type="com.pay.merchant.struts.form.Mrch_acc_xForm" />
+		<form-bean name="terminalForm" type="com.pay.terminal.struts.form.TerminalForm" />
+		<form-bean name="testForm" type="com.pay.terminal.struts.form.TestForm" />
+		<form-bean name="bankForm" type="com.pay.bank.struts.form.TBankInfoFullForm" />
+		<form-bean name="sysParameterForm"
+			type="com.pay.sysParameter.struts.form.SysParameterForm" />
+		<form-bean name="userCrdproductForm"
+			type="com.pay.userCrdproduct.struts.form.UserCrdproductForm" />
+		<!-- end -->
+		<form-bean name="cardForm" type="com.pay.query.struts.form.CardForm" />
+		<form-bean name="acctForm" type="com.pay.query.struts.form.AcctForm" />
+		<form-bean name="custForm" type="com.pay.query.struts.form.CustForm" />
+		<form-bean name="lsForm" type="com.pay.query.struts.form.LsForm" />
+		<form-bean name="recErrorForm" type="com.pay.query.struts.form.RecErrorForm" />
+		<form-bean name="crdformatMapForm"
+			type="com.pay.batch.bflowlog.struts.form.CrdformatMapForm" />
+
+		<form-bean name="merchantInfoForm"
+			type="com.pay.merInfoStatistics.struts.form.MerchantInfoForm" />
+		<form-bean name="terminalInfoForm"
+			type="com.pay.merInfoStatistics.struts.form.TerminalInfoForm" />
+		<form-bean name="merchantInfoUploadForm"
+			type="com.pay.merInfoStatistics.struts.form.MerchantInfoUploadForm"></form-bean>
+		<form-bean name="sinopecSweepCardUploadForm"
+			type="com.pay.batch.tlog.struts.form.SinopecSweepCardUploadForm"></form-bean>
+		<form-bean name="TerminalInfoUploadForm"
+			type="com.pay.merInfoStatistics.struts.form.TerminalInfoUploadForm"></form-bean>
+
+	</form-beans>
+	<global-exceptions />
+	<global-forwards />
+	<action-mappings>
+		<!--系统管理部分 -->
+		<action attribute="itemForm" name="itemForm" parameter="method"
+			path="/item" scope="request" type="com.pay.system.item.struts.action.ItemAction">
+			<forward name="showItemList" path="/jsppage/system/item/showItemList.jsp"></forward>
+			<forward name="modItem.jsp" path="/jsppage/system/item/modItem.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<action attribute="roleForm" name="roleForm" parameter="method"
+			path="/role" scope="request" type="com.pay.system.role.struts.action.RoleAction">
+			<forward name="showRoleList" path="/jsppage/system/role/showRoleList.jsp"></forward>
+			<forward name="modRole.jsp" path="/jsppage/system/role/modRole.jsp"></forward>
+			<forward name="grantMenu.jsp" path="/jsppage/system/role/grantMenu.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<action attribute="deptForm" name="deptForm" parameter="method"
+			path="/dept" scope="request" type="com.pay.system.dept.struts.action.DeptAction">
+			<forward name="showDeptList" path="/jsppage/system/dept/showDeptList.jsp"></forward>
+			<forward name="modDept.jsp" path="/jsppage/system/dept/modDept.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<action attribute="userForm" name="userForm" parameter="method"
+			path="/user" scope="request" type="com.pay.system.user.struts.action.UserAction">
+			<forward name="showUserList" path="/jsppage/system/user/showUserList.jsp"></forward>
+			<forward name="queryUserList" path="/jsppage/system/user/queryUserList.jsp"></forward>
+			<forward name="getUserListQuery" path="/user.do?method=getUserListQuery"></forward>
+			<forward name="modUser.jsp" path="/jsppage/system/user/modUser.jsp"></forward>
+			<forward name="addUser.jsp" path="/jsppage/system/user/addUser.jsp"></forward>
+			<forward name="queryUser.jsp" path="/jsppage/system/user/queryUser.jsp"></forward>
+			<forward name="grantItem.jsp" path="/jsppage/system/user/grantItem.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="modPassword.jsp" path="/jsppage/system/user/modPassword.jsp"></forward>
+			<forward name="checkPasswdAjax.jsp" path="/jsppage/system/user/checkPasswdAjax.jsp"></forward>
+			<forward name="checkWeakPasswdAjax.jsp" path="/jsppage/system/user/checkWeakPasswdAjax.jsp"></forward>
+			<forward name="modPasswdAjax.jsp" path="/jsppage/system/user/modPasswdAjax.jsp"></forward>
+		</action>
+		<action attribute="bmangerForm" name="bmangerForm" parameter="method"
+			path="/bmanger" scope="request"
+			type="com.pay.batch.bmanger.struts.action.BMangerAction">
+			<forward name="showBMangerList" path="/jsppage/batch/bmanger/showBMangerList.jsp"></forward>
+			<forward name="modBManger" path="/jsppage/batch/bmanger/modBManger.jsp"></forward>
+			<forward name="preAddBManger" path="/jsppage/batch/bmanger/addBManger.jsp"></forward>
+			<forward name="showBMangerInfo" path="/jsppage/batch/bmanger/showBMangerInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<!-- 制卡系统 START -->
+		<action attribute="bflowlogForm" name="bflowlogForm" parameter="method"
+			path="/bflowlog" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.BFlowLogAction">
+			<forward name="showBFlowLogList" path="/jsppage/batch/bflowlog/showBFlowLogList.jsp"></forward>
+			<forward name="showBFlowLogInfo" path="/jsppage/batch/bflowlog/showBFlowLogInfo.jsp"></forward>
+			<forward name="submitBFlowinfo" path="/jsppage/batch/bflowlog/submitBFlowinfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="showPanFlowLogList"
+				path="/jsppage/batch/bflowlog/showPanFlowLogList.jsp"></forward>
+			<forward name="showPanFlowLogInfo"
+				path="/jsppage/batch/bflowlog/showPanFlowLogInfo.jsp"></forward>
+			<forward name="addPanInfo" path="/jsppage/batch/bflowlog/addPanInfo.jsp"></forward>
+			<forward name="showList" path="/bflowlog.do?method=preShowPanFlowLogList"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/crdformatMap/submitinfo.jsp"></forward>
+		</action>
+		<action attribute="bflowlogForm" name="bflowlogForm" parameter="method"
+			path="/mcVirtualCard" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.MCVirtualCardAction">
+			<forward name="submitMCinfo" path="/jsppage/batch/mcVirtualCard/submitMCinfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="showMCPanFlowLogList"
+				path="/jsppage/batch/mcVirtualCard/showPanFlowLogList.jsp"></forward>
+			<forward name="showMCPanFlowLogInfo"
+				path="/jsppage/batch/mcVirtualCard/showPanFlowLogInfo.jsp"></forward>
+			<forward name="addMCPanInfo" path="/jsppage/batch/mcVirtualCard/addPanInfo.jsp"></forward>
+			<forward name="showList"
+				path="/mcVirtualCard.do?method=preShowPanFlowLogList"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/crdformatMap/submitinfo.jsp"></forward>
+
+		</action>
+		<action attribute="crdformatMapForm" name="crdformatMapForm"
+			parameter="method" path="/crdformatMap" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.CrdformatMapAction">
+			<forward name="showCrdformatMapList"
+				path="/jsppage/batch/crdformatMap/showCrdformatMapList.jsp" />
+			<forward name="showCrdformatMapInfo"
+				path="/jsppage/batch/crdformatMap/showCrdformatMap.jsp" />
+			<forward name="addCrdformatMap"
+				path="/jsppage/batch/crdformatMap/addCrdformatMap.jsp" />
+			<forward name="toGetCrdformatMapList" path="/crdformatMap.do?method=getCrdformatMapList" />
+			<forward name="editCrdformatMapInfo"
+				path="/jsppage/batch/crdformatMap/editCrdformatMap.jsp" />
+			<forward name="submitinfo" path="/jsppage/batch/crdformatMap/submitinfo.jsp"></forward>
+		</action>
+		<action attribute="bflowlogForm" name="bflowlogForm" parameter="method"
+			path="/snCCard" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.SameNameCCardAction">
+			<forward name="submitSNCCardinfo"
+				path="/jsppage/batch/sameNameCCard/submitSNCCardinfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="showSNCCardPanFlowLogList"
+				path="/jsppage/batch/sameNameCCard/showPanFlowLogList.jsp"></forward>
+			<forward name="showSNCCardPanFlowLogInfo"
+				path="/jsppage/batch/sameNameCCard/showPanFlowLogInfo.jsp"></forward>
+			<forward name="addSNCCardPanInfo" path="/jsppage/batch/sameNameCCard/addPanInfo.jsp"></forward>
+			<forward name="showList" path="/snCCard.do?method=preShowPanFlowLogList"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/crdformatMap/submitinfo.jsp"></forward>
+		</action>
+
+		<action attribute="makeCardForm" name="makeCardForm" parameter="method"
+			path="/makeCard" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.MakeCardAction">
+			<forward name="submitMakeCardinfo"
+				path="/jsppage/batch/makeCard/submitMakeCardinfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="showMakeCardList" path="/jsppage/batch/makeCard/showMakeCardList.jsp"></forward>
+			<forward name="addMakeCardInfo" path="/jsppage/batch/makeCard/addPanInfo.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/crdformatMap/submitinfo.jsp"></forward>
+		</action>
+
+		<!-- 特制批量发卡管理 -->
+		<action attribute="sixbflowlogForm" name="sixbflowlogForm"
+			parameter="method" path="/sixbflowlog" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.SixBFlowLogAction">
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="showSixBFlowLogList"
+				path="/jsppage/batch/bflowlog/showSixBFlowLogList.jsp"></forward>
+			<forward name="showSixPanFlowLogList"
+				path="/jsppage/batch/bflowlog/showSixPanFlowLogList.jsp"></forward>
+			<forward name="showSixPanFlowLogInfo"
+				path="/jsppage/batch/bflowlog/showSixPanFlowLogInfo.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/crdformatMap/submitinfo.jsp"></forward>
+			<forward name="showSixList"
+				path="/sixbflowlog.do?method=preShowSixPanFlowLogList"></forward>
+			<forward name="addSixPanInfo" path="/jsppage/batch/bflowlog/addSixPanInfo.jsp"></forward>
+			<forward name="applyCardPanInfo" path="/jsppage/batch/bflowlog/applyCardPanInfo.jsp"></forward>
+			<forward name="submitSixBFlowinfo"
+				path="/jsppage/batch/bflowlog/submitSixBFlowinfo.jsp"></forward>
+			<forward name="submitSixinfo" path="/jsppage/batch/crdformatMap/submitsixinfo.jsp"></forward>
+		</action>
+		
+		<!-- 发卡密码管理 -->
+		<action attribute="iidPinChkForm" name="iidPinChkForm"
+			parameter="method" path="/iidPinChk" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.IidPinChkAction">
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>	
+			<forward name="getIidPinChkList" path="/iidPinChk.do?method=getIidPinChkList"></forward>
+			<forward name="showIidPinChkList" path="/jsppage/batch/bflowlog/showIidPinChkList.jsp"></forward>
+			<forward name="toGetIidPinChkList" path="/iidPinChk.do?method=getIidPinChkList" />
+			<forward name="addIidPinChk.jsp" path="/jsppage/batch/bflowlog/addIidPinChk.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/crdformatMap/submitinfo.jsp"></forward>
+		</action>
+		
+		<!-- ETC卡号管理 -->
+		<action attribute="crdetcpoolForm" name="crdetcpoolForm"
+			parameter="method" path="/crdetcpool" scope="request"
+			type="com.pay.batch.bflowlog.struts.action.CrdEtcPoolAction">
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="showCrdetcPoolEtcPoolList"
+				path="/jsppage/batch/bflowlog/showCrdetcPoolEtcPoolList.jsp"></forward>
+		</action>
+
+		<!-- 制卡系统 END -->
+		<!-- 商户活动卡管理 -->
+		<action attribute="tCardMerInfoForm" name="tCardMerInfoForm" parameter="method"
+			path="/tCardMerInfo" scope="request"
+			type="com.pay.merchant.struts.action.TCardMerInfoAction">
+			<forward name="getTCardMerInfoList" path="/tCardMerInfo.do?method=getTCardMerInfoList"></forward>
+			<forward name="tCardMerInfoBeanist" path="/jsppage/feeCodeTable/showTCardMerInfoList.jsp"></forward>
+			<forward name="addTCardMerInfo.jsp" path="/jsppage/feeCodeTable/addTCardMerInfo.jsp"></forward>
+			<forward name="delTCardMerInfo.jsp" path="/jsppage/feeCodeTable/delTCardMerInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/resultAndFlushFather.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		
+		
+		<action attribute="opencardForm" name="opencardForm" parameter="method"
+			path="/opencard" scope="request"
+			type="com.pay.batch.opencard.struts.action.OpenCardAction">
+			<forward name="showOpenCardList" path="/jsppage/batch/opencard/showOpenCardList.jsp"></forward>
+			<forward name="queryOpenCardList" path="/opencard.do?method=queryOpenCardList"></forward>
+			<forward name="showOpenCardInfo" path="/jsppage/batch/opencard/showOpenCardInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/opencard/submitinfo.jsp"></forward>
+			<forward name="batchOpenCardSubmitInfo"
+				path="/jsppage/batch/opencard/batchOpenCardSubmitInfo.jsp"></forward>
+		</action>
+		<action attribute="depositForm" name="depositForm" parameter="method"
+			path="/deposit" scope="request"
+			type="com.pay.batch.deposit.struts.action.DepositAction">
+			<forward name="showDepositList" path="/jsppage/batch/deposit/showDepositList.jsp"></forward>
+			<forward name="queryDepositList" path="/deposit.do?method=queryDepositList"></forward>
+			<forward name="showDepositInfo" path="/jsppage/batch/deposit/showDepositInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/opencard/submitinfo.jsp"></forward>
+			<forward name="batchDepositSubmitInfo"
+				path="/jsppage/batch/opencard/batchDepositSubmitInfo.jsp"></forward>
+		</action>
+		<action attribute="depositAuditForm" name="depositAuditForm"
+			parameter="method" path="/depositAudit" scope="request"
+			type="com.pay.batch.depositaudit.struts.action.DepositAuditAction">
+			<forward name="showDepositAuditList"
+				path="/jsppage/batch/depositaudit/showDepositAuditList.jsp"></forward>
+			<forward name="queryDepositList" path="/deposit.do?method=queryDepositList"></forward>
+			<forward name="showDepositAuditInfo"
+				path="/jsppage/batch/depositaudit/showDepositAuditInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/opencard/submitinfo.jsp"></forward>
+			<forward name="batchDepositAutitSubmitInfo"
+				path="/jsppage/batch/depositaudit/batchDepositAutitSubmitInfo.jsp"></forward>
+		</action>
+		<!-- 批量充值撤销 -->
+		<action attribute="depositUndoForm" name="depositUndoForm"
+			parameter="method" path="/depositUndo" scope="request"
+			type="com.pay.batch.depositundo.struts.action.DepositUndoAction">
+			<forward name="showDepositUndoList"
+				path="/jsppage/batch/depositundo/showDepositUndoList.jsp"></forward>
+			<forward name="queryDepositUndoList" path="/depositUndo.do?method=getDepositUndoList"></forward>
+			<forward name="showDepositUndoInfo" path="/jsppage/batch/depositundo/showDepositUndoInfo.jsp"></forward>
+			<forward name="batchDepositCancel" path="/jsppage/batch/depositundo/batchDepositCancel.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/opencard/submitinfo.jsp"></forward>
+				
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="batchDepositAutitSubmitInfo"
+				path="/jsppage/batch/depositaudit/batchDepositAutitSubmitInfo.jsp"></forward>
+		</action>
+		
+		<action attribute="redeembalForm" name="redeembalForm"
+			parameter="method" path="/redeembal" scope="request"
+			type="com.pay.batch.redeembal.struts.action.RedeembalAction">
+			<forward name="showRedeembalList"
+				path="/jsppage/batch/redeembal/showRedeembalList.jsp"></forward>
+			<forward name="queryRedeembalList" path="/redeembal.do?method=queryRedeembalList"></forward>
+			<forward name="showRedeembalInfo"
+				path="/jsppage/batch/redeembal/showRedeembalInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="submitinfo" path="/jsppage/batch/opencard/submitinfo.jsp"></forward>
+		</action>
+
+		<action attribute="salestlogForm" name="salestlogForm"
+			parameter="method" path="/salestlog" scope="request"
+			type="com.pay.batch.tlog.struts.action.SalestlogAction">
+			<forward name="showSalestlogList" path="/jsppage/batch/tlog/showSalestlogList.jsp"></forward>
+			<forward name="showSalestlogInfo.jsp" path="/jsppage/batch/tlog/showSalestlogInfo.jsp"></forward>
+			<forward name="querySalestlogList" path="/salestlog.do?method=querySalestlogList"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+
+		<action attribute="tlogForm" name="tlogForm" parameter="method"
+			path="/tlog" scope="request" type="com.pay.batch.tlog.struts.action.TlogAction">
+			<forward name="showTLogList" path="/jsppage/batch/tlog/showTLogList.jsp"></forward>
+			<forward name="showTLogList2" path="/jsppage/batch/tlog/showTLogList2.jsp"></forward>
+			<forward name="showTLogListCurrent" path="/jsppage/batch/tlog/showTLogListCurrent.jsp"></forward>
+			<forward name="showTLogListRollingPoor" path="/jsppage/batch/tlog/showTLogListRollingPoor.jsp"></forward>
+			<forward name="showTLogInfo" path="/jsppage/batch/tlog/showTLogInfo.jsp"></forward>
+			<forward name="queryTLogList" path="/tlog.do?method=queryTLogList"></forward>
+			<forward name="queryTLogListBak" path="/tlog.do?method=queryTLogListBak"></forward>
+			<forward name="result" path="/jsppage/common/result.jsp"></forward>
+		</action>
+
+		<!--增加商户信息 -->
+		<action attribute="merchantForm" name="merchantForm" parameter="method"
+			path="/merchant" scope="request"
+			type="com.pay.merchant.struts.action.MerchantAction">
+			<forward name="getMerchantList" path="/merchant.do?method=getMerchantList"></forward>
+			<forward name="merchantList" path="/jsppage/merchant/showMerchant.jsp"></forward>
+			<forward name="addmerchant.jsp" path="/jsppage/merchant/addmerchant.jsp"></forward>
+			<forward name="modifyMerchant.jsp" path="/jsppage/merchant/modifyMerchant.jsp"></forward>
+			<forward name="queryMerchantInfo.jsp" path="/jsppage/merchant/queryMerchantInfo.jsp"></forward>
+			<forward name="queryAgentList" path="/merchant.do?queryAgentList"></forward>
+			<forward name="modifyMrchTerminal.jsp" path="/jsppage/merchant/modifyMrchTerminal.jsp"></forward>
+			<forward name="allotMerOrg.jsp" path="/jsppage/feeCodeTable/allotMerOrg.jsp"></forward>
+			<forward name="allotSettlement_person.jsp" path="/jsppage/feeCodeTable/allotSettlement_person.jsp"></forward>
+			<forward name="allotMerchant_fenrunorg.jsp" path="/jsppage/feeCodeTable/allotMerchant_fenrunorg.jsp"></forward>
+			<forward name="detailMerchant.jsp" path="/jsppage/feeCodeTable/detailMerchant.jsp"></forward>
+			<forward name="detailFenrunMerchant.jsp" path="/jsppage/feeCodeTable/detailFenrunMerchant.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/resultAndFlushFather.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+
+		</action>
+		
+		<!--增加商户机构信息 -->
+		<action attribute="merchantOrgForm" name="merchantOrgForm" parameter="method"
+			path="/merchantOrg" scope="request"
+			type="com.pay.merchant.struts.action.MerchantOrgAction">
+			<forward name="getMerchantOrgList" path="/merchantOrg.do?method=getMerchantOrgList"></forward>
+			<forward name="merchantOrgList" path="/jsppage/feeCodeTable/showMerchantOrg.jsp"></forward>
+			<forward name="addMerchantOrg.jsp" path="/jsppage/feeCodeTable/addMerchantOrg.jsp"></forward>
+			<forward name="modifyMerchantOrg.jsp" path="/jsppage/feeCodeTable/modifyMerchantOrg.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/resultAndFlushFather.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		
+		<!--增加分润机构信息 -->
+		<action attribute="merchantFenrunOrgForm" name="merchantFenrunOrgForm" parameter="method"
+			path="/merchantFenrunOrg" scope="request"
+			type="com.pay.merchant.struts.action.MerchantFenrunOrgAction">
+			<forward name="getMerchantOrgList" path="/merchantOrg.do?method=getMerchantOrgList"></forward>
+			<forward name="merchantOrgList" path="/jsppage/feeCodeTable/showMerchantFenrunOrg.jsp"></forward>
+			<forward name="addMerchantOrg.jsp" path="/jsppage/feeCodeTable/addMerchantFenrunOrg.jsp"></forward>
+			<forward name="modifyMerchantOrg.jsp" path="/jsppage/feeCodeTable/modifyMerchantFenrunOrg.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/resultAndFlushFather.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		
+		<action attribute="mrch_acc_xForm" name="mrch_acc_xForm"
+			parameter="method" path="/mrchaccx" scope="request"
+			type="com.pay.merchant.struts.action.MerchantAction">
+			<forward name="getMrchaccxList" path="/mrchaccx.do?method=getMrchaccxList"></forward>
+			<forward name="mrchaccxList" path="/jsppage/merchant/showMrchaccx.jsp"></forward>
+			<forward name="addmrchaccx.jsp" path="/jsppage/merchant/addmrchaccx.jsp"></forward>
+			<forward name="modifyMrchaccx.jsp" path="/jsppage/merchant/modifyMrchaccx.jsp"></forward>
+			<forward name="queryMrchaccxInfo.jsp" path="/jsppage/merchant/queryMrchaccxInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/resultAndFlushFather.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+
+		</action>
+
+		<!--增加商户终端信息 -->
+		<action attribute="terminalForm" name="terminalForm" parameter="method"
+			path="/terminal" scope="request"
+			type="com.pay.terminal.struts.action.TerminalAction">
+			<forward name="addterminal.jsp" path="/jsppage/terminal/addterminal.jsp"></forward>
+			<forward name="getTerminalList" path="/terminal.do?method=getTerminalList"></forward>
+			<forward name="terminalList" path="/jsppage/terminal/showTerminal.jsp"></forward>
+			<forward name="queryAgentList" path="/terminal.do?queryAgentList"></forward>
+			<forward name="modifyterminal.jsp" path="/jsppage/terminal/modifyterminal.jsp"></forward>
+			<forward name="queryterminal.jsp" path="/jsppage/terminal/queryTerminal.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/resultAndFlushFather.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+
+		</action>
+		<!--银行和支行信息 -->
+		<action attribute="bankForm" name="bankForm" parameter="method"
+			path="/bank" scope="request" type="com.pay.bank.struts.action.TBankInfoAction">
+			<forward name="addTBankInfo" path="/jsppage/bank/addBank.jsp"></forward>
+			<forward name="toGetTBankInfoList" path="/bank.do?method=getTBankInfoList"></forward>
+			<forward name="showTBankInfoList" path="/jsppage/bank/showBankList.jsp"></forward>
+			<forward name="editTBankInfo" path="/jsppage/bank/editBank.jsp"></forward>
+			<forward name="showTBankInfo" path="/jsppage/bank/showBank.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+
+			<forward name="addTBranchInfo" path="/jsppage/bank/addBranch.jsp"></forward>
+			<forward name="toGetTBranchInfoList" path="/bank.do?method=getTBranchInfoList"></forward>
+			<forward name="showTBranchInfoList" path="/jsppage/bank/showBranchList.jsp"></forward>
+			<forward name="editTBranchInfo" path="/jsppage/bank/editBranch.jsp"></forward>
+			<forward name="showTBranchInfo" path="/jsppage/bank/showBranch.jsp"></forward>
+		</action>
+		<!-- 参数管理 -->
+		<action attribute="sysParameterForm" name="sysParameterForm"
+			parameter="method" path="/sysParameter" scope="request"
+			type="com.pay.sysParameter.struts.action.SysParameterAction">
+			<forward name="addSysParameter" path="/jsppage/sysParameter/addSysParameter.jsp"></forward>
+			<forward name="toGetSysParameterList" path="/sysParameter.do?method=getSysParameterList"></forward>
+			<forward name="showSysParameterList"
+				path="/jsppage/sysParameter/showSysParameterList.jsp"></forward>
+			<forward name="editSysParameter" path="/jsppage/sysParameter/editSysParameter.jsp"></forward>
+			<forward name="showSysParameter" path="/jsppage/sysParameter/showSysParameter.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<!-- 销售点开卡配置参数管理 -->
+		<action attribute="sysParameterForm" name="sysParameterForm"
+			parameter="method" path="/sysParameters" scope="request"
+			type="com.pay.sysParameter.struts.action.SysParameterActions">
+			<forward name="addSysParameters" path="/jsppage/sysParameter/addSysParameters.jsp"></forward>
+			<forward name="toGetSysParameterLists" path="/sysParameter.do?method=getSysParameterList"></forward>
+			<forward name="showSysParameterLists"
+				path="/jsppage/sysParameter/showSysParameterLists.jsp"></forward>
+			<!-- <forward name="editSysParameters" path="/jsppage/sysParameter/editSysParameters.jsp"></forward> -->
+			<forward name="showSysParameters" path="/jsppage/sysParameter/showSysParameters.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+
+		<!-- 用户卡产品映射管理 -->
+		<action attribute="userCrdproductForm" name="userCrdproductForm"
+			parameter="method" path="/userCrdproduct" scope="request"
+			type="com.pay.userCrdproduct.struts.action.UserCrdproductAction">
+			<forward name="addUserCrdproduct" path="/jsppage/userCrdproduct/addUserCrdproduct.jsp"></forward>
+			<forward name="toGetUserCrdproductList"
+				path="/UserCrdproduct.do?method=getUserCrdproductList"></forward>
+			<forward name="showUserCrdproductList"
+				path="/jsppage/userCrdproduct/showUserCrdproductList.jsp"></forward>
+			<forward name="editUserCrdproduct"
+				path="/jsppage/userCrdproduct/editUserCrdproduct.jsp"></forward>
+			<forward name="showUserCrdproduct"
+				path="/jsppage/userCrdproduct/showUserCrdproduct.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+
+		<!--信息查询 -->
+		<action attribute="cardForm" name="cardForm" parameter="method"
+			path="/queryCard" scope="request" type="com.pay.query.struts.action.QueryCard">
+			<forward name="cardList" path="/jsppage/query/showCardList.jsp"></forward>
+			<forward name="showCard" path="/jsppage/query/showCard.jsp"></forward>
+			<forward name="realCardList" path="/jsppage/query/showRealCardList.jsp"></forward>
+			<forward name="showRealCard" path="/jsppage/query/showRealCard.jsp"></forward>
+		</action>
+		<action attribute="acctForm" name="acctForm" parameter="method"
+			path="/queryAcct" scope="request" type="com.pay.query.struts.action.QueryAcct">
+			<forward name="acctList" path="/jsppage/query/showAcctList.jsp"></forward>
+			<forward name="showAcct" path="/jsppage/query/showAcct.jsp"></forward>
+		</action>
+		<action attribute="custForm" name="custForm" parameter="method"
+			path="/queryCust" scope="request" type="com.pay.query.struts.action.QueryCust">
+			<forward name="custList" path="/jsppage/query/showCustList.jsp"></forward>
+			<forward name="showCust" path="/jsppage/query/showCust.jsp"></forward>
+		</action>
+		<action attribute="lsForm" name="lsForm" parameter="method"
+			path="/queryLs" scope="request" type="com.pay.query.struts.action.QueryLs">
+			<forward name="lsList" path="/jsppage/query/showLsList.jsp"></forward>
+			<forward name="showLs" path="/jsppage/query/showLs.jsp"></forward>
+		</action>
+		<action attribute="recErrorForm" name="recErrorForm" parameter="method"
+			path="/queryRecError" scope="request"
+			type="com.pay.query.struts.action.QueryRecError">
+			<forward name="recErrorList" path="/jsppage/query/showRecErrorList.jsp"></forward>
+			<forward name="showRecError" path="/jsppage/query/showRecError.jsp"></forward>
+		</action>
+		
+		<!--中石化扫码刷卡统计 -->
+		<action attribute="sinopecSweepCardUploadForm" name="sinopecSweepCardUploadForm"
+			parameter="method" path="/querySinopecSweepCard" scope="request"
+			type="com.pay.batch.tlog.struts.action.QuerySinopecSweepCardAction"
+			validate="false">
+			<forward name="showSinopecSweepCardList"
+				path="/jsppage/batch/tlog/showSinopecSweepCard.jsp"></forward>
+		</action>
+		
+		
+		<!--商户信息统计mis-商户信息 -->
+		<action attribute="merchantInfoForm" name="merchantInfoForm"
+			parameter="method" path="/merchantInfo" scope="request"
+			type="com.pay.merInfoStatistics.struts.action.MerchantInfoAction">
+			<forward name="addMerchantInfo"
+				path="/jsppage/merInfoStatistics/addMerchantInfo.jsp"></forward>
+			<forward name="toGetMerchantInfoList" path="/merchantInfo.do?method=getMerchantInfoList"></forward>
+			<forward name="showMerchantInfoList"
+				path="/jsppage/merInfoStatistics/showMerchantInfoList.jsp"></forward>
+			<forward name="editMerchantInfo"
+				path="/jsppage/merInfoStatistics/editMerchantInfo.jsp"></forward>
+			<forward name="showMerchantInfo"
+				path="/jsppage/merInfoStatistics/showMerchantInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/resultAndFlushFather.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="modTerminalInfos"
+				path="/jsppage/merInfoStatistics/modTerminalInfos.jsp"></forward>
+		</action>
+		<action attribute="merchantInfoUploadForm" name="merchantInfoUploadForm"
+			parameter="method" path="/merchantInfoUpload" scope="request"
+			type="com.pay.merInfoStatistics.struts.action.MerchantInfoAction"
+			validate="false">
+		</action>
+
+		<!--终端信息统计mis-终端信息 -->
+		<action attribute="terminalInfoForm" name="terminalInfoForm"
+			parameter="method" path="/terminalInfo" scope="request"
+			type="com.pay.merInfoStatistics.struts.action.TerminalInfoAction">
+			<forward name="addTerminalInfo"
+				path="/jsppage/merInfoStatistics/addTerminalInfo.jsp"></forward>
+			<forward name="toGetTerminalInfoList" path="/terminalInfo.do?method=getTerminalInfoList"></forward>
+			<forward name="showTerminalInfoList"
+				path="/jsppage/merInfoStatistics/showTerminalInfoList.jsp"></forward>
+			<forward name="editTerminalInfo"
+				path="/jsppage/merInfoStatistics/editTerminalInfo.jsp"></forward>
+			<forward name="showTerminalInfo"
+				path="/jsppage/merInfoStatistics/showTerminalInfo.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+			<forward name="resultOfUpdate.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<!-- 商户信息统计mis-终端信息导入 -->
+		<action path="/terminalInfoUpload" name="TerminalInfoUploadForm"
+			type="com.pay.merInfoStatistics.struts.action.TerminalInfoAction"
+			scope="request" validate="false" parameter="method"
+			input="/jsppage/merInfoStatistics/showTerminalInfoList.jsp">
+		</action>
+	</action-mappings>
+	<message-resources parameter="com.pay.struts.ApplicationResources" />
+</struts-config>

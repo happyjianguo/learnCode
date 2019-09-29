@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.MerchantTranRecordMapper" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.MerchantTranRecord" >
+    <result column="FATHER_ORDER" property="orderCode" jdbcType="VARCHAR" />
+    <result column="PAN_START" property="panStart" jdbcType="VARCHAR" />
+    <result column="PAN_END" property="panEnd" jdbcType="VARCHAR" />
+    <result column="CARD_BIN" property="cardBin" jdbcType="VARCHAR" />
+    
+    <result column="MERCHANTNUMBER" property="merchantnumber" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONMONEY" property="transactionmoney" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+   FATHER_ORDER,PAN_START,PAN_END,MERCHANTNUMBER,TRANSACTIONDATE,TRANSACTIONMONEY 
+  </sql>
+  
+  <select id="queryCount" resultType="java.lang.Integer">
+	SELECT  COUNT(*)  FROM 
+    (SELECT T.FATHER_ORDER, T.PAN_START, T.PAN_END  
+    FROM OPENCRDBATCH@DBLINK_TO_FKCORE T WHERE 1=1 
+    <if test="orderCode != null and orderCode.trim().length() != 0">
+    	AND T.FATHER_ORDER = #{orderCode}
+    </if>   
+    <if test="panStart != null and panStart.trim().length() != 0">
+    	AND T.PAN_START = #{panStart}
+    </if> 
+    <if test="panEnd != null and panEnd.trim().length() != 0">
+    	AND T.PAN_END = #{panEnd}
+    </if> 
+    <if test="cardBin != null and cardBin.trim().length() != 0">
+    	AND substr(T.PAN_START,0,9) = #{cardBin}
+        AND substr(T.PAN_END,0,9) = #{cardBin}
+    </if> ) V1 
+    <!-- JOIN  (SELECT PAN FROM CRDDET@DBLINK_TO_FKCORE) V2 
+    ON V2.PAN BETWEEN CONCAT(V1.PAN_START,'0') AND CONCAT(V1.PAN_END,'9') --> 
+    JOIN (SELECT MERCHANTNUMBER,TRANSACTIONDATE,TRANSACTIONMONEY,CARDNUMBER 
+    FROM T_TRANSACTION_RECORDS_HIS WHERE 1=1 
+    <if test="merchantnumber != null and merchantnumber.trim().length() != 0">
+    	AND MERCHANTNUMBER = #{merchantnumber}
+    </if> 
+    <if test="transactiondateStart != null and transactiondateStart.trim().length() != 0">
+    	AND <![CDATA[ TRANSACTIONDATE >= #{transactiondateStart} ]]>
+    </if> 
+    <if test="transactiondateEnd != null and transactiondateEnd.trim().length() != 0">
+    	AND <![CDATA[ TRANSACTIONDATE <= #{transactiondateEnd} ]]>
+    </if> ) V3 ON V3.CARDNUMBER BETWEEN CONCAT(V1.PAN_START,'0') AND CONCAT(V1.PAN_END,'9') 
+  </select> 
+  
+  <select id="getList" parameterType="map" resultMap="BaseResultMap">
+	SELECT * FROM (
+	SELECT c.*, ROWNUM rn FROM(
+	SELECT 
+		<include refid="Base_Column_List"></include>
+	FROM (SELECT T.FATHER_ORDER, T.PAN_START, T.PAN_END  
+    FROM OPENCRDBATCH@DBLINK_TO_FKCORE T WHERE 1=1 
+    <if test="queryModel.orderCode != null and queryModel.orderCode.trim().length() != 0">
+    	AND T.FATHER_ORDER = #{queryModel.orderCode}
+    </if>   
+    <if test="queryModel.panStart != null and queryModel.panStart.trim().length() != 0">
+    	AND T.PAN_START = #{queryModel.panStart}
+    </if> 
+    <if test="queryModel.panEnd != null and queryModel.panEnd.trim().length() != 0">
+    	AND T.PAN_END = #{queryModel.panEnd}
+    </if> 
+    <if test="queryModel.cardBin != null and queryModel.cardBin.trim().length() != 0">
+    	AND SUBSTR(T.PAN_START,0,9) = #{queryModel.cardBin}
+        AND SUBSTR(T.PAN_END,0,9) = #{queryModel.cardBin}
+    </if> ) V1 
+    	<!-- JOIN  (SELECT PAN FROM CRDDET@DBLINK_TO_FKCORE) V2 
+    	ON V2.PAN BETWEEN CONCAT(V1.PAN_START,'0') AND CONCAT(V1.PAN_END,'9')  -->
+    	JOIN (SELECT MERCHANTNUMBER,TRANSACTIONDATE,TRANSACTIONMONEY,CARDNUMBER
+    	FROM T_TRANSACTION_RECORDS_HIS WHERE 1=1 
+    <if test="queryModel.merchantnumber != null and queryModel.merchantnumber.trim().length() != 0">
+    	AND MERCHANTNUMBER = #{queryModel.merchantnumber}
+    </if> 
+    <if test="queryModel.transactiondateStart != null and queryModel.transactiondateStart.trim().length() != 0">
+    	AND <![CDATA[ TRANSACTIONDATE >= #{queryModel.transactiondateStart} ]]>
+    </if> 
+    <if test="queryModel.transactiondateEnd != null and queryModel.transactiondateEnd.trim().length() != 0">
+    	AND <![CDATA[ TRANSACTIONDATE <= #{queryModel.transactiondateEnd} ]]>
+    </if> ) V3 ON V3.CARDNUMBER BETWEEN CONCAT(V1.PAN_START,'0') AND CONCAT(V1.PAN_END,'9') 
+    	ORDER BY V3.TRANSACTIONDATE DESC, V3.TRANSACTIONMONEY DESC ) c
+		WHERE <![CDATA[ ROWNUM <= #{endResult} ]]>)
+		WHERE rn &gt; #{startResult}
+  </select> 
+  
+  <select id="getExcelData" resultMap="BaseResultMap">
+	SELECT  
+  		<include refid="Base_Column_List"></include>
+  	FROM 
+    (SELECT T.FATHER_ORDER, T.PAN_START, T.PAN_END  
+    FROM OPENCRDBATCH@DBLINK_TO_FKCORE T WHERE 1=1 
+    <if test="orderCode != null and orderCode.trim().length() != 0">
+    	AND T.FATHER_ORDER = #{orderCode}
+    </if>   
+    <if test="panStart != null and panStart.trim().length() != 0">
+    	AND T.PAN_START = #{panStart}
+    </if> 
+    <if test="panEnd != null and panEnd.trim().length() != 0">
+    	AND T.PAN_END = #{panEnd}
+    </if> 
+    <if test="cardBin != null and cardBin.trim().length() != 0">
+    	AND substr(T.PAN_START,0,9) = #{cardBin}
+        AND substr(T.PAN_END,0,9) = #{cardBin}
+    </if> ) V1 
+        <!-- JOIN  (SELECT PAN FROM CRDDET@DBLINK_TO_FKCORE) V2 
+    	ON V2.PAN BETWEEN CONCAT(V1.PAN_START,'0') AND CONCAT(V1.PAN_END,'9')  -->
+    	JOIN (SELECT MERCHANTNUMBER,TRANSACTIONDATE,TRANSACTIONMONEY,CARDNUMBER 
+    	FROM T_TRANSACTION_RECORDS_HIS WHERE 1=1 
+    <if test="merchantnumber != null and merchantnumber.trim().length() != 0">
+    	AND MERCHANTNUMBER = #{merchantnumber}
+    </if> 
+    <if test="transactiondateStart != null and transactiondateStart.trim().length() != 0">
+    	AND <![CDATA[ TRANSACTIONDATE >= #{transactiondateStart} ]]>
+    </if> 
+    <if test="transactiondateEnd != null and transactiondateEnd.trim().length() != 0">
+    	AND <![CDATA[ TRANSACTIONDATE <= #{transactiondateEnd} ]]>
+    </if> ) V3 ON V3.CARDNUMBER BETWEEN CONCAT(V1.PAN_START,'0') AND CONCAT(V1.PAN_END,'9') 
+    	ORDER BY V3.TRANSACTIONDATE DESC, V3.TRANSACTIONMONEY DESC 
+  </select>
+  
+</mapper>

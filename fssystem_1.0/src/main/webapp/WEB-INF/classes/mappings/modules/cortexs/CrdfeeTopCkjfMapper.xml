@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdfeeTopCkjfDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.CrdfeeTopCkjf" >
+    <id column="TLOG_ID" property="tlogId" jdbcType="DECIMAL" />
+    <result column="ID" property="primayKey" jdbcType="VARCHAR" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="IID" property="iid" jdbcType="VARCHAR" />
+    <result column="ACCTYPE" property="acctype" jdbcType="VARCHAR" />
+    <result column="AMTTXN" property="amttxn" jdbcType="FLOAT" />
+    <result column="DATELOCAL" property="datelocal" jdbcType="VARCHAR" />
+    <result column="USEMONTH" property="usemonth" jdbcType="VARCHAR" />
+    <result column="EXPDATE" property="expdate" jdbcType="VARCHAR" />
+    <result column="ALREADYAMT" property="alreadyamt" jdbcType="FLOAT" />
+    <result column="EXPIREAMT" property="expireamt" jdbcType="FLOAT" />
+    <result column="LASTAMT" property="lastamt" jdbcType="FLOAT" />
+    <result column="FLAG" property="flag" jdbcType="VARCHAR" />
+    <result column="UPDATTIME" property="updattime" jdbcType="VARCHAR" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    TLOG_ID, to_char(ID) AS ID, PAN, IID, ACCTYPE, AMTTXN, DATELOCAL, USEMONTH, EXPDATE, ALREADYAMT, 
+    EXPIREAMT, LASTAMT, FLAG, UPDATTIME, RESERVED1, RESERVED3, RESERVED2
+  </sql>
+  
+  <sql id="Base_Order_By">
+  	ORDER BY TLOG_ID DESC, DATELOCAL DESC, ID DESC
+  </sql>
+  
+  <sql id="Base_Where_Condition">
+  	<where>
+  		<if test="pan != null and pan.trim().length() != 0">
+	    	AND PAN = #{pan}
+	    </if>
+	   	<if test="iid != null and iid.trim().length() != 0">
+	    	AND IID = #{iid}
+	    </if>
+	    <if test="begainTranDate != null and begainTranDate.trim().length() != 0">
+	    	AND <![CDATA[ DATELOCAL >= #{begainTranDate} ]]>
+	    </if>
+	    <if test="endTranDate != null and endTranDate.trim().length() != 0">
+	    	AND <![CDATA[ DATELOCAL <= #{endTranDate} ]]>
+	    </if>
+	    <if test="acctype != null and acctype.trim().length() != 0">
+	    	AND ACCTYPE = #{acctype}
+	    </if>
+  	</where>
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM CRDFEE_TOP_CKJF WHERE TLOG_ID = #{tlogId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT 	<include refid="Base_Column_List" />
+   	FROM CRDFEE_TOP_CKJF  <include refid="Base_Where_Condition" /> 
+    <include refid="Base_Order_By" />
+  </select>
+  
+  <delete id="delete">
+    DELETE FROM CRDFEE_TOP_CKJF WHERE TLOG_ID = #{tlogId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert">
+    INSERT INTO CRDFEE_TOP_CKJF (TLOG_ID, ID, PAN, 
+      IID, ACCTYPE, AMTTXN, 
+      DATELOCAL, USEMONTH, EXPDATE, 
+      ALREADYAMT, EXPIREAMT, LASTAMT, 
+      FLAG, UPDATTIME)
+    VALUES (#{tlogId,jdbcType=DECIMAL}, #{id,jdbcType=DECIMAL}, #{pan,jdbcType=VARCHAR}, 
+      #{iid,jdbcType=VARCHAR}, #{acctype,jdbcType=VARCHAR}, #{amttxn,jdbcType=FLOAT}, 
+      #{datelocal,jdbcType=VARCHAR}, #{usemonth,jdbcType=VARCHAR}, #{expdate,jdbcType=VARCHAR}, 
+      #{alreadyamt,jdbcType=FLOAT}, #{expireamt,jdbcType=FLOAT}, #{lastamt,jdbcType=FLOAT}, 
+      #{flag,jdbcType=VARCHAR}, #{updattime,jdbcType=VARCHAR} )
+  </insert>
+  
+  <update id="update" >
+    UPDATE CRDFEE_TOP_CKJF
+    SET ID = #{id,jdbcType=DECIMAL},
+      PAN = #{pan,jdbcType=VARCHAR},
+      IID = #{iid,jdbcType=VARCHAR},
+      ACCTYPE = #{acctype,jdbcType=VARCHAR},
+      AMTTXN = #{amttxn,jdbcType=FLOAT},
+      DATELOCAL = #{datelocal,jdbcType=VARCHAR},
+      USEMONTH = #{usemonth,jdbcType=VARCHAR},
+      EXPDATE = #{expdate,jdbcType=VARCHAR},
+      ALREADYAMT = #{alreadyamt,jdbcType=FLOAT},
+      EXPIREAMT = #{expireamt,jdbcType=FLOAT},
+      LASTAMT = #{lastamt,jdbcType=FLOAT},
+      FLAG = #{flag,jdbcType=VARCHAR},
+      UPDATTIME = #{updattime,jdbcType=VARCHAR}
+    WHERE TLOG_ID = #{tlogId,jdbcType=DECIMAL}
+  </update>
+</mapper>

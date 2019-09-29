@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.bak.dao.TermposXBakDao">
+    
+	<sql id="termposXColumns">
+		a.ID AS "id",
+		a.POS_TEL AS "posTel",
+	    a.BATCH_NO AS "batchNo",
+	    a.ADD_DATE AS "addDate",
+	    a.LOCATION AS "location",
+	    a.STATE AS "state",
+	    a.CITY_NO AS "cityNo",
+	    a.PROVINCE AS "province",
+	    a.ZONE AS "zone",
+	    a.SETTLE_MRCH_ACC_ID AS "settleMrchAccId",
+	    a.TERMCODE AS "termcode",
+	    a.TIMEZONE AS "timezone",
+	    a.INST_ID AS "instId",
+	    a.MRCHNO AS "mrchno",
+	    a.TERM_STAT AS "termStat"
+	</sql>
+	
+	<sql id="termposXJoins">
+	</sql>
+    
+	<select id="get" resultType="TermposXBak">
+		SELECT 
+			<include refid="termposXColumns"/>
+		FROM TERMPOS_X a
+		<include refid="termposXJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getOneData" resultType="TermposXBak">
+		SELECT 
+			<include refid="termposXColumns"/>
+		FROM TERMPOS_X a
+		<include refid="termposXJoins"/>
+		<where>
+			<if test="termcode != null and termcode.trim().length() != 0">
+				AND a.termcode = #{termcode}
+			</if>
+			<if test="timezone != null and timezone.trim().length() != 0">
+				AND a.timezone = #{timezone}
+			</if>
+			<if test="mrchno != null and mrchno.trim().length() != 0">
+				AND a.mrchno = #{mrchno}
+			</if>
+		</where>
+		
+	</select>
+	
+	<select id="findList" resultType="TermposXBak">
+		SELECT 
+			<include refid="termposXColumns"/>
+		FROM TERMPOS_X a
+		<include refid="termposXJoins"/>
+		<where>
+			<if test="termcode != null and termcode.trim().length() != 0">
+				AND a.termcode = #{termcode}
+			</if>
+			<if test="timezone != null and timezone.trim().length() != 0">
+				AND a.timezone = #{timezone}
+			</if>
+			<if test="mrchno != null and mrchno.trim().length() != 0">
+				AND a.mrchno = #{mrchno}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="TermposXBak">
+		SELECT 
+			<include refid="termposXColumns"/>
+		FROM TERMPOS_X a
+		<include refid="termposXJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+</mapper>

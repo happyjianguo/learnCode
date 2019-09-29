@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- 规则管理  -->
+	<bean id="ruleManagerLogic" class="cn.yufu.posp.ruleManager.domain.logic.RuleManagerLogic" />
+	<bean id="stlmReguLogic" class="cn.yufu.posp.ruleManager.domain.logic.StlmReguLogic" />
+	<bean id="AnalyzeMerclearBookLogic" class="cn.yufu.posp.bookManager.domain.logic.AnalyzeMerclearBookLogic" />
+	<bean id="AnalyzeMerfeeBookLogic" class="cn.yufu.posp.bookManager.domain.logic.AnalyzeMerfeeBookLogic" />
+	<bean id="AnalyzeMerstlBookLogic" class="cn.yufu.posp.bookManager.domain.logic.AnalyzeMerstlBookLogic" />
+	<bean id="AnalyzeCupcheckBookLogic" class="cn.yufu.posp.bookManager.domain.logic.AnalyzeCupcheckBookLogic" />
+	<bean id="AnalyzeCupcheckErrLogic" class="cn.yufu.posp.bookManager.domain.logic.AnalyzeCupcheckErrLogic" />
+	<bean id="AnalyzeCupcheckOkLogic" class="cn.yufu.posp.bookManager.domain.logic.AnalyzeCupcheckOkLogic" />
+	<bean id="AnalyzeCupcheckStaticsLogic" class="cn.yufu.posp.bookManager.domain.logic.AnalyzeCupcheckStaticsLogic" />
+</beans>

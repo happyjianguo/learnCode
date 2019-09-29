@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.TlogDao">
+    
+	<sql id="tlogColumns">
+		a.id AS "id",		
+		a.pan AS "pan",
+		a.crdacptid AS "crdacptid",
+		a.termcode AS "termcode",
+		a.datelocal AS "datelocal",
+		a.timelocal AS "timelocal",
+		a.txnsrc AS "txnsrc",
+		a.fncode AS "fncode",
+		a.txnstatus AS "txnstatus",
+		a.amttxn AS "amttxn",
+		a.amttax AS "amttax",
+		a.crdproduct AS "crdproduct",
+		a.txncode AS "txncode",
+		a.sub_txncode AS "subTxncode"
+	</sql>
+	
+	<select id="findSum" resultType="Tlog">
+		SELECT 	sum(a.amttxn * b.amt_flag) AS "amttxn",
+				sum(a.amttax * b.amt_flag) AS "amttax"		
+		FROM tlog a left join t_tran_type b
+    		on a.fncode || a.txncode || a.sub_txncode = b.id 
+    		left join opencrdbatch o 
+    		on SUBSTR(a.pan,0,15) between o.pan_start and o.pan_end
+		<where>			
+			<if test="rrn != null and rrn != ''">
+				AND a.rrn = #{rrn}
+			</if>
+			<if test="pan != null and pan != ''">
+				AND a.pan = #{pan}
+			</if>
+			<if test="crdacptid != null and crdacptid != ''">
+				AND a.crdacptid = #{crdacptid}
+			</if>
+			<if test="termcode != null and termcode != ''">
+				AND a.termcode = #{termcode}
+			</if>
+			<if test="beginDatelocal != null and beginDatelocal != ''">
+				AND a.datelocal >= to_date(#{beginDatelocal},'yyyyMMdd')
+			</if>
+			<if test="endDatelocal != null and endDatelocal != ''">
+				AND <![CDATA[ a.datelocal <= to_date(#{endDatelocal},'yyyyMMdd') ]]> 
+			</if>			
+			<if test="txnstatus != null and txnstatus != ''">
+				AND a.txnstatus = #{txnstatus}
+			</if>
+			<if test="txnsrc != null and txnsrc != ''">
+				AND a.txnsrc = #{txnsrc}
+			</if>			
+			<if test="amttxn != null and amttxn != ''">
+				AND a.amttxn = #{amttxn}
+			</if>
+			<if test="txnType != null and txnType != ''">
+				AND a.fncode||a.txncode||a.sub_txncode = #{txnType}
+			</if>
+			<if test="1==1">
+				AND a.fncode||a.txncode||a.sub_txncode in
+					(select id from t_tran_type  where show_flag = '1')	
+			</if>					
+		</where>
+	</select>	
+	
+	
+	<sql id="tlogJoins">
+	</sql>
+    
+	<select id="get" resultType="Tlog">
+		SELECT 
+			<include refid="tlogColumns"/>
+		FROM tlog a
+		<include refid="tlogJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Tlog">
+		SELECT 
+			a.id AS "id",		
+			a.pan AS "pan",
+			a.crdacptid AS "crdacptid",
+			a.termcode AS "termcode",
+			a.datelocal AS "datelocal",
+			a.timelocal AS "timelocal",
+			a.txnsrc AS "txnsrc",
+			a.fncode AS "fncode",
+			a.txnstatus AS "txnstatus",
+			a.amttxn*b.amt_flag AS "amttxn",
+			a.amttax*b.amt_flag AS "amttax",
+			a.crdproduct AS "crdproduct",
+			a.txncode AS "txncode",
+			a.sub_txncode AS "subTxncode",
+			b.id AS "txnType",
+			b.tran_type_desc AS "txnTypeDesc",
+			o.amt_each_crd AS "amtEachCrd",
+			o.father_order AS "fatherOrder",
+			o.time AS "time",
+			o.sales_point AS "salesPoint",
+			o.payer_name AS "payerName"
+		FROM tlog a left join t_tran_type b
+    		on a.fncode || a.txncode || a.sub_txncode = b.id 
+    		left join opencrdbatch o 
+    		on SUBSTR(a.pan,0,15) between o.pan_start and o.pan_end
+ 		<where>			
+			<if test="rrn != null and rrn != ''">
+				AND a.rrn = #{rrn}
+			</if>
+			<if test="pan != null and pan != ''">
+				AND a.pan = #{pan}
+			</if>
+			<if test="crdacptid != null and crdacptid != ''">
+				AND a.crdacptid = #{crdacptid}
+			</if>
+			<if test="termcode != null and termcode != ''">
+				AND a.termcode = #{termcode}
+			</if>
+			<if test="beginDatelocal != null and beginDatelocal != ''">
+				AND a.datelocal >= to_date(#{beginDatelocal},'yyyyMMdd')
+			</if>
+			<if test="endDatelocal != null and endDatelocal != ''">
+				AND <![CDATA[ a.datelocal <= to_date(#{endDatelocal},'yyyyMMdd') ]]> 
+			</if>			
+			<if test="txnstatus != null and txnstatus != ''">
+				AND a.txnstatus = #{txnstatus}
+			</if>
+			<if test="txnsrc != null and txnsrc != ''">
+				AND a.txnsrc = #{txnsrc}
+			</if>			
+			<if test="amttxn != null and amttxn != ''">
+				AND a.amttxn = #{amttxn}
+			</if>
+			<if test="txnType != null and txnType != ''">
+				AND a.fncode||a.txncode||a.sub_txncode = #{txnType}
+			</if>
+			<if test="1==1">
+				AND a.fncode||a.txncode||a.sub_txncode in
+					(select id from t_tran_type  where show_flag = '1')	
+			</if>					
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findExportList" resultType="Tlog">
+		SELECT 
+			a.id AS "id",		
+			a.pan AS "pan",
+			a.crdacptid AS "crdacptid",
+			a.termcode AS "termcode",
+			a.datelocal AS "datelocal",
+			a.timelocal AS "timelocal",
+			a.txnsrc AS "txnsrc",
+			a.fncode AS "fncode",
+			a.txnstatus AS "txnstatus",
+			a.amttxn*b.amt_flag AS "amttxn",
+			a.amttax*b.amt_flag AS "amttax",
+			a.crdproduct AS "crdproduct",
+			a.txncode AS "txncode",
+			a.sub_txncode AS "subTxncode",
+			b.id AS "txnType",
+			b.tran_type_desc AS "txnTypeDesc",
+			o.amt_each_crd AS "amtEachCrd",
+			o.father_order AS "fatherOrder",
+			o.time AS "time",
+			o.sales_point AS "salesPoint",
+			o.payer_name AS "payerName"
+		FROM tlog a left join t_tran_type b
+    		on a.fncode || a.txncode || a.sub_txncode = b.id 
+    		left join opencrdbatch o 
+    		on SUBSTR(a.pan,0,15) between o.pan_start and o.pan_end
+ 		<where>			
+			<if test="rrn != null and rrn != ''">
+				AND a.rrn = #{rrn}
+			</if>
+			<if test="pan != null and pan != ''">
+				AND a.pan = #{pan}
+			</if>
+			<if test="crdacptid != null and crdacptid != ''">
+				AND a.crdacptid = #{crdacptid}
+			</if>
+			<if test="termcode != null and termcode != ''">
+				AND a.termcode = #{termcode}
+			</if>
+			<if test="beginDatelocal != null and beginDatelocal != ''">
+				AND a.datelocal >= to_date(#{beginDatelocal},'yyyyMMdd')
+			</if>
+			<if test="endDatelocal != null and endDatelocal != ''">
+				AND <![CDATA[ a.datelocal <= to_date(#{endDatelocal},'yyyyMMdd') ]]> 
+			</if>			
+			<if test="txnstatus != null and txnstatus != ''">
+				AND a.txnstatus = #{txnstatus}
+			</if>
+			<if test="txnsrc != null and txnsrc != ''">
+				AND a.txnsrc = #{txnsrc}
+			</if>			
+			<if test="amttxn != null and amttxn != ''">
+				AND a.amttxn = #{amttxn}
+			</if>
+			<if test="txnType != null and txnType != ''">
+				AND a.fncode||a.txncode||a.sub_txncode = #{txnType}
+			</if>
+			<if test="1==1">
+				AND a.fncode||a.txncode||a.sub_txncode in
+					(select id from t_tran_type  where show_flag = '1')	
+			</if>					
+		</where>
+	</select>
+
+</mapper>

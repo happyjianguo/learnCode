@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- JNDI 数据源配置 -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+	<!-- <property name="jndiName" value="java:comp/env/jdbc/mysql/beijin1"/> -->
+	<!-- </bean> -->
+
+	<!-- Tomcat JDBC Connection Pool 数据源配置 -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+		<property name="poolProperties">
+			<bean class="org.apache.tomcat.jdbc.pool.PoolProperties">
+				<!-- JDBC 驱动 -->
+				<property name="driverClassName" value="${jdbc.driverClassName}" />
+				<!-- JDBC URL -->
+				<property name="url" value="${jdbc.url}" />
+				<!-- 用户名 -->
+				<property name="username" value="${jdbc.username}" />
+				<!-- 密码 -->
+				<property name="password" value="${jdbc.password}" />
+				<!-- 是否将连接池注册到JMX -->
+				<property name="jmxEnabled" value="true" />
+				<!-- 指明连接是否被空闲连接回收器( 如果有) 进行检验. 如果检测失败, 则连接将被从池中去除 -->
+				<property name="testWhileIdle" value="true" />
+				<!-- 指明是否在从池中取出连接前进行检验, 如果检验失败, 则从池中去除连接并尝试取出另一个 -->
+				<property name="testOnBorrow" value="true" />
+				<!-- 指明是否在归还到池中前进行检验 -->
+				<property name="testOnReturn" value="false" />
+				<!-- 避免过度验证，保证验证不超过这个频率——以毫秒为单位 -->
+				<property name="validationInterval" value="30000" />
+				<!-- SQL 查询, 用来验证从连接池取出的连接 -->
+				<property name="validationQuery" value="SELECT 1 FROM DUAL" />
+				<!-- 在空闲连接回收器线程运行期间休眠的时间值, 以毫秒为单位 -->
+				<property name="timeBetweenEvictionRunsMillis" value="30000" />
+				<!-- 最大活动连接, 如果设置为非正数则表示不限制 100-->
+				<property name="maxActive" value="5" />
+				<!-- 初始化连接: 连接池启动时创建的初始化连接数量 10-->
+				<property name="initialSize" value="1" />
+				<!-- 当没有可用连接时, 连接池等待连接被归还的最大时间(毫秒), 超过时间则抛出异常, 如果设置为-1 表示无限等待 -->
+				<property name="maxWait" value="10000" />
+				<!-- 连接在池中保持空闲而不被空闲连接回收器线程( 如果有) 回收的最小时间值，单位毫秒 -->
+				<property name="minEvictableIdleTimeMillis" value="30000" />
+				<!-- 最小空闲连接: 连接池中容许保持空闲状态的最小连接数量 10-->
+				<property name="minIdle" value="1" />
+				<property name="maxIdle" value="2" />
+				<!-- 标记当Statement 或连接被泄露时是否打印程序的stack traces 日志 -->
+				<property name="logAbandoned" value="false" />
+				<!-- 标记是否删除泄露的连接, 如果他们超过了removeAbandonedTimout 的限制 -->
+				<property name="removeAbandoned" value="true" />
+				<!-- 泄露的连接可以被删除的超时值, 单位秒 -->
+				<property name="removeAbandonedTimeout" value="300" />
+				<!-- jdbc拦截器——jdbc-pool的高级扩展属性 -->
+				<property name="jdbcInterceptors"
+					value="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis 设置文件 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<!-- 自动匹配Mapper映射文件 -->
+		<property name="mapperLocations" value="classpath:mappers/*Mapper.xml" />
+		<!-- 要映射类的包路径，如果使用了这种方式，则configLocation中不必再进行声明 -->
+		<property name="typeAliasesPackage" value="com.jansh.core.entity.sys,cn.com.jansh.entity" />
+	</bean>
+
+	<!-- 通过扫描的模式，扫描目录所有的mapper接口 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.jansh.core.mapper,cn.com.jansh.mapper" />
+	</bean>
+
+	<!-- 配置事务管理器，注意这里的dataSource和SqlSessionFactoryBean的dataSource要一致，不然事务就没有作用了 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="transactionManagerAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 参与事务的类 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="interceptorPointCuts" expression="execution(public * cn.com.jansh.service..*.*(..)) and !@annotation(com.jansh.core.annotation.NoTransactional)"/>
+		<aop:advisor pointcut-ref="interceptorPointCuts" advice-ref="transactionManagerAdvice" />
+	</aop:config>
+</beans>

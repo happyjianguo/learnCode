@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c{1} - %m%n" />
+		</layout>
+	</appender>
+
+	
+	
+	<root name="rootLogger"> <level value="ALL" /> 
+		<appender-ref ref="stdout" /> 
+	</root>
+	
+
+	<!--
+		=================================================================
+	-->
+	<!-- a rolling file appender -->
+	<!--
+		=================================================================
+
+
+		<appender name="webappender"
+		class="org.apache.log4j.RollingFileAppender"> <param name="File"
+		value="SDPlatform/web.log" /> <param name="Append" value="false" /> <layout
+		class="org.apache.log4j.PatternLayout"> <param
+		name="ConversionPattern" value="%d [%t] %p - %m%n" /> </layout>
+		</appender> <appender name="logicappender"
+		class="org.apache.log4j.RollingFileAppender"> <param name="File"
+		value="SDPlatform/logic.log" /> <param name="Append" value="false" />
+		<layout class="org.apache.log4j.PatternLayout"> <param
+		name="ConversionPattern" value="%d [%t] %p - %m%n" /> </layout>
+		</appender> <appender name="daoappender"
+		class="org.apache.log4j.RollingFileAppender"> <param name="File"
+		value="SDPlatform/dao.log" /> <param name="Append" value="true" /> <layout
+		class="org.apache.log4j.PatternLayout"> <param
+		name="ConversionPattern" value="%d [%t] %p - %m%n" /> </layout>
+		</appender> <appender name="exceptionappender"
+		class="org.apache.log4j.RollingFileAppender"> <param name="File"
+		value="SDPlatform/exception.log" /> <param name="Append" value="false" />
+		<layout class="org.apache.log4j.PatternLayout"> <param
+		name="ConversionPattern" value="%d [%t] %p - %m%n" /> </layout>
+		</appender> <appender name="debugAppender"
+		class="org.apache.log4j.ConsoleAppender"> <param name="Target"
+		value="SDPlatform/System.out" /> <param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout"> <param
+		name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+		</layout> </appender>
+	-->
+
+
+	
+	<!-- 用户 -->
+	<appender name="userAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/user.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+	<!-- 机构 -->
+	<appender name="jgAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/jg.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 终端TPDU信息  -->
+	<appender name="edcTpduAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/edcTpdu.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 终端受理卡类  -->
+	<appender name="edcCardAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/edcCard.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 终端转换  -->
+	<appender name="edcSwitchAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/edcSwitch.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 终端基本资料  -->
+	<appender name="edcTerminalAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/edcTerminal.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 终端机管理共用 -->
+	<appender name="edcCommonAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/edcCommon.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 卡账户管理 -->
+	<appender name="cardAcctAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/cardAcct.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 其他参数管理 -->
+	<appender name="sysParameterAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/sysParameter.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="bankInfoAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/bankInfo.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="cardTypeAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/cardType.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ruleAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/rule.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="keyAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/key.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+	<appender name="operLogAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/operLog.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="routeAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/route.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="merchantAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/merchant.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="sysparamAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/sysparam.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="sysAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/sys.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="queryAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/query.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %p - %m%n" />
+		</layout>
+	</appender>
+
+
+	<!--
+		use this to turn on debug to a rolling file. <logger name="web"
+		additivity="true"> <level value="debug" /> <appender-ref
+		ref="webappender" /> <appender-ref ref="stdout" /> </logger> <logger
+		name="logic" additivity="true"> <level value="debug" /> <appender-ref
+		ref="logicappender" /> <appender-ref ref="stdout" /> </logger> <logger
+		name="dao" additivity="true"> <level value="debug" /> <appender-ref
+		ref="stdout" /> <appender-ref ref="daoappender" /> </logger> <logger
+		name="exception" additivity="true"> <level value="debug" />
+		<appender-ref ref="exceptionappender" /> <appender-ref ref="stdout" />
+		</logger> <logger name="debug" additivity="true"> <level value="debug"
+		/> <appender-ref ref="debugAppender" /> <appender-ref ref="stdout" />
+		</logger>
+	-->
+
+	<!-- 用户模块Logger -->
+	<logger name="user" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="userAppender" />
+	</logger>
+	<!-- 机构Logger -->
+	<logger name="jg" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="jgAppender" />
+	</logger>
+	<!--  终端TPDU信息Logger -->
+	<logger name="edcTpdu" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="edcTpduAppender" />
+	</logger>
+	<!--  终端受理卡类Logger -->
+	<logger name="edcCard" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="edcCardAppender" />
+	</logger>
+	<!--  终端转换Logger -->
+	<logger name="edcSwitch" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="edcSwitchAppender" />
+	</logger>
+	<!--  终端基本资料Logger -->
+	<logger name="edcTerminal" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="edcTerminalAppender" />
+	</logger>
+	<!--  终端管理共用Logger -->
+	<logger name="edcCommon" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="edcCommonAppender" />
+	</logger>
+	<!--  卡账户管理Logger -->
+	<logger name="cardAcct" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="cardAcctAppender" />
+	</logger>
+	<!--  其他参数管理Logger -->
+	<logger name="sysParameter" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="sysParameterAppender" />
+	</logger>
+	<!--  其他参数管理Logger -->
+	<logger name="query" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="queryAppender" />
+	</logger>
+
+	<logger name="bankInfo" additivity="true">
+		<level value="error" />
+		<appender-ref ref="bankInfoAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="cardType" additivity="true">
+		<level value="error" />
+		<appender-ref ref="cardTypeAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="route" additivity="true">
+		<level value="error" />
+		<appender-ref ref="routeAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="merchant" additivity="true">
+		<level value="error" />
+		<appender-ref ref="merchantAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="sysparam" additivity="true">
+		<level value="error" />
+		<appender-ref ref="sysparamAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="sys" additivity="true">
+		<level value="error" />
+		<appender-ref ref="sysAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="rule" additivity="true">
+		<level value="error" />
+		<appender-ref ref="ruleAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="key" additivity="true">
+		<level value="error" />
+		<appender-ref ref="keyAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+	<logger name="operLog" additivity="true">
+		<level value="error" />
+		<appender-ref ref="operLogAppender" />
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<logger name="cn.yufu.posp.queryManager" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+	</logger>
+	<logger name="org.springframework" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+	</logger>
+	<logger name="org.hibernate" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout" />
+	</logger>
+<!--	<root>-->
+<!--		<level value="error" />-->
+<!--		<appender-ref ref="stdout" />-->
+<!--	</root>-->
+
+</log4j:configuration>

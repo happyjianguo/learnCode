@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.IWXBUserMapper">
+	<sql id="columns">OPENID,APPID,NICKNAME,SEX,CITY,COUNTRY,PROVINCE,LANGUAGE,HEADIMGURL,SUBSCRIBETIME,UNIONID,REMARK,GROUPID,SUBSCRIPTTYPE,UPDATETIME,CREATETIME
+	</sql>
+	<select id="getUserInfoByOpenId" parameterType="String" resultType="WXBUser">
+		SELECT
+		u.OPENID,u.APPID,u.NICKNAME,u.SEX,u.CITY,u.COUNTRY,u.PROVINCE,u.LANGUAGE,u.HEADIMGURL,u.SUBSCRIBETIME,u.UNIONID,u.REMARK,u.GROUPID,u.SUBSCRIPTTYPE,u.UPDATETIME,u.CREATETIME,
+		  g.groupName
+		FROM
+		WXBUSER u INNER JOIN WXBGROUP g ON
+		u.GROUPID=g.GROUPID  WHERE u.OPENID=#{openId}
+		AND u.SUBSCRIPTTYPE = '1'
+	</select>
+	<select id="queryUserByUserName" parameterType="String" resultType="WXBUser">
+		SELECT
+		  u.OPENID,u.APPID,u.NICKNAME,u.SEX,u.CITY,u.COUNTRY,u.PROVINCE,u.LANGUAGE,u.HEADIMGURL,u.SUBSCRIBETIME,u.UNIONID,u.REMARK,u.GROUPID,u.SUBSCRIPTTYPE,u.UPDATETIME,u.CREATETIME,
+		  g.groupName
+		FROM
+		WXBUSER u INNER JOIN WXBGROUP g ON
+		u.GROUPID=g.GROUPID  where u.APPID=#{appid}
+			AND u.SUBSCRIPTTYPE = '1'
+		<if test="nickName!=null and ''!=nickName">
+		<![CDATA[
+			AND u.NICKNAME LIKE CONCAT(CONCAT('%',#{nickName}),'%')
+		]]>
+		</if>
+
+		<if test="openId!=null and ''!=openId">
+		<![CDATA[
+			AND u.OPENID =#{openId}
+		]]>
+		</if>
+
+		<if
+			test="startDate!=null and ''!=startDate and endDate!=null and ''!=endDate">
+		<![CDATA[
+			AND u.CREATETIME >= #{startDate} and u.CREATETIME < #{endDate}
+        ]]>
+		</if>
+	</select>
+	<select id="queryUserListByGroupId" parameterType="String" resultType="WXBUser">
+		SELECT
+		u.OPENID,u.APPID,u.NICKNAME,u.SEX,u.CITY,u.COUNTRY,u.PROVINCE,u.LANGUAGE,u.HEADIMGURL,u.SUBSCRIBETIME,u.UNIONID,u.REMARK,u.GROUPID,u.SUBSCRIPTTYPE,u.UPDATETIME,u.CREATETIME,
+		  g.groupName
+		FROM
+		WXBUSER u INNER JOIN WXBGROUP g ON
+		u.GROUPID=g.GROUPID  WHERE u.APPID=#{appid} AND u.GROUPID=#{groupId}
+			AND u.SUBSCRIPTTYPE = '1'
+		<if test="''!=nickName and nickName!=null">
+			AND u.NICKNAME LIKE CONCAT(CONCAT('%',#{nickName}),'%')
+		</if>
+		<if test="openId!=null and ''!=openId">
+		<![CDATA[
+			AND u.OPENID =#{openId}
+		]]>
+		</if>
+		<if
+			test="startDate!=null and ''!=startDate and endDate!=null and ''!=endDate">
+        <![CDATA[
+            and u.CREATETIME >= #{startDate} and u.CREATETIME <#{endDate}
+        ]]>
+		</if>
+	</select>
+	<select id="getUserListBySubtype" parameterType="String"
+		resultType="WXBUser">
+		SELECT * FROM WXBUSER u INNER JOIN WXBGROUP g ON
+		u.GROUPID=g.GROUPID WHERE
+		u.APPID=#{appid} AND
+		SUBSCRIPTTYPE='1'
+	</select>
+	<select id="getUserListBySubtypeandAppid" parameterType="String"
+		resultType="WXBUser">
+		SELECT * FROM WXBUSER u  WHERE
+		u.APPID=#{appid} AND
+		SUBSCRIPTTYPE='1' 
+		<![CDATA[
+		and u.CREATETIME >= #{startDate} and u.CREATETIME <#{endDate}
+		]]>
+	</select>
+	<update id="modifyUserListGroupId" parameterType="Map">
+		UPDATE
+		WXBUSER
+		<set>
+			GROUPID = #{toGroupId}
+		</set>
+		WHERE OPENID IN
+		<foreach collection="userLst" index="userLst" item="ent"
+			separator="," open="(" close=")">
+			#{ent}
+		</foreach>
+	</update>
+	<update id="setDefaultGroupId" parameterType="String">
+		UPDATE WXBUSER SET
+		GROUPID = '0' WHERE groupId=#{groupId} AND
+		APPID=#{appid}
+	</update>
+</mapper>

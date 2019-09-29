@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CAccountLogDao">
+    
+	<sql id="cAccountLogColumns">
+		m.tranType AS "tranType",
+		m.pan AS "pan",	
+		m.accno AS "accno",
+		m.amtFlag As "amtFlag",
+		m.transferAmt AS "transferAmt",
+		m.beforeAvlbal AS "beforeAvlbal",
+		m.avlbal AS "avlbal",
+		m.comments AS "comments",
+		m.updateLogDate AS "updateLogDate",
+		m.updateLogTime AS "updateLogTime",
+		m.updateOper AS "updateOper",
+		m.ip AS "ip"
+	</sql>
+	
+	<sql id="cAccountLogJoins">
+	</sql>
+    
+	<select id="get" resultType="CAccountLog">
+		SELECT 
+			<include refid="cAccountLogColumns"/>
+		FROM C_ACCOUNT_LOG  m   
+		<include refid="cAccountLogJoins"/>
+		WHERE 
+				m.pan = #{pan}
+	</select>
+	
+	<select id="findList" resultType="CAccountLog">
+		SELECT 
+			m.tranType AS "tranType",
+			m.pan AS "pan",	
+			m.accno AS "accno",
+			m.amtFlag As "amtFlag",
+			m.transferAmt AS "transferAmt",
+			m.beforeAvlbal AS "beforeAvlbal",
+			m.avlbal AS "avlbal",
+			m.comments AS "comments",
+			m.updateOper AS "updateOper",
+			m.ip AS "ip",
+			m.updateLogDate AS "updateLogDate",
+			m.updateLogTime AS "updateLogTime"
+		FROM C_ACCOUNT_LOG  m 
+		<where>
+			<if test="pan != null and pan != ''">
+				m.pan = #{pan}
+			</if>
+			<if test="pan == null or pan == ''">
+				 m.pan = ''
+			</if>
+			
+					
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="CAccountLog">
+		SELECT 
+			m.tranType AS "tranType",
+			m.pan AS "pan",	
+			m.accno AS "accno",
+			m.amtFlag As "amtFlag",
+			m.transferAmt AS "transferAmt",
+			m.beforeAvlbal AS "beforeAvlbal",
+			m.avlbal AS "avlbal",
+			m.comments AS "comments",
+			m.updateOper AS "updateOper",
+			m.ip AS "ip",
+			m.updateLogDate AS "updateLogDate",
+			m.updateLogTime AS "updateLogTime"
+		FROM C_ACCOUNT_LOG  m  
+		<where>
+			<if test="pan != null and pan != ''">
+				m.pan = #{pan}
+			</if>
+			<if test="pan == null or pan == ''">
+				 m.pan = ''
+			</if>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<insert id="insert">
+		INSERT INTO C_ACCOUNT_LOG(
+			tranType,
+			pan,	
+			accno,
+			amtFlag,
+			transferAmt,
+			beforeAvlbal,
+			avlbal,
+			comments,
+			updateOper,
+			ip,
+			updateLogDate,
+			updateLogTime
+		) VALUES (
+			#{tranType},
+			#{pan},
+			#{accno},
+			#{amtFlag},
+			#{transferAmt},
+			#{beforeAvlbal},
+			#{avlbal},
+			#{comments},
+			#{updateOper},
+			#{ip},
+			#{updateLogDate},
+			#{updateLogTime}
+		)
+	</insert>
+	
+	
+	
+</mapper>

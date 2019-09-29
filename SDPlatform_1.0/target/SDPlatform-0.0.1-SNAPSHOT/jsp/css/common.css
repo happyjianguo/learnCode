@@ -1,0 +1,56 @@
+    /*
+        this define the page common CSS style
+        @ user     RIC
+        @ version  0.9
+        @ company  SRIT
+     */
+	 
+	 /* ============================================
+	    A L L  K I N D S  O F  F O N T  S T Y L E
+	    ============================================ */     
+     .default-input-tip-font
+     {
+		font-size: 10pt; font-family:"Arial";
+		font-weight: bold;
+		color:#EEEEEE;
+     }
+     .default-message-font
+     {
+     	font-size: 9pt; font-family:"Arial";
+     	font-weight: bold;
+     	color:BLUE;
+     }
+     
+     /* ============================================
+        B U T T O N   S T Y L E      
+        ============================================ */
+     .default-submit-button {
+ 			BORDER-RIGHT: #7b9ebd 1px solid;
+ 		 	PADDING-RIGHT: 2px;
+ 		  	BORDER-TOP: #7b9ebd 1px solid; 
+ 		  	PADDING-LEFT: 2px; 
+ 		  	FONT-SIZE: 12px; 
+ 		  	FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#cecfde); 
+ 		  	BORDER-LEFT: #7b9ebd 1px solid; 
+ 		  	CURSOR: hand; COLOR: black; 
+ 		  	PADDING-TOP: 2px; 
+ 		  	BORDER-BOTTOM: #7b9ebd 1px solid
+	 }
+	 
+	 /* ============================================
+	   	I N P U T   T E X T   T Y P E   S T Y L E 
+	    ============================================ */
+	 input.default-input-text
+	 {
+	 	width:170px;
+	 }
+	
+	 /* ============================================
+	    S E L E C T  O P T I O N   S T Y L E   
+	    ============================================  */
+	 select 
+	 {
+       display: block;
+       width: 250px;
+     }
+}

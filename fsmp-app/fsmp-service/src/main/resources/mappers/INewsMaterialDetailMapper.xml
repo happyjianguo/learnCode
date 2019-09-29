@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.mapper.weixin.INewsMaterialDetailMapper">
+	<sql id="columns">DETAILID,MATERIALID,WXD_MATERIALID,MATERIALTITLE,THUMBMEDIAID,
+		THUMBMEDIAURL,DETAILSORT,AUTHOR,DIGEST,SHOWCOVERPIC,CONTENT,CONTENTSOURCEURL
+		,CREATETIME,UPDATETIME
+	</sql>
+	<insert id="saveNewsMaterialDetail" parameterType="java.util.List">
+		insert into WXDNEWSMATERIALDETAIL
+		(DETAILID,MATERIALID,WXD_MATERIALID,MATERIALTITLE,THUMBMEDIAID,
+		THUMBMEDIAURL,DETAILSORT,AUTHOR,DIGEST,SHOWCOVERPIC,CONTENT,CONTENTSOURCEURL
+		,CREATETIME,UPDATETIME)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.detailId},#{item.materialId},#{item.wxd_materialId},#{item.materialTitle}
+			,#{item.thumbMediaId},#{item.thumbMediaUrl},#{item.detailSort}
+			,#{item.author},#{item.digest},#{item.showCoverPic}
+			,#{item.content},#{item.contentSourceUrl},#{item.createTime},#{item.updateTime})
+		</foreach>
+	</insert>
+	<insert id="addNewsMaterialDetail" parameterType="NewsMaterialDetai">
+		insert into WXDNEWSMATERIALDETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="detailId != null">
+				DETAILID,
+			</if>
+			<if test="materialId != null">
+				MATERIALID,
+			</if>
+			<if test="wxd_materialId != null">
+				WXD_MATERIALID,
+			</if>
+			<if test="materialTitle != null">
+				MATERIALTITLE,
+			</if>
+			<if test="thumbMediaId != null">
+				THUMBMEDIAID,
+			</if>
+			<if test="thumbMediaUrl != null">
+				THUMBMEDIAURL,
+			</if>
+			<if test="detailSort != null">
+				DETAILSORT,
+			</if>
+			<if test="author != null">
+				AUTHOR,
+			</if>
+			<if test="digest != null">
+				DIGEST,
+			</if>
+			<if test="showCoverPic != null">
+				SHOWCOVERPIC,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="contentSourceUrl != null">
+				CONTENTSOURCEURL,
+			</if>
+			<if test="createTime != null">
+				CREATETIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="detailId != null">
+				#{detailId,jdbcType=VARCHAR},
+			</if>
+			<if test="materialId != null">
+				#{materialId,jdbcType=VARCHAR},
+			</if>
+			<if test="wxd_materialId != null">
+				#{wxd_materialId,jdbcType=VARCHAR},
+			</if>
+			<if test="materialTitle != null">
+				#{materialTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="thumbMediaId != null">
+				#{thumbMediaId,jdbcType=VARCHAR},
+			</if>
+			<if test="thumbMediaUrl != null">
+				#{thumbMediaUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="detailSort != null">
+				#{detailSort,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=VARCHAR},
+			</if>
+			<if test="digest != null">
+				#{digest,jdbcType=VARCHAR},
+			</if>
+			<if test="showCoverPic != null">
+				#{showCoverPic,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="contentSourceUrl != null">
+				#{contentSourceUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="getDetailByMaterialId" parameterType="String"
+		resultType="NewsMaterialDetai">
+		select
+		<include refid="columns"></include>
+		from WXDNEWSMATERIALDETAIL WHERE
+		MATERIALID=#{materialId}
+	</select>
+	<delete id="delNewsMaterialDetail" parameterType="Map">
+		DELETE FROM
+		WXDMEDIAMATERIAL WHERE MATERIALID=#{materialId}
+	</delete>
+	<select id="findAll" resultType="NewsMaterialDetai">
+		select
+		<include refid="columns"></include>
+		from
+		WXDNEWSMATERIALDETAIL
+	</select>
+	<update id="updateNewsMaterialDetail" parameterType="NewsMaterialDetai">
+		UPDATE
+		WXDNEWSMATERIALDETAIL
+		<set>
+			<if test="detailId != null">
+				DETAILID = #{detailId},
+			</if>
+			<if test="materialId != null">
+				MATERIALID = #{materialId},
+			</if>
+			<if test="wxd_materialId != null">
+				WXD_MATERIALID = #{wxd_materialId},
+			</if>
+			<if test="materialTitle != null">
+				MATERIALTITLE = #{materialTitle},
+			</if>
+			<if test="thumbMediaId != null">
+				THUMBMEDIAID = #{thumbMediaId},
+			</if>
+			<if test="thumbMediaUrl != null">
+				THUMBMEDIAURL = #{thumbMediaUrl},
+			</if>
+			<if test="detailSort != null">
+				DETAILSORT = #{detailSort},
+			</if>
+			<if test="author != null">
+				AUTHOR = #{author},
+			</if>
+			<if test="digest != null">
+				DIGEST = #{digest},
+			</if>
+			<if test="showCoverPic != null">
+				SHOWCOVERPIC = #{showCoverPic},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+			<if test="contentSourceUrl != null">
+				CONTENTSOURCEURL = #{contentSourceUrl},
+			</if>
+			<if test="createTime != null">
+				CREATETIME = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME = #{updateTime},
+			</if>
+		</set>
+		where DETAILID = #{detailId}
+	</update>
+	<delete id="deleteNewsMaterialDetail" parameterType="String">
+		DELETE FROM
+		WXDNEWSMATERIALDETAIL WHERE MATERIALID=#{materialId}
+	</delete>
+	<select id="queryDetailByMaterialId" parameterType="String"
+		resultType="NewsMaterialDetai">
+		select
+		<include refid="columns"></include>
+		from WXDNEWSMATERIALDETAIL WHERE
+		MATERIALID=#{materialId}
+	</select>
+
+	<select id="queryDetailByMediaUrl" parameterType="String"
+		resultType="NewsMaterialDetai">
+		select
+		<include refid="columns"></include>
+		from WXDNEWSMATERIALDETAIL WHERE
+		THUMBMEDIAURL=#{thumbMediaUrl}
+	</select>
+	
+
+	<select id="queryNewsDetailBydetailId" parameterType="String"
+		resultType="NewsMaterialDetai">
+		select * from WXDNEWSMATERIALDETAIL WHERE
+		DETAILID=#{detailId}
+	</select>
+</mapper>

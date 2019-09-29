@@ -1,0 +1,129 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.7.0
+*/
+/* basic skin styles */
+.yui-skin-sam .yui-dt table {
+    margin:5px 0px 0px 5px;
+    font-family:arial;font-size:inherit;
+    border-collapse:separate;*border-collapse:collapse;border-spacing:0; /* since ie6 and ie7 behave differently */
+    border:1px solid #75DE7D;
+	jerry:expression(cellSpacing="1");
+    width:100%;
+    height:100%
+	color: #000;
+}
+/***************** 开始  *****************/
+
+.yui-skin-sam .yui-dt thead {
+	border-spacing:1;
+} /* for safari bug */
+
+
+
+.yui-skin-sam .yui-dt th {
+    background:#D8D8DA url(../../images/menu_bg.gif)   ; /* header gradient */
+	border:1px solid #75DE7D;
+}
+
+.yui-skin-sam .yui-dt th,
+.yui-skin-sam .yui-dt th {
+    margin:0;padding:0;
+    border:1px solid #75DE7D;
+    border-right:0px solid #CBCBCB;/*  inner column border */
+}
+
+.yui-skin-sam .yui-dt th a {
+    font-weight:bold;text-decoration:none;color:#000; /* header text */
+    vertical-align:bottom;	
+    padding:2px 4px 2px 3px;
+	font-size:13px;
+	font-family:"宋体";
+	align:center;
+	white-space:nowrap;
+}
+
+.yui-skin-sam .yui-dt td {
+    margin:0;
+    padding:4px 4px 4px 8px;
+	cursor: pointer;
+	*cursor: hand;
+    text-align:left;
+    border:1px solid #75DE7D;
+}
+.yui-dt tr {
+	height: 4px;
+	overflow-y: hidden;
+	border:1px solid #75DE7D;
+}
+
+.yui-skin-sam .yui-dt tr.yui-dt-first td {
+    border-top:1px solid #7F7F7F;  /* tbody top border  */
+}
+
+.yui-skin-sam .yui-dt th .yui-dt-liner {
+    white-space:nowrap;
+}
+/***************** 结束  *****************/
+
+/* striping */
+.yui-skin-sam tr.yui-dt-even { background-color:#F7FDF8; } /* row1 */
+.yui-skin-sam tr.yui-dt-odd { background-color:#E0F3D2; } /* row2 */
+.yui-skin-sam tr.yui-dt-even td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-even td.yui-dt-desc { background-color:#EDF5FF; } /* light blue sorted */
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-desc { background-color:#DBEAFF; } /* dark blue sorted */
+
+
+
+/* 排序列 */
+.yui-skin-sam th.yui-dt-sortable .yui-dt-label {
+    margin-right:10px;
+}
+.yui-skin-sam th.yui-dt-asc .yui-dt-liner {
+    background:url(dt-arrow-up.png) no-repeat right; /* sorted header gradient */
+}
+.yui-skin-sam th.yui-dt-desc .yui-dt-liner {
+    background:url(dt-arrow-dn.png) no-repeat right; /* sorted header gradient */
+}
+
+
+
+/* selection */
+.yui-skin-sam th.yui-dt-selected,
+.yui-skin-sam th.yui-dt-selected a {
+    background-color:#446CD7; /* bright blue selected cell */
+}
+.yui-skin-sam tr.yui-dt-selected td,
+.yui-skin-sam tr.yui-dt-selected td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-selected td.yui-dt-desc {
+    background-color:#8FBC8F; /* bright blue selected row */
+    color:#FFF;
+}
+.yui-skin-sam tr.yui-dt-even td.yui-dt-selected,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-selected {
+    background-color:#446CD7; /* bright blue selected cell */
+    color:#FFF;
+}
+
+/* 鼠标移动行选中 */
+.yui-skin-sam th.yui-dt-highlighted,
+.yui-skin-sam th.yui-dt-highlighted a {
+    background-color:#B2D2FF; /* med blue hover */
+}
+.yui-skin-sam tr.yui-dt-highlighted,
+.yui-skin-sam tr.yui-dt-highlighted td.yui-dt-asc,
+.yui-skin-sam tr.yui-dt-highlighted td.yui-dt-desc,
+.yui-skin-sam tr.yui-dt-even td.yui-dt-highlighted,
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-highlighted {
+    cursor:pointer;
+    background-color:#B2D2FF; /* med blue hover */
+}
+
+
+
+
+
+

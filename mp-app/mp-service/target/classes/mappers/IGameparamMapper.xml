@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "cn.com.jansh.mapper.game.IGameparamMapper">
+	<!-- 页面初始化查询所有数据 -->
+	<select id="getGameNameAndCode" parameterType="Map" resultType="CloudgameparamEntity" >
+		SELECT
+				GAMEID,
+				GAMENAME
+		FROM
+				CLOUDGAMEPARAM
+		WHERE 	1=1
+				AND APPID = #{appid}
+				AND CHANNEL = #{channel}
+				AND STATUS = #{status}
+		ORDER BY UPDATETIME DESC
+	</select>
+	<!-- 页面初始化查询所有数据 -->
+	<select id="getGameNameAndCodeByOrgid" parameterType="Map" resultType="CloudgameparamEntity" >
+		SELECT
+				GAMEID,
+				GAMENAME
+		FROM
+				CLOUDGAMEPARAM
+		WHERE 	1=1
+				AND ORGID = #{orgid}
+				AND CHANNEL = #{channel}
+				AND STATUS = #{status}
+		ORDER BY UPDATETIME DESC
+	</select>
+	<!-- 页面初始化查询所有数据 -->
+	<select id="getGameByGameid" parameterType="Map" resultType="CloudgameparamEntity" >
+		SELECT
+				GAMEID,
+				GAMETYPE,
+				CHANNEL
+		FROM
+				CLOUDGAMEPARAM
+		WHERE 	1=1
+				AND GAMEID = #{gameid}
+	</select>
+	
+</mapper>
+	

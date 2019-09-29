@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.WankeCridetOnAccountBookMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.WankeCridetOnAccountBook" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MER_NO" property="merNo" jdbcType="VARCHAR" />
+    <result column="MER_NAME" property="merName" jdbcType="VARCHAR" />
+    <result column="TER_NO" property="terNo" jdbcType="VARCHAR" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="CARD_TYPE" property="cardType" jdbcType="VARCHAR" />
+    <result column="CREDET_DATE" property="credetDate" jdbcType="VARCHAR" />
+    <result column="CREDET_TIME" property="credetTime" jdbcType="VARCHAR" />
+    <result column="CREDIT_AMT" property="creditAmt" jdbcType="DECIMAL" />
+    <result column="REPAY_AMT" property="repayAmt" jdbcType="DECIMAL" />
+    <result column="REPAY_DATE" property="repayDate" jdbcType="VARCHAR" />
+    <result column="REPAY_TIME" property="repayTime" jdbcType="VARCHAR" />
+    <result column="DEBT_AMT" property="debtAmt" jdbcType="DECIMAL" />
+    <result column="IC_SALE_CODEID" property="icSaleCodeid" jdbcType="VARCHAR" />
+    <result column="IC_SALE_CODE" property="icSaleCode" jdbcType="VARCHAR" />
+    <result column="IC_SALE_NAME" property="icSaleName" jdbcType="VARCHAR" />
+    <result column="IC_ITEM_CODEID" property="icItemCodeid" jdbcType="VARCHAR" />
+    <result column="IC_ITEM_CODE" property="icItemCode" jdbcType="VARCHAR" />
+    <result column="IC_ITEM_NAME" property="icItemName" jdbcType="VARCHAR" />
+    <result column="CARD_OWNER" property="cardOwner" jdbcType="VARCHAR" />
+    <result column="TELPHONE" property="telphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MER_NO, MER_NAME, TER_NO, PAN, CARD_TYPE, CREDET_DATE, CREDET_TIME, CREDIT_AMT, 
+    REPAY_AMT, REPAY_DATE, REPAY_TIME, DEBT_AMT, IC_SALE_CODEID, IC_SALE_CODE, IC_SALE_NAME, 
+    IC_ITEM_CODEID, IC_ITEM_CODE, IC_ITEM_NAME, CARD_OWNER, TELPHONE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.fs.entity.WankeCridetOnAccountBookExample" >
+    select
+    <if test="example.distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.fs.entity.WankeCridetOnAccountBookExample" >
+    delete from T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.fs.entity.WankeCridetOnAccountBook" >
+    insert into T_WANKE_CRIDET_ON_ACCOUNT_BOOK (ID, MER_NO, MER_NAME, 
+      TER_NO, PAN, CARD_TYPE, 
+      CREDET_DATE, CREDET_TIME, CREDIT_AMT, 
+      REPAY_AMT, REPAY_DATE, REPAY_TIME, 
+      DEBT_AMT, IC_SALE_CODEID, IC_SALE_CODE, 
+      IC_SALE_NAME, IC_ITEM_CODEID, IC_ITEM_CODE, 
+      IC_ITEM_NAME, CARD_OWNER, 
+      TELPHONE)
+    values (#{id,jdbcType=VARCHAR}, #{merNo,jdbcType=VARCHAR}, #{merName,jdbcType=VARCHAR}, 
+      #{terNo,jdbcType=VARCHAR}, #{pan,jdbcType=VARCHAR}, #{cardType,jdbcType=VARCHAR}, 
+      #{credetDate,jdbcType=VARCHAR}, #{credetTime,jdbcType=VARCHAR}, #{creditAmt,jdbcType=DECIMAL}, 
+      #{repayAmt,jdbcType=DECIMAL}, #{repayDate,jdbcType=VARCHAR}, #{repayTime,jdbcType=VARCHAR}, 
+      #{debtAmt,jdbcType=DECIMAL}, #{icSaleCodeid,jdbcType=VARCHAR}, #{icSaleCode,jdbcType=VARCHAR}, 
+      #{icSaleName,jdbcType=VARCHAR}, #{icItemCodeid,jdbcType=VARCHAR}, #{icItemCode,jdbcType=VARCHAR}, 
+      #{icItemName,jdbcType=VARCHAR}, #{cardOwner,jdbcType=VARCHAR}, 
+      #{telphone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.fs.entity.WankeCridetOnAccountBook" >
+    insert into T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="merNo != null" >
+        MER_NO,
+      </if>
+      <if test="merName != null" >
+        MER_NAME,
+      </if>
+      <if test="terNo != null" >
+        TER_NO,
+      </if>
+      <if test="pan != null" >
+        PAN,
+      </if>
+      <if test="cardType != null" >
+        CARD_TYPE,
+      </if>
+      <if test="credetDate != null" >
+        CREDET_DATE,
+      </if>
+      <if test="credetTime != null" >
+        CREDET_TIME,
+      </if>
+      <if test="creditAmt != null" >
+        CREDIT_AMT,
+      </if>
+      <if test="repayAmt != null" >
+        REPAY_AMT,
+      </if>
+      <if test="repayDate != null" >
+        REPAY_DATE,
+      </if>
+      <if test="repayTime != null" >
+        REPAY_TIME,
+      </if>
+      <if test="debtAmt != null" >
+        DEBT_AMT,
+      </if>
+      <if test="icSaleCodeid != null" >
+        IC_SALE_CODEID,
+      </if>
+      <if test="icSaleCode != null" >
+        IC_SALE_CODE,
+      </if>
+      <if test="icSaleName != null" >
+        IC_SALE_NAME,
+      </if>
+      <if test="icItemCodeid != null" >
+        IC_ITEM_CODEID,
+      </if>
+      <if test="icItemCode != null" >
+        IC_ITEM_CODE,
+      </if>
+      <if test="icItemName != null" >
+        IC_ITEM_NAME,
+      </if>
+     
+      <if test="cardOwner != null" >
+        CARD_OWNER,
+      </if>
+      <if test="telphone != null" >
+        TELPHONE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="merNo != null" >
+        #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merName != null" >
+        #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="terNo != null" >
+        #{terNo,jdbcType=VARCHAR},
+      </if>
+      <if test="pan != null" >
+        #{pan,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="credetDate != null" >
+        #{credetDate,jdbcType=VARCHAR},
+      </if>
+      <if test="credetTime != null" >
+        #{credetTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creditAmt != null" >
+        #{creditAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="repayAmt != null" >
+        #{repayAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="repayDate != null" >
+        #{repayDate,jdbcType=VARCHAR},
+      </if>
+      <if test="repayTime != null" >
+        #{repayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="debtAmt != null" >
+        #{debtAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="icSaleCodeid != null" >
+        #{icSaleCodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="icSaleCode != null" >
+        #{icSaleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="icSaleName != null" >
+        #{icSaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="icItemCodeid != null" >
+        #{icItemCodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="icItemCode != null" >
+        #{icItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="icItemName != null" >
+        #{icItemName,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="cardOwner != null" >
+        #{cardOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.fs.entity.WankeCridetOnAccountBookExample" resultType="java.lang.Integer" >
+    select count(*) from T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merNo != null" >
+        MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merName != null" >
+        MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terNo != null" >
+        TER_NO = #{record.terNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pan != null" >
+        PAN = #{record.pan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardType != null" >
+        CARD_TYPE = #{record.cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credetDate != null" >
+        CREDET_DATE = #{record.credetDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credetTime != null" >
+        CREDET_TIME = #{record.credetTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditAmt != null" >
+        CREDIT_AMT = #{record.creditAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repayAmt != null" >
+        REPAY_AMT = #{record.repayAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repayDate != null" >
+        REPAY_DATE = #{record.repayDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayTime != null" >
+        REPAY_TIME = #{record.repayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debtAmt != null" >
+        DEBT_AMT = #{record.debtAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.icSaleCodeid != null" >
+        IC_SALE_CODEID = #{record.icSaleCodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icSaleCode != null" >
+        IC_SALE_CODE = #{record.icSaleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icSaleName != null" >
+        IC_SALE_NAME = #{record.icSaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icItemCodeid != null" >
+        IC_ITEM_CODEID = #{record.icItemCodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icItemCode != null" >
+        IC_ITEM_CODE = #{record.icItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icItemName != null" >
+        IC_ITEM_NAME = #{record.icItemName,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="record.cardOwner != null" >
+        CARD_OWNER = #{record.cardOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telphone != null" >
+        TELPHONE = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    set ID = #{record.id,jdbcType=VARCHAR},
+      MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      TER_NO = #{record.terNo,jdbcType=VARCHAR},
+      PAN = #{record.pan,jdbcType=VARCHAR},
+      CARD_TYPE = #{record.cardType,jdbcType=VARCHAR},
+      CREDET_DATE = #{record.credetDate,jdbcType=VARCHAR},
+      CREDET_TIME = #{record.credetTime,jdbcType=VARCHAR},
+      CREDIT_AMT = #{record.creditAmt,jdbcType=DECIMAL},
+      REPAY_AMT = #{record.repayAmt,jdbcType=DECIMAL},
+      REPAY_DATE = #{record.repayDate,jdbcType=VARCHAR},
+      REPAY_TIME = #{record.repayTime,jdbcType=VARCHAR},
+      DEBT_AMT = #{record.debtAmt,jdbcType=DECIMAL},
+      IC_SALE_CODEID = #{record.icSaleCodeid,jdbcType=VARCHAR},
+      IC_SALE_CODE = #{record.icSaleCode,jdbcType=VARCHAR},
+      IC_SALE_NAME = #{record.icSaleName,jdbcType=VARCHAR},
+      IC_ITEM_CODEID = #{record.icItemCodeid,jdbcType=VARCHAR},
+      IC_ITEM_CODE = #{record.icItemCode,jdbcType=VARCHAR},
+      IC_ITEM_NAME = #{record.icItemName,jdbcType=VARCHAR},
+      CARD_OWNER = #{record.cardOwner,jdbcType=VARCHAR},
+      TELPHONE = #{record.telphone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.fs.entity.WankeCridetOnAccountBook" >
+    update T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    <set >
+      <if test="merNo != null" >
+        MER_NO = #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merName != null" >
+        MER_NAME = #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="terNo != null" >
+        TER_NO = #{terNo,jdbcType=VARCHAR},
+      </if>
+      <if test="pan != null" >
+        PAN = #{pan,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        CARD_TYPE = #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="credetDate != null" >
+        CREDET_DATE = #{credetDate,jdbcType=VARCHAR},
+      </if>
+      <if test="credetTime != null" >
+        CREDET_TIME = #{credetTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creditAmt != null" >
+        CREDIT_AMT = #{creditAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="repayAmt != null" >
+        REPAY_AMT = #{repayAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="repayDate != null" >
+        REPAY_DATE = #{repayDate,jdbcType=VARCHAR},
+      </if>
+      <if test="repayTime != null" >
+        REPAY_TIME = #{repayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="debtAmt != null" >
+        DEBT_AMT = #{debtAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="icSaleCodeid != null" >
+        IC_SALE_CODEID = #{icSaleCodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="icSaleCode != null" >
+        IC_SALE_CODE = #{icSaleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="icSaleName != null" >
+        IC_SALE_NAME = #{icSaleName,jdbcType=VARCHAR},
+      </if>
+      <if test="icItemCodeid != null" >
+        IC_ITEM_CODEID = #{icItemCodeid,jdbcType=VARCHAR},
+      </if>
+      <if test="icItemCode != null" >
+        IC_ITEM_CODE = #{icItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="icItemName != null" >
+        IC_ITEM_NAME = #{icItemName,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="cardOwner != null" >
+        CARD_OWNER = #{cardOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        TELPHONE = #{telphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.fs.entity.WankeCridetOnAccountBook" >
+    update T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+    set MER_NO = #{merNo,jdbcType=VARCHAR},
+      MER_NAME = #{merName,jdbcType=VARCHAR},
+      TER_NO = #{terNo,jdbcType=VARCHAR},
+      PAN = #{pan,jdbcType=VARCHAR},
+      CARD_TYPE = #{cardType,jdbcType=VARCHAR},
+      CREDET_DATE = #{credetDate,jdbcType=VARCHAR},
+      CREDET_TIME = #{credetTime,jdbcType=VARCHAR},
+      CREDIT_AMT = #{creditAmt,jdbcType=DECIMAL},
+      REPAY_AMT = #{repayAmt,jdbcType=DECIMAL},
+      REPAY_DATE = #{repayDate,jdbcType=VARCHAR},
+      REPAY_TIME = #{repayTime,jdbcType=VARCHAR},
+      DEBT_AMT = #{debtAmt,jdbcType=DECIMAL},
+      IC_SALE_CODEID = #{icSaleCodeid,jdbcType=VARCHAR},
+      IC_SALE_CODE = #{icSaleCode,jdbcType=VARCHAR},
+      IC_SALE_NAME = #{icSaleName,jdbcType=VARCHAR},
+      IC_ITEM_CODEID = #{icItemCodeid,jdbcType=VARCHAR},
+      IC_ITEM_CODE = #{icItemCode,jdbcType=VARCHAR},
+      IC_ITEM_NAME = #{icItemName,jdbcType=VARCHAR},
+      CARD_OWNER = #{cardOwner,jdbcType=VARCHAR},
+      TELPHONE = #{telphone,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+			SELECT a.*, ROWNUM rn FROM(
+				select
+				<if test="example.distinct">
+					distinct
+				</if>
+				<include refid="Base_Column_List" />
+				from T_WANKE_CRIDET_ON_ACCOUNT_BOOK
+				<if test="_parameter != null">
+					<include refid="Example_Where_Clause" />
+				</if>
+				<if test="example.orderByClause != null">
+					order by ${example.orderByClause}
+				</if>) a
+			WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn > ${startResult}
+	</select>
+</mapper>

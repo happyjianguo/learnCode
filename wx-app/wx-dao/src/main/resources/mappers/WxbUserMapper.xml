@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.dao.mapper.WxbUserMapper">
+  	  <select id="selectByWxbUser" parameterType="WxbUser"  resultType="WxbUser" >
+				SELECT
+				    OPENID,NICKNAME
+				FROM
+				    WXBUSER w
+				WHERE
+				 	 w.OPENID = #{openid} and w.SUBSCRIPTTYPE=#{subscripttype}
+		</select>
+		
+		<insert id="insertWxbUser" parameterType="WxbUser">
+			INSERT INTO 
+				WXBUSER(OPENID,APPID,SUBSCRIBETIME,SUBSCRIPTTYPE,CREATETIME,UPDATETIME) 
+			VALUES 
+				(#{openid},#{appid},#{subScribeTime},#{subscripttype},#{createtime},#{updatetime})
+		</insert>
+		
+		<update id="updateType" parameterType="WxbUser">
+			UPDATE
+				 WXBUSER 
+			<set> 
+		    	<if test="subScribeTime != null">
+		    		SUBSCRIBETIME = #{subScribeTime},
+		    	</if>   
+		        <if test="subscripttype != null">    
+		            SUBSCRIPTTYPE = #{subscripttype},    
+		        </if>    
+		        <if test="updatetime != null">    
+		            UPDATETIME = #{updatetime}  
+		        </if> 
+		    </set> 
+			WHERE OPENID= #{openid}
+		</update>
+		<update id="updateWxbUser" parameterType="WxbUser">
+			UPDATE
+			    WXBUSER 
+			SET  
+				NICKNAME = #{nickname},
+				SEX = #{sex},
+				CITY = #{city},
+				COUNTRY = #{country},
+				PROVINCE = #{province},
+				LANGUAGE = #{language},
+				HEADIMGURL = #{headimgurl},
+				SUBSCRIPTTYPE=#{subscripttype},
+				UNIONID = #{unionid},
+				REMARK = #{remark},
+				GROUPID = #{groupid}
+		    WHERE 
+		    	OPENID = #{openid}
+		</update>
+
+</mapper>

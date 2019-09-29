@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.bak.dao.ViewTLogRealTimeMapper">
+
+  <resultMap id="BaseResultMap" type="cn.yufu.bak.entity.ViewTLogRealTime">
+    <result column="MERCHANTNUMBER" property="merchantnumber" jdbcType="VARCHAR" />
+    <result column="MERCHANTNAME" property="merchantName" jdbcType="VARCHAR" />
+    <result column="TERMINALNUMBER" property="terminalnumber" jdbcType="VARCHAR" />
+    <result column="TERMINALLOCATION" property="terminallocation" jdbcType="VARCHAR" />
+    <result column="CARDNUMBER" property="cardnumber" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONMONEY" property="transactionmoney" jdbcType="DECIMAL" />
+    <result column="SERIALNUMBER" property="serialnumber" jdbcType="DECIMAL" />
+    <result column="LOTNO" property="lotno" jdbcType="CHAR" />
+    <result column="REFERENCENUMBER" property="referencenumber" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONDATE" property="transactiondate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONTIME" property="transactiontime" jdbcType="VARCHAR" />
+    <result column="KIND_ID" property="kindId" jdbcType="VARCHAR" />
+    <result column="DATASOURCE" property="datasource" jdbcType="CHAR" />
+    <result column="TLOGID" property="tlogid" jdbcType="VARCHAR" />
+    <result column="CONSUMETYPE" property="consumetype" jdbcType="VARCHAR" />
+    <result column="AMTTXN" property="amttxn" jdbcType="DECIMAL" />
+    <result column="TRAN_TYPE_DESC" property="tranTypeDesc" jdbcType="VARCHAR" />
+    
+    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+  	<result column="ORG_ORDER_ID" property="orgOrderId" jdbcType="VARCHAR" />
+    <result column="CASH_SOURCE" property="cashSource" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MERCHANTNUMBER,	MERCHANTNAME, TERMINALNUMBER, TERMINALLOCATION, CARDNUMBER, 
+    TRANSACTIONMONEY, SERIALNUMBER, LOTNO, REFERENCENUMBER, TRANSACTIONDATE, 
+    lpad(TRANSACTIONTIME,6,'0') AS TRANSACTIONTIME, KIND_ID, DATASOURCE, TLOGID, 
+    CONSUMETYPE, AMTTXN, TRAN_TYPE_DESC, ORDER_ID, ORG_ORDER_ID, CASH_SOURCE
+  </sql>
+  
+  <sql id="Base_Table_Where_Condition" >
+	<where>
+  		<if test="model.merchantnumber != null and model.merchantnumber.trim().length() != 0">
+			AND MERCHANTNUMBER = #{model.merchantnumber} 
+		</if> 
+		<if test="model.terminalnumber != null and model.terminalnumber.trim().length() != 0">
+			AND TERMINALNUMBER = #{model.terminalnumber} 
+		</if>
+		<if test="model.cardnumber != null and model.cardnumber.trim().length() != 0">
+			AND CARDNUMBER = #{model.cardnumber} 
+		</if>
+		<if test="model.begainPan != null and model.begainPan.trim().length() != 0">
+			AND SUBSTR(CARDNUMBER, 0, 15) BETWEEN SUBSTR(#{model.begainPan}, 0, 15) 
+			AND SUBSTR(#{model.endPan}, 0, 15)
+		</if>
+		<if test="model.kindId != null and model.kindId.trim().length() != 0">
+			AND KIND_ID = #{model.kindId} 
+		</if>
+		<if test="model.consumetype != null and model.consumetype.trim().length() != 0">
+			AND CONSUMETYPE = #{model.consumetype} 
+		</if>
+  		<if test="model.begainTrueName != null and model.begainTrueName.trim().length() != 0">
+	  		AND <![CDATA[ TRANSACTIONDATE >= #{model.begainTrueName} ]]>
+	  	</if>
+	  	<if test="model.endTrueName != null and model.endTrueName.trim().length() != 0">
+	  		AND <![CDATA[ TRANSACTIONDATE <= #{model.endTrueName} ]]>
+	  	</if>
+  	</where>
+  </sql>
+  
+  <select id="getCount" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM VIEW_TLOG_REAL_TIME
+  		<include refid="Base_Table_Where_Condition" />
+  </select>
+  
+  <select id="getPageList" parameterType="Map" resultMap="BaseResultMap">
+  	SELECT * FROM (
+	SELECT v.*, ROWNUM rn FROM( 
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM VIEW_TLOG_REAL_TIME
+	  		<include refid="Base_Table_Where_Condition" />
+		ORDER BY TRANSACTIONDATE DESC , TRANSACTIONTIME DESC) v
+	WHERE <![CDATA[ ROWNUM <= #{endResult} ]]> )
+	WHERE rn &gt; #{startResult}
+  </select>
+  
+  <select id="getAllList" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="Base_Column_List" />
+	FROM VIEW_TLOG_REAL_TIME
+		<include refid="Base_Table_Where_Condition" />
+	ORDER BY TRANSACTIONDATE DESC , TRANSACTIONTIME DESC
+  </select>
+  
+  <select id="getSumAmt" resultType="java.lang.String">
+	SELECT SUM(TRANSACTIONMONEY) AS TRANSACTIONMONEY FROM VIEW_TLOG_REAL_TIME
+		<include refid="Base_Table_Where_Condition" />
+  </select>
+  
+</mapper>

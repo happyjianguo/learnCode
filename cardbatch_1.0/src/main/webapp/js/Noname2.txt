@@ -1,0 +1,273 @@
+<%
+'response.Write now()&"=="&timer()&"<br>"
+Dim alldataArray
+dim flagx
+Const MaxPerContent=100 
+flagx=application("flagx")
+ArrarLanmu=split(application("lanmu"),",") 
+ArrarLanmuid=split(application("lanmuid"),",")
+
+if flagx="" or isnull(flagx) then  
+On Error Resume Next
+Set conn = Server.CreateObject("ADODB.Connection")
+ connstr="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & Server.MapPath(DB_set)   
+ conn.Open connstr
+ If Err Then
+	Err.Clear
+	Set conn = Nothing
+	Response.Write "<br><br><br><center><font style=color:red;font-size:9pt;><b>数据库连接出错，请检查连接字串！</b></font></center>"
+	Response.End
+End If
+	
+sub CloseConn()
+	On Error Resume Next
+	If IsObject(Conn) Then
+		conn.close
+		set conn=nothing
+	end if
+end sub
+Const Version = "<b>传世私服总站----</b> Ver 1.0"
+    
+   set rs = server.createobject("adodb.recordset")    
+   sql="select ID,a.cat_id,art_Title,writer,copyright,Content,Isbest,art_date,art_count,cat_name from Gq_article a,  Gq_newsClass q where a.cat_id=q.cat_id  order by id desc"
+   rs.open sql,conn,1,1 
+   if rs.bof and rs.eof then
+   else
+     alldataArray = RS.GetRows
+   end if
+   rs.close
+   set rs=nothing
+      '-------------------------------------------
+	  '栏目的处理
+      '-------------------------------------------
+   set rslanmu = server.createobject("adodb.recordset")
+   sql="select  cat_id,cat_name from Gq_newsClass "
+   rslanmu.open sql,conn,1,1 
+   qmarr=0
+   do while not rslanmu.eof   
+     if qmarr>0 then 
+	 ArrarLanmuidn=","&ArrarLanmuidn
+	 ArrarLanmun=","&ArrarLanmun
+	 end if 
+	 ArrarLanmuidn=rslanmu("cat_id")&ArrarLanmuidn
+     ArrarLanmun=rslanmu("cat_name")&ArrarLanmun     
+     rslanmu.movenext
+	 qmarr=qmarr+1
+   loop   
+   rslanmu.close	
+   set rslanmu=nothing
+   Application.Lock
+	application("lanmu")=ArrarLanmun
+	application("lanmuid")=ArrarLanmuidn	
+   Application.unLock
+    ArrarLanmu=split(application("lanmu"),",") 
+    ArrarLanmuid=split(application("lanmuid"),",")
+
+
+
+   CloseConn()
+    flagnum=UBound(alldataArray,2)
+   app_row=0   
+   app_num=0 '缓存id
+   redim app_array(10,3)
+   redim app_articleid(flagnum)
+   redim app_articletitle(flagnum) 
+   redim app_rndarticletitle(300) 
+   For row = 0 To UBound(alldataArray, 2)            
+	  '-------------------------------------------
+	  '把内容表按100条数据放入缓存
+      '-------------------------------------------
+	  For col = 0 To UBound(alldataArray, 1)
+		app_array(col,app_row)=alldataArray(col, row)
+	  next
+	  app_articleid(row)=alldataArray(0, row)&","&app_num '存放id和缓存id
+	  app_row=app_row+1        
+	  if row mod 3 =0   then
+	    application.lock
+	    application("alldataArray"&app_num)=app_array
+		application.unlock	    
+		app_row=0
+        app_num=app_num+1
+	  elseif UBound(alldataArray, 2)-row=0 then 
+		application.lock
+	    application("alldataArray"&app_num)=app_array
+		application.unlock	    
+		app_row=0
+        app_num=app_num+1	  
+	  end if 
+	  '-------------------------------------------
+      '把标题放入缓存
+      '-------------------------------------------
+	  For col = 0 To UBound(alldataArray, 1)
+	    app_articletitle(row)=alldataArray(0, row)&",.,"&alldataArray(1, row)&",.,"&alldataArray(2, row)&",.,"&alldataArray(8, row)
+		if row<300 then 
+		  app_rndarticletitle(row)=alldataArray(0, row)&",.,"&alldataArray(1, row)&",.,"&alldataArray(2, row)&",.,"&alldataArray(8, row)
+		end if
+      next
+   next
+   maxrow=Ubound(app_articletitle)
+   if maxrow mod MaxPerPage =0 then  
+  	 maxpage=int(maxrow/MaxPerPage)
+   else
+	 maxpage=int(maxrow/MaxPerPage)+1
+   end if
+   application.lock
+   application("articleid")=app_articleid
+   application("page")=maxrow&","&maxpage
+   application("flagx")="flag"
+   application("articletitle")=app_articletitle
+   application("rndarticletitle")=app_rndarticletitle
+   application.unlock
+end if
+'application("alldataArray"n文章内容 每100条 
+'application("articleid 存放id
+'得到文章内容 funcontent
+'得到文章标题列表 funlisttitle 通过分页来设置 
+'得到最新100文章 随机生成40个funrandtoptitile
+'--------------------------------------------------------------
+'得到文章内容 funcontent
+function funcontent(id)
+  app_articleid=application("articleid") 
+  max_array=Ubound(app_articleid)
+  row=max_array-id-100
+  if row<0 then 
+    row=0
+  end if 
+  app_num=-1  
+
+  for i_row=row to Ubound(app_articleid)
+      app_articleid_n=split(app_articleid(i_row),",")	  	 
+     if Cint(app_articleid_n(0))=cint(id) then 
+	   app_num=Cint(app_articleid_n(1))
+	   exit for
+	 end if 
+  next  
+ 
+  'response.write "ttt="&app_num&"app_num="&max_array&"==id"&id&"==row"&row&"unbaond"&Ubound(app_articleid)&"<br>"
+  if app_num=-1 then    
+	rndnotitleid=Rndfunrandtoptitile(12,2)
+    app_num=rndnotitleid
+	app_array=application("alldataArray"&app_num)
+	id=app_array(0,0)	
+  end if 
+  app_array=application("alldataArray"&app_num)
+ 
+  redim app_array_content(Ubound(app_array,1))
+  '得带某一篇文章的详细内容
+  for row=0 to Ubound(app_array,2)
+    
+	
+     if cint(app_array(0,row)) =cint(id) then 
+	  
+		for col =0 to Ubound(app_array,1)
+			app_array_content(col)=app_array(col,row)			
+		next
+		'exit for 
+	 end if 
+  next
+ funcontent=app_array_content  
+end function 
+
+'---------------------------------------------------------------------
+'得到文章标题列表 funlisttitle 通过分页来设置
+function funlisttitle(cat_id,page)
+ if cat_id="" then 
+   cat_id=2
+ end if 
+ if page="" or page<1 then 
+	page=1
+ end if 
+ app_articletitle=application("articletitle") 
+ 
+ maxrow=split(application("page"),",")(0)
+ maxpage=split(application("page"),",")(1)
+ maxrow=0
+ for t_id=0 to Ubound(app_articletitle) 
+    strtitle=app_articletitle(t_id)
+	
+	newarrstrtie=split(strtitle,",.,")
+	if split(strtitle,",.,")(1)=cat_id then
+	  maxrow=maxrow+1
+	 
+	end if  
+ next 
+ t_id=0
+  redim maxarticletitle(maxrow)
+  maxrow=0
+for t_id=0 to Ubound(app_articletitle) 
+    strtitle=app_articletitle(t_id)
+	if split(strtitle,",.,")(1)=cat_id then	  
+	  maxarticletitle(maxrow)=strtitle
+	  maxrow=maxrow+1
+	end if  
+ next 
+ 'maxrow=Ubound(app_articletitle)
+ if maxrow mod MaxPerPage =0 then  
+	maxpage=int(maxrow/MaxPerPage)
+ else
+	maxpage=int(maxrow/MaxPerPage)+1
+ end if 
+ if page > maxpage then 
+    page=maxpage
+ end if 
+ redim pagearticletitle(MaxPerPage)
+
+ row_per=0
+ max_new =page*MaxPerPage
+  if max_new>Ubound(maxarticletitle)-1 then 
+      max_new=Ubound(maxarticletitle)-1
+   end if 
+ for row =(page-1)*MaxPerPage+1 to max_new
+   
+   if row>Ubound(maxarticletitle)-1 then 
+      row=Ubound(maxarticletitle)-1
+   end if 
+
+   pagearticletitle(row_per)=maxarticletitle(row)
+   row_per=row_per+1
+   if row_per>max_new-1 then 
+     row_per=max_new-1
+   end if 
+ next 
+ if row_per< MaxPerPage-1 then 
+   for row_per=0 to MaxPerPage-1
+      pagearticletitle(row_per)=app_articletitle(row_per)
+   next
+ end if
+funlisttitle =pagearticletitle
+end function 
+'-------------------------------------------------------------------------
+'得到最新100文章 随机生成40个funrandtoptitile
+Function Rndfunrandtoptitile(MaxNum,MinNum)
+	Randomize 
+	Rndfunrandtoptitile=int((MaxNum-MinNum+1)*rnd+MinNum)
+End Function
+function funrandtoptitile()
+  app_articletitle=application("rndarticletitle")
+  dim rndnewarticle(40)
+  dim nrndtitle
+  for row =0 to 40 
+	 nrndtitle=Rndfunrandtoptitile(296,0)	
+	 rndnewarticle(row)=app_articletitle(nrndtitle)
+  next 
+  funrandtoptitile=rndnewarticle
+end function
+'-------------------------------------------------------------------------
+'得到栏目随机数
+Function RndNumberlanmu(MaxNum,MinNum)
+	Randomize 
+	RndNumberlanmu=int((MaxNum-MinNum+1)*rnd+MinNum)
+End Function
+'app_array_content=funrandtoptitile()
+'Response.Write app_array_content(35)&"rnd<br>"
+
+'app_array_content=funlisttitle(2,41)
+'Response.Write app_array_content(1)&"<br>"
+
+
+'app_array_content=funcontent(8965)
+'Response.Write app_array_content(2)&"<br>"
+'Response.Write "--------------------------------------------------<br>" 
+'Response.Write row
+'response.Write now()&"=="&timer()
+%>

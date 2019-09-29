@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdroutingDao">
+    
+	<sql id="crdroutingColumns">
+		a.verno_ctx AS "vernoCtx",
+		a.iid AS "iid",
+		a.descr AS "descr",
+		a.exclude AS "exclude",
+		a.authsvc AS "authsvc",
+		a.finsvc AS "finsvc",
+		a.ichgsvc AS "ichgsvc",
+		a.fecode AS "fecode",
+		a.scheme AS "scheme",
+		a.allowsvc AS "allowsvc",
+		a.local_use AS "localUse",
+		a.settletype AS "settletype",
+		a.panlens AS "panlens",
+		a.svccodes AS "svccodes",
+		a.luhnlen AS "luhnlen",
+		a.startfmt AS "startfmt",
+		a.endfmt AS "endfmt",
+		a.isslen AS "isslen",
+		a.posniss AS "posniss",
+		a.posnexp AS "posnexp",
+		a.posnstart AS "posnstart",
+		a.posnsvc AS "posnsvc",
+		a.posncvv AS "posncvv",
+		a.posnpvv AS "posnpvv",
+		a.outbtchtype AS "outbtchtype",
+		a.outatmbtchtype AS "outatmbtchtype",
+		a.subaddress AS "subaddress",
+		a.curbill AS "curbill",
+		a.curset AS "curset",
+		a.rateinst_id AS "rateinstId",
+		a.rateprod_id AS "rateprodId",
+		a.emvadvsvc AS "emvadvsvc",
+		a.options AS "options"
+	</sql>
+	
+	<sql id="crdroutingJoins">
+	</sql>
+    
+	<select id="get" resultType="Crdrouting">
+		SELECT 
+			<include refid="crdroutingColumns"/>
+		FROM crdrouting a
+		<include refid="crdroutingJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Crdrouting">
+		SELECT 
+			<include refid="crdroutingColumns"/>
+		FROM crdrouting a
+		<include refid="crdroutingJoins"/>
+		<where>
+			
+			<if test="iid != null and iid != ''">
+				AND a.iid = #{iid}
+			</if>
+			<if test="descr != null and descr != ''">
+				AND a.descr = #{descr}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Crdrouting">
+		SELECT 
+			<include refid="crdroutingColumns"/>
+		FROM crdrouting a
+		<include refid="crdroutingJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO crdrouting(
+			verno_ctx,
+			iid,
+			descr,
+			exclude,
+			authsvc,
+			finsvc,
+			ichgsvc,
+			fecode,
+			scheme,
+			allowsvc,
+			local_use,
+			settletype,
+			panlens,
+			svccodes,
+			luhnlen,
+			startfmt,
+			endfmt,
+			isslen,
+			posniss,
+			posnexp,
+			posnstart,
+			posnsvc,
+			posncvv,
+			posnpvv,
+			outbtchtype,
+			outatmbtchtype,
+			subaddress,
+			curbill,
+			curset,
+			rateinst_id,
+			rateprod_id,
+			emvadvsvc,
+			options
+		) VALUES (
+			#{vernoCtx},
+			#{iid},
+			#{descr},
+			#{exclude},
+			#{authsvc},
+			#{finsvc},
+			#{ichgsvc},
+			#{fecode},
+			#{scheme},
+			#{allowsvc},
+			#{localUse},
+			#{settletype},
+			#{panlens},
+			#{svccodes},
+			#{luhnlen},
+			#{startfmt},
+			#{endfmt},
+			#{isslen},
+			#{posniss},
+			#{posnexp},
+			#{posnstart},
+			#{posnsvc},
+			#{posncvv},
+			#{posnpvv},
+			#{outbtchtype},
+			#{outatmbtchtype},
+			#{subaddress},
+			#{curbill},
+			#{curset},
+			#{rateinstId},
+			#{rateprodId},
+			#{emvadvsvc},
+			#{options}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE crdrouting SET 	
+			verno_ctx = #{vernoCtx},
+			iid = #{iid},
+			descr = #{descr},
+			exclude = #{exclude},
+			authsvc = #{authsvc},
+			finsvc = #{finsvc},
+			ichgsvc = #{ichgsvc},
+			fecode = #{fecode},
+			scheme = #{scheme},
+			allowsvc = #{allowsvc},
+			local_use = #{localUse},
+			settletype = #{settletype},
+			panlens = #{panlens},
+			svccodes = #{svccodes},
+			luhnlen = #{luhnlen},
+			startfmt = #{startfmt},
+			endfmt = #{endfmt},
+			isslen = #{isslen},
+			posniss = #{posniss},
+			posnexp = #{posnexp},
+			posnstart = #{posnstart},
+			posnsvc = #{posnsvc},
+			posncvv = #{posncvv},
+			posnpvv = #{posnpvv},
+			outbtchtype = #{outbtchtype},
+			outatmbtchtype = #{outatmbtchtype},
+			subaddress = #{subaddress},
+			curbill = #{curbill},
+			curset = #{curset},
+			rateinst_id = #{rateinstId},
+			rateprod_id = #{rateprodId},
+			emvadvsvc = #{emvadvsvc},
+			options = #{options}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM crdrouting
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

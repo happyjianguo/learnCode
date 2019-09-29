@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.ClPlatOrgMapper">
+	<sql id="fields">ID,PARENTORGID,ORGNAME,NOTE,ORGSTATUS,CREATETIME,UPDATETIME,DELFLAG
+	</sql>
+	<select id="selectOne" resultType="CloudplatformorginationEntity">
+		SELECT
+		<include refid="fields"></include>
+		FROM
+			CLOUDPLATFORMORGINATION
+		WHERE
+			1=1
+			<if test="id !=null and id != ''">
+				AND ID = #{id}			
+			</if>
+	</select>
+	
+</mapper>

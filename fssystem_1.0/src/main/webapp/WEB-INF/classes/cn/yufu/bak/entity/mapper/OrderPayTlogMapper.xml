@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.bak.dao.OrderPayTlogMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.bak.entity.OrderPayTlog" >
+  	<result column="ID" property="id" jdbcType="VARCHAR" />
+  	<result column="MERCHANTID" property="merchantId" jdbcType="VARCHAR" />
+  	<result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+  	<result column="ORG_ORDER_ID" property="orgOrderId" jdbcType="VARCHAR" />
+  	<result column="RRN" property="rrn" jdbcType="VARCHAR" />
+  	<result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="TERMCODE" property="termcode" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONDATE" property="transactionDate" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONTIME" property="transactionTime" jdbcType="VARCHAR" />
+    <result column="AMTTXN" property="amttxn" jdbcType="DECIMAL" />
+    <result column="TXNSTATUS" property="txtstatus" jdbcType="VARCHAR" />
+    <result column="FNCODE" property="fncode" jdbcType="VARCHAR" />
+    <result column="TXNCODE" property="txncode" jdbcType="VARCHAR" />
+    <result column="SUB_TXNCODE" property="subTxncode" jdbcType="VARCHAR" />
+    <result column="CASH_SOURCE" property="cashSource" jdbcType="VARCHAR" />
+    <result column="TYPE_ID" property="typeId" jdbcType="VARCHAR" />
+    <result column="TRAN_TYPE_DESC" property="tranTypeDesc" jdbcType="VARCHAR" />
+    <result column="CLEAR_FLAG" property="clearFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, MERCHANTID, ORDER_ID, ORG_ORDER_ID, RRN, PAN, TERMCODE, TRANSACTIONDATE, 
+    TRANSACTIONTIME, (AMTTXN * AMT_FLAG) AS AMTTXN, TXNSTATUS, 
+    FNCODE, TXNCODE, SUB_TXNCODE, CASH_SOURCE, TRAN_TYPE_DESC, CLEAR_FLAG
+  </sql>
+  
+  <sql id="Base_Join_Table_List" >
+  	SELECT A.*, B.TRAN_TYPE_DESC, B.CLEAR_FLAG, B.AMT_FLAG FROM (
+		SELECT  
+			M.ID,                   <!-- TLOG_ID -->
+			M.CRDACPTID AS MERCHANTID, <!-- 商户号 -->	
+			N.ORDER_ID,             <!-- 支付清单单号 -->
+			N.ORG_ORDER_ID,         <!-- 支付清算单号 -->
+			M.RRN,                  <!-- 卡系统参考号 -->
+			M.PAN,                  <!-- 卡号 -->
+			M.TERMCODE,             <!-- 终端号 -->
+			to_char(M.DATELOCAL, 'yyyyMMdd') AS TRANSACTIONDATE,  <!-- 交易日期 -->
+			lpad(M.TIMELOCAL, 6, '0') AS TRANSACTIONTIME,         <!-- 交易时间  -->
+			M.AMTTXN,               <!-- 交易金额 -->
+			M.TXNSTATUS,            <!-- 交易状态 -->
+			M.FNCODE,               <!-- 功能码 -->
+			M.TXNCODE,              <!-- 交易码 -->
+			M.SUB_TXNCODE,          <!-- 子处理码 -->
+			N.CASH_SOURCE           <!-- 充值来源 -->
+			FROM TLOG M, NEWPAYORDER N 
+		WHERE M.ID = N.TLOG_ID 
+			<if test="model.termcode != null and model.termcode.trim().length() != 0">
+				AND M.TERMCODE = #{model.termcode}
+			</if>
+			<if test="model.orderId != null and model.orderId.trim().length() != 0">
+				AND N.ORDER_ID = #{model.orderId}
+			</if>
+			<if test="model.orgOrderId != null and model.orgOrderId.trim().length() != 0">
+				AND N.ORG_ORDER_ID = #{model.orgOrderId}
+			</if>
+			<if test="model.rrn != null and model.rrn.trim().length() != 0">
+				AND M.RRN = #{model.rrn}
+			</if>
+			<if test="model.txtstatus != null and model.txtstatus == '0'.toString()">
+				AND M.TXNSTATUS != '7'
+			</if>
+			<if test="model.txtstatus != null and model.txtstatus == '7'.toString()">
+				AND M.TXNSTATUS = '7'
+			</if>
+			<if test="model.begainDate != null and model.begainDate.trim().length() != 0">
+		  		AND <![CDATA[ M.DATELOCAL >= to_date(#{model.begainDate},'yyyyMMdd') ]]>
+		  	</if>
+		  	<if test="model.endDate != null and model.endDate.trim().length() != 0">
+		  		AND <![CDATA[ M.DATELOCAL <= to_date(#{model.endDate},'yyyyMMdd') ]]>
+		  	</if>
+			<if test="model.begainPan != null and model.begainPan.trim().length() != 0">
+				AND SUBSTR(M.PAN, 0, 15) BETWEEN SUBSTR(#{model.begainPan}, 0, 15) 
+				AND SUBSTR(#{model.endPan}, 0, 15)
+			</if> ) A
+	LEFT JOIN T_TRAN_TYPE@CORTEXS B ON A.TXNCODE = B.TXNCODE 
+		AND A.SUB_TXNCODE = B.SUB_TXNCODE AND A.FNCODE = B.FNCODE
+	<where>
+		<if test="model.clearFlag != null and model.clearFlag.trim().length() != 0">
+			AND B.CLEAR_FLAG = #{model.clearFlag}
+		</if>
+	</where>
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM (<include refid="Base_Join_Table_List" />)
+    ORDER BY TRANSACTIONDATE DESC, TRANSACTIONTIME DESC
+  </select>
+ 
+  <select id="countByExample" resultType="java.lang.Integer" >
+    SELECT COUNT(*) FROM (SELECT
+    <include refid="Base_Column_List" />
+    FROM (<include refid="Base_Join_Table_List" />))
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+	SELECT * FROM (
+	  SELECT R.*, ROWNUM rn FROM(
+		SELECT
+	    <include refid="Base_Column_List" />
+	    FROM (<include refid="Base_Join_Table_List" />)
+	    ORDER BY TRANSACTIONDATE DESC, TRANSACTIONTIME DESC) R
+	  WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+	WHERE rn &gt; ${startResult}
+  </select> 
+</mapper>

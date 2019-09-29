@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.posp.dao.EdcTerminalXMapper">
+  <insert id="insertSelective" parameterType="cn.yufu.posp.entity.EdcTerminalX">
+    insert into EDC_TERMINAL_X
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="terminalId != null">
+        TERMINAL_ID,
+      </if>
+      <if test="upgradeDate != null">
+        UPGRADE_DATE,
+      </if>
+      <if test="upgradeVersion != null">
+        UPGRADE_VERSION,
+      </if>
+      <if test="storeContacts != null">
+        STORE_CONTACTS,
+      </if>
+      <if test="storePhone != null">
+        STORE_PHONE,
+      </if>
+      <if test="merchantAdvisor != null">
+        MERCHANT_ADVISOR,
+      </if>
+      <if test="terminalArea != null">
+        TERMINAL_AREA,
+      </if>
+      <if test="terminalProvince != null">
+        TERMINAL_PROVINCE,
+      </if>
+      <if test="terminalCity != null">
+        TERMINAL_CITY,
+      </if>
+      <if test="terminalZone != null">
+        TERMINAL_ZONE,
+      </if>
+      <if test="terminalPosition != null">
+        TERMINAL_POSITION,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="terminalId != null">
+        #{terminalId,jdbcType=CHAR},
+      </if>
+      <if test="upgradeDate != null">
+        #{upgradeDate,jdbcType=CHAR},
+      </if>
+      <if test="upgradeVersion != null">
+        #{upgradeVersion,jdbcType=CHAR},
+      </if>
+      <if test="storeContacts != null">
+        #{storeContacts,jdbcType=CHAR},
+      </if>
+      <if test="storePhone != null">
+        #{storePhone,jdbcType=CHAR},
+      </if>
+      <if test="merchantAdvisor != null">
+        #{merchantAdvisor,jdbcType=CHAR},
+      </if>
+      <if test="terminalArea != null">
+        #{terminalArea,jdbcType=CHAR},
+      </if>
+      <if test="terminalProvince != null">
+        #{terminalProvince,jdbcType=CHAR},
+      </if>
+      <if test="terminalCity != null">
+        #{terminalCity,jdbcType=CHAR},
+      </if>
+      <if test="terminalZone != null">
+        #{terminalZone,jdbcType=CHAR},
+      </if>
+      <if test="terminalPosition != null">
+        #{terminalPosition,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <delete id="delete" parameterType="cn.yufu.posp.entity.EdcTerminalX">
+	DELETE FROM EDC_TERMINAL_X 
+	WHERE TERMINAL_ID = #{terminalId}
+</delete>
+</mapper>

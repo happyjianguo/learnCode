@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.IMUserMapper">
+	
+	<insert id="insert" parameterType="IMUser">
+			INSERT INTO IMUSER (
+				USERID,
+			    USERNAME,
+			    PASSWD,
+			    CNAME,
+			    PWDERRNUM,
+			    PHONENO,
+			    EMAIL,
+			    STATUS,
+			    UPDATETIME,
+			    CREATETIME
+			)
+			VALUES
+			(
+				#{userid},
+				#{username},
+				#{passwd},
+				#{cname},
+				'0',
+				#{phoneno},
+				#{email},
+				'1',
+				#{updatetime},
+				#{createtime}
+			)
+	</insert>
+
+	<!-- 根据用户名查询用户信息 -->
+	<select id="selectOne" resultType="IMUser">
+		SELECT
+			USERID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME
+		FROM
+			IMUSER 
+		WHERE USERNAME = #{userName}
+	</select>
+	
+	<!-- 根据用户id查询用户信息 -->
+	<select id="selectByUserid" resultType="IMUser">
+		SELECT
+			USERID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME
+		FROM
+			IMUSER 
+		WHERE USERID = #{userid}
+	</select>
+	<!-- 根据用户ID查询用户角色列表 -->
+	<select id="queryImuserByUserId" resultType="IMUser">
+		SELECT
+			USERID,
+		    USERNAME,
+		    PASSWD,
+		    CNAME,
+		    PWDERRNUM,
+		    PHONENO,
+		    EMAIL,
+		    STATUS,
+		    UPDATETIME,
+		    CREATETIME
+		FROM
+			IMUSER 
+		WHERE USERID = #{userid}
+	</select>
+	<select id="selectUserRole" resultType="String" parameterType="String">
+		SELECT T.ROLEID FROM IMUSERROLE T WHERE T.USERID = #{userid}
+	</select>
+	
+	<!-- 根据用户ID查询用户-角色-公众号列表 -->
+	<select id="selectUserRolePlatform" resultType="IMUserRole" parameterType="String">
+				SELECT
+					T.USERID,
+					T.ROLEID,
+					R.ROLENAME,
+					R.PLATFORMID
+				FROM
+					IMUSERROLE T,
+					IMROLE R
+				WHERE
+					T.ROLEID = R.ROLEID
+				AND T.USERID = #{userid}
+	</select>
+	<!-- 查询资源对应权限 -->
+	<select id="queryRoleResource" resultType="SysResourceRole">
+		SELECT A.RESOURCEKEY, B.ROLEID
+		FROM
+			IMRESOURCE A, IMROLERESOURCE B
+		WHERE
+			A.RESOURCEID = B.RESOURCEID AND A. STATUS = '1' AND B. STATUS = '1' AND a.RESOURCEID NOT LIKE 'sys\_%' AND a.RESOURCEID NOT LIKE 'anonymous\_%'
+		UNION
+		SELECT A.RESOURCEKEY, B.ROLEID
+		FROM
+			IMRESOURCE A, IMROLE B
+		WHERE
+			A. STATUS = '1' AND B. STATUS = '1' AND a.RESOURCEID LIKE 'sys\_%'
+		UNION
+		SELECT A.RESOURCEKEY, 'ROLE_ANONYMOUS' as ROLEID
+		FROM
+			IMRESOURCE A
+		WHERE
+			A. STATUS = '1' AND A.RESOURCEID LIKE 'anonymous\_%'
+	</select>
+	
+	<select id="queryImuser" resultType="IMUser">
+		SELECT 
+			iu.USERID,iu.USERNAME,iu.PASSWD,iu.CNAME,iu.PWDERRNUM,iu.phoneno,iu.email,iu.STATUS,iu.UPDATETIME,iu.CREATETIME
+		FROM 
+			 IMUSER iu
+		WHERE
+			iu.USERID !='admin'
+		    <if test="username!='' and username!=null">
+				and iu.USERNAME like CONCAT('%',#{username},'%' )
+			</if>
+			<if test="cname!='' and cname!=null">
+				and iu.CNAME like CONCAT('%',#{cname},'%' )
+			</if>
+			<if test="userid!='' and userid!=null">
+				and iu.USERID= #{userid}
+			</if>
+		ORDER BY
+			iu.UPDATETIME desc
+	</select>
+	
+	<select id="queryRole" resultType="IMRole">
+		SELECT 
+			 ir.ROLENAME,ir.ROLEID
+		FROM 
+			 IMUSER iu , IMUSERROLE iur
+			 , IMROLE ir
+		WHERE
+               iur.userid = iu.userid 
+               and iur.roleid = ir.roleid 
+               and iu.USERID = #{userid}
+		<if test="sRoleId!='' and sRoleId!=null">
+			and ir.ROLEID = #{sRoleId}
+		</if>
+	</select>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateImUser" parameterType="IMUser">
+		UPDATE
+		    	IMUSER    
+		    <set> 
+		    	<if test="userid != null">
+		    		USERID = #{userid},
+		    	</if>   
+		        <if test="username != null">    
+		            USERNAME = #{username},    
+		        </if>    
+		        <if test="passwd != null">    
+		            PASSWD = #{passwd},    
+		        </if> 
+		        <if test="cname != null">    
+		            CNAME = #{cname},   
+		        </if>
+		        <if test="pwderrnum != null">
+		        	PWDERRNUM = #{pwderrnum},
+		        </if>
+		         <if test="phoneno != null">
+		        	PHONENO = #{phoneno},
+		        </if>
+		         <if test="email != null">
+		        	EMAIL = #{email},
+		        </if>
+		        <if test="status != null">    
+		            STATUS = #{status},    
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		        <if test="createtime != null">    
+		            CREATETIME = #{createtime}    
+		        </if>
+		    </set>    
+		    where USERID = #{userid} 
+	</update>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateImUserErrNum" parameterType="IMUser">
+		UPDATE
+		    	IMUSER    
+		    <set> 
+		        	PWDERRNUM = CONVERT(PWDERRNUM,SIGNED)+1,
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		    </set>    
+		    where USERNAME = #{username} 
+	</update>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateImUserErr" parameterType="IMUser">
+		UPDATE
+		    	IMUSER    
+		    <set> 
+		        <if test="pwderrnum != null">
+		        	PWDERRNUM = #{pwderrnum},
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		    </set>    
+		    where USERNAME = #{username} 
+	</update>
+	
+	
+	
+	<delete id="delImUser" parameterType="java.lang.String"> 
+		DELETE FROM IMUSER where userid in
+		<foreach item="idItem" collection="list" open="(" separator="," close=")">
+		#{idItem}
+		</foreach>
+	</delete>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.ClearRegardSalesBookMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.ClearRegardSalesBook" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="GEN_DT" property="genDt" jdbcType="VARCHAR" />
+    <result column="TRAN_DATE" property="tranDate" jdbcType="VARCHAR" />
+    <result column="TRAN_NUM" property="tranNum" jdbcType="DECIMAL" />
+    <result column="TRAN_AMT" property="tranAmt" jdbcType="DECIMAL" />
+    <result column="SALES_PROVINCE" property="salesProvince" jdbcType="VARCHAR" />
+    <result column="SALES_CITY" property="salesCity" jdbcType="VARCHAR" />
+    <result column="SALES_CITY_NAME" property="salesCityName" jdbcType="VARCHAR" />
+    <result column="CRDPRODUCT" property="crdproduct" jdbcType="VARCHAR" />
+    <result column="CARD_TYPE_NAME" property="cardTypeName" jdbcType="VARCHAR" />
+    <result column="CONSUM_PROVINCE" property="consumProvince" jdbcType="VARCHAR" />
+    <result column="CONSUM_CITY" property="consumCity" jdbcType="VARCHAR" />
+    <result column="CONSUM_CITY_NAME" property="consumCityName" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    ID, GEN_DT, TRAN_DATE, TRAN_NUM, TRAN_AMT, SALES_CITY,SALES_CITY_NAME,SALES_PROVINCE,CRDPRODUCT,CARD_TYPE_NAME,
+    CONSUM_PROVINCE, CONSUM_CITY,CONSUM_CITY_NAME, COMMENTS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.fs.entity.ClearRegardSalesBookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_CLEAR_REGARD_SALES_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <!-- group by SALES_PROVINCE,CONSUM_PROVINCE -->
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CLEAR_REGARD_SALES_BOOK
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+ 
+  <select id="countByExample" parameterType="cn.yufu.fs.entity.ClearRegardSalesBookExample" resultType="java.lang.Integer" >
+    select count(*) from T_CLEAR_REGARD_SALES_BOOK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+</mapper>

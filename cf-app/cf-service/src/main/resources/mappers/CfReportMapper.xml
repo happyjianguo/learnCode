@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfReportMapper">
+
+<select id="acidAndIspnoAndTime" parameterType="CfReportEntity" resultType="CfReportEntity" >
+		SELECT
+		    DATE_FORMAT(cb.updatetime, '%Y%m%d') AS querytime,
+		    ac.cid AS cid,
+			cb.apno AS acid,
+			cb.ispno AS ispno,		
+			sum(
+				cast(cb.spprice AS DECIMAL(16, 2))
+			) totalspprice,
+			sum(
+				cast(cb.apprice AS DECIMAL(16, 2))
+			) totalapprice,
+			(
+				sum(
+					cast(cb.apprice AS DECIMAL(16, 2))
+				) - sum(
+					cast(cb.spprice AS DECIMAL(16, 2))
+				)
+			) AS profit	
+		FROM
+			cf_currbusilog cb
+			LEFT JOIN cf_accessclient ac
+			ON cb.apno = ac.id							
+		WHERE
+  			cb.updatetime  between #{begintime} and #{endtime}
+  			and cb.status =#{status}
+		 	group by cb.apno , cb.ispno, ac.cid, DATE_FORMAT(cb.updatetime, '%Y%m%d')
+</select>
+	<insert id="insert" parameterType="java.util.List">
+		INSERT 
+		INTO
+			CF_REPORT
+			    (   
+			    	ID,
+			    	QUERYTIME,
+				    CID,
+				    ACID,
+				    ISPNO,
+				    TOTALSPPRICE,
+				    TOTALAPPRICE,
+				    PROFIT,
+				    CREATETIME,
+				    UPDATETIME
+				 )
+			VALUES
+				<foreach collection="list" item="item" index="index" separator="," >
+					(#{item.id},#{item.querytime},#{item.cid},#{item.acid},#{item.ispno},#{item.totalspprice},#{item.totalapprice},#{item.profit},#{item.createtime},#{item.updatetime})
+				</foreach>		
+	</insert>
+	<select id="searchLogCount" resultType="String" parameterType="CfReportEntity">
+		SELECT
+				COUNT(1)
+		FROM 
+			CF_REPORT RP
+			LEFT JOIN CF_CUSTOMER C ON RP.CID = C.ID
+			LEFT JOIN CF_ACCESSCLIENT AC ON AC.ID = RP.ACID
+		WHERE 
+				rp.querytime  BETWEEN REPLACE(#{begintime},'-','') AND REPLACE(#{endtime},'-','')	
+		     	<if test="cid!='' and cid!=null">
+					and rp.cid = #{cid} 
+				</if>
+				<if test="acid!='' and acid!=null">
+					and rp.acid = #{acid} 
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and rp.ispno = #{ispno} 
+				</if>
+			
+	</select>
+	<select id="queryall"  parameterType="CfReportEntity" resultType="CfReportEntity" >
+		SELECT
+				DATE_FORMAT(RP.QUERYTIME, '%Y-%m-%d') AS QUERYTIME,
+				RP.ISPNO AS ISPNO,
+				RP.TOTALSPPRICE AS TOTALSPPRICE,
+				RP.TOTALAPPRICE AS TOTALAPPRICE,
+				RP.PROFIT AS PROFIT,							
+				C.CNAME AS CNAME,
+				AC.ACNAME
+		FROM 
+			CF_REPORT RP
+			LEFT JOIN CF_CUSTOMER C ON RP.CID = C.ID
+			LEFT JOIN CF_ACCESSCLIENT AC ON AC.ID = RP.ACID
+			
+		WHERE 
+			rp.querytime  BETWEEN REPLACE(#{begintime},'-','') AND REPLACE(#{endtime},'-','')			
+		     	<if test="cid!='' and cid!=null">
+					and rp.cid = #{cid} 
+				</if>
+				<if test="acid!='' and acid!=null">
+					and rp.acid = #{acid} 
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and rp.ispno = #{ispno} 
+				</if>
+	</select>	
+	<select id="query" resultType="CfReportEntity" >
+		SELECT
+				DATE_FORMAT(RP.QUERYTIME, '%Y-%m-%d') AS QUERYTIME,
+				RP.ISPNO AS ISPNO,
+				RP.TOTALSPPRICE AS TOTALSPPRICE,
+				RP.TOTALAPPRICE AS TOTALAPPRICE,
+				RP.PROFIT AS PROFIT,							
+				C.CNAME AS CNAME,
+				AC.ACNAME
+		FROM 
+			CF_REPORT RP
+			LEFT JOIN CF_CUSTOMER C ON RP.CID = C.ID
+			LEFT JOIN CF_ACCESSCLIENT AC ON AC.ID = RP.ACID
+			
+		WHERE 
+			(
+				rp.querytime  BETWEEN REPLACE(#{param1.begintime},'-','') AND REPLACE(#{param1.endtime},'-','')				
+		     	<if test="param1.cid!='' and param1.cid!=null">
+					and rp.cid = #{param1.cid} 
+				</if>
+				<if test="param1.acid!='' and param1.acid!=null">
+					and rp.acid = #{param1.acid} 
+				</if>
+				<if test="param1.ispno!='' and param1.ispno!=null">
+					and rp.ispno = #{param1.ispno} 
+				</if>
+			)
+	 	limit #{start},#{length}			
+</select>		
+</mapper>

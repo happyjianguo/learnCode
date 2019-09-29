@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.IMUserLogMapper">
+	<sql id="fields">LOGID,USERID,TRANSNAME,TRANSTIME,REMOTEIP,STATUS</sql>
+	<select id="selectAllLogs" resultType="IMUserLog">
+		SELECT
+		<include refid="fields"></include>
+		FROM
+		IMUSERLOG
+	</select>
+	<insert id="insert" parameterType="IMUserLog">
+		INSERT INTO IMUSERLOG
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="logId != null">
+					LOGID,
+				</if>
+				<if test="userId != null">
+					USERID,
+				</if>
+				<if test="transName != null">
+					TRANSNAME,
+				</if>
+				<if test="transTime != null">
+					TRANSTIME,
+				</if>
+				<if test="remoteIP != null">
+					REMOTEIP,
+				</if>
+				<if test="status != null">
+					STATUS,
+				</if>
+			</trim>
+			<trim prefix="values(" suffix=")" suffixOverrides=",">
+				<if test="logId != null and logId !=''">
+					#{logId,jdbcType=VARCHAR},
+				</if>
+				<if test="userId != null and userId !=''">
+					#{userId,jdbcType=VARCHAR},
+				</if>
+				<if test="transName != null and transName !=''">
+					#{transName,jdbcType=VARCHAR},
+				</if>
+				<if test="transTime != null and transTime !=''">
+					#{transTime,jdbcType=VARCHAR},
+				</if>
+				<if test="remoteIP != null and remoteIP !=''">
+					#{remoteIP,jdbcType=VARCHAR},
+				</if>
+				<if test="status != null and status !=''">
+					#{status,jdbcType=VARCHAR},
+				</if>
+			</trim>
+	</insert>
+	<update id="updateLog" parameterType="IMUserLog">
+		UPDATE IMUSERLOG SET
+			USERID = #{userId},
+			TRANSNAME = #{transName},
+			TRANSTIME = #{transTime},
+			REMOTEIP = #{remoteIP},
+			STATUS = #{status}
+		WHERE
+			LOGID = #{logId}
+	</update>
+	<delete id="deleteLog" parameterType="String">
+		DELETE FROM IMUSERLOG
+			WHERE LOGID = #{logId}
+	</delete>
+</mapper>

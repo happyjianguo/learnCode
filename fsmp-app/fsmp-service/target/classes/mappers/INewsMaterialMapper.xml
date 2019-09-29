@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.INewsMaterialMapper">
+	<sql id="columns">MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+	</sql>
+	<select id="queryNewsMaterialListByplatformId" parameterType="NewsMaterial"
+		resultType="NewsMaterial">
+		select
+			MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+		from
+			WXDNEWSMATERIAL 
+		WHERE 
+			APPID=#{appid}
+		ORDER BY 
+			CREATETIME desc
+	</select>
+	<!-- 通过公众号id查询消息素材 -->
+	<select id="queryNewsMaterialListByAppid" parameterType="NewsMaterial"
+		resultType="NewsMaterial">
+		select
+			MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+		from
+			WXDNEWSMATERIAL 
+		WHERE 
+			APPID=#{appid}
+		ORDER BY 
+			CREATETIME DESC
+	</select>
+	<update id="updateNewsMaterial" parameterType="NewsMaterial">
+		UPDATE
+			WXDNEWSMATERIAL
+		SET 
+			MATERIALNAME = #{materialName},
+			UPDATETIME = #{updateTime}
+		WHERE
+			MATERIALID = #{materialId}
+		
+	</update>
+
+	<select id="queryNewsMaterialById" parameterType="String"
+		resultType="NewsMaterial">
+		select
+		MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+		from
+		WXDNEWSMATERIAL WHERE MATERIALID=#{materialId}
+		
+	</select>
+	
+	<select id="queryNewsByMaterialName" parameterType="NewsMaterial"
+		resultType="NewsMaterial">
+		select
+		MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+		from
+		WXDNEWSMATERIAL 
+		WHERE 
+		MATERIALNAME=#{materialName}
+		AND
+		APPID=#{appid}
+	</select>
+	
+	<select id="queryNewsMaterialByMessageId" parameterType="String"
+		resultType="NewsMaterial">
+		SELECT
+		msg.MSGID MSGID,
+		news.MATERIALID MATERIALID,
+		news.MATERIALNAME MATERIALNAME,
+		news.MEDIAID MEDIAID,
+		news.MEDIAIDSTATUS MEDIAIDSTATUS,
+		news.UPDATETIME UPDATETIME,
+		news.CREATETIME CREATETIME,
+		news.APPID APPID
+		FROM
+		WXDMESSAGE
+		msg LEFT JOIN WXDNEWSMATERIAL news on msg.mediaid=news.materialId
+		WHERE
+		msg.msgid=#{msgid}
+		
+	</select>
+	<select id="selectMaterialByMsgidAndplatformId" resultType="NewsMaterial">
+		SELECT
+			msg.MSGID MSGID,
+			msg.MSGNAME MSGNAME,
+			news.MATERIALID MATERIALID,
+			news.MATERIALNAME
+			MATERIALNAME,
+			news.MEDIAID MEDIAID,
+			news.MEDIAIDSTATUS MEDIAIDSTATUS,
+			news.UPDATETIME UPDATETIME,
+			news.CREATETIME CREATETIME,
+			news.APPID APPID
+		FROM
+			WXDMESSAGE msg LEFT JOIN WXDNEWSMATERIAL news on
+			msg.mediaid=news.materialId
+		WHERE
+			msg.APPID=#{appid}
+			and
+			msg.MSGTYPE="4"
+		ORDER BY 
+			msg.UPDATETIME DESC
+		
+	</select>
+
+	<delete id="deleteNewsMaterial" parameterType="String">
+		DELETE FROM
+		WXDNEWSMATERIAL WHERE MEDIAID=#{mediaId}
+	</delete>
+	<delete id="deleteByMediaIdAndMaterialId" parameterType="Map">
+		DELETE
+		FROM
+		WXDNEWSMATERIAL WHERE MEDIAID=#{mediaId} AND
+		MATERIALID=#{materialId}
+	</delete>
+	<select id="queryNewsMaterialList" resultType="NewsMaterial">
+		select
+		MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+		from
+		WXDNEWSMATERIAL
+		order by CREATETIME desc
+	</select>
+	<!-- 通过名称查询素材 -->
+	<select id="queryNewsMaterialByName" parameterType="NewsMaterial"
+		resultType="NewsMaterial">
+		select
+		MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+		from
+		WXDNEWSMATERIAL
+		WHERE
+		MATERIALNAME like
+		CONCAT('%','${materialName}','%' )
+		AND
+		APPID = #{appid}
+		order by CREATETIME desc
+	</select>
+	<select id="queryNewsByMaterialId" parameterType="String"
+		resultType="NewsMaterial">
+		select
+		MATERIALID,MATERIALNAME,MEDIAID,MEDIAIDSTATUS,UPDATETIME,CREATETIME,APPID
+		from WXDNEWSMATERIAL WHERE
+		MATERIALID=#{materialId}
+	</select>
+	<insert id="saveNewsMaterial" parameterType="NewsMaterial">
+		insert into WXDNEWSMATERIAL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="materialId != null">
+				MATERIALID,
+			</if>
+			<if test="materialName != null">
+				MATERIALNAME,
+			</if>
+			<if test="mediaId != null">
+				MEDIAID,
+			</if>
+			<if test="mediaidStatus != null">
+				MEDIAIDSTATUS,
+			</if>
+			<if test="appid != null">
+				appid,
+			</if>
+			<if test="updateTime != null">
+				UPDATETIME,
+			</if>
+			<if test="createTime != null">
+				CREATETIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="materialId != null">
+				#{materialId,jdbcType=VARCHAR},
+			</if>
+			<if test="materialName != null">
+				#{materialName,jdbcType=VARCHAR},
+			</if>
+			<if test="mediaId != null">
+				#{mediaId,jdbcType=VARCHAR},
+			</if>
+			<if test="mediaidStatus != null">
+				#{mediaidStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="appid != null">
+				#{appid,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+</mapper>

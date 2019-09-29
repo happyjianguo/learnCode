@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.FkStlDayEndStepMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.FkStlDayEndStep" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="DAILYDATE" property="dailydate" jdbcType="VARCHAR" />
+    <result column="STEPNAME" property="stepname" jdbcType="VARCHAR" />
+    <result column="FUNCNAME" property="funcname" jdbcType="VARCHAR" />
+    <result column="LIBNAME" property="libname" jdbcType="VARCHAR" />
+    <result column="EXEC_STATUS" property="execStatus" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="BEGINTIME" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="ENDTIME" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="PID" property="pid" jdbcType="DECIMAL" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DAILYDATE, STEPNAME, FUNCNAME, LIBNAME, EXEC_STATUS, STATUS, BEGINTIME, ENDTIME, 
+    PID, COMMENTS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.fs.entity.FkStlDayEndStepExample" >
+    select
+    <if test="example.distinct" >
+      example.distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FK_STL_DAYEND_STEP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_FK_STL_DAYEND_STEP
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from T_FK_STL_DAYEND_STEP
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.fs.entity.FkStlDayEndStepExample" >
+    delete from T_FK_STL_DAYEND_STEP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.fs.entity.FkStlDayEndStep" >
+    insert into T_FK_STL_DAYEND_STEP (ID, DAILYDATE, STEPNAME, 
+      FUNCNAME, LIBNAME, EXEC_STATUS, 
+      STATUS, BEGINTIME, ENDTIME, 
+      PID, COMMENTS)
+    values (#{id,jdbcType=DECIMAL}, #{dailydate,jdbcType=VARCHAR}, #{stepname,jdbcType=VARCHAR}, 
+      #{funcname,jdbcType=VARCHAR}, #{libname,jdbcType=VARCHAR}, #{execStatus,jdbcType=DECIMAL}, 
+      #{status,jdbcType=DECIMAL}, #{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{pid,jdbcType=DECIMAL}, #{comments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.fs.entity.FkStlDayEndStep" >
+    insert into T_FK_STL_DAYEND_STEP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dailydate != null" >
+        DAILYDATE,
+      </if>
+      <if test="stepname != null" >
+        STEPNAME,
+      </if>
+      <if test="funcname != null" >
+        FUNCNAME,
+      </if>
+      <if test="libname != null" >
+        LIBNAME,
+      </if>
+      <if test="execStatus != null" >
+        EXEC_STATUS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="begintime != null" >
+        BEGINTIME,
+      </if>
+      <if test="endtime != null" >
+        ENDTIME,
+      </if>
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="dailydate != null" >
+        #{dailydate,jdbcType=VARCHAR},
+      </if>
+      <if test="stepname != null" >
+        #{stepname,jdbcType=VARCHAR},
+      </if>
+      <if test="funcname != null" >
+        #{funcname,jdbcType=VARCHAR},
+      </if>
+      <if test="libname != null" >
+        #{libname,jdbcType=VARCHAR},
+      </if>
+      <if test="execStatus != null" >
+        #{execStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.fs.entity.FkStlDayEndStepExample" resultType="java.lang.Integer" >
+    select count(*) from T_FK_STL_DAYEND_STEP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FK_STL_DAYEND_STEP
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dailydate != null" >
+        DAILYDATE = #{record.dailydate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepname != null" >
+        STEPNAME = #{record.stepname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcname != null" >
+        FUNCNAME = #{record.funcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.libname != null" >
+        LIBNAME = #{record.libname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execStatus != null" >
+        EXEC_STATUS = #{record.execStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.begintime != null" >
+        BEGINTIME = #{record.begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        ENDTIME = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pid != null" >
+        PID = #{record.pid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comments != null" >
+        COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FK_STL_DAYEND_STEP
+    set ID = #{record.id,jdbcType=DECIMAL},
+      DAILYDATE = #{record.dailydate,jdbcType=VARCHAR},
+      STEPNAME = #{record.stepname,jdbcType=VARCHAR},
+      FUNCNAME = #{record.funcname,jdbcType=VARCHAR},
+      LIBNAME = #{record.libname,jdbcType=VARCHAR},
+      EXEC_STATUS = #{record.execStatus,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      BEGINTIME = #{record.begintime,jdbcType=TIMESTAMP},
+      ENDTIME = #{record.endtime,jdbcType=TIMESTAMP},
+      PID = #{record.pid,jdbcType=DECIMAL},
+      COMMENTS = #{record.comments,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.fs.entity.FkStlDayEndStep" >
+    update T_FK_STL_DAYEND_STEP
+    <set >
+      <if test="dailydate != null" >
+        DAILYDATE = #{dailydate,jdbcType=VARCHAR},
+      </if>
+      <if test="stepname != null" >
+        STEPNAME = #{stepname,jdbcType=VARCHAR},
+      </if>
+      <if test="funcname != null" >
+        FUNCNAME = #{funcname,jdbcType=VARCHAR},
+      </if>
+      <if test="libname != null" >
+        LIBNAME = #{libname,jdbcType=VARCHAR},
+      </if>
+      <if test="execStatus != null" >
+        EXEC_STATUS = #{execStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="begintime != null" >
+        BEGINTIME = #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pid != null" >
+        PID = #{pid,jdbcType=DECIMAL},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.fs.entity.FkStlDayEndStep" >
+    update T_FK_STL_DAYEND_STEP
+    set DAILYDATE = #{dailydate,jdbcType=VARCHAR},
+      STEPNAME = #{stepname,jdbcType=VARCHAR},
+      FUNCNAME = #{funcname,jdbcType=VARCHAR},
+      LIBNAME = #{libname,jdbcType=VARCHAR},
+      EXEC_STATUS = #{execStatus,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      BEGINTIME = #{begintime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      PID = #{pid,jdbcType=DECIMAL},
+      COMMENTS = #{comments,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

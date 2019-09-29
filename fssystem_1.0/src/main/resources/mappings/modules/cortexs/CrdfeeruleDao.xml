@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.CrdfeeruleDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.Crdfeerule" >
+    <id column="ID" property="crdfeeruleId" jdbcType="DECIMAL" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="IID" property="iid" jdbcType="VARCHAR" />
+    <result column="CRDPRODUCT" property="crdproduct" jdbcType="VARCHAR" />
+    <result column="DESCR" property="descr" jdbcType="VARCHAR" />
+    <result column="BEGINYEAR" property="beginyear" jdbcType="VARCHAR" />
+    <result column="RATE" property="rate" jdbcType="VARCHAR" />
+    <result column="FEEFLAG" property="feeflag" jdbcType="VARCHAR" />
+    <result column="TRUENAMEFLAG" property="truenameflag" jdbcType="VARCHAR" />
+    <result column="ADDDATE" property="adddate" jdbcType="VARCHAR" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="VARCHAR" />
+    <result column="OPER" property="oper" jdbcType="VARCHAR" />
+    <result column="RESERVED1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="RESERVED2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="RESERVED3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="RESERVED4" property="reserved4" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    a.ID, c.VERNO_CTX, a.IID, a.CRDPRODUCT, c.DESCR, a.BEGINYEAR, a.RATE, 
+    a.FEEFLAG, a.TRUENAMEFLAG, a.ADDDATE, 
+    a.UPDATEDATE, a.OPER, a.RESERVED1, a.RESERVED2, a.RESERVED3, a.RESERVED4
+  </sql>
+  
+  <sql id="crdfeeruleJoins">
+  	LEFT JOIN CRDFORMAT b ON a.iid = b.iid 
+
+  	LEFT JOIN CRDPRODUCT c ON b.id = c.crdformat_id
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    FROM CRDFEERULE a  
+    <include refid="crdfeeruleJoins" />
+    WHERE a.ID = #{crdfeeruleId}
+  </select>
+  
+  <select id="selectByIIDAndTrueFlag" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    FROM CRDFEERULE a  
+    <include refid="crdfeeruleJoins" />
+    WHERE a.IID = #{iid} AND a.TRUENAMEFLAG = #{truenameflag}
+  </select>
+  
+  <select id="getDateByIID" resultMap="BaseResultMap" >
+  	SELECT a.IID, b.CRDPRODUCT, b.DESCR FROM CRDFORMAT a
+    LEFT JOIN CRDPRODUCT b ON a.id = b.crdformat_id WHERE 1=1 
+    <if test="iid != null and iid.trim().length() != 0">
+    	AND a.IID = #{iid}
+    </if>
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM CRDFEERULE a  
+    <include refid="crdfeeruleJoins" />
+    WHERE 1=1
+    <if test="iid != null and iid.trim().length() != 0">
+    	AND a.IID = #{iid}
+    </if>
+    <if test="crdproduct != null and crdproduct.trim().length() != 0">
+    	AND a.CRDPRODUCT = #{crdproduct}
+    </if>
+    <if test="beginyear != null and beginyear.trim().length() != 0">
+    	AND a.BEGINYEAR = #{beginyear}
+    </if>
+    <if test="rate != null and rate.trim().length() != 0">
+    	AND a.RATE = #{rate}
+    </if>
+    <if test="feeflag != null and feeflag.trim().length() != 0">
+    	AND a.FEEFLAG = #{feeflag}
+    </if>
+     <if test="truenameflag != null and truenameflag.trim().length() != 0">
+    	AND a.TRUENAMEFLAG = #{truenameflag}
+    </if>
+    ORDER BY a.UPDATEDATE DESC, a.ID DESC, a.ADDDATE DESC, a.IID DESC
+  </select>
+  
+  <insert id="insert">
+    insert into CRDFEERULE (IID, 
+      CRDPRODUCT, BEGINYEAR, RATE, 
+      FEEFLAG, TRUENAMEFLAG, ADDDATE, 
+      UPDATEDATE, OPER
+      )
+    values (#{iid,jdbcType=VARCHAR}, 
+      #{crdproduct,jdbcType=VARCHAR}, #{beginyear,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, 
+      #{feeflag,jdbcType=VARCHAR}, #{truenameflag,jdbcType=VARCHAR}, #{adddate,jdbcType=VARCHAR}, 
+      #{updatedate,jdbcType=VARCHAR}, #{oper,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="update">
+    update CRDFEERULE  SET 
+      BEGINYEAR = #{beginyear,jdbcType=VARCHAR},
+      RATE = #{rate,jdbcType=VARCHAR},
+      FEEFLAG = #{feeflag,jdbcType=VARCHAR},
+      TRUENAMEFLAG = #{truenameflag,jdbcType=VARCHAR},
+      UPDATEDATE = #{updatedate,jdbcType=VARCHAR},
+      OPER = #{oper,jdbcType=VARCHAR}
+    where ID=#{crdfeeruleId}
+  </update>
+</mapper>

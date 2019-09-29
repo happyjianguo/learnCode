@@ -1,0 +1,79 @@
+.sdmenu {
+    width: 163px;
+    //height:550px;
+    float:left;
+    font-family: Sans-Serif;
+    font-size: 12px;
+    padding-bottom: 1024px;
+	margin-bottom: -1024px;
+    //padding-bottom: 10px;
+    background: #eee url(../images/lmenu/bottom.gif) no-repeat  right bottom;
+    color: #FFF;
+}
+
+.sdmenu .title, .sdmenu .titlehidden{
+    display: block;
+    padding: 5px 0;
+    font-weight: bold;
+    color: white;
+    background: #FFF url(../images/lmenu/2toolbar-m.gif) repeat-x;
+}
+
+.sdmenu .title {
+	border-left-width : 2px;
+    border-bottom: 1px solid #DDD;
+}
+
+.sdmenu .arrow {
+		margin-left: 10px;
+    margin-right: 7px;
+}
+
+.sdmenu .titlehidden {
+    border-bottom: none;
+}
+.sdmenu #top {
+    background: url(../images/lmenu/toptitle.gif) no-repeat;
+}
+
+
+.sdmenu .submenu {
+    overflow: hidden;
+}
+
+.sdmenu .submenu a {
+    padding: 5px 30px;
+    text-indent: 10px;
+    background: #EEE;
+    display: block;
+    border-bottom: 1px solid #DDD;
+    color: #000000;
+    text-decoration: none;
+}
+
+.sdmenu .submenu a:hover {
+    background : #8DAEE1 url(../images/lmenu/linkarrow.gif) no-repeat right center;
+    color: #FFF;
+}
+
+.sdmenu .submenu .grandMenu
+{
+	width: 150px;
+	overflow: hidden;
+	position:relative; left:50px;
+}
+
+.sdmenu .submenu .grandMenu a {
+    padding: 5px 0;
+    text-indent: 10px;
+    background: #CCC;
+    display: block;
+    border-bottom: 1px solid #EEE;
+    color: #066;
+    text-decoration: none;
+}
+
+.sdmenu .submenu .grandMenu a:hover {
+    background : #8DAEE1 url(../images/lmenu/linkarrow.gif) no-repeat right center;
+    color: #FFF;
+}

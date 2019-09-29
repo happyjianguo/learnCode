@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Application Message Bundle -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<property name="basenames">
+			<list>
+				<value>classpath:messages/messages</value>
+				<value>classpath:messages/errormsg</value>
+			</list>
+		</property>
+		<property name="cacheSeconds" value="0" />
+	</bean>
+
+	<bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<!-- <property name="ignoreResourceNotFound" value="false" /> -->
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:global.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 数据源信息配置 -->
+	<import resource="classpath:applicationContext-dataSource.xml" />
+	<!-- 应用配置 -->
+	<import resource="classpath:applicationContext-app.xml" />
+	<!-- 定时任务配置 -->
+	<import resource="classpath:applicationContext-task.xml" />
+<!-- 	<import resource="classpath:applicationContext-session.xml" /> -->
+	<!-- 安全配置 -->
+	<import resource="classpath:applicationContext-security.xml" />
+	
+	
+</beans>

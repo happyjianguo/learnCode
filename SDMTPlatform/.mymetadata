@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SDMTPlatform"
+  id="myeclipse.1432176059584"
+  context-root="/SDMTPlatform"
+  j2ee-spec="5.0"
+  archive="SDMTPlatform.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

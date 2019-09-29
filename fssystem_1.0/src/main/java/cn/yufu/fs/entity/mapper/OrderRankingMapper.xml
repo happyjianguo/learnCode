@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.OrderRankingMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.OrderRanking" >
+    <result column="BATCH_ID" property="batchId" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+    <result column="CELL_PHONE" property="cellPhone" jdbcType="VARCHAR" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+    <result column="PAN_ACCOUNT" property="panAccount" jdbcType="DECIMAL" />
+    <result column="AMT_EACH_CRD" property="amtEachCrd" jdbcType="DECIMAL" />
+    <result column="MER_NO" property="merNo" jdbcType="VARCHAR" />
+    <result column="CARD_NUN" property="cardNun" jdbcType="VARCHAR" />
+    <result column="TRAN_AMT" property="tranAmt" jdbcType="DECIMAL" />
+    <result column="FREE_FIELD1" property="freeField1" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD2" property="freeField2" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD3" property="freeField3" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD4" property="freeField4" jdbcType="VARCHAR" />
+    <result column="FREE_FIELD5" property="freeField5" jdbcType="VARCHAR" />
+    
+    <result column="CUSTOM_SUM" property="customSum" jdbcType="VARCHAR" />
+    <result column="ORDER_SUM" property="orderSum" jdbcType="VARCHAR" />
+    <result column="CUSTOM_CARD_SUM" property="customCardSum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    BATCH_ID, COMPANY_NAME, ORDER_ID, CELL_PHONE, ORDER_DATE, PAN_ACCOUNT, AMT_EACH_CRD, 
+    MER_NO, CARD_NUN, TRAN_AMT, FREE_FIELD1, FREE_FIELD2, FREE_FIELD3, FREE_FIELD4, FREE_FIELD5
+  </sql>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    SELECT COUNT(*) FROM (
+		SELECT m.BATCH_ID, m.MER_NO, m.COMPANY_NAME, m.CELL_PHONE,                                      
+		  SUM(m.CUSTOM_SUM) AS CUSTOM_SUM, COUNT(m.ORDER_ID) AS ORDER_SUM,                   
+		  SUM(m.AMT_EACH_CRD) AS AMT_EACH_CRD, SUM(m.PAN_ACCOUNT) AS PAN_ACCOUNT,                 
+		  SUM(m.CUSTOM_CARD_SUM) AS CUSTOM_CARD_SUM, SUM(m.TRAN_AMT) AS TRAN_AMT                         
+		FROM( SELECT n.*,t.PAN_ACCOUNT,t.AMT_EACH_CRD FROM (
+		  SELECT BATCH_ID, MER_NO, ORDER_ID, COMPANY_NAME, CELL_PHONE,                                  
+		  COUNT(*) AS CUSTOM_SUM,                          
+		  COUNT(DISTINCT CARD_NUN) AS CUSTOM_CARD_SUM,     
+		  SUM(TRAN_AMT) AS TRAN_AMT                        
+		  FROM T_ORDER_RANKING 
+	 	  <if test="_parameter != null" >
+		     <include refid="Example_Where_Clause" />
+		  </if> 
+		  GROUP BY BATCH_ID,MER_NO,COMPANY_NAME,ORDER_ID, CELL_PHONE ) n 
+		  LEFT JOIN  (SELECT FATHER_ORDER, 
+		  SUM(PAN_COUNT) AS PAN_ACCOUNT,                    
+		  SUM(PAN_COUNT*AMT_EACH_CRD)  AS AMT_EACH_CRD     
+		  FROM OPENCRDBATCH@DBLINK_TO_FKCORE 
+		  WHERE TXNCODE = 28 AND BATCH_STAT = '00' GROUP BY FATHER_ORDER ) t 
+		  ON n.ORDER_ID = t.FATHER_ORDER ) m
+		GROUP BY m.BATCH_ID, m.MER_NO, m.COMPANY_NAME, m.CELL_PHONE
+		ORDER BY TRAN_AMT DESC )
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap">
+	SELECT m.BATCH_ID, m.MER_NO, m.COMPANY_NAME, m.CELL_PHONE,                                      
+	  SUM(m.CUSTOM_SUM) AS CUSTOM_SUM, COUNT(m.ORDER_ID) AS ORDER_SUM,                   
+	  SUM(m.AMT_EACH_CRD) AS AMT_EACH_CRD, SUM(m.PAN_ACCOUNT) AS PAN_ACCOUNT,                 
+	  SUM(m.CUSTOM_CARD_SUM) AS CUSTOM_CARD_SUM, SUM(m.TRAN_AMT) AS TRAN_AMT                        
+	FROM( SELECT n.*,t.PAN_ACCOUNT,t.AMT_EACH_CRD FROM (
+	  SELECT BATCH_ID, MER_NO, ORDER_ID, COMPANY_NAME, CELL_PHONE,                                  
+	  COUNT(*) AS CUSTOM_SUM,                          
+	  COUNT(DISTINCT CARD_NUN) AS CUSTOM_CARD_SUM,     
+	  SUM(TRAN_AMT) AS TRAN_AMT                        
+	  FROM T_ORDER_RANKING 
+ 	  <if test="_parameter != null" >
+	     <include refid="Example_Where_Clause" />
+	  </if> 
+	  GROUP BY BATCH_ID,MER_NO,COMPANY_NAME,ORDER_ID,CELL_PHONE ) n 
+	  LEFT JOIN  (SELECT FATHER_ORDER, 
+	  SUM(PAN_COUNT) AS PAN_ACCOUNT,                    
+	  SUM(PAN_COUNT*AMT_EACH_CRD)  AS AMT_EACH_CRD     
+	  FROM OPENCRDBATCH@DBLINK_TO_FKCORE 
+	  WHERE TXNCODE = 28 AND BATCH_STAT = '00' GROUP BY FATHER_ORDER ) t 
+	  ON n.ORDER_ID = t.FATHER_ORDER ) m
+	GROUP BY m.BATCH_ID, m.MER_NO, m.COMPANY_NAME, m.CELL_PHONE
+	ORDER BY TRAN_AMT DESC 
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+		SELECT * FROM (
+		SELECT c.*, ROWNUM rn FROM(
+   		SELECT m.BATCH_ID, m.MER_NO, m.COMPANY_NAME, m.CELL_PHONE,                                    
+		  SUM(m.CUSTOM_SUM) AS CUSTOM_SUM, COUNT(m.ORDER_ID) AS ORDER_SUM,                   
+		  SUM(m.AMT_EACH_CRD) AS AMT_EACH_CRD, SUM(m.PAN_ACCOUNT) AS PAN_ACCOUNT,                 
+		  SUM(m.CUSTOM_CARD_SUM) AS CUSTOM_CARD_SUM, SUM(m.TRAN_AMT) AS TRAN_AMT                        
+		FROM( SELECT n.*,t.PAN_ACCOUNT,t.AMT_EACH_CRD FROM (
+		  SELECT BATCH_ID, MER_NO, ORDER_ID, COMPANY_NAME, CELL_PHONE,                                  
+		  COUNT(*) AS CUSTOM_SUM,                          
+		  COUNT(DISTINCT CARD_NUN) AS CUSTOM_CARD_SUM,     
+		  SUM(TRAN_AMT) AS TRAN_AMT                        
+		  FROM T_ORDER_RANKING 
+	 	  <if test="_parameter != null" >
+		     <include refid="Example_Where_Clause" />
+		  </if> 
+		  GROUP BY BATCH_ID,MER_NO,COMPANY_NAME,ORDER_ID,CELL_PHONE ) n 
+		  LEFT JOIN  (SELECT FATHER_ORDER, 
+		  SUM(PAN_COUNT) AS PAN_ACCOUNT,                    
+		  SUM(PAN_COUNT*AMT_EACH_CRD)  AS AMT_EACH_CRD     
+		  FROM OPENCRDBATCH@DBLINK_TO_FKCORE 
+		  WHERE TXNCODE = 28 AND BATCH_STAT = '00' GROUP BY FATHER_ORDER ) t 
+		  ON n.ORDER_ID = t.FATHER_ORDER ) m
+		GROUP BY m.BATCH_ID, m.MER_NO, m.COMPANY_NAME, m.CELL_PHONE
+		ORDER BY TRAN_AMT DESC  ) c
+		WHERE <![CDATA[ ROWNUM <= #{endResult} ]]>)
+		WHERE rn &gt; #{startResult}
+  </select> 
+  
+</mapper>

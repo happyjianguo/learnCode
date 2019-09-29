@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="loginForm"	type="com.pay.struts.form.LoginForm" />
+	</form-beans>
+
+	<global-exceptions />
+	<global-forwards>
+		<forward name="errorPage" path="/jsppage/common/loginError.jsp"></forward>
+		<forward name="resultpage" path="/jsppage/common/result.jsp"></forward>
+		<forward name="execresultpage" path="/jsppage/common/execresult.jsp"></forward>
+		<forward name="commajax" path="/jsppage/common/commajax.jsp"></forward>
+	</global-forwards>
+	<action-mappings>
+		<action  path="/checkUser" attribute="loginForm" name="loginForm" scope="request" type="com.pay.struts.action.CheckUser">
+		<!-- <forward name="index.jsp" path="/jsppage/common/head.jsp"></forward> -->
+			<forward name="index.jsp" path="/sysmain.do"></forward>
+			<forward name="login.jsp" path="/jsppage/common/login.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<action  path="/sysmain" attribute="loginForm" name="loginForm" scope="request" type="com.pay.struts.action.SysMainAction">
+			<forward name="index.jsp" path="/jsppage/common/head.jsp"></forward>
+			<forward name="login.jsp" path="/jsppage/common/login.jsp"></forward>
+			<forward name="result.jsp" path="/jsppage/common/result.jsp"></forward>
+		</action>
+		<action path="/exit" scope="request" type="com.pay.struts.action.Exit">
+			<forward name="exit" path="/jsppage/common/login.jsp"></forward>
+			<forward name="exitresultpage" path="/jsppage/common/exitresult.jsp"></forward>
+		</action>
+		<action path="/menudata" scope="request" type="com.pay.system.menu.struts.action.MenuJsonAction">
+			<forward name="menudata.jsp" path="/jsppage/common/menudata.jsp"></forward>		
+		</action>
+		<action path="/captcha" scope="request" type="com.pay.struts.action.CreateCaptcha">
+		</action>
+		<action path="/checkMenu" scope="request" type="com.pay.system.struts.action.CheckMenu">
+			<forward name="left.jsp" path="/jsppage/common/left.jsp"></forward>
+			<forward name="101.do" path="/user.do?method=getUserList"></forward>
+			<forward name="102.do" path="/role.do?method=getRoleList"></forward>
+			<forward name="103.do" path="/dept.do?method=getDeptList"></forward>			
+			
+			<forward name="201.do" path="/opencard.do?method=getOpenCardList"></forward>
+			<forward name="202.do" path="/deposit.do?method=getDepositList"></forward>
+			<forward name="203.do" path="/redeembal.do?method=getRedeembalList"></forward> 
+			<forward name="204.do" path="/userCrdproduct.do?method=getUserCrdproductList"></forward> 
+			<forward name="205.do" path="/depositAudit.do?method=getDepositList"></forward> 
+			<forward name="206.do" path="/depositUndo.do?method=getDepositUndoList"></forward>
+			<forward name="208.do" path="/sysParameters.do?method=getSysParameterList"></forward> 
+			
+			
+			<forward name="301.do" path="/salestlog.do?method=getSalestlogList&amp;txtype=289998"></forward>
+			<forward name="302.do" path="/salestlog.do?method=getSalestlogList&amp;txtype=289796"></forward>
+			<forward name="303.do" path="/salestlog.do?method=getSalestlogList&amp;txtype=009493"></forward>
+			<forward name="304.do" path="/tlog.do?method=queryTLogList"></forward>
+			<forward name="305.do" path="/tlog.do?method=queryTLogListBak"></forward>
+			<forward name="306.do" path="/tlog.do?method=queryTLogListCurrent"></forward>
+			<forward name="307.do" path="/tlog.do?method=queryTLogListRollingPoor"></forward>
+			<forward name="308.do" path="/querySinopecSweepCard.do?method=toQuery"></forward>
+			
+			
+			<forward name="401.do" path="/merchant.do?method=getMerchantList"></forward>
+			<forward name="402.do" path="/terminal.do?method=getTerminalList"></forward>
+			<forward name="403.do" path="/mrchaccx.do?method=getMrchaccxList"></forward>
+			<forward name="404.do" path="/bank.do?method=getTBankInfoList"></forward>
+			<forward name="405.do" path="/sysParameter.do?method=getSysParameterList"></forward>
+			<!-- 商户活动卡管理 -->
+			<forward name="406.do" path="/tCardMerInfo.do?method=getTCardMerInfoList"></forward>
+			
+			<forward name="501.do" path="/merchantInfo.do?method=getMerchantInfoList"></forward>
+			<forward name="502.do" path="/terminalInfo.do?method=getTerminalInfoList"></forward>			
+			
+			<forward name="601.do" path="/merchantOrg.do?method=getMerchantOrgList"></forward>
+			<!--分润机构 -->
+			<forward name="602.do" path="/merchantFenrunOrg.do?method=getMerchantOrgList"></forward>
+			
+			<!-- 信息查询  -->	
+			<forward name="801.do" path="/queryCard.do?method=getCardList"></forward>
+			<forward name="802.do" path="/queryCard.do?method=getRealCardList"></forward>
+			<forward name="803.do" path="/queryLs.do?method=getLsList"></forward>
+			<forward name="804.do" path="/queryRecError.do?method=getRecErrorList"></forward>
+			<!-- 制卡系统 -->
+			<forward name="902.do" path="/bflowlog.do?method=getBFlowLogList"></forward>
+			<forward name="903.do" path="/bflowlog.do?method=preShowPanFlowLogList"></forward>	
+			<forward name="904.do" path="/mcVirtualCard.do?method=preShowPanFlowLogList"></forward>	
+			
+			<forward name="905.do" path="/crdformatMap.do?method=queryCrdformatMapList"></forward>		
+			<forward name="906.do" path="/snCCard.do?method=queryBFlowLogList"></forward>	
+			<forward name="907.do" path="/makeCard.do?method=queryMakeCardList"></forward>
+			<!-- ETC管理  -->	
+			<forward name="909.do" path="/crdetcpool.do?method=preShowCrdEtcPoolList"></forward>	
+			<!-- 特制批量发卡管理  -->		
+			<forward name="910.do" path="/sixbflowlog.do?method=preShowSixPanFlowLogList"></forward>
+			<!-- 发卡密码管理  -->		
+			<forward name="911.do" path="/iidPinChk.do?method=getIidPinChkList"></forward>
+		</action>
+	</action-mappings>
+	<message-resources
+		parameter="com.pay.struts.ApplicationResources" />
+</struts-config>
+

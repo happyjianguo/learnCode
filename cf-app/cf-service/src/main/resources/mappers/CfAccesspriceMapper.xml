@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.wsfdn.CfAccesspriceMapper">
+	<select id="query" parameterType="CfAccesspriceEntity" resultType="CfAccesspriceEntity">
+		SELECT
+		    ap.APID,
+		    ap.ACID,
+		    ac.ACNAME acname,
+		    ap.PRICE,
+		    ap.ISPNO,
+		    ap.IPSTYPE,
+		    cf.pname pname,
+		    ap.FACEVALUE,
+		    ap.STATUS
+		FROM
+		    CF_ACCESSPRICE ap
+				left join CF_ACCESSCLIENT ac
+					on ap.acid = ac.id 
+						left join CF_PROVINCE cf 
+							on ap.PROVINCE = cf.pno
+		WHERE 
+			(
+				1=1
+				<!-- CREAGETIME between #{begintime} and #{endtime} -->
+				<if test="apid!='' and apid!=null">
+					and ap.APID=#{apid}
+				</if>
+				<if test="acid!='' and acid!=null">
+					and ap.ACID = #{acid} 
+				</if>
+				<if test="price!='' and price!=null">
+					and ap.PRICE = #{price}
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and ap.ISPNO = #{ispno} 
+				</if>
+				<if test="ipstype!='' and ipstype!=null">
+					and ap.IPSTYPE = #{ipstype} 
+				</if>
+				<if test="facevalue!='' and facevalue!=null">
+					and ap.FACEVALUE = #{facevalue} 
+				</if>
+				<if test="province!='' and province!=null">
+					and ap.PROVINCE = #{province} 
+				</if>
+				<if test="status!='' and status!=null">
+					and ap.STATUS = #{status} 
+				</if>
+			) 
+		order by 
+			ap.apid desc 
+	</select>
+	<select id="queryAccesspriceByid"  parameterType="CfAccesspriceEntity" resultType="CfAccesspriceEntity">
+		SELECT
+		    APID,
+		    ACID,
+		    PRICE,
+		    ISPNO,
+		    IPSTYPE,
+		    PROVINCE,
+		    FACEVALUE,
+		    STATUS
+		FROM
+		    cf_accessprice ap
+		WHERE
+			ap.APID = #{apid}
+	</select>
+	<select id="queryAccesspriceByAcid"  parameterType="CfAccesspriceEntity" resultType="CfAccesspriceEntity">
+		SELECT
+		    APID,
+		    ACID,
+		    PRICE,
+		    ISPNO,
+		    IPSTYPE,
+		    PROVINCE,
+		    FACEVALUE,
+		    STATUS
+		FROM
+		    cf_accessprice ap
+		WHERE
+			ap.ACID = #{acid}
+	</select>
+	<select id="queryAccesspriceByApprice"  parameterType="CfAccesspriceEntity" resultType="CfAccesspriceEntity">
+		SELECT
+		    APID,
+		    ACID,
+		    PRICE,
+		    ISPNO,
+		    IPSTYPE,
+		    PROVINCE,
+		    FACEVALUE,
+		    STATUS
+		FROM
+		    cf_accessprice ap
+		WHERE
+			ap.IPSTYPE = #{ipstype}  
+			and ap.ISPNO = #{ispno} 
+			and ap.PROVINCE = #{province} 
+			and ap.FACEVALUE = #{facevalue}
+	</select>
+	<select id="queryIspno"  parameterType="CfAccesspriceEntity" resultType="CfAccesspriceEntity">
+		SELECT
+		    distinct ISPNO
+		FROM
+		    cf_accessprice
+		WHERE
+			ACID = #{acid} and IPSTYPE = #{ipstype}
+	</select>
+	<select id="queryprovince"  parameterType="CfAccesspriceEntity" resultType="CfAccesspriceEntity">
+		SELECT
+		    distinct PROVINCE,
+		    cf.pname pname
+		FROM
+		    cf_accessprice ap left join CF_PROVINCE cf 
+							on ap.PROVINCE = cf.pno
+		WHERE
+			ACID = #{acid} and ap.ISPNO = #{ispno} and ap.ipstype=#{ipstype}
+	</select>
+	
+	<insert id="insert" parameterType="CfAccesspriceEntity">
+		INSERT
+			INTO
+			    cf_accessprice
+			    (
+			        APID,
+			        ACID,
+			        PRICE,
+			        ISPNO,
+			        IPSTYPE,
+			        PROVINCE,
+			        FACEVALUE,
+			        STATUS
+			    )
+			    VALUES
+			    (
+			        #{apid},
+			        #{acid},
+			        #{price},
+			        #{ispno},
+			        #{ipstype},
+			        #{province},
+			        #{facevalue},
+			        #{status}
+			    )
+	</insert>
+	<update id="updateAccessprice" parameterType="CfAccesspriceEntity">
+	UPDATE
+	    CF_ACCESSPRICE
+	SET
+	    ACID =  #{acid},
+	    PRICE = #{price},
+	    ISPNO = #{ispno},
+	    IPSTYPE = #{ipstype},
+	    PROVINCE = #{province},
+	    FACEVALUE = #{facevalue},
+	    STATUS = #{status}
+	WHERE
+	    APID = #{apid}
+	</update>
+	
+	<!-- <update id="deleteAccessprice" parameterType="CfAccesspriceEntity">
+		UPDATE
+		    CF_ACCESSPRICE
+		SET
+		    STATUS = 'gb'
+		WHERE
+		    APID = #{apid}
+	</update> -->
+	<delete id="deleteAccessprice" parameterType="CfAccesspriceEntity">
+		DELETE FROM CF_ACCESSPRICE WHERE APID = #{apid}
+	</delete>
+	<select id="selectprice"  parameterType="CfAccesspriceEntity" resultType="CfAccesspriceEntity">
+		SELECT
+		     APID,
+			 ACID,
+			 PRICE,
+			 ISPNO,
+			 IPSTYPE,
+			 PROVINCE,
+			 FACEVALUE,
+			 STATUS
+		FROM
+		    cf_accessprice
+		WHERE
+			(
+				1=1
+				<!-- CREAGETIME between #{begintime} and #{endtime} -->
+				<if test="apid!='' and apid!=null">
+					and APID=#{apid}
+				</if>
+				<if test="acid!='' and acid!=null">
+					and ACID = #{acid} 
+				</if>
+				<if test="price!='' and price!=null">
+					and PRICE = #{price}
+				</if>
+				<if test="ispno!='' and ispno!=null">
+					and ISPNO = #{ispno} 
+				</if>
+				<if test="ipstype!='' and ipstype!=null">
+					and IPSTYPE = #{ipstype} 
+				</if>
+				<if test="facevalue!='' and facevalue!=null">
+					and FACEVALUE = #{facevalue} 
+				</if>
+				<if test="province!='' and province!=null">
+					and PROVINCE = #{province} 
+				</if>
+				<if test="status!='' and status!=null">
+					and STATUS = #{status} 
+				</if>
+			)  
+	</select>
+</mapper>
+	

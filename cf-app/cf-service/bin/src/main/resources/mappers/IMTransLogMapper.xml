@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.TransLogMapper">
+	<select id="searchLog" parameterType="loggerManageModel" resultType="OperLog">
+		SELECT
+		    L.LOGID,
+		    M.USERNAME,
+		    L.TRANSNAME,
+		    L.TRANSTIME,
+		    L.REMOTEIP,
+		    L.STATUS
+		FROM
+		    IMUSERLOG L
+		        LEFT JOIN
+		    IMUSER M ON M.USERID = L.USERID
+		WHERE L.USERID=#{userId} AND TRANSTIME BETWEEN #{beginTime} AND #{endTime}
+		ORDER BY TRANSTIME DESC
+		LIMIT #{start},#{length}
+	</select>
+
+	<select id="searchLogCount" parameterType="loggerManageModel" resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+		    IMUSERLOG L
+		        LEFT JOIN
+		    IMUSER M ON M.USERID = L.USERID
+		WHERE
+			L.USERID=#{userId} AND TRANSTIME between #{beginTime} and #{endTime}
+        ORDER BY TRANSTIME DESC
+	</select>
+</mapper>

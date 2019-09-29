@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.cortex.dao.MrchAccMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.cortex.entity.MrchAcc" >
+    <id column="CURRCODE" property="currcode" jdbcType="CHAR" />
+    <id column="MERCHANT_ID" property="merchantId" jdbcType="DECIMAL" />
+    <result column="VERNO_CTX" property="vernoCtx" jdbcType="DECIMAL" />
+    <result column="DATE_LAST_STMT" property="dateLastStmt" jdbcType="DATE" />
+    <result column="CLOSING_BAL" property="closingBal" jdbcType="FLOAT" />
+    <result column="CURRENT_BAL" property="currentBal" jdbcType="FLOAT" />
+    <result column="LAST_POST_BAL" property="lastPostBal" jdbcType="FLOAT" />
+    <result column="LAST_POST_COM" property="lastPostCom" jdbcType="FLOAT" />
+    <result column="LAST_POST_TAX" property="lastPostTax" jdbcType="FLOAT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CURRCODE, MERCHANT_ID, VERNO_CTX, DATE_LAST_STMT, CLOSING_BAL, CURRENT_BAL, LAST_POST_BAL, 
+    LAST_POST_COM, LAST_POST_TAX
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.MrchAccExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from MRCHACC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cn.yufu.cortex.entity.MrchAccKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from MRCHACC
+    where CURRCODE = #{currcode,jdbcType=CHAR}
+      and MERCHANT_ID = #{merchantId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="cn.yufu.cortex.entity.MrchAccKey" >
+    delete from MRCHACC
+    where CURRCODE = #{currcode,jdbcType=CHAR}
+      and MERCHANT_ID = #{merchantId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.cortex.entity.MrchAccExample" >
+    delete from MRCHACC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.cortex.entity.MrchAcc" >
+    insert into MRCHACC (CURRCODE, MERCHANT_ID, VERNO_CTX, 
+      DATE_LAST_STMT, CLOSING_BAL, CURRENT_BAL, 
+      LAST_POST_BAL, LAST_POST_COM, LAST_POST_TAX
+      )
+    values (#{currcode,jdbcType=CHAR}, #{merchantId,jdbcType=DECIMAL}, #{vernoCtx,jdbcType=DECIMAL}, 
+      #{dateLastStmt,jdbcType=DATE}, #{closingBal,jdbcType=FLOAT}, #{currentBal,jdbcType=FLOAT}, 
+      #{lastPostBal,jdbcType=FLOAT}, #{lastPostCom,jdbcType=FLOAT}, #{lastPostTax,jdbcType=FLOAT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.cortex.entity.MrchAcc" >
+    insert into MRCHACC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="currcode != null" >
+        CURRCODE,
+      </if>
+      <if test="merchantId != null" >
+        MERCHANT_ID,
+      </if>
+      <if test="vernoCtx != null" >
+        VERNO_CTX,
+      </if>
+      <if test="dateLastStmt != null" >
+        DATE_LAST_STMT,
+      </if>
+      <if test="closingBal != null" >
+        CLOSING_BAL,
+      </if>
+      <if test="currentBal != null" >
+        CURRENT_BAL,
+      </if>
+      <if test="lastPostBal != null" >
+        LAST_POST_BAL,
+      </if>
+      <if test="lastPostCom != null" >
+        LAST_POST_COM,
+      </if>
+      <if test="lastPostTax != null" >
+        LAST_POST_TAX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="currcode != null" >
+        #{currcode,jdbcType=CHAR},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="vernoCtx != null" >
+        #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="dateLastStmt != null" >
+        #{dateLastStmt,jdbcType=DATE},
+      </if>
+      <if test="closingBal != null" >
+        #{closingBal,jdbcType=FLOAT},
+      </if>
+      <if test="currentBal != null" >
+        #{currentBal,jdbcType=FLOAT},
+      </if>
+      <if test="lastPostBal != null" >
+        #{lastPostBal,jdbcType=FLOAT},
+      </if>
+      <if test="lastPostCom != null" >
+        #{lastPostCom,jdbcType=FLOAT},
+      </if>
+      <if test="lastPostTax != null" >
+        #{lastPostTax,jdbcType=FLOAT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.cortex.entity.MrchAccExample" resultType="java.lang.Integer" >
+    select count(*) from MRCHACC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update MRCHACC
+    <set >
+      <if test="record.currcode != null" >
+        CURRCODE = #{record.currcode,jdbcType=CHAR},
+      </if>
+      <if test="record.merchantId != null" >
+        MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vernoCtx != null" >
+        VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dateLastStmt != null" >
+        DATE_LAST_STMT = #{record.dateLastStmt,jdbcType=DATE},
+      </if>
+      <if test="record.closingBal != null" >
+        CLOSING_BAL = #{record.closingBal,jdbcType=FLOAT},
+      </if>
+      <if test="record.currentBal != null" >
+        CURRENT_BAL = #{record.currentBal,jdbcType=FLOAT},
+      </if>
+      <if test="record.lastPostBal != null" >
+        LAST_POST_BAL = #{record.lastPostBal,jdbcType=FLOAT},
+      </if>
+      <if test="record.lastPostCom != null" >
+        LAST_POST_COM = #{record.lastPostCom,jdbcType=FLOAT},
+      </if>
+      <if test="record.lastPostTax != null" >
+        LAST_POST_TAX = #{record.lastPostTax,jdbcType=FLOAT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update MRCHACC
+    set CURRCODE = #{record.currcode,jdbcType=CHAR},
+      MERCHANT_ID = #{record.merchantId,jdbcType=DECIMAL},
+      VERNO_CTX = #{record.vernoCtx,jdbcType=DECIMAL},
+      DATE_LAST_STMT = #{record.dateLastStmt,jdbcType=DATE},
+      CLOSING_BAL = #{record.closingBal,jdbcType=FLOAT},
+      CURRENT_BAL = #{record.currentBal,jdbcType=FLOAT},
+      LAST_POST_BAL = #{record.lastPostBal,jdbcType=FLOAT},
+      LAST_POST_COM = #{record.lastPostCom,jdbcType=FLOAT},
+      LAST_POST_TAX = #{record.lastPostTax,jdbcType=FLOAT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.cortex.entity.MrchAcc" >
+    update MRCHACC
+    <set >
+      <if test="vernoCtx != null" >
+        VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      </if>
+      <if test="dateLastStmt != null" >
+        DATE_LAST_STMT = #{dateLastStmt,jdbcType=DATE},
+      </if>
+      <if test="closingBal != null" >
+        CLOSING_BAL = #{closingBal,jdbcType=FLOAT},
+      </if>
+      <if test="currentBal != null" >
+        CURRENT_BAL = #{currentBal,jdbcType=FLOAT},
+      </if>
+      <if test="lastPostBal != null" >
+        LAST_POST_BAL = #{lastPostBal,jdbcType=FLOAT},
+      </if>
+      <if test="lastPostCom != null" >
+        LAST_POST_COM = #{lastPostCom,jdbcType=FLOAT},
+      </if>
+      <if test="lastPostTax != null" >
+        LAST_POST_TAX = #{lastPostTax,jdbcType=FLOAT},
+      </if>
+    </set>
+    where CURRCODE = #{currcode,jdbcType=CHAR}
+      and MERCHANT_ID = #{merchantId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.cortex.entity.MrchAcc" >
+    update MRCHACC
+    set VERNO_CTX = #{vernoCtx,jdbcType=DECIMAL},
+      DATE_LAST_STMT = #{dateLastStmt,jdbcType=DATE},
+      CLOSING_BAL = #{closingBal,jdbcType=FLOAT},
+      CURRENT_BAL = #{currentBal,jdbcType=FLOAT},
+      LAST_POST_BAL = #{lastPostBal,jdbcType=FLOAT},
+      LAST_POST_COM = #{lastPostCom,jdbcType=FLOAT},
+      LAST_POST_TAX = #{lastPostTax,jdbcType=FLOAT}
+    where CURRCODE = #{currcode,jdbcType=CHAR}
+      and MERCHANT_ID = #{merchantId,jdbcType=DECIMAL}
+  </update>
+</mapper>

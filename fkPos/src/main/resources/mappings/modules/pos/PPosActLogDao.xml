@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.PPosActLogDao">
+    
+	<sql id="pPosActLogColumns">
+		a.id AS "id",
+		a.pos_sn AS "posSn",
+		a.merchant_id AS "merchantId",
+		a.terminal_id AS "terminalId",
+		a.pos_act_type AS "posActType",
+		a.pos_act_msg AS "posActMsg",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="pPosActLogJoins">
+	</sql>
+    
+	<select id="get" resultType="PPosActLog">
+		SELECT 
+			<include refid="pPosActLogColumns"/>
+		FROM p_pos_act_log a
+		<include refid="pPosActLogJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PPosActLog">
+		SELECT 
+			<include refid="pPosActLogColumns"/>
+		FROM p_pos_act_log a
+		<include refid="pPosActLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="posSn != null and posSn != ''">
+				AND a.pos_sn LIKE 
+					<if test="dbName == 'oracle'">'%'||#{posSn}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{posSn}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{posSn},'%')</if>
+			</if>
+			<if test="merchantId != null and merchantId != ''">
+				AND a.merchant_id = #{merchantId}
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				AND a.terminal_id = #{terminalId}
+			</if>
+			<if test="posActType != null and posActType != ''">
+				AND a.pos_act_type = #{posActType}
+			</if>
+			<if test="posActMsg != null and posActMsg != ''">
+				AND a.pos_act_msg LIKE 
+					<if test="dbName == 'oracle'">'%'||#{posActMsg}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{posActMsg}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{posActMsg},'%')</if>
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="queryCreateByName != null">
+				AND a.create_by IN
+		    	<foreach collection="queryCreateByName" item="createBy" index="index"
+			        open="(" close=")" separator=",">
+			        #{createBy.id}
+		    	</foreach>
+			</if>
+			<if test="beginCreateDate != null and beginCreateDate != '' ">
+				AND <![CDATA[ to_char(a.create_date,'YYYYMMDD') >= #{beginCreateDate} ]]>
+			</if>
+			<if test="endCreateDate != null and endCreateDate != ''">
+				AND <![CDATA[ to_char(a.create_date,'YYYYMMDD') <= #{endCreateDate} ]]>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PPosActLog">
+		SELECT 
+			<include refid="pPosActLogColumns"/>
+		FROM p_pos_act_log a
+		<include refid="pPosActLogJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO p_pos_act_log(
+			id,
+			pos_sn,
+			merchant_id,
+			terminal_id,
+			pos_act_type,
+			pos_act_msg,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{posSn},
+			#{merchantId},
+			#{terminalId},
+			#{posActType},
+			#{posActMsg},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE p_pos_act_log SET 	
+			pos_sn = #{posSn},
+			merchant_id = #{merchantId},
+			terminal_id = #{terminalId},
+			pos_act_type = #{posActType},
+			pos_act_msg = #{posActMsg},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE p_pos_act_log SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

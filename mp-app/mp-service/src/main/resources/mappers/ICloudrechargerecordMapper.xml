@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.recharge.ICloudrechargerecordMapper">
+	
+	<!-- 人工充值完成后插入充值记录流水表 -->
+	<insert id="saveRecordData" parameterType="CloudrechargerecordEntity">
+		INSERT INTO CLOUDRECHARGERECORD
+			( 	ORDERID,
+				USERID,
+				ORGID,
+				STATUS,
+				CURRENTMONEY,
+				PAYTYPE,
+				UPDATETIME
+			) VALUES 
+			(	#{orderid},
+				#{userid},
+				#{orgid},
+				#{status},
+				#{currentmoney},
+				#{paytype},
+				#{updatetime}
+			)
+	</insert>
+	
+	<!-- 查询充值记录数据 -->
+	<select id="queryAll" parameterType="CloudrechargerecordEntity" resultType="CloudrechargerecordEntity">
+		SELECT
+				A.ORDERID,
+				A.USERID,
+				A.ORGID,
+				A.STATUS,
+				A.CURRENTMONEY,
+				A.RECHARGEID,
+				A.TXNTIME,
+				A.QUERYID,
+				A.PAYTYPE,
+				A.CODE,
+				A.PRICE,
+				A.SIGN,
+				A.ORIGRESPCODE,
+				A.RESPCODE,
+				A.TRACENO,
+				A.UPDATETIME,
+				A.STATUS1,
+				A.QUERYNUM,
+				B.ORGNAME
+		FROM
+				CLOUDRECHARGERECORD A LEFT JOIN CLOUDPLATFORMORGINATION B
+				ON A.ORGID=B.ID
+		WHERE 
+			 	1 = 1
+			 	<if test="orgid!='' and orgid!=null">
+					AND A.ORGID = #{orgid} 
+				</if>
+				<if test="userid!='' and userid!=null">
+					AND A.USERID LIKE CONCAT('%',#{userid},'%')
+				</if>
+		ORDER BY A.UPDATETIME DESC
+	</select>
+	
+</mapper>

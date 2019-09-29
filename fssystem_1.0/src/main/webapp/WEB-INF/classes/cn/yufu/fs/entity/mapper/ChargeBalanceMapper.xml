@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.ChargeBalanceMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.ChargeBalance" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MER_NO" property="merNo" jdbcType="VARCHAR" />
+    <result column="MER_NAME" property="merName" jdbcType="VARCHAR" />
+    <result column="TERMINAL_ID" property="terminalId" jdbcType="CHAR" />
+    <result column="CARD_NO" property="cardNo" jdbcType="VARCHAR" />
+    <result column="VOID_TRACE_NO" property="voidTraceNo" jdbcType="DECIMAL" />
+    <result column="VOID_SYS_DATE" property="voidSysDate" jdbcType="CHAR" />
+    <result column="VOID_SYS_TIME" property="voidSysTime" jdbcType="CHAR" />
+    <result column="VOID_AMT" property="voidAmt" jdbcType="DECIMAL" />
+    <result column="VOID_TRACE_CODE" property="voidTraceCode" jdbcType="VARCHAR" />
+    <result column="VOID_RESP_CODE" property="voidRespCode" jdbcType="VARCHAR" />
+    <result column="CHARGE_AMT" property="chargeAmt" jdbcType="DECIMAL" />
+    <result column="CHARGE_FLAG" property="chargeFlag" jdbcType="CHAR" />
+    <result column="TRACE_NO" property="traceNo" jdbcType="DECIMAL" />
+    <result column="RESP_CODE" property="respCode" jdbcType="CHAR" />
+    <result column="RESP_MSG" property="respMsg" jdbcType="VARCHAR" />
+    <result column="PIC_ROUTE" property="picRoute" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="CHAR" />
+    <result column="TLOG_ID" property="tlogId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    A.ID, A.MER_NO, A.MER_NAME, A.TERMINAL_ID, A.CARD_NO, A.VOID_TRACE_NO, 
+    A.VOID_SYS_DATE, A.VOID_SYS_TIME, A.VOID_AMT, A.VOID_TRACE_CODE, A.VOID_RESP_CODE, 
+    A.CHARGE_AMT, A.CHARGE_FLAG, A.TRACE_NO, A.RESP_CODE, A.RESP_MSG, A.PIC_ROUTE, 
+    A.CREATE_BY, A.CREATE_DATE, A.REMARKS, A.DEL_FLAG, to_char(B.TLOG_ID) AS TLOG_ID
+  </sql>
+  
+  <sql id="Base_Join_Table" >
+	LEFT JOIN MANCHGACC@DBLINK_TO_FKCORE B ON A.ID = B.ORDERID
+  </sql>
+  
+  <select id="getSequenceId" resultType="java.lang.String" >
+    SELECT SEQ_CHARGE_BALANCE.NEXTVAL FROM DUAL
+  </select>
+  
+  <select id="countByExample" resultType="java.lang.Integer" >
+    SELECT COUNT(*) FROM (
+    SELECT <include refid="Base_Column_List" /> 
+    FROM T_CHARGE_BALANCE A 
+    <include refid="Base_Join_Table" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>)
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.fs.entity.ChargeBalanceExample" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM T_CHARGE_BALANCE A 
+    <include refid="Base_Join_Table" />
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null" >
+      ORDER BY ${example.orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectPageByExample" parameterType="map" resultMap="BaseResultMap">
+	SELECT * FROM (
+	SELECT c.*, ROWNUM rn FROM(
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM T_CHARGE_BALANCE A
+	<include refid="Base_Join_Table" />
+	<if test="_parameter != null">
+		<include refid="Example_Where_Clause" />
+	</if>
+	<if test="example.orderByClause != null">
+		ORDER BY ${example.orderByClause}
+	</if>) c
+	WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+	WHERE rn &gt; ${startResult}
+  </select> 
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM T_CHARGE_BALANCE A
+    <include refid="Base_Join_Table" />
+    WHERE A.ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!-- DELETE FROM T_CHARGE_BALANCE WHERE ID = #{id,jdbcType=VARCHAR} -->
+    UPDATE T_CHARGE_BALANCE SET DEL_FLAG = '1' WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="cancelByPrimaryKey" parameterType="java.lang.String" >
+    UPDATE T_CHARGE_BALANCE SET RESP_CODE = '2' WHERE ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insert" parameterType="cn.yufu.fs.entity.ChargeBalance" >
+    INSERT INTO T_CHARGE_BALANCE (ID, MER_NO, MER_NAME, 
+      TERMINAL_ID, CARD_NO, VOID_TRACE_NO, 
+      VOID_SYS_DATE, VOID_SYS_TIME, VOID_AMT, 
+      VOID_TRACE_CODE, VOID_RESP_CODE, CHARGE_AMT, 
+      CHARGE_FLAG, TRACE_NO, RESP_CODE, 
+      PIC_ROUTE, CREATE_BY, CREATE_DATE, 
+      REMARKS, DEL_FLAG)
+    values (#{id,jdbcType=VARCHAR}, #{merNo,jdbcType=VARCHAR}, #{merName,jdbcType=VARCHAR}, 
+      #{terminalId,jdbcType=CHAR}, #{cardNo,jdbcType=VARCHAR}, #{voidTraceNo,jdbcType=DECIMAL}, 
+      #{voidSysDate,jdbcType=CHAR}, #{voidSysTime,jdbcType=CHAR}, #{voidAmt,jdbcType=DECIMAL}, 
+      #{voidTraceCode,jdbcType=VARCHAR}, #{voidRespCode,jdbcType=VARCHAR}, #{chargeAmt,jdbcType=DECIMAL}, 
+      #{chargeFlag,jdbcType=CHAR}, #{traceNo,jdbcType=DECIMAL}, #{respCode,jdbcType=CHAR}, 
+      #{picRoute,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
+  </insert>
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_CHARGE_BALANCE
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merNo != null" >
+        MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merName != null" >
+        MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminalId != null" >
+        TERMINAL_ID = #{record.terminalId,jdbcType=CHAR},
+      </if>
+      <if test="record.cardNo != null" >
+        CARD_NO = #{record.cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voidTraceNo != null" >
+        VOID_TRACE_NO = #{record.voidTraceNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.voidSysDate != null" >
+        VOID_SYS_DATE = #{record.voidSysDate,jdbcType=CHAR},
+      </if>
+      <if test="record.voidSysTime != null" >
+        VOID_SYS_TIME = #{record.voidSysTime,jdbcType=CHAR},
+      </if>
+      <if test="record.voidAmt != null" >
+        VOID_AMT = #{record.voidAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.voidTraceCode != null" >
+        VOID_TRACE_CODE = #{record.voidTraceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voidRespCode != null" >
+        VOID_RESP_CODE = #{record.voidRespCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeAmt != null" >
+        CHARGE_AMT = #{record.chargeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chargeFlag != null" >
+        CHARGE_FLAG = #{record.chargeFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.traceNo != null" >
+        TRACE_NO = #{record.traceNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.respCode != null" >
+        RESP_CODE = #{record.respCode,jdbcType=CHAR},
+      </if>
+      <if test="record.respMsg != null" >
+        RESP_MSG = #{record.respMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picRoute != null" >
+        PIC_ROUTE = #{record.picRoute,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null" >
+        DEL_FLAG = #{record.delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByExample" parameterType="map" >
+    update T_CHARGE_BALANCE
+    set ID = #{record.id,jdbcType=VARCHAR},
+      MER_NO = #{record.merNo,jdbcType=VARCHAR},
+      MER_NAME = #{record.merName,jdbcType=VARCHAR},
+      TERMINAL_ID = #{record.terminalId,jdbcType=CHAR},
+      CARD_NO = #{record.cardNo,jdbcType=VARCHAR},
+      VOID_TRACE_NO = #{record.voidTraceNo,jdbcType=DECIMAL},
+      VOID_SYS_DATE = #{record.voidSysDate,jdbcType=CHAR},
+      VOID_SYS_TIME = #{record.voidSysTime,jdbcType=CHAR},
+      VOID_AMT = #{record.voidAmt,jdbcType=DECIMAL},
+      VOID_TRACE_CODE = #{record.voidTraceCode,jdbcType=VARCHAR},
+      VOID_RESP_CODE = #{record.voidRespCode,jdbcType=VARCHAR},
+      CHARGE_AMT = #{record.chargeAmt,jdbcType=DECIMAL},
+      CHARGE_FLAG = #{record.chargeFlag,jdbcType=CHAR},
+      TRACE_NO = #{record.traceNo,jdbcType=DECIMAL},
+      RESP_CODE = #{record.respCode,jdbcType=CHAR},
+      RESP_MSG = #{record.respMsg,jdbcType=VARCHAR},
+      PIC_ROUTE = #{record.picRoute,jdbcType=VARCHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      DEL_FLAG = #{record.delFlag,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.fs.entity.ChargeBalance" >
+    update T_CHARGE_BALANCE
+    <set>
+      <if test="merNo != null" >
+        MER_NO = #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merName != null" >
+        MER_NAME = #{merName,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalId != null" >
+        TERMINAL_ID = #{terminalId,jdbcType=CHAR},
+      </if>
+      <if test="cardNo != null" >
+        CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="voidTraceNo != null" >
+        VOID_TRACE_NO = #{voidTraceNo,jdbcType=DECIMAL},
+      </if>
+      <if test="voidSysDate != null" >
+        VOID_SYS_DATE = #{voidSysDate,jdbcType=CHAR},
+      </if>
+      <if test="voidSysTime != null" >
+        VOID_SYS_TIME = #{voidSysTime,jdbcType=CHAR},
+      </if>
+      <if test="voidAmt != null" >
+        VOID_AMT = #{voidAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="voidTraceCode != null" >
+        VOID_TRACE_CODE = #{voidTraceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="voidRespCode != null" >
+        VOID_RESP_CODE = #{voidRespCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeAmt != null" >
+        CHARGE_AMT = #{chargeAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeFlag != null" >
+        CHARGE_FLAG = #{chargeFlag,jdbcType=CHAR},
+      </if>
+      <if test="traceNo != null" >
+        TRACE_NO = #{traceNo,jdbcType=DECIMAL},
+      </if>
+      <if test="respCode != null" >
+        RESP_CODE = #{respCode,jdbcType=CHAR},
+      </if>
+      <if test="respMsg != null" >
+        RESP_MSG = #{respMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="picRoute != null" >
+        PIC_ROUTE = #{picRoute,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        DEL_FLAG = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.fs.entity.ChargeBalance" >
+    update T_CHARGE_BALANCE
+    set MER_NO = #{merNo,jdbcType=VARCHAR},
+      MER_NAME = #{merName,jdbcType=VARCHAR},
+      TERMINAL_ID = #{terminalId,jdbcType=CHAR},
+      CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      VOID_TRACE_NO = #{voidTraceNo,jdbcType=DECIMAL},
+      VOID_SYS_DATE = #{voidSysDate,jdbcType=CHAR},
+      VOID_SYS_TIME = #{voidSysTime,jdbcType=CHAR},
+      VOID_AMT = #{voidAmt,jdbcType=DECIMAL},
+      VOID_TRACE_CODE = #{voidTraceCode,jdbcType=VARCHAR},
+      VOID_RESP_CODE = #{voidRespCode,jdbcType=VARCHAR},
+      CHARGE_AMT = #{chargeAmt,jdbcType=DECIMAL},
+      CHARGE_FLAG = #{chargeFlag,jdbcType=CHAR},
+      TRACE_NO = #{traceNo,jdbcType=DECIMAL},
+      RESP_CODE = #{respCode,jdbcType=CHAR},
+      RESP_MSG = #{respMsg,jdbcType=VARCHAR},
+      PIC_ROUTE = #{picRoute,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=CHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

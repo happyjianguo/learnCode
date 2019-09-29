@@ -1,0 +1,484 @@
+/***********************************************************************************
+							EMPExt标签缺省的样式
+***********************************************************************************/
+
+/************************* 标签日志(开发调试时使用)的样式 ******************************/
+#posp_log_div {
+	background-color: #fefbf6;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 200px;
+	height: 500px;
+	overflow: scroll;	
+}
+
+.list td{
+background:expression((this.parentNode.rowIndex)%2==0?"#f7fbfc":"#FFFFFF");
+}
+
+/*********************************** 布局组件的样式 **********************************/
+/************ 布局组件整个table的样式 ****************/
+.posp_gridLayout_table {
+	color: #000;
+	border: 1px solid #ACC9DD;
+	border-collapse: collapse;
+	margin: 10px 0px 5px 0px;
+	width: 100%;
+}
+
+.posp_gridLayout_table td {
+	border-top: 1px solid #CDD8E3;
+	padding: 4px 4px 4px 8px;
+}
+
+/************* 布局组件中标题的样式 ******************/
+.posp_gridlayout_title {
+	font-weight: bold; 
+	font-size: 12px;
+	color: #000;
+	height: 26px;
+	background: url(../../images/posp/table_head_background.png) repeat-x;
+}
+
+.posp_gridlayout_title td {
+	padding:0px 5px 0px 10px;
+}
+
+
+
+/****************************** 单个数据标签的样式 ************************************/
+/****************** 每个数据标签的label样式(只适用于布局组件中) ***********************/
+.posp_field_label {
+	background-color: #EEF5FD;
+	text-align: right;
+	color: #000000;
+}
+
+.posp_field_label_disabled{
+	background-color: #EEF5FD;
+	text-align: right;
+	color: black;
+}
+
+.posp_field_label_readonly{
+	background-color: #EEF5FD;
+	text-align: right;
+	color: black;
+}
+
+/****************** 数据标签只读时的样式 ***********************/
+.posp_field_flat {
+		
+}
+
+/******************* 必输标志符号的样式(即*号的样式) **********************/
+.posp_field_required {
+	color: red;
+}
+
+/******************* 标签隐藏状态的样式 ***************************/
+.posp_field_hidden {
+	display: none;
+}
+
+/******************* 标签不可用状态的样式 ***************************/
+.posp_field_disabled {
+	color: #CEC7BD;
+}
+
+
+/************************ 输入框(pospext:text)的样式 **************************/
+/*************** 输入框(input)普通状态下的样式 ********************/
+.posp_field_text_input {
+    font: 12px Arial;
+    color: #000;	
+    height: 20px;
+	width:180px;
+    border:1px solid #ACC9DD;
+	vertical-align: middle;
+    text-indent: 3px;
+	line-height:20px
+}
+
+.posp_field_telephone_input {
+    font: 12px Arial;
+    color: #000;	
+    height: 20px;
+	width:50px;
+    border:1px solid #ACC9DD;
+	vertical-align: middle;
+    text-indent: 3px;
+	line-height:20px
+}
+
+/*************** 输入框(input)不可用状态下的样式 ********************/
+.posp_field_disabled .posp_field_text_input {
+	font: 12px Arial;
+    color: #000;	
+    height: 20px;
+	width:180px;
+    border:1px solid #ffffff;
+	vertical-align: middle;
+    text-indent: 3px;
+	line-height:20px
+}
+
+/*************** 输入框(input)只读状态下的样式 ********************/
+.posp_field_readonly .posp_field_text_input {
+	font: 12px Arial;
+    color: #000;	
+    height: 20px;
+	width:180px;
+    border:1px solid #ffffff;
+	vertical-align: middle;
+    text-indent: 3px;
+	line-height:20px
+}
+
+/************************ 输入域(pospext:textarea)的样式 **************************/
+/************ 输入域(textarea)普通状态下的样式 ****************/
+.posp_field_textarea_textarea {
+	border:1px solid #ACC9DD;
+}
+
+/************ 输入域(textarea)只读状态下的样式 ****************/
+.posp_field_readonly .posp_field_textarea_textarea {
+	border:1px solid #ffffff;
+}
+
+
+/*************** 输入域(textarea)不可用状态下的样式 ********************/
+.posp_field_disabled .posp_field_textarea_textarea {
+	border:1px solid #ACC9DD;
+}
+
+
+/************************ 日期输入框(pospext:date)的样式 ************************/
+/*************** 输入框(input)普通状态下的样式 ********************/
+.posp_field_date_input {
+	text-align: left;
+	border:1px solid #ACC9DD;
+}
+
+/*************** 日期输入框(pospext:date)不可用状态下的样式 ********************/
+.posp_field_disabled .posp_field_date_input {
+	
+}
+/*************** 日期输入框(pospext:date)只读状态下的样式 ********************/
+.posp_field_readonly .posp_field_date_input {
+	text-align: left;
+	border:0px solid #ffffff;
+}
+
+/************************ 下拉框(pospext:select)的样式 **************************/
+/************ 下拉框(select)普通状态下的样式 ****************/
+.posp_field_select_select{
+	display: inline;
+   	position: relative;
+    left: -2px;
+    top: -2px;
+    width: 183px; 
+    line-height: 14px; color: #909993;
+    border-style: none;
+    border-width: 0px; 
+	
+}
+
+.posp_field_select_span{
+	border: 1px solid #ACC9DD;
+    width:  180px;
+    height: 18px;
+    clip: rect( 0px, 179px, 18px, 0px );
+    overflow: hidden;;
+}
+
+
+.posp_field_select_input {
+	/***** 隐藏 *****/
+	display: none;
+	text-align: left;
+	font: 12px Arial;
+    color: #000;	
+    height: 20px;
+    border:1px solid #ACC9DD;
+	vertical-align: middle;
+    text-indent: 3px;
+	line-height:20px;
+	width : 180px;
+}
+
+
+
+
+/************ 下拉框(select)只读状态下的样式 ****************/
+.posp_field_readonly .posp_field_select_span {
+	display: none;
+}
+
+.posp_field_readonly .posp_field_select_input {
+	display: inline;
+	position: relative;
+    width: 183px; 
+    line-height: 20px; color: #000000;
+    border-style: none;
+    border-width: 0px; 
+}
+
+/************ 下拉框(select)不可用状态下的样式 ****************/
+.posp_field_disabled .posp_field_select_select {
+	
+}
+
+.posp_field_disabled .posp_field_select_input {
+	
+}
+
+/******************* 链接(pospext:link)的样式 ***************************/
+/************ 链接(a)普通状态下的样式 ****************/
+.posp_field_link_a {
+	padding-left: 2px;
+	padding-right: 2px;	
+}
+
+/********************* 复选框(pospext:checkbox)的样式 *******************/
+.posp_field_disabled .posp_field_checkbox_input {
+	
+}
+
+/********************* 单选框(pospext:radio)的样式 *******************/
+.posp_field_disabled .posp_field_radio_input {
+	
+}
+
+/********************* 弹出框(pospext:pop)的样式 *******************/
+/************ 弹出框普通状态下的样式 ****************/
+.posp_field_pop_input {
+	text-align: left;
+	border:1px solid #ACC9DD;
+}
+
+/************ 弹出框不可用状态下的样式 ****************/
+.posp_field_disabled .posp_field_pop_input {
+	border-color: #CEC7BD;
+}
+
+.posp_field_disabled .posp_field_pop_button {
+	display: none;
+}
+
+
+
+/******************************** 表格标签的样式 ************************************/
+/************* 表格的整体样式 **************/
+.posp_table {
+	width: 100%;
+	border: 1px solid #ACC9DD;
+	border-collapse: collapse;
+	margin: 0px 0;
+}
+
+.posp_table td {
+	padding:4px 4px 4px 8px;
+	border: 1px solid #CDD8E3;
+/*	cursor: pointer;
+	*cursor: hand;*/
+	white-space:nowrap;
+	overflow: visible;
+}
+
+.posp_table tr {
+	height: 22px;
+	overflow-y: hidden;
+}
+
+.posp_table tr.row1 {
+	background-color:#FFFFFF;
+}
+
+.posp_table tr.row2 {
+	background-color:#EEF5FD;
+}
+
+.posp_table tr.selected {
+	background-color: #9CB99F;
+	*background-color: #9CB99F;
+	color: #fff;
+	font-weight: bold;
+}
+
+/**************** 表格标题栏样式 ***************/
+.posp_table thead {
+	height: 26px;
+	*height: 24px;
+	background: url(../images/emp/table_head_background.png) repeat-x;
+}
+
+.posp_table thead th{
+	padding:2px 4px 2px 4px;
+	border: 1px solid #ACC9DD;
+	font-size:12px;
+	font-weight:bold;
+	align:center;
+	white-space:nowrap;
+}
+
+/**************** 表格分页信息栏样式 ***************/
+.posp_table tr.posp_table_pageinfo{
+	background-color:#FFFFFF;
+	height: 25px;
+}
+
+.posp_table_pageinfo td {
+	vertical-align: middle;
+	text-align: right;	
+}
+
+.posp_table_pageinfo a {
+	cursor: pointer;
+	padding: 0 5px;
+}
+
+.posp_table_pageinfo input {
+	width: 20px;
+}
+
+/**************** 表格提示信息栏样式 ***************/
+.posp_table_messageinfo{
+	background-color:#FFFFFF;
+}
+
+
+/******************************** 日期弹出组件的样式 **********************************/
+.calendar td{	
+	font-family: "宋体","Times New Roman";
+}
+
+.calendar {
+	position: absolute;
+	width: 140px !important;
+	width /**/: 142px;
+	height: 232px !important;
+	height /**/: 222px;
+	background-color: #ffffff;
+	border: 1px solid #909eff;
+	left: 0px;
+	top: 0px;
+	z-index: 9999;
+}
+
+.cdrHeader {
+	background-color: #909EFF;
+	width: 140px;
+	height: 22px;
+	font-size: 12px;
+	color: #ffffff;
+}
+
+.cdrWatermark {
+	position: absolute;
+	left: 0px;
+	top: 55px;
+	width: 140px;
+	font-family: "Arial Black";
+	font-size: 50px;
+	color: #d4d4d4;
+	z-index: 1;
+	text-align: center;
+}
+
+.cdrBodyBar {
+	background-color: #f4f4f4;
+	font-family: "宋体","Times New Roman";
+	font-size: 12px;
+	color: #000000;
+	width: 140px;
+	height: 20px;
+}
+
+.cdrBody {
+	width: 140px;
+	height: 122px !important;
+	height /**/: 110px;
+	font-family: "宋体","Times New Roman";
+	font-size: 12px;
+	cursor: pointer;
+	color: #000000;
+}
+
+.dayOver {
+	height: 16px;
+	padding: 0px;
+	border: 1px solid black;
+	background-color: #f4f4f4;
+}
+
+.dayOut {
+	padding: 1px;
+	border: none;
+	height: 16px;
+}
+
+.menuOver {
+	background-color: #909EFF;
+	color: #ffffff;
+	font-family: "宋体","Times New Roman";
+	font-size: 12px;
+}
+
+.headerOver {
+	border: 1px solid black;
+	background-color: #f4f4f4;
+	color: black;
+	cursor: default;
+}
+
+.cdrMenu {
+	font-family: "宋体","Times New Roman";
+	font-size: 12px;
+	border: 1px solid #000000;
+	background-color: #ffffff;
+	cursor: default;
+	width: 100%
+}
+
+html>body #Calendar {
+	width: 142px; 174px;
+}
+
+#Calendar_iframe {
+	width: 142px; 174px;
+}
+/******************************** 按钮 **********************************/
+button {
+	border: 0;
+	background: url(../images/emp/btn_bg.png) no-repeat;
+	cursor: pointer;
+	color: #000;
+	padding-top: 3px;
+	margin: 5px 5px 0px 0px;
+	height: 25px;
+	width: 80px;
+}
+.button {
+	border: 0;
+	background: url(../images/emp/btn_bg.png) no-repeat;
+	cursor: pointer;
+	color: #000;
+	padding-top: 3px;
+	margin: 5px 5px 0px 0px;
+	height: 25px;
+	width: 80px;
+} 
+.btn_mouseout {
+}
+
+.btn_mouseover {
+}
+
+.btn_mousedown {
+}
+
+.btn_mouseup {
+}
+

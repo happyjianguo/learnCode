@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- 终端基本资料 -->
+	<bean id="edcBlackDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcBlackDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+	<!-- 终端TPDU信息 -->
+	<bean id="EdcTpduDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcTpduDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>	
+	
+	<!-- 终端受理卡类 -->
+	<bean id="EdcCardDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcCardDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 终端转换 -->
+	<bean id="EdcSwitchDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcSwitchDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 终端基本资料 -->
+	<bean id="EdcTerminalDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcTerminalDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 银行终端信息管理 -->
+	<bean id="EdcTerminalOrmDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcTerminalOrmDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	
+	<!-- 新福卡银行终端信息管理 -->
+	<bean id="EdcNewfkterminalOrmDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcNewfkterminalOrmDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	
+	<!-- 支付宝、微信终端信息管理 -->
+	<bean id="EdcAlipayWeChatDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcAlipayWeChatDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	
+	<!-- 专属卡终端信息管理 -->
+	<bean id="EdcZskterminalOrmDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcZskterminalOrmDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	
+	<!-- 公用 -->
+	<bean id="EdcCommonDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.EdcCommonDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 卡账户管理 -->
+	<bean id="CardAcctDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.CardAcctDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 其他参数管理 -->
+	<bean id="SysParameterDao" class="cn.yufu.posp.terminalmanager.dao.hibernate.hql.SysParameterDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 交易模块信息 -->
+	<bean id="TranModuleDao" class="cn.yufu.posp.sysparam.dao.hibernate.hql.TranModuleDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 区域卡卡bin模块信息 -->
+	<bean id="CardBinAreaDao" class="cn.yufu.posp.cardBinArea.dao.hibernate.hql.CardBinAreaDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="EdcCardBinAreaDao" class="cn.yufu.posp.cardBinArea.dao.hibernate.hql.EdcCardBinAreaDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+</beans>

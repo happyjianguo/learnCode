@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="OaClientComputerInfoLogic" class="cn.yufu.posp.client.domain.logic.OaClientComputerInfoLogic" />
+	<!-- key Manager -->
+	<bean id="TMKMasterKEYLogic" class="cn.yufu.posp.keyManager.domain.logic.TMKMasterKEYLogic" />
+	<bean id="PospZmkKeyLogic" class="cn.yufu.posp.keyManager.domain.logic.PospZmkKeyLogic" />
+	<bean id="LogLogic" class="cn.yufu.posp.logManager.domain.logic.LogLogic" />
+</beans>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "cn.com.jansh.mapper.game.IGameInitMapper">
+	<!-- 初始化活动名称下拉列表 -->
+	<select id="getGameNameAndCode" resultType="CloudGameInitEntity" >
+		SELECT
+				ID,
+				PLAYNAME
+		FROM
+				CLOUDGAMEINIT
+		WHERE 
+			1=1
+			<if test="list != null and list.size() > 0">
+				AND STATUS IN 
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+					#{item}  
+				</foreach>  
+			</if>
+		ORDER BY 
+			UPDATETIME DESC
+	</select>
+	<!-- 页面初始化查询所有数据 -->
+	<select id="queryAllData" parameterType="CloudGameInitEntity" resultType="CloudGameInitEntity" >
+		SELECT
+				ID,
+				INDEXNUM,
+				CHANNEL,
+				PLAYNAME,
+				DEPLOYPATH,
+				STATUS,
+				CREATETIME,
+				UPDATETIME,
+				OPERATOR,
+				APPACTIONURL,
+				WXACTIONURL,
+				APPREWARDURL,
+				WXREWARDURL
+		FROM
+				CLOUDGAMEINIT
+		WHERE 1=1
+			<if test="playname!='' and playname!=null">
+					AND PLAYNAME LIKE CONCAT('%',#{playname},'%')
+			</if>
+			<if test="status!='' and status!=null">
+					AND STATUS = #{status}
+			</if>
+		ORDER BY UPDATETIME DESC
+	</select>
+	<!-- 判断此模版有没有被游戏使用 -->
+	<select id="queryByTempid" parameterType="String" resultType="CloudgameparamEntity" >
+		SELECT
+			GAMEID,    
+		    GAMENAME,
+		    GAMETYPE,
+		    TEMPID,
+		    AMOUNT,
+		    UAMOUNT,
+		    ORGID,
+		    CHANNEL,
+		    APPID,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CREATETIME,
+		    UPDATETIME,
+		    OPERATOR
+		FROM
+			CLOUDGAMEPARAM
+		WHERE 
+			TEMPID=#{tempid}
+	</select>
+	
+	<!-- 新增活动数据 -->
+	<insert id="adddata" parameterType="CloudGameInitEntity">
+		INSERT INTO CLOUDGAMEINIT
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="id != null">
+					ID,
+				</if>
+				<if test="indexnum != null">
+					INDEXNUM,
+				</if>
+				<if test="channel != null">
+					CHANNEL,
+				</if>
+				<if test="playname != null">
+					PLAYNAME,
+				</if>
+				<if test="deploypath != null">
+					DEPLOYPATH,
+				</if>
+				<if test="status != null">
+					STATUS,
+				</if>
+				<if test="createtime != null">
+					CREATETIME,
+				</if>
+				<if test="updatetime != null">
+					UPDATETIME,
+				</if>
+				<if test="operator != null">
+					OPERATOR,
+				</if>
+				<if test="appactionurl != null and appactionurl !='' ">
+					APPACTIONURL,
+				</if>
+				<if test="wxactionurl != null and wxactionurl !='' ">
+					WXACTIONURL,
+				</if>
+				<if test="apprewardurl != null and apprewardurl != ''">
+					APPREWARDURL,
+				</if>
+				<if test="wxrewardurl != null and wxrewardurl != '' ">
+					WXREWARDURL,
+				</if>
+			</trim>
+			<trim prefix="values(" suffix=")" suffixOverrides=",">
+				<if test="id != null and id !=''">
+					#{id,jdbcType=VARCHAR},
+				</if>
+				<if test="indexnum != null and indexnum !=''">
+					#{indexnum,jdbcType=INTEGER},
+				</if>
+				<if test="channel != null and channel !=''">
+					#{channel,jdbcType=VARCHAR},
+				</if>
+				<if test="playname != null and playname !=''">
+					#{playname,jdbcType=VARCHAR},
+				</if>
+				<if test="deploypath != null and deploypath !=''">
+					#{deploypath,jdbcType=VARCHAR},
+				</if>
+				<if test="status != null and status !=''">
+					#{status,jdbcType=VARCHAR},
+				</if>
+				<if test="createtime != null and createtime !=''">
+					#{createtime,jdbcType=VARCHAR},
+				</if>
+				<if test="updatetime != null and updatetime !=''">
+					#{updatetime,jdbcType=VARCHAR},
+				</if>
+				<if test="operator != null and operator !=''">
+					#{operator,jdbcType=VARCHAR},
+				</if>
+				<if test="appactionurl != null and appactionurl !=''">
+					#{appactionurl,jdbcType=VARCHAR},
+				</if>
+				<if test="wxactionurl != null and wxactionurl !=''">
+					#{wxactionurl,jdbcType=VARCHAR},
+				</if>
+				<if test="apprewardurl != null and apprewardurl !=''">
+					#{apprewardurl,jdbcType=VARCHAR},
+				</if>
+				<if test="wxrewardurl != null and wxrewardurl !=''">
+					#{wxrewardurl,jdbcType=VARCHAR},
+				</if>
+			</trim>
+	</insert>
+	
+	<!-- 根据ID查询是否存在记录 -->
+	<select id="queryById" resultType="CloudGameInitEntity">
+		SELECT
+				ID,
+				INDEXNUM,
+				CHANNEL,
+				PLAYNAME,
+				DEPLOYPATH,
+				STATUS,
+				CREATETIME,
+				UPDATETIME,
+				OPERATOR,
+				WXREWARDURL,
+				APPREWARDURL,
+				WXACTIONURL,
+				APPACTIONURL
+		FROM
+				CLOUDGAMEINIT
+		WHERE ID = #{id}
+	</select>
+	
+	<!-- 根据ID更新活动数据    -->
+	<update id="updateInfo" parameterType="CloudGameInitEntity">
+		UPDATE
+		    	CLOUDGAMEINIT    
+		    <set> 
+		        <if test="indexnum != null">
+		        	INDEXNUM = #{indexnum},
+		        </if>
+		        <if test = "channel != null">
+		        	CHANNEL = #{channel},
+		        </if>
+		        <if test = "playname != null">
+		        	PLAYNAME = #{playname},
+		        </if>
+		        <if test = "deploypath != null">
+		        	DEPLOYPATH = #{deploypath},
+		        </if>
+		        <if test = "status != null">
+		        	STATUS = #{status},
+		        </if>
+		        <if test = "createtime != null">
+		        	CREATETIME = #{createtime},
+		        </if>
+		        <if test = "updatetime != null">
+		        	UPDATETIME = #{updatetime},
+		        </if>
+		        <if test = "operator != null">
+		        	OPERATOR = #{operator},
+		        </if>
+		        <if test = "appactionurl != null">
+		        	APPACTIONURL = #{appactionurl},
+		        </if>
+		        <if test = "wxactionurl != null">
+		        	WXACTIONURL = #{wxactionurl},
+		        </if>
+		        <if test = "apprewardurl != null">
+		        	APPREWARDURL = #{apprewardurl},
+		        </if>
+		        <if test = "wxrewardurl != null">
+		        	WXREWARDURL = #{wxrewardurl},
+		        </if>
+		    </set>    
+		    where ID = #{id}
+	</update>
+	
+	<!-- 删除活动信息 -->
+	<delete id="deleteById" parameterType="String">
+		DELETE FROM
+			CLOUDGAMEINIT
+		WHERE
+			ID = #{id}
+	</delete>
+	
+</mapper>
+	

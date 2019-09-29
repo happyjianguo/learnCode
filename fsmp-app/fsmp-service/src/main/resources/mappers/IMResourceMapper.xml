@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.IMResourceMapper">
+
+	<resultMap type="IMReSource" id="IMReSourceMap">
+		<result column="RESOURCEID" property="resourceId"/>
+		<result column="CNNAME" property="cnName"/>
+		<result column="ENNAME" property="enName"/>
+		<result column="RESOURCEKEY" property="resourceKey"/>
+		<result column="PARENTID" property="parentid"/>
+		<result column="REMARK" property="remark"/>
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	<select id="selectById" parameterType="String" resultType="IMReSource">
+		SELECT 
+			RESOURCEID,CNNAME,ENNAME,RESOURCEKEY,REMARK,STATUS
+		FROM
+			FSMRESOURCE
+		WHERE
+			RESOURCEID=#{resourceId}
+	</select>
+	
+	<select id="selectAll" resultMap="IMReSourceMap">
+		SELECT 
+			RESOURCEID,CNNAME,ENNAME,RESOURCEKEY,PARENTID,REMARK,STATUS
+		FROM
+			FSMRESOURCE
+		WHERE 
+			RESOURCEID not like '%sys\_%'
+		AND 
+			RESOURCEID not like '%anonymous\_%'
+	</select>
+	
+	<resultMap type="Map" id="ResourceListMap">
+		<result column="RESOURCEID" property="resourceid"/>
+		<result column="CNNAME" property="cnname"/>
+		<result column="ENNAME" property="enname"/>
+		<result column="RESOURCEKEY" property="resourcekey"/>
+		<result column="PARENTID" property="parentid"/>
+		<result column="REMARK" property="remark"/>
+		<result column="STATUS" property="status"/>
+		<result column="CHECKED" property="checked"/>
+		<result column="OPEN" property="open"/>
+		<result column="CHKDISABLED" property="chkDisabled"/>
+	</resultMap>
+	<select id="selectResourceList" resultMap="ResourceListMap" parameterType="String">
+		SELECT 
+		    R.RESOURCEID,
+		    R.CNNAME,
+		    R.ENNAME,
+		    R.RESOURCEKEY,
+		    R.PARENTID,
+		    R.REMARK,
+		    R.STATUS,
+		    CASE
+		        WHEN Z.RESOURCEID IS NULL THEN 'false'
+		        ELSE 'true'
+		    END AS CHECKED,
+		    CASE
+		        WHEN (R.PARENTID !='0' AND Z.RESOURCEID IS NULL) THEN 'false'
+		        ELSE 'true'
+		    END AS OPEN,
+		    CASE
+		        WHEN R.RESOURCEKEY = '#' THEN 'false'
+		        ELSE 'false'
+		    END AS CHKDISABLED
+		FROM
+		    FSMRESOURCE R
+		        LEFT JOIN
+		    (SELECT 
+		        A.RESOURCEID
+		    FROM
+		        FSMROLERESOURCE A
+		    WHERE
+		        A.ROLEID = #{roleid}) Z ON R.RESOURCEID = Z.RESOURCEID
+		WHERE
+		        R.RESOURCEID NOT LIKE '%sys\_%'
+		        AND R.RESOURCEID NOT LIKE '%anonymous\_%'
+	</select>
+	
+	<select id="selectAllResourceList" resultMap="ResourceListMap">
+		SELECT 
+		    R.RESOURCEID,
+		    R.CNNAME,
+		    R.ENNAME,
+		    R.RESOURCEKEY,
+		    R.PARENTID,
+		    R.REMARK,
+		    R.STATUS,
+		    'false' AS CHECKED,
+		    CASE
+		        WHEN R.PARENTID = '0' THEN 'true'
+		        ELSE 'false'
+		    END AS OPEN,
+		    CASE
+		        WHEN R.RESOURCEKEY = '#' THEN 'false'
+		        ELSE 'false'
+		    END AS CHKDISABLED
+		FROM
+		    FSMRESOURCE R
+		       
+		WHERE
+		        R.RESOURCEID NOT LIKE '%sys\_%'
+		        AND R.RESOURCEID NOT LIKE '%anonymous\_%'
+	</select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.fs.dao.ClearStatDailyAccdetBakMapper" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.ClearStatDailyAccdetBak" >
+    <result column="TRANSACTIONDATE" property="dailyDate" jdbcType="VARCHAR" />
+    <result column="CARD_SUM" property="cardSum" jdbcType="DECIMAL" />
+    <result column="PROVISIONS_AMT" property="cardBal" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    TRANSACTIONDATE, CARD_SUM, PROVISIONS_AMT
+  </sql>
+  
+  <select id="queryCount" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM T_OLDCARD_TRAN_DAILY
+  	<where>
+  		<if test="begainDailyDate != null and begainDailyDate.trim().length() != 0">
+  			AND <![CDATA[ TRANSACTIONDATE >= ${begainDailyDate} ]]>
+  		</if>
+  		<if test="endDailyDate != null and endDailyDate.trim().length() != 0">
+  			AND <![CDATA[ TRANSACTIONDATE = ${endDailyDate} ]]>
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="selectPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT * FROM (
+	SELECT a.*, ROWNUM rn FROM(
+  		SELECT 
+  		<include refid="Base_Column_List"></include>
+  		FROM T_OLDCARD_TRAN_DAILY
+  	<where>
+  		<if test="queryModel.begainDailyDate != null and queryModel.begainDailyDate.trim().length() != 0">
+  			AND <![CDATA[ TRANSACTIONDATE >= ${queryModel.begainDailyDate} ]]>
+  		</if>
+  		<if test="queryModel.endDailyDate != null and queryModel.endDailyDate.trim().length() != 0">
+  			AND <![CDATA[ TRANSACTIONDATE = ${queryModel.endDailyDate} ]]>
+  		</if>
+  	</where> ORDER BY TRANSACTIONDATE DESC ) a
+		WHERE <![CDATA[ ROWNUM <= ${endResult} ]]>)
+		WHERE rn &gt; ${startResult}
+  </select>
+  
+  <select id="TotalCardSumAndBal" resultMap="BaseResultMap">
+  	SELECT  SUM(CARD_SUM) AS CARD_SUM, SUM(PROVISIONS_AMT) AS PROVISIONS_AMT 
+  	FROM T_OLDCARD_TRAN_DAILY
+  	<where>
+  		<if test="begainDailyDate != null and begainDailyDate.trim().length() != 0">
+  			AND <![CDATA[ TRANSACTIONDATE >= ${begainDailyDate} ]]>
+  		</if>
+  		<if test="endDailyDate != null and endDailyDate.trim().length() != 0">
+  			AND <![CDATA[ TRANSACTIONDATE = ${endDailyDate} ]]>
+  		</if>
+  	</where>
+  </select>
+  
+</mapper>

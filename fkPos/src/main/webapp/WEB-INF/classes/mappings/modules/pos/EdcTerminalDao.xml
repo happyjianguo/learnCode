@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.EdcTerminalDao">
+    
+	<sql id="edcTerminalColumns">
+		a.merchant_id AS "merchantId",
+		a.terminal_id AS "terminalId",
+		trim(a.terminal_stat) AS "terminalStat",
+		trim(a.edc_type) AS "edcType",
+		a.edc_doc AS "edcDoc",
+		trim(a.printer_type) AS "printerType",
+		trim(a.pinpad_type) AS "pinpadType",
+		trim(a.soft_ver) AS "softVer",
+		trim(a.download_flag) AS "downloadFlag",
+		trim(a.download_mode) AS "downloadMode",
+		a.set_date AS "setDate",
+		trim(a.set_addr) AS "setAddr",
+		a.update_oper AS "updateOper",
+		a.update_time AS "updateTime",
+		
+		b.upgrade_date AS "upgradeDate",
+		b.upgrade_version AS "upgradeVersion",
+		b.HISTORY_VERSION AS "historyVersion",
+		b.store_contacts AS "storeContacts",
+		b.store_phone AS "storePhone",
+		b.merchant_advisor AS "merchantAdvisor",
+		b.terminal_area AS "terminalArea",
+		b.terminal_province AS "terminalProvince",
+		b.terminal_city AS "terminalCity",
+		b.terminal_zone AS "terminalZone",
+		b.terminal_position AS "terminalPosition",
+		b.create_by AS "createBy.id",
+		b.create_date AS "createDate",
+		b.update_by AS "updateBy.id",
+		b.update_date AS "updateDate",
+		b.remarks AS "remarks",
+		b.del_flag AS "delFlag",
+		b.disable_date AS "disableDate",
+		b.usable_date AS "usableDate",
+		
+		c.pos_sn AS "posSn",
+		c.factory_id AS "factoryId",
+		c.factory_name AS "factoryName",
+		c.model_id AS "modelId",
+		c.pos_type AS "posType",
+		c.pos_status AS "posStatus",
+		c.pos_scan_flag AS "posScanFlag",
+		c.lay_out_flag AS "layOutFlag"	
+	</sql>
+	
+	<sql id="edcTerminalJoins">
+		LEFT JOIN edc_terminal_x b ON a.terminal_id = b.terminal_id 
+		left join p_pos c on a.terminal_id = c.terminal_id
+	</sql>
+    
+	<select id="get" resultType="EdcTerminal">
+		SELECT 
+			<include refid="edcTerminalColumns"/>
+		FROM edc_terminal a
+		<include refid="edcTerminalJoins"/>
+		WHERE a.terminal_id = #{terminalId}
+	</select>
+	
+	<select id="getOneData" resultType="EdcTerminal">
+		SELECT 
+			<include refid="edcTerminalColumns"/>
+		FROM edc_terminal a
+		<include refid="edcTerminalJoins"/>
+		WHERE trim(a.terminal_id) = #{terminalId} 
+		<if test="merchantId != null and merchantId.trim().length() != 0">
+			AND trim(a.merchant_id) = #{merchantId}
+		</if>
+	</select>
+	
+	<select id="findList" resultType="EdcTerminal">
+		SELECT 
+			<include refid="edcTerminalColumns"/>
+		FROM edc_terminal a
+		<include refid="edcTerminalJoins"/>
+		<where>
+			<if test="merchantId != null and merchantId != ''">
+				AND trim(a.merchant_id) = #{merchantId}
+			</if>
+			<if test="terminalId != null and terminalId != ''">
+				AND trim(a.terminal_id) = #{terminalId}
+			</if>
+			<if test="terminalStat != null and terminalStat != ''">
+				AND trim(a.terminal_stat) = #{terminalStat}
+			</if>
+			<if test="edcType != null and edcType != ''">
+				AND trim(a.edc_type) = #{edcType}
+			</if>
+			<if test="setDate != null and setDate != ''">
+				AND trim(a.set_date) = #{setDate}
+			</if>
+			<if test="setAddr != null and setAddr != ''">
+				AND trim(a.set_addr) LIKE 
+					<if test="dbName == 'oracle'">'%'||#{setAddr}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{setAddr}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{setAddr},'%')</if>
+			</if>
+			<!-- <if test="DEL_FLAG_NORMAL == '0'.toString()">
+				AND b.del_flag = #{DEL_FLAG_NORMAL}
+			</if> -->
+			<if test="upgradeDate != null and upgradeDate != ''">
+				AND b.upgrade_date = #{upgradeDate}
+			</if>
+			<if test="upgradeVersion != null and upgradeVersion != ''">
+				AND b.upgrade_version = #{upgradeVersion}
+			</if>
+			<if test="storeContacts != null and storeContacts != ''">
+				AND b.store_contacts LIKE 
+					<if test="dbName == 'oracle'">'%'||#{storeContacts}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{storeContacts}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{storeContacts},'%')</if>
+			</if>
+			<if test="merchantAdvisor != null and merchantAdvisor != ''">
+				AND b.merchant_advisor = #{merchantAdvisor}
+			</if>
+			<if test="terminalArea != null and terminalArea != ''">
+				AND b.terminal_area = #{terminalArea}
+			</if>
+			<if test="terminalProvince != null and terminalProvince != ''">
+				AND b.terminal_province = #{terminalProvince}
+			</if>
+			<if test="terminalCity != null and terminalCity != ''">
+				AND b.terminal_city = #{terminalCity}
+			</if>
+			<if test="terminalZone != null and terminalZone != ''">
+				AND b.terminal_zone = #{terminalZone}
+			</if>
+			<if test="terminalPosition != null and terminalPosition != ''">
+				AND b.terminal_position LIKE 
+					<if test="dbName == 'oracle'">'%'||#{terminalPosition}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{terminalPosition}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{terminalPosition},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.merchant_id,a.terminal_id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="EdcTerminal">
+		SELECT 
+			<include refid="edcTerminalColumns"/>
+		FROM edc_terminal a
+		<include refid="edcTerminalJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.merchant_id,a.terminal_id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO edc_terminal(
+			merchant_id,
+			terminal_id,
+			terminal_stat,
+			edc_type,
+			edc_doc,
+			printer_type,
+			pinpad_type,
+			soft_ver,
+			download_flag,
+			download_mode,
+			set_date,
+			set_addr,
+			update_oper,
+			update_time
+		) VALUES (
+			#{merchantId},
+			#{terminalId},
+			#{terminalStat},
+			#{edcType},
+			#{edcDoc},
+			#{printerType},
+			#{pinpadType},
+			#{softVer},
+			#{downloadFlag},
+			#{downloadMode},
+			#{setDate},
+			#{setAddr},
+			#{updateOper},
+			#{updateTime}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE edc_terminal SET 	
+			edc_doc = #{edcDoc},
+			printer_type = #{printerType},
+			pinpad_type = #{pinpadType},
+			soft_ver = #{softVer},
+			download_flag = #{downloadFlag},
+			download_mode = #{downloadMode},
+			set_date = #{setDate},
+			set_addr = #{setAddr},
+			update_oper = #{updateOper},
+			UPDATE_DATE = #{updateDateStr},
+			update_time = #{updateTime}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="disableTerminal">
+		UPDATE edc_terminal SET 	
+			terminal_stat = #{terminalStat},
+			update_oper = #{updateBy.loginName},
+			UPDATE_DATE = #{disableDate},
+			update_time = #{updateTime}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="usableTerminal">
+		UPDATE edc_terminal SET 	
+			terminal_stat = #{terminalStat},
+			update_oper = #{updateBy.loginName},
+			UPDATE_DATE = #{usableDate},
+			update_time = #{updateTime}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="updateSetAddr">
+		UPDATE edc_terminal SET 	
+			SET_ADDR = #{setAddr},
+			update_oper = #{updateBy.loginName},
+			UPDATE_DATE = #{usableDate},
+			update_time = #{updateTime}
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM edc_terminal
+		WHERE terminal_id = #{terminalId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jansh.mapper.game.GameTemplateTypeMapper">
+
+	<select id="selectDataByEntity" parameterType="CloudGameTemplateTypeEntity" resultType="CloudGameTemplateTypeEntity" >
+		SELECT 
+			g.GAMEID GAMEID,
+			c.PLAYNAME PLAYNAME,
+			g.TMPTYPEID TMPTYPEID,
+			g.TMPTYPENAME TMPTYPENAME
+		FROM 
+			GAMETEMPLATETYPE g
+				LEFT JOIN CLOUDGAMEINIT c
+					ON g.GAMEID = c.ID
+		WHERE
+			(
+			1=1 
+			<if test="tmptypeid!='' and tmptypeid!=null">
+				AND g.TMPTYPEID=#{tmptypeid}  
+			</if>
+			<if test="tmptypename!='' and tmptypename!=null">
+				AND g.TMPTYPENAME=#{tmptypename}  
+			</if>
+			<if test="gameid!='' and gameid!=null">
+				AND g.GAMEID=#{gameid}  
+			</if>
+			)
+		ORDER BY g.TMPTYPEID DESC
+	</select>
+	<select id="selectByName" parameterType="CloudGameTemplateTypeEntity" resultType="CloudGameTemplateTypeEntity" >
+		SELECT 
+			GAMEID,
+			TMPTYPEID,
+			TMPTYPENAME 
+		FROM 
+			GAMETEMPLATETYPE
+		WHERE
+			(
+			1=1 
+				AND TMPTYPEID != #{tmptypeid}  
+				AND TMPTYPENAME = #{tmptypename}  
+				AND GAMEID = #{gameid}  
+			)
+	</select>
+	<select id="selectActionByTmptypeid" parameterType="String" resultType="GameTemplate" >
+		SELECT 
+			TMPTYPEID,
+			GAMEID,
+			TEMPID
+		FROM 
+			GAMETEMPLATE
+		WHERE
+			TMPTYPEID = #{tmptypeid}  
+	</select>
+	<insert id="insertdate" parameterType="CloudGameTemplateTypeEntity">
+		INSERT INTO GAMETEMPLATETYPE
+			(GAMEID,
+			TMPTYPEID,
+			TMPTYPENAME)
+		VALUES
+			(#{gameid},
+			#{tmptypeid},
+			#{tmptypename}
+			)
+	</insert>
+	<update id="updatedata" parameterType="CloudGameTemplateTypeEntity">
+		UPDATE
+			GAMETEMPLATETYPE
+		SET
+			TMPTYPENAME=#{tmptypename}
+		WHERE
+			TMPTYPEID=#{tmptypeid}
+	</update>
+	<delete id="deletedata" parameterType="CloudGameTemplateTypeEntity">
+		DELETE FROM 
+			GAMETEMPLATETYPE 
+		WHERE 
+			TMPTYPEID=#{tmptypeid} 
+	</delete>
+</mapper>

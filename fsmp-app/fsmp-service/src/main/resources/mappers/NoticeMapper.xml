@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.system.NoticeMapper">
+	<select id="selectNotice" parameterType="NoticeEntity" resultType="NoticeEntity">
+		SELECT
+			NOTICEID,NOTICENAME,NOTICEVALUE,CREATETIME,UPDATETIME
+		FROM
+			NOTICE
+		WHERE
+			1=1
+			<if test="noticeid != '' and noticeid != null">
+				AND NOTICEID = #{noticeid}
+			</if>
+			<if test="noticename != '' and noticename != null">
+				AND NOTICENAME = #{noticename}
+			</if>
+			<if test="noticevalue != '' and noticevalue != null">
+				AND NOTICEVALUE = #{noticevalue}
+			</if>
+		ORDER BY UPDATETIME DESC
+	</select>
+	<select id="select"  resultType="NoticeEntity">
+		SELECT
+			NOTICEID,NOTICENAME,NOTICEVALUE,CREATETIME,UPDATETIME
+		FROM
+			NOTICE
+		WHERE
+			1=1
+			<if test="noticeid != '' and noticeid != null">
+				AND NOTICEID = #{noticeid}
+			</if>
+			<if test="noticename != '' and noticename != null">
+				AND NOTICENAME = #{noticename}
+			</if>
+			<if test="noticevalue != '' and noticevalue != null">
+				AND NOTICEVALUE = #{noticevalue}
+			</if>
+			<if test="status !=null and status !=''">
+				AND STATUS = #{status}
+			</if>
+			<if test="time !=null and time !=''">
+			<![CDATA[ AND BEGINTIME <=#{time} AND  ENDTIME >= #{time}]]>
+			</if>
+		ORDER BY UPDATETIME DESC
+	</select>
+	<insert id="insertNotice" parameterType="NoticeEntity">
+		INSERT INTO NOTICE
+			( 	NOTICEID,
+				NOTICENAME,
+				NOTICEVALUE,
+				CREATETIME,
+				UPDATETIME
+			) VALUES 
+			(	#{noticeid},
+				#{noticename},
+				#{noticevalue},
+				#{createtime},
+				#{updatetime}
+			)
+	</insert>
+	<select id="selectByNoticename" parameterType="String" resultType="NoticeEntity">
+		SELECT
+			NOTICEID,NOTICENAME,NOTICEVALUE,CREATETIME,UPDATETIME
+		FROM
+			NOTICE
+		WHERE
+			NOTICENAME = #{noticename}
+	</select>
+	<update id="editinotice" parameterType="NoticeEntity">
+		UPDATE
+			NOTICE
+		SET
+			NOTICENAME=#{noticename},
+			NOTICEVALUE=#{noticevalue},
+			UPDATETIME=#{updatetime}
+		WHERE
+			NOTICEID=#{noticeid}
+	</update>
+	<delete id="delnotice" parameterType="String">
+		DELETE FROM
+			NOTICE
+		WHERE
+			NOTICEID=#{noticeid}
+	</delete>
+</mapper>

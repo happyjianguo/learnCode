@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+	<!-- 商户资料 -->
+	<bean id="merchantDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MerchantDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 商户身份 -->
+	<bean id="merchantIdentityDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MerchantIdentityDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 商户资料审核 -->
+	<bean id="merchantCheckDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MerchantCheckDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 商户受理卡类 -->
+	<bean id="merCardDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MerchantCardDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 商户转换 -->
+	<bean id="merSwitchDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MerchantSwitchDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 商户黑名单 -->
+	<bean id="merBlackDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MerchantBlackDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- POS签购单要素设置 -->
+	<bean id="posRecInfoDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.PosReceiptInfoDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 商户用户 -->
+	<bean id="merchantUserDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MerchantUserDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	<!-- mcc管理 -->
+	<bean id="mccDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.MccParamDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 模板管理 -->
+	<bean id="sysModuleDao" class="cn.yufu.posp.sysModule.dao.hibernate.hql.SysModuleDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 模板管理 -->
+	<bean id="sysModuleOtherDao" class="cn.yufu.posp.sysModule.dao.hibernate.hql.SysModuleOtherDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactoryAcquire"/>
+		</property>
+	</bean>
+	<!-- 卡类型管理 -->
+	<bean id="card1TypeDao" class="cn.yufu.posp.cardtype.dao.hibernate.hql.Card1TypeDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- bankInfo管理 -->
+	<bean id="bankinfoDao" class="cn.yufu.posp.bank.dao.hibernate.hql.BankInfoDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- bankInfo管理 -->
+	<bean id="banktypeDao" class="cn.yufu.posp.bank.dao.hibernate.hql.BanktypeDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- 风险控制
+	<bean id="riskInfoDao" class="cn.yufu.posp.risk.dao.hibernate.hql.RiskInfoDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>-->
+	
+	<!-- 业务场景费率 -->
+	<bean id="tabBusinessRatesDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.TabBusinessRatesDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+	<!-- 业务角色菜单 -->
+	<bean id="tabBusRoleMenuDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.TabBusRoleMenuDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+			<!-- 商户交易参数-->
+	<bean id="tblMerchantTranParamDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.TblMerchantTranParamDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 授权免密卡BIN信息-->
+	<bean id="tblNoPasswdCardBinDao" class="cn.yufu.posp.merchant.dao.hibernate.hql.TblNoPasswdCardBinDaoHibernateHQLImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+</beans>

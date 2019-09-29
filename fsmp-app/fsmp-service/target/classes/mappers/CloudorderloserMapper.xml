@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.component.CloudorderloserMapper">
+	<select id="select" resultType="CloudorderloserEntity">
+		SELECT
+			ID,
+			PARENTID,
+			CREATETIME
+		FROM
+    		cloudorderloser
+		WHERE
+			1=1
+			<if test="id != '' and id != null">
+				AND ID = #{id}
+			</if>
+			<if test="parentid != '' and parentid != null">
+				AND PARENTID = #{parentid}
+			</if>
+		ORDER BY CREATETIME DESC
+	</select>
+	
+	
+	<insert id="insert" parameterType="CloudwinningrecordEntity">
+		INSERT
+			INTO
+			    cloudorderloser
+			    (
+			        ID,
+			        PARENTID,
+			        CREATETIME
+			        )
+		    VALUES
+		    (
+		        #{id},
+		        #{parentid},
+		        #{createtime}
+		    
+		    )
+	</insert>
+</mapper>

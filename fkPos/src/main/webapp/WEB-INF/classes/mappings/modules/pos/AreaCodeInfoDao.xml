@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufupos.system.modules.pos.dao.AreaCodeInfoDao">
+    
+	<sql id="areaCodeInfoColumns">
+		a.area_code AS "areaCode",
+		a.area_name AS "areaName",
+		a.parent_area_code AS "parentAreaCode"
+	</sql>
+	
+	<sql id="areaCodeInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="AreaCodeInfo">
+		SELECT 
+			<include refid="areaCodeInfoColumns"/>
+		FROM area_code_info a
+		<include refid="areaCodeInfoJoins"/>
+		WHERE a.area_code = #{areaCode}
+	</select>
+	
+	<select id="findList" resultType="AreaCodeInfo">
+		SELECT 
+			<include refid="areaCodeInfoColumns"/>
+		FROM area_code_info a
+		<include refid="areaCodeInfoJoins"/>
+		<where>
+			
+			<if test="areaCode != null and areaCode != ''">
+				AND a.area_code = #{areaCode}
+			</if>
+			<if test="areaName != null and areaName != ''">
+				AND a.area_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{areaName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{areaName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{areaName},'%')</if>
+			</if>
+			<if test="parentAreaCode != null and parentAreaCode != ''">
+				AND a.parent_area_code = #{parentAreaCode}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="AreaCodeInfo">
+		SELECT 
+			<include refid="areaCodeInfoColumns"/>
+		FROM area_code_info a
+		<include refid="areaCodeInfoJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO area_code_info(
+			area_code,
+			area_name,
+			parent_area_code
+		) VALUES (
+			#{areaCode},
+			#{areaName},
+			#{parentAreaCode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE area_code_info SET 	
+			area_code = #{areaCode},
+			area_name = #{areaName},
+			parent_area_code = #{parentAreaCode}
+		WHERE area_code = #{areaCode}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM area_code_info
+		WHERE area_code = #{areaCode}
+	</update>
+	
+</mapper>

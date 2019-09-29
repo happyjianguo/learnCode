@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.4"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>cardbatch_1.0</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:spring/applicationContext.xml
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>cardbatch_1.0.root</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>			
+				<!--该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理-->
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<session-config>
+		<session-timeout>120</session-timeout>
+	</session-config>
+	
+  <filter>     
+  		<filter-name>SetCharacterEncoding</filter-name>                   
+  		<filter-class>filters.SetCharacterEncodingFilter</filter-class>   
+	  	<init-param>               
+	  		<param-name>encoding</param-name>               
+	  		<param-value>gbk</param-value>   
+	  	</init-param>           
+  	</filter>                          
+  	<filter-mapping>                   
+  		<filter-name>SetCharacterEncoding</filter-name>                   
+  		<url-pattern>/*</url-pattern>           
+  	</filter-mapping>
+
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/struts-config.xml,
+				/WEB-INF/struts-config-hb.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>3</param-value>
+		</init-param>
+		<init-param>
+			<param-name>detail</param-name>
+			<param-value>3</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- X -->
+	<servlet>
+		<servlet-name>SysConfLoad</servlet-name>
+		<servlet-class>com.pay.servlet.SysConfLoad</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>activeReverseAjaxEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>initApplicationScopeCreatorsAtStartup</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>maxWaitAfterWrite</param-name>
+			<param-value>100</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/tags/ngp-pageTag.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/ngp-pageTag.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/eposcc.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/eposcc.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-bean</taglib-uri>
+			<taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-html</taglib-uri>
+			<taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-logic</taglib-uri>
+			<taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://struts.apache.org/tags-tiles</taglib-uri>
+			<taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
+			<taglib-location>/WEB-INF/fmt.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/c.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<!-- 错误处理页面 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/error/error_404.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/jsp/error/error.jsp</location>
+	</error-page>
+</web-app>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.cortexs.dao.OpencrdbatchDao">
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.cortexs.entity.Opencrdbatch">
+    <id column="ID" jdbcType="DECIMAL" property="opencrdbatchId" />
+    <result column="VERNO_CTX" jdbcType="DECIMAL" property="vernoCtx" />
+    <result column="TXNSRC" jdbcType="CHAR" property="txnsrc" />
+    <result column="TXNCODE" jdbcType="DECIMAL" property="txncode" />
+    <result column="TIME" jdbcType="VARCHAR" property="time" />
+    <result column="STAN" jdbcType="DECIMAL" property="stan" />
+    <result column="PAN_START" jdbcType="VARCHAR" property="panStart" />
+    <result column="PAN_END" jdbcType="VARCHAR" property="panEnd" />
+    <result column="PAN_COUNT" jdbcType="DECIMAL" property="panCount" />
+    <result column="AMT_EACH_CRD" jdbcType="DECIMAL" property="amtEachCrd" />
+    <result column="FATHER_ORDER" jdbcType="VARCHAR" property="fatherOrder" />
+    <result column="CHILDREN_ORDER" jdbcType="VARCHAR" property="childrenOrder" />
+    <result column="ORG_F_ORDER" jdbcType="VARCHAR" property="orgFOrder" />
+    <result column="ORG_C_ORDER" jdbcType="VARCHAR" property="orgCOrder" />
+    <result column="ACCT_PERIOD" jdbcType="VARCHAR" property="acctPeriod" />
+    <result column="PAY_TYPE" jdbcType="DECIMAL" property="payType" />
+    <result column="PAY_DESC" jdbcType="VARCHAR" property="payDesc" />
+    <result column="PAYER_NAME" jdbcType="VARCHAR" property="payerName" />
+    <result column="SALES_POINT" jdbcType="VARCHAR" property="salesPoint" />
+    <result column="AREA" jdbcType="VARCHAR" property="area" />
+    <result column="ISOPEN_FLAG" jdbcType="CHAR" property="isopenFlag" />
+    <result column="SUMMARY" jdbcType="VARCHAR" property="summary" />
+    <result column="OPERATOR" jdbcType="VARCHAR" property="operator" />
+    <result column="MRCHT_ID" jdbcType="VARCHAR" property="mrchtId" />
+    <result column="BATCH_STAT" jdbcType="CHAR" property="batchStat" />
+    <result column="RESERVED1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="RESERVED2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="RESERVED3" jdbcType="VARCHAR" property="reserved3" />
+    <result column="DESCR" jdbcType="VARCHAR" property="descr" />
+    <result column="CURTXN" jdbcType="CHAR" property="curtxn" />
+    <result column="AMTTXN" jdbcType="DECIMAL" property="amttxn" />
+    <result column="RATESET" jdbcType="DECIMAL" property="rateset" />
+    <result column="CURRBILL" jdbcType="CHAR" property="currbill" />
+    <result column="CRDPRODUCT" jdbcType="VARCHAR" property="crdproduct" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    ID, VERNO_CTX, TXNSRC, TXNCODE, TIME, STAN, PAN_START, PAN_END, PAN_COUNT, AMT_EACH_CRD, 
+    FATHER_ORDER, CHILDREN_ORDER, ORG_F_ORDER, ORG_C_ORDER, ACCT_PERIOD, PAY_TYPE, PAY_DESC, 
+    PAYER_NAME, SALES_POINT, AREA, ISOPEN_FLAG, SUMMARY, OPERATOR, MRCHT_ID, BATCH_STAT, 
+    RESERVED1, RESERVED2, RESERVED3, DESCR, CURTXN, AMTTXN, RATESET, CURRBILL, CRDPRODUCT
+  </sql>
+ 
+  <select id="getOperator" resultType="java.lang.String">
+    SELECT DISTINCT OPERATOR FROM OPENCRDBATCH
+  </select>
+  
+  <select id="getOrderByOper" resultType="java.lang.String">
+    SELECT DISTINCT FATHER_ORDER FROM OPENCRDBATCH
+    WHERE OPERATOR = #{0} ORDER BY FATHER_ORDER DESC
+  </select>
+  
+  <select id="getOrderByOperDistinct" resultType="java.lang.String">
+    SELECT DISTINCT FATHER_ORDER FROM OPENCRDBATCH
+    WHERE OPERATOR = #{0} ORDER BY FATHER_ORDER DESC
+  </select>
+</mapper>

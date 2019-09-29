@@ -1,0 +1,47 @@
+@charset "utf-8";
+/*clear*/
+	.clearfix:after{content:" ";height:0;visibility:hidden;display:block;clear:both;}
+	* html .clearfix{zoom:1;}/*IE6*/
+	*:first-child+html .clearfix{zoom:1;}/*IE7*/
+	body{font-family:'微软雅黑 Arial';margin: 0;padding: 0;background: #f6f6f6;height:100%;}
+/*header*/
+	.header{width: 100%; height:50px; background:url(../img/header_background.png) no-repeat center ;background-repeat:repeat; }
+	.header_title{float:center;height:40px; margin-top:0px; margin-top : -9px; }
+	.header_tit{font-size: 15px;line-height:37.5px;color: #fff;text-align: center}
+/*content*/
+	.content{width: 100%}
+	.content a{text-decoration: none}
+	.person-info{width: 290px;height: 33.5px;border-radius: 3px;border:1px solid #e6e6e6;margin: 0 auto;margin-top:11px;margin-bottom:11px}
+	.person-info span,.person-apply span,.apply-percent span,.account-tips span{display: inline-block;}
+	.person-account{float:left;width:62.5px;height:32.5px;background-color: #ffa800;color:#fff;font-size:12px;line-height: 32.5px;text-align: center;border-top-left-radius: 3px;border-bottom-left-radius: 3px; }
+	.person-card{float:left;width:238.5px;height:32.5px;font-size: 12px;line-height:32.5px; text-align: center;background: #fff;border-top-right-radius: 3px;border-bottom-right-radius: 3px;color: #9a9a9a;/*background:url(../img/info.png) 200px no-repeat*/}
+	.person-card img{width: 16px;height: 16px;vertical-align: middle;padding-left: 80px}	
+	.person-apply{position:relative;width: 301px;height: 80.5px;margin:15px auto;border:1px solid #e6e6e6;border-radius: 3px;background: #fff;}
+	.apply-tit{position:relative;width:100%;height:25px;background:#67cfff;font-size: 12px;color: #fff;line-height:25px;border-top-left-radius: 3px;border-top-right-radius: 3px }
+	.apply-tit-txt{position: absolute;top: 0;left: 7px}
+	.person-apply img{position:absolute;top:4px;right:15px;width: 16px;height: 16px}
+	.apply-num{font-size: 12px;color: #00aeff;text-align: center;line-height: 23px}
+	.apply-percent{position:relative;width: 266.5px;height: 3.5px;margin: 0 auto}
+	.percent-left{float:left;width: 50%;height:3.5px;background: #67cfff;border-top-left-radius: 2px;border-bottom-left-radius: 2px}
+	.percent-right{float:left;width: 50%;height:3.5px;background: #f3f4f6;border-top-right-radius: 2px;border-bottom-right-radius: 2px}
+	.percent-circle{position:absolute;top:-4px;left:128px;width: 12.5px;height: 12.5px;background: #67cfff;border-radius: 50%;}
+	.apply-txt{width: 266.5px;margin: 0 auto;margin-top: 5px;}
+	.txt-left{float:left;font-size: 9px;color: #6b6b6b;line-height: 21px}
+	.txt-right{float: right}
+
+	.account-data{margin:0 auto;width:301px;border:1px solid #c5c5c5;border-radius: 3px;font-size: 12px;color:#656565;}
+	table{width: 100%;  border-collapse: collapse}
+	table tr td{text-align: center;height: 30px;border-top: 1px solid #dbdbdb;border-bottom:1px solid #dbdbdb}
+	.data-sub1 td,.data-sub3 td{border:none;}
+	.data-sub2{background:#fff; }
+	.account-tips-top{margin: 10px 0}
+	.account-tips-bottom{margin-bottom: 10px}
+	.account-tips-bottom span{color: red}
+	.account-tips{width: 301px;font-size: 9px;color: #666; margin: 0 auto;}
+	.tips{width:14px;height:14px}
+	.tips img{vertical-align: top}
+	.next-step{margin: 0 auto;width: 301px;height: 35px;font-size:12px;line-height:35px;background:#46a5e0;color: #fff;text-align: center;border-radius: 5px}             
+	.next-step:active {background: #CCD2D5;color: #919191}  
+	
+	.bindstatus{ position:absolute; top:40%; left:61%; margin:-75px 0 0 -85px; height:200px;color: rgb(4, 195, 120); font-size: 27px;  text-align:center; z-index:99;} 
+	

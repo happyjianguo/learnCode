@@ -1,0 +1,9 @@
+cn\com\jansh\component\CurrencyController.class
+cn\com\jansh\component\WxAuthController.class
+cn\com\jansh\scheduler\RefreshAuthAccountTask.class
+cn\com\jansh\scheduler\CfOrderTask.class
+cn\com\jansh\scheduler\CfOrderQueryTask.class
+cn\com\jansh\scheduler\CyOrderQueryTask.class
+cn\com\jansh\component\CloudVirOrderController.class
+cn\com\jansh\scheduler\FsGetPackageInformationTask.class
+cn\com\jansh\component\DisParkController.class

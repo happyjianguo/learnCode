@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.system.modules.sys.dao.SysClientDao">
+    
+	<sql id="sysClientColumns">
+		a.id AS "id",
+		a.clientid AS "clientid",
+		a.clientname AS "clientname",
+		a.clientsecret AS "clientsecret",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sysClientJoins">
+	</sql>
+    
+	<select id="get" resultType="SysClient">
+		SELECT 
+			<include refid="sysClientColumns"/>
+		FROM sys_client a
+		<include refid="sysClientJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getByClientSecret" resultType="SysClient">
+		SELECT 
+			<include refid="sysClientColumns"/>
+		FROM sys_client a
+		<include refid="sysClientJoins"/>
+		WHERE a.clientSecret = #{clientSecret}
+	</select>
+	
+	<select id="getByClientId" resultType="SysClient">
+		SELECT 
+			<include refid="sysClientColumns"/>
+		FROM sys_client a
+		<include refid="sysClientJoins"/>
+		WHERE a.clientId = #{clientId}
+	</select>
+	
+	<select id="findList" resultType="SysClient">
+		SELECT 
+			<include refid="sysClientColumns"/>
+		FROM sys_client a
+		<include refid="sysClientJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="clientid != null and clientid != ''">
+				AND a.clientid = #{clientid}
+			</if>
+			<if test="clientname != null and clientname != ''">
+				AND a.clientname LIKE 
+					<if test="dbName == 'oracle'">'%'||#{clientname}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{clientname}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{clientname},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysClient">
+		SELECT 
+			<include refid="sysClientColumns"/>
+		FROM sys_client a
+		<include refid="sysClientJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_client(
+			id,
+			clientid,
+			clientname,
+			clientsecret,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{clientid},
+			#{clientname},
+			#{clientsecret},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_client SET 	
+			clientid = #{clientid},
+			clientname = #{clientname},
+			clientsecret = #{clientsecret},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_client SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

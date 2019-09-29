@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.weixin.WXDMMapper">
+	<select id="getAppidList"  parameterType="Map" resultType="AuthAccount">
+		SELECT
+			ORGID,APPID,AUTH_ACCESS_TOKEN,AUTH_REFRESH_TOKEN,AUTH_CODE,CREATETIME,UPDATETIME,
+				NICKNAME,HEADIMG,SERVICETYPE,VERIFYTYPE,USERNAME,ALIAS,QRCODEURL
+		FROM
+			CLOUDCOMPONENTAUTH
+		WHERE
+			ORGID = #{orgid} AND STATUS = '1'
+		ORDER BY CREATETIME DESC
+	</select>
+</mapper>

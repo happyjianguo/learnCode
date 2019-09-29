@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yufu.fs.dao.SysParameterMapper">
+  <resultMap id="BaseResultMap" type="cn.yufu.fs.entity.SysParameter">
+    <id column="PARAM_ID" jdbcType="VARCHAR" property="paramId" />
+    <!-- <result column="PARAM_TYPE" jdbcType="VARCHAR" property="paramType" /> -->
+    <result column="PARAM_NAME" jdbcType="VARCHAR" property="paramName" />
+    <!-- <result column="PARAM_VALUE" jdbcType="VARCHAR" property="paramValue" />
+    <result column="PARAM_NOTES" jdbcType="VARCHAR" property="paramNotes" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="ENABLE" jdbcType="CHAR" property="enable" /> -->
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List">
+    PARAM_ID, <!-- PARAM_TYPE, --> PARAM_NAME<!-- , PARAM_VALUE, PARAM_NOTES, PARENT_ID, ENABLE -->
+  </sql>
+  <select id="selectByExample" parameterType="cn.yufu.fs.entity.SysParameterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from VIEW_FKCORE_MCC_BOOK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+     group by PARAM_ID,PARAM_NAME
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+   
+  </select>
+
+ 
+ 
+
+  
+</mapper>

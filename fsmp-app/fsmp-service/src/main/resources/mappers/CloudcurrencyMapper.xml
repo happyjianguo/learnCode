@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.component.CloudcurrencyMapper">
+
+	<insert id="insert" parameterType="CfolTradeQueryEntity">
+		INSERT INTO
+			CLOUDRECHARGERECORD(ORDERID,USERID,ORGID,STATUS,RECHARGEID,TXNTIME,QUERYID,PAYTYPE,CODE,PRICE,CURRENTMONEY,SIGN,ORIGRESPCODE,RESPCODE,TRACENO,UPDATETIME,
+				STATUS1,QUERYNUM)
+		VALUES(
+			#{orderid},#{userid},#{orgid},#{status},#{rechargeid},#{txntime},#{queryid},#{paytype},#{code},#{price},#{currentmoney},#{sign},#{origrespcode},#{respcode},
+				#{traceno},#{updatetime},#{status1},#{querynum}
+		)
+		
+	</insert>
+	
+	<select id="selectByOrderid" parameterType="String" resultType="CfolTradeQueryEntity">
+		SELECT 
+			ORDERID,USERID,ORGID,STATUS,RECHARGEID,TXNTIME,QUERYID,PAYTYPE,CODE,PRICE,CURRENTMONEY,SIGN,ORIGRESPCODE,RESPCODE,TRACENO,UPDATETIME,STATUS1,QUERYNUM
+		FROM
+			CLOUDRECHARGERECORD
+		WHERE
+			ORDERID = #{orderid}
+	
+	</select>
+	
+	<select id="selectByOrgid" parameterType="String" resultType="CfolTradeQueryEntity">
+		SELECT 
+			ORDERID,USERID,ORGID,STATUS,RECHARGEID,TXNTIME,QUERYID,PAYTYPE,CODE,PRICE,CURRENTMONEY,SIGN,ORIGRESPCODE,RESPCODE,TRACENO,UPDATETIME,STATUS1,QUERYNUM
+		FROM
+			CLOUDRECHARGERECORD
+		WHERE
+			ORGID = #{orgid}
+	
+	</select>
+	
+	<select id="select"  resultType="CfolTradeQueryEntity">
+		SELECT 
+			ORDERID,USERID,ORGID,STATUS,RECHARGEID,TXNTIME,QUERYID,PAYTYPE,CODE,PRICE,CURRENTMONEY,SIGN,ORIGRESPCODE,RESPCODE,TRACENO,UPDATETIME,STATUS1,QUERYNUM
+		FROM
+			CLOUDRECHARGERECORD
+		WHERE
+			1=1
+			<if test="status != null and status !=''">
+				AND STATUS = #{status} 
+			</if>
+			<if test="statust != null and statust !=''">
+				OR STATUS = #{statust} 
+			</if>
+	</select>
+	
+	<select id="searchRecharge" resultType="ShowRechargeBO">
+		SELECT
+		    L.ORDERID,
+		    M.USERNAME,
+		    M.CNAME,
+		    L.STATUS,
+		    date_format(L.TXNTIME, '%Y-%m-%d %H:%i:%s') as TXNTIME,
+		    L.PRICE,
+		    L.CURRENTMONEY
+		FROM
+		    CLOUDRECHARGERECORD L
+		        LEFT JOIN
+		    FSMUSER M ON M.USERID = L.USERID
+		WHERE TXNTIME BETWEEN #{beginTime} AND #{endTime} AND L.STATUS = #{status} AND L.ORGID = #{orgid}
+		<if test="userId != null and userId !=''">
+			 AND L.USERID=#{userId}
+		</if>
+		ORDER BY TXNTIME DESC
+		LIMIT #{start},#{length}
+	</select>
+	
+	<select id="searchRechargeCount"  resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+		    CLOUDRECHARGERECORD L
+		    	LEFT JOIN
+		    FSMUSER M ON M.USERID = L.USERID
+		WHERE
+			TXNTIME between #{beginTime} and #{endTime} AND L.STATUS = #{status} AND L.ORGID = #{orgid}
+			<if test="userId != null and userId !=''">
+			 AND L.USERID=#{userId}
+			</if>
+        ORDER BY TXNTIME DESC
+	</select>
+	
+	<update id="update" parameterType="CfolTradeQueryEntity">
+		UPDATE 
+			CLOUDRECHARGERECORD
+		SET
+			<if test="userid !=null and userid != ''">
+				USERID = #{userid},
+			</if>
+			<if test="orgid !=null and orgid != ''">
+				ORGID = #{orgid},
+			</if>
+			<if test="status !=null and status != ''">
+				STATUS = #{status},
+			</if>
+			<if test="rechargeid !=null and rechargeid != ''">
+				RECHARGEID = #{rechargeid},
+			</if>
+			<if test="txntime !=null and txntime != ''">
+				TXNTIME = #{txntime},
+			</if>
+			<if test="queryid !=null and queryid != ''">
+				QUERYID = #{queryid},
+			</if>
+			<if test="paytype !=null and paytype != ''">
+				PAYTYPE = #{paytype},
+			</if>
+			<if test="code !=null and code != ''">
+				CODE = #{code},
+			</if>
+			<if test="price !=null and price != ''">
+				PRICE = #{price},
+			</if>
+			<if test="sign !=null and sign != ''">
+				SIGN = #{sign},
+			</if>
+			<if test="origrespcode !=null and origrespcode != ''">
+				ORIGRESPCODE = #{origrespcode},
+			</if>
+			<if test="respcode !=null and respcode != ''">
+				RESPCODE = #{respcode},
+			</if>
+			<if test="traceno !=null and traceno != ''">
+				TRACENO = #{traceno},
+			</if>
+			<if test="updatetime !=null and updatetime != ''">
+				UPDATETIME = #{updatetime},
+			</if>
+			<if test="status1 !=null and status1 != ''">
+				STATUS1 = #{status1},
+			</if>
+			<if test="querynum !=null and querynum != ''">
+				QUERYNUM = #{querynum},
+			</if>
+			<if test="orderid !=null and orderid != ''">
+				ORDERID = #{orderid}
+			</if>
+		WHERE
+			ORDERID = #{orderid}
+	</update>
+</mapper>

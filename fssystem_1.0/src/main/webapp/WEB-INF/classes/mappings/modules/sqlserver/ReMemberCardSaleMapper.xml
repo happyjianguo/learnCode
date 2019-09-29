@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.system.modules.sqlserver.dao.ReMemberCardSaleDao" >
+  
+  <resultMap id="BaseResultMap" type="cn.yufu.system.modules.sqlserver.entity.ReMemberCardSale" >
+    <id column="ID" property="primayKey" jdbcType="DECIMAL" />
+    <result column="LRUID" property="LRUID" jdbcType="VARCHAR" />
+    <result column="sSerialNum" property="sSerialNum" jdbcType="VARCHAR" />
+    <result column="aCardnum" property="aCardnum" jdbcType="VARCHAR" />
+    <result column="aSaleInegral" property="aSaleInegral" jdbcType="DECIMAL" />
+    <result column="oldaRegDate" property="oldaRegDate" jdbcType="VARCHAR" />
+    <result column="oldaRegTime" property="oldaRegTime" jdbcType="VARCHAR" />
+    <result column="lOrdNum" property="lOrdNum" jdbcType="DECIMAL" />
+    <result column="lInvNum" property="lInvNum" jdbcType="DECIMAL" />
+    <result column="Oldid" property="refOldid" jdbcType="DECIMAL" />
+    <result column="bstate" property="bstate" jdbcType="DECIMAL" />
+    <result column="aRegDate" property="aRegDate" jdbcType="VARCHAR" />
+    <result column="aRegTime" property="aRegTime" jdbcType="VARCHAR" />
+    <result column="reMsg" property="reMsg" jdbcType="VARCHAR" />
+    <result column="retime" property="retime" jdbcType="VARCHAR" />
+    <result column="oracleID" property="oracleID" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, LRUID, sSerialNum, aCardnum, aSaleInegral, oldaRegDate, oldaRegTime,  
+    lOrdNum, lInvNum, Oldid, bstate, aRegDate, aRegTime, reMsg, retime, oracleID
+  </sql>
+  
+  <sql id="Base_Order_By">
+  	ORDER BY ID DESC 
+  </sql>
+  
+  <sql id="Base_Where_Condition">
+  	<where>
+  		<if test="LRUID != null and LRUID.trim().length() != 0">
+	    	AND LRUID = #{LRUID}
+	    </if>
+	    <if test="sSerialNum != null and sSerialNum.trim().length() != 0">
+	    	AND sSerialNum = #{sSerialNum}
+	    </if>
+	    <if test="aCardnum != null and aCardnum.trim().length() != 0">
+	    	AND aCardnum = #{aCardnum}
+	    </if>
+	    <if test="begainTranDate != null and begainTranDate.trim().length() != 0">
+	    	AND <![CDATA[ oldaRegDate >= #{begainTranDate} ]]>
+	    </if>
+	    <if test="endTranDate != null and endTranDate.trim().length() != 0">
+	    	AND <![CDATA[ oldaRegDate <= #{endTranDate} ]]>
+	    </if>
+	    <if test="begainARegDate != null and begainARegDate.trim().length() != 0">
+	    	AND <![CDATA[ aRegDate >= #{begainARegDate} ]]>
+	    </if>
+	    <if test="endARegDate != null and endARegDate.trim().length() != 0">
+	    	AND <![CDATA[ aRegDate <= #{endARegDate} ]]>
+	    </if>
+	    <if test="bstate != null">
+	    	AND bstate = #{bstate}
+	    </if>
+  	</where>
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM Re_MemberCardSale WHERE ID = #{primayKey}
+  </select>
+  
+  <select id="getRefuntAmt" resultMap="BaseResultMap">
+    SELECT ISNULL(SUM(aSaleInegral), 0) AS aSaleInegral
+    FROM Re_MemberCardSale <include refid="Base_Where_Condition" /> 
+  </select>
+  
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT 	<include refid="Base_Column_List" />
+   	FROM Re_MemberCardSale  <include refid="Base_Where_Condition" /> 
+    <include refid="Base_Order_By" />
+  </select>
+  
+  <delete id="delete">
+    DELETE FROM Re_MemberCardSale WHERE ID = #{primayKey}
+  </delete>
+  
+  <insert id="insert" >
+    INSERT INTO Re_MemberCardSale (LRUID, sSerialNum, aCardnum, aSaleInegral, oldaRegDate, 
+    	oldaRegTime, lOrdNum, lInvNum, Oldid, bstate, aRegDate, aRegTime, oracleID)
+    VALUES (#{LRUID}, #{sSerialNum}, #{aCardnum}, #{aSaleInegral}, #{oldaRegDate}, 
+    	#{oldaRegTime}, #{lOrdNum}, #{lInvNum}, #{refOldid}, #{bstate}, #{aRegDate}, 
+    	#{aRegTime}, #{oracleID})
+  </insert>
+  
+  <update id="update">
+    UPDATE Re_MemberCardSale
+    SET LRUID = #{LRUID},
+    	sSerialNum = #{sSerialNum},
+    	aCardnum = #{aCardnum},
+    	aSaleInegral = #{aSaleInegral},
+    	oldaRegDate = #{oldaRegDate},
+    	oldaRegTime = #{oldaRegTime},
+    	lOrdNum = #{lOrdNum},
+    	lInvNum = #{lInvNum},
+    	Oldid = #{refOldid},
+    	bstate = #{bstate},
+    	aRegDate = #{aRegDate},
+    	aRegTime = #{aRegTime}
+    WHERE ID = #{primayKey}
+  </update>
+</mapper>

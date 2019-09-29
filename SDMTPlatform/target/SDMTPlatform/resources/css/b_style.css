@@ -1,0 +1,12 @@
+/* CSS Document */
+.page{ width:auto; height:25px; background:#fff;text-align: right;
+	padding-top: 20px;}
+.page a,.page span{ padding: 3px 6px;
+	background: #e4e1e1;
+	border: 1px solid #d3d2d2;
+	color: #666;
+	margin-left: 5px;}
+.page a:hover{border:1px solid #d3d2d2; background: #d0d0d0;}
+.page span{ background: #472715;
+	color: #FFF;
+	border: 1px solid #371b0f;}

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yufu.yufuOldSwitch.dao.TerminalYufuOldMapper" >
+  <resultMap id="BaseResultMap" type="cn.yufu.yufuOldSwitch.entity.TerminalYufuOld" >
+    <id column="sSerialNum" property="sserialnum" jdbcType="CHAR" />
+    <result column="ttype" property="ttype" jdbcType="CHAR" />
+    <result column="commode" property="commode" jdbcType="VARCHAR" />
+    <result column="manuf" property="manuf" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="CHAR" />
+    <result column="ref" property="ref" jdbcType="CHAR" />
+    <result column="invnum" property="invnum" jdbcType="CHAR" />
+    <result column="mainm" property="mainm" jdbcType="CHAR" />
+    <result column="lruid" property="lruid" jdbcType="CHAR" />
+    <result column="employdate" property="employdate" jdbcType="TIMESTAMP" />
+    <result column="Batchno" property="batchno" jdbcType="CHAR" />
+    <result column="comalg" property="comalg" jdbcType="CHAR" />
+    <result column="TPDU" property="tpdu" jdbcType="CHAR" />
+    <result column="termid" property="termid" jdbcType="INTEGER" />
+    <result column="comid" property="comid" jdbcType="INTEGER" />
+    <result column="teraddress" property="teraddress" jdbcType="NVARCHAR" />
+    <result column="PIN_Key" property="pinKey" jdbcType="VARCHAR" />
+    <result column="PIN_CHECKVALUE" property="pinCheckvalue" jdbcType="VARCHAR" />
+    <result column="Working_Key" property="workingKey" jdbcType="VARCHAR" />
+    <result column="Working_CheckValue" property="workingCheckvalue" jdbcType="VARCHAR" />
+    <result column="Accountsflag" property="accountsflag" jdbcType="INTEGER" />
+    <result column="Accountsdate" property="accountsdate" jdbcType="TIMESTAMP" />
+    <result column="sSerialNumPassWord" property="sserialnumpassword" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sSerialNum, ttype, commode, manuf, tel, ref, invnum, mainm, lruid, employdate, Batchno, 
+    comalg, TPDU, termid, comid, teraddress, PIN_Key, PIN_CHECKVALUE, Working_Key, Working_CheckValue, 
+    Accountsflag, Accountsdate, sSerialNumPassWord
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yufu.yufuOldSwitch.entity.TerminalYufuOldExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Terminals
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from Terminals
+    where sSerialNum = #{sserialnum,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from Terminals
+    where sSerialNum = #{sserialnum,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yufu.yufuOldSwitch.entity.TerminalYufuOldExample" >
+    delete from Terminals
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yufu.yufuOldSwitch.entity.TerminalYufuOld" >
+    insert into Terminals (sSerialNum, ttype, commode, 
+      manuf, tel, ref, invnum, 
+      mainm, lruid, employdate, 
+      Batchno, comalg, TPDU, termid, 
+      comid, teraddress, PIN_Key, 
+      PIN_CHECKVALUE, Working_Key, Working_CheckValue, 
+      Accountsflag, Accountsdate, sSerialNumPassWord
+      )
+    values (#{sserialnum,jdbcType=CHAR}, #{ttype,jdbcType=CHAR}, #{commode,jdbcType=VARCHAR}, 
+      #{manuf,jdbcType=VARCHAR}, #{tel,jdbcType=CHAR}, #{ref,jdbcType=CHAR}, #{invnum,jdbcType=CHAR}, 
+      #{mainm,jdbcType=CHAR}, #{lruid,jdbcType=CHAR}, #{employdate,jdbcType=TIMESTAMP}, 
+      #{batchno,jdbcType=CHAR}, #{comalg,jdbcType=CHAR}, #{tpdu,jdbcType=CHAR}, #{termid,jdbcType=INTEGER}, 
+      #{comid,jdbcType=INTEGER}, #{teraddress,jdbcType=NVARCHAR}, #{pinKey,jdbcType=VARCHAR}, 
+      #{pinCheckvalue,jdbcType=VARCHAR}, #{workingKey,jdbcType=VARCHAR}, #{workingCheckvalue,jdbcType=VARCHAR}, 
+      #{accountsflag,jdbcType=INTEGER}, #{accountsdate,jdbcType=TIMESTAMP}, #{sserialnumpassword,jdbcType=NVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yufu.yufuOldSwitch.entity.TerminalYufuOld" >
+    insert into Terminals
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sserialnum != null" >
+        sSerialNum,
+      </if>
+      <if test="ttype != null" >
+        ttype,
+      </if>
+      <if test="commode != null" >
+        commode,
+      </if>
+      <if test="manuf != null" >
+        manuf,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="ref != null" >
+        ref,
+      </if>
+      <if test="invnum != null" >
+        invnum,
+      </if>
+      <if test="mainm != null" >
+        mainm,
+      </if>
+      <if test="lruid != null" >
+        lruid,
+      </if>
+      <if test="employdate != null" >
+        employdate,
+      </if>
+      <if test="batchno != null" >
+        Batchno,
+      </if>
+      <if test="comalg != null" >
+        comalg,
+      </if>
+      <if test="tpdu != null" >
+        TPDU,
+      </if>
+      <if test="termid != null" >
+        termid,
+      </if>
+      <if test="comid != null" >
+        comid,
+      </if>
+      <if test="teraddress != null" >
+        teraddress,
+      </if>
+      <if test="pinKey != null" >
+        PIN_Key,
+      </if>
+      <if test="pinCheckvalue != null" >
+        PIN_CHECKVALUE,
+      </if>
+      <if test="workingKey != null" >
+        Working_Key,
+      </if>
+      <if test="workingCheckvalue != null" >
+        Working_CheckValue,
+      </if>
+      <if test="accountsflag != null" >
+        Accountsflag,
+      </if>
+      <if test="accountsdate != null" >
+        Accountsdate,
+      </if>
+      <if test="sserialnumpassword != null" >
+        sSerialNumPassWord,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sserialnum != null" >
+        #{sserialnum,jdbcType=CHAR},
+      </if>
+      <if test="ttype != null" >
+        #{ttype,jdbcType=CHAR},
+      </if>
+      <if test="commode != null" >
+        #{commode,jdbcType=VARCHAR},
+      </if>
+      <if test="manuf != null" >
+        #{manuf,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=CHAR},
+      </if>
+      <if test="ref != null" >
+        #{ref,jdbcType=CHAR},
+      </if>
+      <if test="invnum != null" >
+        #{invnum,jdbcType=CHAR},
+      </if>
+      <if test="mainm != null" >
+        #{mainm,jdbcType=CHAR},
+      </if>
+      <if test="lruid != null" >
+        #{lruid,jdbcType=CHAR},
+      </if>
+      <if test="employdate != null" >
+        #{employdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchno != null" >
+        #{batchno,jdbcType=CHAR},
+      </if>
+      <if test="comalg != null" >
+        #{comalg,jdbcType=CHAR},
+      </if>
+      <if test="tpdu != null" >
+        #{tpdu,jdbcType=CHAR},
+      </if>
+      <if test="termid != null" >
+        #{termid,jdbcType=INTEGER},
+      </if>
+      <if test="comid != null" >
+        #{comid,jdbcType=INTEGER},
+      </if>
+      <if test="teraddress != null" >
+        #{teraddress,jdbcType=NVARCHAR},
+      </if>
+      <if test="pinKey != null" >
+        #{pinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pinCheckvalue != null" >
+        #{pinCheckvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="workingKey != null" >
+        #{workingKey,jdbcType=VARCHAR},
+      </if>
+      <if test="workingCheckvalue != null" >
+        #{workingCheckvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsflag != null" >
+        #{accountsflag,jdbcType=INTEGER},
+      </if>
+      <if test="accountsdate != null" >
+        #{accountsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sserialnumpassword != null" >
+        #{sserialnumpassword,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yufu.yufuOldSwitch.entity.TerminalYufuOldExample" resultType="java.lang.Integer" >
+    select count(*) from Terminals
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Terminals
+    <set >
+      <if test="record.sserialnum != null" >
+        sSerialNum = #{record.sserialnum,jdbcType=CHAR},
+      </if>
+      <if test="record.ttype != null" >
+        ttype = #{record.ttype,jdbcType=CHAR},
+      </if>
+      <if test="record.commode != null" >
+        commode = #{record.commode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manuf != null" >
+        manuf = #{record.manuf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=CHAR},
+      </if>
+      <if test="record.ref != null" >
+        ref = #{record.ref,jdbcType=CHAR},
+      </if>
+      <if test="record.invnum != null" >
+        invnum = #{record.invnum,jdbcType=CHAR},
+      </if>
+      <if test="record.mainm != null" >
+        mainm = #{record.mainm,jdbcType=CHAR},
+      </if>
+      <if test="record.lruid != null" >
+        lruid = #{record.lruid,jdbcType=CHAR},
+      </if>
+      <if test="record.employdate != null" >
+        employdate = #{record.employdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.batchno != null" >
+        Batchno = #{record.batchno,jdbcType=CHAR},
+      </if>
+      <if test="record.comalg != null" >
+        comalg = #{record.comalg,jdbcType=CHAR},
+      </if>
+      <if test="record.tpdu != null" >
+        TPDU = #{record.tpdu,jdbcType=CHAR},
+      </if>
+      <if test="record.termid != null" >
+        termid = #{record.termid,jdbcType=INTEGER},
+      </if>
+      <if test="record.comid != null" >
+        comid = #{record.comid,jdbcType=INTEGER},
+      </if>
+      <if test="record.teraddress != null" >
+        teraddress = #{record.teraddress,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.pinKey != null" >
+        PIN_Key = #{record.pinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinCheckvalue != null" >
+        PIN_CHECKVALUE = #{record.pinCheckvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workingKey != null" >
+        Working_Key = #{record.workingKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workingCheckvalue != null" >
+        Working_CheckValue = #{record.workingCheckvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountsflag != null" >
+        Accountsflag = #{record.accountsflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountsdate != null" >
+        Accountsdate = #{record.accountsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sserialnumpassword != null" >
+        sSerialNumPassWord = #{record.sserialnumpassword,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Terminals
+    set sSerialNum = #{record.sserialnum,jdbcType=CHAR},
+      ttype = #{record.ttype,jdbcType=CHAR},
+      commode = #{record.commode,jdbcType=VARCHAR},
+      manuf = #{record.manuf,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=CHAR},
+      ref = #{record.ref,jdbcType=CHAR},
+      invnum = #{record.invnum,jdbcType=CHAR},
+      mainm = #{record.mainm,jdbcType=CHAR},
+      lruid = #{record.lruid,jdbcType=CHAR},
+      employdate = #{record.employdate,jdbcType=TIMESTAMP},
+      Batchno = #{record.batchno,jdbcType=CHAR},
+      comalg = #{record.comalg,jdbcType=CHAR},
+      TPDU = #{record.tpdu,jdbcType=CHAR},
+      termid = #{record.termid,jdbcType=INTEGER},
+      comid = #{record.comid,jdbcType=INTEGER},
+      teraddress = #{record.teraddress,jdbcType=NVARCHAR},
+      PIN_Key = #{record.pinKey,jdbcType=VARCHAR},
+      PIN_CHECKVALUE = #{record.pinCheckvalue,jdbcType=VARCHAR},
+      Working_Key = #{record.workingKey,jdbcType=VARCHAR},
+      Working_CheckValue = #{record.workingCheckvalue,jdbcType=VARCHAR},
+      Accountsflag = #{record.accountsflag,jdbcType=INTEGER},
+      Accountsdate = #{record.accountsdate,jdbcType=TIMESTAMP},
+      sSerialNumPassWord = #{record.sserialnumpassword,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yufu.yufuOldSwitch.entity.TerminalYufuOld" >
+    update Terminals
+    <set >
+      <if test="ttype != null" >
+        ttype = #{ttype,jdbcType=CHAR},
+      </if>
+      <if test="commode != null" >
+        commode = #{commode,jdbcType=VARCHAR},
+      </if>
+      <if test="manuf != null" >
+        manuf = #{manuf,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=CHAR},
+      </if>
+      <if test="ref != null" >
+        ref = #{ref,jdbcType=CHAR},
+      </if>
+      <if test="invnum != null" >
+        invnum = #{invnum,jdbcType=CHAR},
+      </if>
+      <if test="mainm != null" >
+        mainm = #{mainm,jdbcType=CHAR},
+      </if>
+      <if test="lruid != null" >
+        lruid = #{lruid,jdbcType=CHAR},
+      </if>
+      <if test="employdate != null" >
+        employdate = #{employdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchno != null" >
+        Batchno = #{batchno,jdbcType=CHAR},
+      </if>
+      <if test="comalg != null" >
+        comalg = #{comalg,jdbcType=CHAR},
+      </if>
+      <if test="tpdu != null" >
+        TPDU = #{tpdu,jdbcType=CHAR},
+      </if>
+      <if test="termid != null" >
+        termid = #{termid,jdbcType=INTEGER},
+      </if>
+      <if test="comid != null" >
+        comid = #{comid,jdbcType=INTEGER},
+      </if>
+      <if test="teraddress != null" >
+        teraddress = #{teraddress,jdbcType=NVARCHAR},
+      </if>
+      <if test="pinKey != null" >
+        PIN_Key = #{pinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pinCheckvalue != null" >
+        PIN_CHECKVALUE = #{pinCheckvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="workingKey != null" >
+        Working_Key = #{workingKey,jdbcType=VARCHAR},
+      </if>
+      <if test="workingCheckvalue != null" >
+        Working_CheckValue = #{workingCheckvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsflag != null" >
+        Accountsflag = #{accountsflag,jdbcType=INTEGER},
+      </if>
+      <if test="accountsdate != null" >
+        Accountsdate = #{accountsdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sserialnumpassword != null" >
+        sSerialNumPassWord = #{sserialnumpassword,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where sSerialNum = #{sserialnum,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yufu.yufuOldSwitch.entity.TerminalYufuOld" >
+    update Terminals
+    set ttype = #{ttype,jdbcType=CHAR},
+      commode = #{commode,jdbcType=VARCHAR},
+      manuf = #{manuf,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=CHAR},
+      ref = #{ref,jdbcType=CHAR},
+      invnum = #{invnum,jdbcType=CHAR},
+      mainm = #{mainm,jdbcType=CHAR},
+      lruid = #{lruid,jdbcType=CHAR},
+      employdate = #{employdate,jdbcType=TIMESTAMP},
+      Batchno = #{batchno,jdbcType=CHAR},
+      comalg = #{comalg,jdbcType=CHAR},
+      TPDU = #{tpdu,jdbcType=CHAR},
+      termid = #{termid,jdbcType=INTEGER},
+      comid = #{comid,jdbcType=INTEGER},
+      teraddress = #{teraddress,jdbcType=NVARCHAR},
+      PIN_Key = #{pinKey,jdbcType=VARCHAR},
+      PIN_CHECKVALUE = #{pinCheckvalue,jdbcType=VARCHAR},
+      Working_Key = #{workingKey,jdbcType=VARCHAR},
+      Working_CheckValue = #{workingCheckvalue,jdbcType=VARCHAR},
+      Accountsflag = #{accountsflag,jdbcType=INTEGER},
+      Accountsdate = #{accountsdate,jdbcType=TIMESTAMP},
+      sSerialNumPassWord = #{sserialnumpassword,jdbcType=NVARCHAR}
+    where sSerialNum = #{sserialnum,jdbcType=CHAR}
+  </update>
+</mapper>

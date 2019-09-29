@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.jansh.mapper.component.CloudgameparamMapper">
+
+	
+	<select id="select"  resultType="CloudgameparamEntity">
+		SELECT 
+			GAMEID,
+			GAMENAME,
+			GAMETYPE,
+			TEMPID,
+		    AMOUNT,
+		    UAMOUNT,
+		    ORGID,
+		    CHANNEL,
+		    APPID,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CREATETIME,
+		    UPDATETIME,
+		    OPERATOR
+		FROM
+			CLOUDGAMEPARAM
+		WHERE
+			1=1
+			<if test="orgid != null and orgid !=''">
+				AND ORGID = #{orgid}
+			</if>
+			<if test="invalid != null ">
+				AND STATUS <![CDATA[<>]]> #{invalid}
+			</if>
+	</select>
+	
+	<select id="selectShowBO"  resultType="ShowGameBO">
+		SELECT 
+			L.GAMEID,
+			N.TEMPNAME,
+			N.TEMPLATENAME,
+			L.GAMENAME,
+			G.DEPLOYPATH,
+			M.PLAYNAME,
+		    L.AMOUNT,
+		    L.UAMOUNT,
+		    L.ORGID,
+		    L.CHANNEL,
+		    L.APPID,
+		    date_format(L.BEGINTIME, '%Y-%m-%d %H:%i:%s') as BEGINTIME,
+		    date_format(L.ENDTIME, '%Y-%m-%d %H:%i:%s') as ENDTIME,
+		    L.STATUS,
+		    date_format(L.CREATETIME, '%Y-%m-%d %H:%i:%s') as CREATETIME,
+		    L.UPDATETIME,
+		    F.CNAME OPERATOR
+		FROM
+			CLOUDGAMEPARAM L
+		LEFT JOIN
+			CLOUDGAMEINIT M
+		ON 
+			L.GAMETYPE = M.ID
+		LEFT JOIN
+			GAMETEMPLATE N
+		ON 
+			L.TEMPID = N.TEMPID
+		LEFT JOIN
+			FSMUSER F
+		ON 
+			L.OPERATOR = F.USERID
+		LEFT JOIN
+			CLOUDGAMEINIT G
+		ON 
+			G.ID = L.GAMETYPE
+		WHERE L.ORGID = #{orgid}
+			<if test="invalid != null ">
+				AND L.STATUS <![CDATA[<>]]> #{invalid}
+			</if>
+		ORDER BY 
+			L.CREATETIME DESC
+		LIMIT 
+			#{start},#{length}
+	</select>
+	
+	<select id="selectShowBOCount"  resultType="Integer">
+		SELECT 
+			COUNT(1)
+		FROM
+			CLOUDGAMEPARAM L
+		LEFT JOIN
+			CLOUDGAMEINIT M
+		ON L.GAMETYPE = M.ID
+		WHERE L.ORGID = #{orgid}
+			<if test="invalid != null ">
+				AND L.STATUS <![CDATA[<>]]> #{invalid}
+			</if>
+		ORDER BY L.CREATETIME DESC
+	</select>
+	
+	<select id="selectByGameid" parameterType="String" resultType="CloudgameparamEntity">
+		SELECT 
+			GAMEID,
+			GAMENAME,
+			GAMETYPE,
+			TEMPID,
+		    AMOUNT,
+		    UAMOUNT,
+		    ORGID,
+		    CHANNEL,
+		    APPID,
+		    BEGINTIME,
+		    ENDTIME,
+		    STATUS,
+		    CREATETIME,
+		    UPDATETIME,
+		    OPERATOR
+		FROM
+			CLOUDGAMEPARAM
+		WHERE
+			GAMEID = #{gameid}
+	</select>
+	<insert id="insert" parameterType="CloudgameparamEntity">
+		INSERT INTO
+			CLOUDGAMEPARAM( GAMEID,GAMENAME,GAMETYPE,TEMPID,AMOUNT,OPERATOR,UAMOUNT,CHANNEL,BEGINTIME,ENDTIME,STATUS,CREATETIME,UPDATETIME,ORGID,APPID)
+		VALUES
+			(#{gameid},#{gamename},#{gametype},#{tempid},#{amount},#{operator},#{uamount},#{channel},#{begintime},#{endtime},#{status},#{createtime},#{updatetime},#{orgid},#{appid})
+	</insert>
+	<update id="update" parameterType="CloudgameparamEntity">
+		UPDATE
+			CLOUDGAMEPARAM
+		SET
+			<if test="operator != null and operator !=''">
+				OPERATOR = #{operator},
+			</if>
+			<if test="updatetime != null and updatetime !=''">
+				UPDATETIME = #{updatetime},
+			</if>
+			<if test="begintime != null and begintime !=''">
+				BEGINTIME = #{begintime},
+			</if>
+			<if test="endtime != null and endtime !=''">
+				ENDTIME = #{endtime},
+			</if>
+			<if test="status != null and status !=''">
+				STATUS = #{status},
+			</if>
+			<if test="orgid != null and orgid !=''">
+				ORGID = #{orgid},
+			</if>
+			<if test="appid != null and appid !=''">
+				APPID = #{appid},
+			</if>
+			<if test="amount != null and amount >=0">
+				AMOUNT = #{amount},
+			</if>
+			<if test="uamount != null and uamount >=0">
+				UAMOUNT = #{uamount},
+			</if>
+			<if test="gamename != null and gamename !=''">
+				GAMENAME = #{gamename},
+			</if>
+			<if test="channel != null and channel !=''">
+				CHANNEL = #{channel},
+			</if>
+			<if test="gametype != null and gametype !=''">
+				GAMETYPE = #{gametype},
+			</if>
+			<if test="tempid != null and tempid !=''">
+				TEMPID = #{tempid},
+			</if>
+			<if test="gameid != null and gameid !=''">
+				GAMEID = #{gameid}
+			</if>
+		WHERE
+			GAMEID = #{gameid}
+	</update>
+</mapper>
